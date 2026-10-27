@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.AiChatHistoryMapper">
+    
+    <resultMap type="AiChatHistory" id="AiChatHistoryResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userInput"    column="user_input"    />
+        <result property="subjectContext"    column="subject_context"    />
+        <result property="selectedSubjects"    column="selected_subjects"    />
+        <result property="overallAnalysis"    column="overall_analysis"    />
+        <result property="rawResponse"    column="raw_response"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectAiChatHistoryVo">
+        select id, user_id, user_input, subject_context, selected_subjects, overall_analysis, raw_response, status, create_by, create_time, update_by, update_time, del_flag from ai_chat_history
+    </sql>
+
+    <select id="selectAiChatHistoryList" parameterType="AiChatHistory" resultMap="AiChatHistoryResult">
+        <include refid="selectAiChatHistoryVo"/>
+        <where>  
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="userInput != null  and userInput != ''"> and user_input = #{userInput}</if>
+            <if test="subjectContext != null  and subjectContext != ''"> and subject_context = #{subjectContext}</if>
+            <if test="selectedSubjects != null  and selectedSubjects != ''"> and selected_subjects = #{selectedSubjects}</if>
+            <if test="overallAnalysis != null  and overallAnalysis != ''"> and overall_analysis = #{overallAnalysis}</if>
+            <if test="rawResponse != null  and rawResponse != ''"> and raw_response = #{rawResponse}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="selectAiChatHistoryById" parameterType="Long" resultMap="AiChatHistoryResult">
+        <include refid="selectAiChatHistoryVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAiChatHistory" parameterType="AiChatHistory" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_chat_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userInput != null and userInput != ''">user_input,</if>
+            <if test="subjectContext != null">subject_context,</if>
+            <if test="selectedSubjects != null">selected_subjects,</if>
+            <if test="overallAnalysis != null">overall_analysis,</if>
+            <if test="rawResponse != null">raw_response,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userInput != null and userInput != ''">#{userInput},</if>
+            <if test="subjectContext != null">#{subjectContext},</if>
+            <if test="selectedSubjects != null">#{selectedSubjects},</if>
+            <if test="overallAnalysis != null">#{overallAnalysis},</if>
+            <if test="rawResponse != null">#{rawResponse},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiChatHistory" parameterType="AiChatHistory">
+        update ai_chat_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userInput != null and userInput != ''">user_input = #{userInput},</if>
+            <if test="subjectContext != null">subject_context = #{subjectContext},</if>
+            <if test="selectedSubjects != null">selected_subjects = #{selectedSubjects},</if>
+            <if test="overallAnalysis != null">overall_analysis = #{overallAnalysis},</if>
+            <if test="rawResponse != null">raw_response = #{rawResponse},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAiChatHistoryById" parameterType="Long">
+        delete from ai_chat_history where id = #{id}
+    </delete>
+
+    <delete id="deleteAiChatHistoryByIds" parameterType="String">
+        delete from ai_chat_history where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

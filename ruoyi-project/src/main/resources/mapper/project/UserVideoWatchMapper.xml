@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.UserVideoWatchMapper">
+    
+    <resultMap type="UserVideoWatch" id="UserVideoWatchResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="pointId"    column="point_id"    />
+        <result property="watchDuration"    column="watch_duration"    />
+        <result property="watchProgress"    column="watch_progress"    />
+        <result property="lastWatchTime"    column="last_watch_time"    />
+        <result property="completed"    column="completed"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectUserVideoWatchVo">
+        select id, user_id, point_id, watch_duration, watch_progress, last_watch_time, completed, create_time, update_time from user_video_watch
+    </sql>
+
+    <select id="selectUserVideoWatchList" parameterType="UserVideoWatch" resultMap="UserVideoWatchResult">
+        <include refid="selectUserVideoWatchVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="pointId != null "> and point_id = #{pointId}</if>
+            <if test="watchDuration != null "> and watch_duration = #{watchDuration}</if>
+            <if test="watchProgress != null "> and watch_progress = #{watchProgress}</if>
+            <if test="lastWatchTime != null "> and last_watch_time = #{lastWatchTime}</if>
+            <if test="completed != null  and completed != ''"> and completed = #{completed}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserVideoWatchById" parameterType="Long" resultMap="UserVideoWatchResult">
+        <include refid="selectUserVideoWatchVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertUserVideoWatch" parameterType="UserVideoWatch" useGeneratedKeys="true" keyProperty="id">
+        insert into user_video_watch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="pointId != null">point_id,</if>
+            <if test="watchDuration != null">watch_duration,</if>
+            <if test="watchProgress != null">watch_progress,</if>
+            <if test="lastWatchTime != null">last_watch_time,</if>
+            <if test="completed != null">completed,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="pointId != null">#{pointId},</if>
+            <if test="watchDuration != null">#{watchDuration},</if>
+            <if test="watchProgress != null">#{watchProgress},</if>
+            <if test="lastWatchTime != null">#{lastWatchTime},</if>
+            <if test="completed != null">#{completed},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserVideoWatch" parameterType="UserVideoWatch">
+        update user_video_watch
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="pointId != null">point_id = #{pointId},</if>
+            <if test="watchDuration != null">watch_duration = #{watchDuration},</if>
+            <if test="watchProgress != null">watch_progress = #{watchProgress},</if>
+            <if test="lastWatchTime != null">last_watch_time = #{lastWatchTime},</if>
+            <if test="completed != null">completed = #{completed},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserVideoWatchById" parameterType="Long">
+        delete from user_video_watch where id = #{id}
+    </delete>
+
+    <delete id="deleteUserVideoWatchByIds" parameterType="String">
+        delete from user_video_watch where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

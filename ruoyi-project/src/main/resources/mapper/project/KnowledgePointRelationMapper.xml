@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.KnowledgePointRelationMapper">
+    
+    <resultMap type="KnowledgePointRelation" id="KnowledgePointRelationResult">
+        <result property="id"    column="id"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="targetId"    column="target_id"    />
+        <result property="relationType"    column="relation_type"    />
+        <result property="description"    column="description"    />
+        <result property="weight"    column="weight"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectKnowledgePointRelationVo">
+        select id, source_id, target_id, relation_type, description, weight, create_time from knowledge_point_relation
+    </sql>
+
+    <select id="selectKnowledgePointRelationList" parameterType="KnowledgePointRelation" resultMap="KnowledgePointRelationResult">
+        <include refid="selectKnowledgePointRelationVo"/>
+        <where>  
+            <if test="sourceId != null "> and source_id = #{sourceId}</if>
+            <if test="targetId != null "> and target_id = #{targetId}</if>
+            <if test="relationType != null  and relationType != ''"> and relation_type = #{relationType}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="weight != null "> and weight = #{weight}</if>
+        </where>
+    </select>
+    
+    <select id="selectKnowledgePointRelationById" parameterType="Long" resultMap="KnowledgePointRelationResult">
+        <include refid="selectKnowledgePointRelationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKnowledgePointRelation" parameterType="KnowledgePointRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into knowledge_point_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">source_id,</if>
+            <if test="targetId != null">target_id,</if>
+            <if test="relationType != null">relation_type,</if>
+            <if test="description != null">description,</if>
+            <if test="weight != null">weight,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="targetId != null">#{targetId},</if>
+            <if test="relationType != null">#{relationType},</if>
+            <if test="description != null">#{description},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKnowledgePointRelation" parameterType="KnowledgePointRelation">
+        update knowledge_point_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="targetId != null">target_id = #{targetId},</if>
+            <if test="relationType != null">relation_type = #{relationType},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKnowledgePointRelationById" parameterType="Long">
+        delete from knowledge_point_relation where id = #{id}
+    </delete>
+
+    <delete id="deleteKnowledgePointRelationByIds" parameterType="String">
+        delete from knowledge_point_relation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

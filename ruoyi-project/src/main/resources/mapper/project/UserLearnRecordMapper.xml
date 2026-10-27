@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.UserLearnRecordMapper">
+    
+    <resultMap type="UserLearnRecord" id="UserLearnRecordResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="pointId"    column="point_id"    />
+        <result property="historyId"    column="history_id"    />
+        <result property="status"    column="status"    />
+        <result property="progress"    column="progress"    />
+        <result property="pointQuizScore"    column="point_quiz_score"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="completeTime"    column="complete_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectUserLearnRecordVo">
+        select id, user_id, point_id, history_id, status, progress, point_quiz_score, start_time, complete_time, create_time, update_time from user_learn_record
+    </sql>
+
+    <select id="selectUserLearnRecordList" parameterType="UserLearnRecord" resultMap="UserLearnRecordResult">
+        <include refid="selectUserLearnRecordVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="pointId != null "> and point_id = #{pointId}</if>
+            <if test="historyId != null "> and history_id = #{historyId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="progress != null "> and progress = #{progress}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="completeTime != null "> and complete_time = #{completeTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserLearnRecordById" parameterType="Long" resultMap="UserLearnRecordResult">
+        <include refid="selectUserLearnRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertUserLearnRecord" parameterType="UserLearnRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into user_learn_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="pointId != null">point_id,</if>
+            <if test="historyId != null">history_id,</if>
+            <if test="status != null">status,</if>
+            <if test="progress != null">progress,</if>
+            <if test="pointQuizScore != null">point_quiz_score,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="completeTime != null">complete_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="pointId != null">#{pointId},</if>
+            <if test="historyId != null">#{historyId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="progress != null">#{progress},</if>
+            <if test="pointQuizScore != null">#{pointQuizScore},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="completeTime != null">#{completeTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserLearnRecord" parameterType="UserLearnRecord">
+        update user_learn_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="pointId != null">point_id = #{pointId},</if>
+            <if test="historyId != null">history_id = #{historyId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="progress != null">progress = #{progress},</if>
+            <if test="pointQuizScore != null">point_quiz_score = #{pointQuizScore},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="completeTime != null">complete_time = #{completeTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserLearnRecordById" parameterType="Long">
+        delete from user_learn_record where id = #{id}
+    </delete>
+
+    <delete id="deleteUserLearnRecordByIds" parameterType="String">
+        delete from user_learn_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

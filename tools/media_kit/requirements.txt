@@ -1,0 +1,11 @@
+# media_kit 运行依赖（Python 3.10+，按需安装）
+# 视频解析需要 ffmpeg：可安装 imageio-ffmpeg，或系统安装 ffmpeg 并加入 PATH
+imageio-ffmpeg>=0.4
+# PDF（文本层 + 书签 + 图片附件）
+pymupdf>=1.23
+# Office 文档
+python-docx>=1.1
+python-pptx>=0.6
+openpyxl>=3.1
+# 扫描件 OCR（可选；不装时扫描 PDF 会返回 E2010 警告）
+rapidocr-onnxruntime>=1.3

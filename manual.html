@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智程学途 - 用户使用手册</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-serif;background:#f5f7fa;color:#333;line-height:1.8}
+  .toolbar{position:fixed;top:0;right:0;z-index:1000;padding:16px 24px;background:transparent}
+  .toolbar button{padding:10px 24px;font-size:15px;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(135deg,#409eff,#337ecc);color:#fff;box-shadow:0 4px 14px rgba(64,158,255,0.4);transition:all .3s;font-family:inherit;display:flex;align-items:center;gap:8px}
+  .toolbar button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(64,158,255,0.5)}
+  .toolbar button:active{transform:translateY(0)}
+  .container{max-width:1000px;margin:0 auto;padding:40px 24px 80px}
+  .cover{text-align:center;padding:60px 40px 50px;background:linear-gradient(135deg,#1a3a5c 0%,#2b5f8a 40%,#409eff 100%);border-radius:16px;color:#fff;margin-bottom:40px}
+  .cover h1{font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:3px}
+  .cover .subtitle{font-size:16px;opacity:.85;margin-bottom:16px}
+  .cover .version{font-size:14px;opacity:.6}
+  .cover .badge{display:inline-block;padding:3px 14px;border-radius:20px;background:rgba(255,255,255,0.15);font-size:12px;margin-top:8px}
+  .toc{background:#fff;border-radius:12px;padding:24px 32px;margin-bottom:32px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .toc h2{font-size:18px;margin-bottom:16px;color:#409eff;border-bottom:2px solid #ecf5ff;padding-bottom:10px}
+  .toc ol{padding-left:20px}
+  .toc ol li{margin-bottom:5px}
+  .toc ol li a{color:#409eff;text-decoration:none;font-size:14px}
+  .toc ol li a:hover{text-decoration:underline}
+  .toc ol ol{padding-left:20px;margin-top:3px}
+  .section{background:#fff;border-radius:12px;padding:32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .section h2{font-size:22px;color:#1a3a5c;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #ecf5ff}
+  .section h3{font-size:17px;color:#2b5f8a;margin-top:24px;margin-bottom:12px;padding-left:12px;border-left:3px solid #409eff}
+  .section h4{font-size:15px;color:#333;margin-top:18px;margin-bottom:8px}
+  .section p{margin-bottom:12px;font-size:14px}
+  .section ul,.section ol{margin-bottom:12px;padding-left:20px}
+  .section li{margin-bottom:6px;font-size:14px}
+  .table-wrap{overflow-x:auto;margin:16px 0;border-radius:8px;border:1px solid #e4e7ed}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  table th{background:#f0f5ff;color:#1a3a5c;font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid #d9e6ff}
+  table td{padding:9px 14px;border-bottom:1px solid #f0f0f0}
+  table tr:last-child td{border-bottom:none}
+  table tr:hover td{background:#fafbfc}
+  code{font-family:'Consolas','Courier New',monospace;background:#f4f5f7;padding:2px 6px;border-radius:4px;font-size:13px;color:#d14}
+  .note{background:#f0f5ff;border-left:3px solid #409eff;padding:12px 16px;border-radius:6px;margin:12px 0;font-size:14px}
+  .tip{background:#f0f9eb;border-left:3px solid #67c23a;padding:12px 16px;border-radius:6px;margin:12px 0;font-size:14px}
+  .warn{background:#fdf6ec;border-left:3px solid #e6a23c;padding:12px 16px;border-radius:6px;margin:12px 0;font-size:14px}
+  .step-list{counter-reset:step;list-style:none;padding-left:0}
+  .step-list li{counter-increment:step;padding:10px 16px 10px 44px;position:relative;margin-bottom:8px;background:#fafbfc;border-radius:8px;font-size:14px}
+  .step-list li::before{content:counter(step);position:absolute;left:12px;top:10px;width:24px;height:24px;background:#409eff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+  .flow-box{background:#fafbfc;border:1px solid #e4e7ed;border-radius:8px;padding:20px 24px;margin:16px 0}
+  .flow-box .step{display:flex;align-items:center;gap:12px;padding:6px 0}
+  .flow-box .step-num{width:28px;height:28px;background:#409eff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+  .flow-box .arrow{text-align:center;color:#c0c4cc;font-size:16px;padding:2px 0}
+  .tag{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:500}
+  .tag-blue{background:#ecf5ff;color:#409eff}
+  .tag-green{background:#f0f9eb;color:#67c23a}
+  .tag-orange{background:#fdf6ec;color:#e6a23c}
+  .tag-red{background:#fef0f0;color:#f56c6c}
+  .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+  .card-grid .item{background:#fafbfc;border-radius:8px;padding:16px 18px;border:1px solid #e4e7ed}
+  .card-grid .item h5{font-size:14px;color:#1a3a5c;margin-bottom:6px}
+  .card-grid .item p{font-size:13px;color:#606266;margin:0}
+  @media(max-width:768px){.container{padding:16px}.cover{padding:32px 20px}.section{padding:20px}.cover h1{font-size:24px}.card-grid{grid-template-columns:1fr}}
+  @media print{.toolbar{display:none}body{background:#fff}.container{padding:0}.cover{border-radius:0}.section{box-shadow:none;border:1px solid #eee}}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="downloadWord()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    下载为 Word
+  </button>
+</div>
+
+<div class="container" id="docContent">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <h1>智程学途</h1>
+    <div class="subtitle">基于科大讯飞星辰 Agent 平台的智能学习路径规划系统</div>
+    <div class="badge">用户使用手册 v1.0</div>
+    <div class="version" style="margin-top:12px">2026 年 7 月</div>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc" id="toc">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#s1">系统简介</a>
+        <ol>
+          <li><a href="#s1-1">什么是智程学途</a></li>
+          <li><a href="#s1-2">核心功能一览</a></li>
+          <li><a href="#s1-3">适用场景</a></li>
+        </ol>
+      </li>
+      <li><a href="#s2">快速上手</a>
+        <ol>
+          <li><a href="#s2-1">账号注册与登录</a></li>
+          <li><a href="#s2-2">首页导览</a></li>
+          <li><a href="#s2-3">生成第一条学习路径</a></li>
+        </ol>
+      </li>
+      <li><a href="#s3">AI 学习路径</a>
+        <ol>
+          <li><a href="#s3-1">输入岗位描述</a></li>
+          <li><a href="#s3-2">查看学习路径结果</a></li>
+          <li><a href="#s3-3">知识点学习与视频播放</a></li>
+          <li><a href="#s3-4">学习进度自动跟踪</a></li>
+        </ol>
+      </li>
+      <li><a href="#s4">薄弱知识点诊断</a>
+        <ol>
+          <li><a href="#s4-1">功能概述</a></li>
+          <li><a href="#s4-2">选择诊断范围</a></li>
+          <li><a href="#s4-3">在线答题</a></li>
+          <li><a href="#s4-4">查看诊断结果</a></li>
+          <li><a href="#s4-5">生成针对性学习路径</a></li>
+        </ol>
+      </li>
+      <li><a href="#s5">知识点学后测评</a>
+        <ol>
+          <li><a href="#s5-1">触发方式</a></li>
+          <li><a href="#s5-2">测评流程</a></li>
+          <li><a href="#s5-3">分数记录规则</a></li>
+        </ol>
+      </li>
+      <li><a href="#s6">人才画像</a>
+        <ol>
+          <li><a href="#s6-1">功能概述</a></li>
+          <li><a href="#s6-2">核心数据卡片</a></li>
+          <li><a href="#s6-3">学习状态分布</a></li>
+          <li><a href="#s6-4">岗位胜任力分析</a></li>
+          <li><a href="#s6-5">学习动态时间线</a></li>
+        </ol>
+      </li>
+      <li><a href="#s7">知识点拓扑图</a>
+        <ol>
+          <li><a href="#s7-1">功能概述</a></li>
+          <li><a href="#s7-2">图谱交互</a></li>
+          <li><a href="#s7-3">知识点详情查看</a></li>
+        </ol>
+      </li>
+      <li><a href="#s8">后台管理功能</a>
+        <ol>
+          <li><a href="#s8-1">学科管理</a></li>
+          <li><a href="#s8-2">知识点管理</a></li>
+          <li><a href="#s8-3">关联关系管理</a></li>
+        </ol>
+      </li>
+      <li><a href="#s9">常见问题</a></li>
+    </ol>
+  </div>
+
+  <!-- ============ 1. 系统简介 ============ -->
+  <div class="section" id="s1">
+    <h2>一、系统简介</h2>
+
+    <h3 id="s1-1">1.1 什么是智程学途</h3>
+    <p><strong>智程学途</strong> 是一款基于科大讯飞星辰 Agent 平台的智能学习路径规划系统。它能够根据用户输入的目标岗位及职责描述，利用 AI 大模型智能匹配对应的学科与知识点体系，自动生成个性化的学习路径。系统集成了从学习路径规划、视频学习、薄弱诊断、知识点测评到人才画像分析的全流程功能，为学习者提供一站式的智能学习体验。</p>
+    <p>无论你是正在规划职业发展的职场新人，还是希望系统提升某一领域技能的学习者，智程学途都能帮助你找到最有效的学习路径，让学习有方向、有节奏、有反馈。</p>
+    <div class="note"><strong>AI 平台说明：</strong> 系统的智能分析能力基于 <strong>科大讯飞星辰 Agent 平台</strong> 提供的大模型工作流服务。用户的岗位描述会发送至该平台进行分析，AI 返回学科推荐、题目生成、薄弱点诊断等结果。</div>
+
+    <h3 id="s1-2">1.2 核心功能一览</h3>
+    <div class="card-grid">
+      <div class="item">
+        <h5>AI 学习路径生成</h5>
+        <p>输入目标岗位，AI 自动匹配学科和知识点，生成个性化学习路径。</p>
+      </div>
+      <div class="item">
+        <h5>视频学习与进度追踪</h5>
+        <p>知识点关联视频资源，自动跟踪学习进度，记录观看时长。</p>
+      </div>
+      <div class="item">
+        <h5>薄弱知识点诊断</h5>
+        <p>AI 自动出题检测知识薄弱点，生成针对性学习建议。</p>
+      </div>
+      <div class="item">
+        <h5>知识点学后测评</h5>
+        <p>视频学习完成后即时测评，检验知识点掌握程度。</p>
+      </div>
+      <div class="item">
+        <h5>人才画像</h5>
+        <p>多维度可视化展示学习进度、掌握程度与能力差距。</p>
+      </div>
+      <div class="item">
+        <h5>知识点拓扑图</h5>
+        <p>可视化展示知识点间的关联关系，理清知识体系结构。</p>
+      </div>
+    </div>
+
+    <h3 id="s1-3">1.3 适用场景</h3>
+    <ul>
+      <li><strong>岗位技能提升：</strong> 针对特定岗位（如 Java 后端工程师、前端开发工程师等）系统性地规划学习路径。 </li>
+      <li><strong>个人能力评估：</strong> 通过薄弱诊断和学后测评，量化评估知识掌握程度，发现薄弱环节。</li>
+      <li><strong>学习进度管理：</strong> 跟踪每个知识点的学习状态（从待学到学完），清晰了解整体学习进度。</li>
+      <li><strong>知识体系可视化：</strong> 通过拓扑图和人才画像，直观理解学科知识结构和自身能力分布。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 2. 快速上手 ============ -->
+  <div class="section" id="s2">
+    <h2>二、快速上手</h2>
+
+    <h3 id="s2-1">2.1 账号注册与登录</h3>
+    <p>智程学途支持用户自主注册，新用户可通过以下步骤创建账号：</p>
+    <ol class="step-list">
+      <li>打开系统登录页面，点击右下角 <strong>"立即注册"</strong> 链接。</li>
+      <li>填写注册信息：用户名、姓名、密码、确认密码、手机号（选填）、邮箱（选填）。</li>
+      <li>勾选"我同意《用户服务协议》"后点击 <strong>"注册"</strong> 按钮。</li>
+      <li>注册成功后自动跳转回登录页，输入刚注册的用户名和密码即可登录。</li>
+    </ol>
+    <div class="tip">每位用户的数据相互独立。你的学习记录、测评成绩和诊断结果仅你自己可见。</div>
+
+    <h3 id="s2-2">2.2 首页导览</h3>
+    <p>登录成功后进入系统首页，首页包含以下区域：</p>
+    <ul>
+      <li><strong>欢迎横幅：</strong> 展示系统名称和定位描述，提供"开始学习"和"查看记录"两个快速入口。</li>
+      <li><strong>统计卡片：</strong> 展示学科数量、知识点总数、诊断记录数、学习进度百分比四项全局统计数据。</li>
+      <li><strong>核心功能：</strong> 薄弱诊断、视频学习、人才画像、学科管理四张功能卡片。</li>
+    </ul>
+
+    <h3 id="s2-3">2.3 生成第一条学习路径</h3>
+    <p>在首页点击 <strong>"开始学习"</strong> 按钮进入学习页面，然后按照以下步骤操作：</p>
+    <ol class="step-list">
+      <li>在文本框中输入你想要学习的<strong>目标岗位名称及职责描述</strong>（例如：<em>"Java后端开发工程师，负责微服务架构设计和API开发"</em>）。</li>
+      <li>你也可以直接点击下方的 <strong>示例标签</strong>（如"Java后端开发工程师"）快速填入。</li>
+      <li>点击 <strong>"生成学习路径"</strong> 按钮，系统将调用 AI 进行分析。</li>
+      <li>等待几秒钟，AI 分析完成后会自动<strong>跳转到学习路径结果页面</strong>。页面左侧为视频学习区，右侧为 AI 推荐的知识点列表。</li>
+    </ol>
+    <div class="warn"><strong>提示：</strong> AI 分析需要几秒钟时间，按钮会显示"AI 分析中..."，请耐心等待，不要重复点击。</div>
+  </div>
+
+  <!-- ============ 3. AI 学习路径 ============ -->
+  <div class="section" id="s3">
+    <h2>三、AI 学习路径</h2>
+
+    <h3 id="s3-1">3.1 输入岗位描述</h3>
+    <p>在 AI 学习路径生成页面（即学习页面的顶部卡片），输入目标岗位名称及其职责描述。描述越详细，AI 的学科匹配越精准。你还可以通过点击"开始薄弱诊断"下方的历史记录表格查看过往生成过的所有学习路径。</p>
+
+    <h3 id="s3-2">3.2 查看学习路径结果</h3>
+    <p>AI 分析完成后自动跳转到结果页面。该页面展示：</p>
+    <ul>
+      <li><strong>岗位名称：</strong> 顶部显示你的目标岗位。</li>
+      <li><strong>匹配摘要：</strong> AI 匹配了多少个学科和知识点。</li>
+      <li><strong>学习概览卡片：</strong> 总知识点数、已学完数、学习中数、待学数、完成度进度条。</li>
+      <li><strong>知识点列表：</strong> 按学科分组展示所有推荐的知识点，每个知识点有状态图标（待学/学习中/已学完）、名称、难度标签、类型标签。</li>
+    </ul>
+
+    <h3 id="s3-3">3.3 知识点学习与视频播放</h3>
+    <p>学习路径结果页面采用左右分栏布局：</p>
+    <ol class="step-list">
+      <li><strong>选择知识点：</strong> 在右侧知识点列表中点击任意知识点，该知识点会高亮选中。</li>
+      <li><strong>观看视频：</strong> 左侧区域自动加载该知识点关联的视频，视频自动开始播放。</li>
+      <li><strong>完成学习：</strong> 将视频从头播放到尾，系统会自动将该知识点的状态标记为"已学完"（状态图标变为绿色勾）。</li>
+    </ol>
+    <div class="tip">你可以在知识点列表上方的搜索框中输入名称快速定位知识点。学科分组可以点击展开或收起。</div>
+
+    <h3 id="s3-4">3.4 学习进度自动跟踪</h3>
+    <p>系统会在你观看视频时自动记录学习进度：</p>
+    <ul>
+      <li>视频播放过程中，系统每 5 秒自动更新一次学习进度百分比。</li>
+      <li>视频播放完毕后，学习记录自动标记为"已完成"，进度设为 100%。</li>
+      <li>重新学习同一个知识点时，系统会继续上次的进度。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 4. 薄弱知识点诊断 ============ -->
+  <div class="section" id="s4">
+    <h2>四、薄弱知识点诊断</h2>
+
+    <h3 id="s4-1">4.1 功能概述</h3>
+    <p>薄弱知识点诊断功能旨在<strong>检测你对已学知识的掌握程度</strong>。系统会根据你的目标岗位和相关知识点，由 AI 自动生成一份试卷，你在线作答后系统批改并显示错题，最后 AI 根据错题情况为你生成针对性的学习路径。</p>
+    <div class="warn"><strong>前提条件：</strong> 你需要先至少生成一条学习路径（即有一条历史记录），才能使用薄弱诊断功能。</div>
+
+    <h3 id="s4-2">4.2 选择诊断范围</h3>
+    <p>在学习页面的"AI 薄弱知识点诊断"区域操作：</p>
+    <ol class="step-list">
+      <li>在 <strong>"诊断目标岗位"</strong> 下拉框中，选择一个你之前生成过学习路径的岗位。</li>
+      <li>点击 <strong>"开始薄弱诊断"</strong> 按钮。</li>
+      <li>在弹出的对话框中，选择诊断范围：
+        <ul>
+          <li><strong>综合诊断（所有学科）：</strong> 覆盖该岗位下所有学科的题目。</li>
+          <li><strong>特定学科：</strong> 仅针对某一学科的题目。</li>
+        </ul>
+      </li>
+      <li>点击 <strong>"开始诊断"</strong> 按钮，AI 开始出题。</li>
+    </ol>
+
+    <h3 id="s4-3">4.3 在线答题</h3>
+    <p>AI 出题完成后，系统会打开做题弹窗：</p>
+    <ul>
+      <li>弹窗顶部显示进度条：已完成题数 / 总题数。</li>
+      <li>每道题目显示题号、题型标签（单选 / 多选 / 判断）和题目内容。</li>
+      <li><strong>单选题：</strong> 点击选项前的圆圈进行选择。</li>
+      <li><strong>多选题：</strong> 点击选项前的方框进行选择，可多次点击切换选中状态。</li>
+      <li><strong>判断题：</strong> 点击选项前的圆圈选择"对"或"错"。</li>
+      <li>所有题目答完后，底部的 <strong>"提交答案并分析薄弱点"</strong> 按钮变为可用。</li>
+    </ul>
+
+    <h3 id="s4-4">4.4 查看诊断结果</h3>
+    <p>提交答卷后，系统会立即批改并展示结果：</p>
+    <ul>
+      <li><strong>得分展示：</strong> 顶部圆形进度条显示正确率（绿色≥80分，蓝色≥60分，黄色<60分），并附有文字评价。</li>
+      <li><strong>错题回顾：</strong> 列出所有答错的题目，清晰对比"你的答案"（红色）和"正确答案"（绿色）。</li>
+      <li>全部答对时显示"全部答对，太棒了！"的鼓励信息。</li>
+    </ul>
+
+    <h3 id="s4-5">4.5 生成针对性学习路径</h3>
+    <p>查看诊断结果后，你可以点击 <strong>"保存并生成学习路径"</strong> 按钮：</p>
+    <ul>
+      <li>系统会将你的错题信息发送给 AI，AI 据此生成针对性的学习路径推荐。</li>
+      <li>所有诊断结果（含题目、答案、错题、AI 学习路径）会自动保存到数据库中。</li>
+      <li>保存完成后自动<strong>跳转到 AI 推荐学习页面</strong>，你可以按 AI 推荐的路径进行查漏补缺。</li>
+    </ul>
+    <div class="note">历史诊断记录会显示在学习页面下方的"历史诊断记录"表格中，你可以随时查看过往的诊断得分和学习路径。</div>
+  </div>
+
+  <!-- ============ 5. 知识点学后测评 ============ -->
+  <div class="section" id="s5">
+    <h2>五、知识点学后测评</h2>
+
+    <h3 id="s5-1">5.1 触发方式</h3>
+    <p>知识点学后测评在 <strong>AI 推荐学习页面</strong>（从薄弱诊断结果进入）中触发。当你将一个知识点的视频从头播放完毕后，系统会自动弹出对话框：</p>
+    <div class="flow-box" style="text-align:center;font-size:15px;color:#606266">
+      "已学完「知识点名称」，是否立即进行知识点测评？"<br>
+      [开始测评] &nbsp;&nbsp; [稍后再说]
+    </div>
+
+    <h3 id="s5-2">5.2 测评流程</h3>
+    <p>点击"开始测评"后，系统会针对当前知识点让 AI 生成 3-5 道题目。整个流程如下：</p>
+    <ol class="step-list">
+      <li><strong>AI 出题：</strong> 系统将当前知识点信息发送给 AI，AI 自动生成 3-5 道包含单选、多选或判断题的试卷。</li>
+      <li><strong>在线作答：</strong> 同薄弱诊断的答题方式一致，逐题作答。</li>
+      <li><strong>提交批改：</strong> 全部答完后提交，系统自动计算得分并展示错题回顾。</li>
+      <li><strong>查看结果：</strong> 看到得分、错题对比和正确答案。此环节不做 AI 二次分析，只呈现客观答题结果。</li>
+      <li><strong>分数更新：</strong> 测评完成后，知识点列表上会立即显示最新的测评分数标签。</li>
+    </ol>
+
+    <h3 id="s5-3">5.3 分数记录规则</h3>
+    <ul>
+      <li>测评分数以 0-100 分的形式记录到学习记录中。</li>
+      <li><strong>仅保留最高分：</strong> 如果某个知识点你测了多次，系统只会保存最高的那次分数，不会覆盖更高的历史成绩。</li>
+      <li>分数实时显示在 AI 推荐学习页面的知识点列表右侧，方便你随时了解每个知识点的掌握情况。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 6. 人才画像 ============ -->
+  <div class="section" id="s6">
+    <h2>六、人才画像</h2>
+
+    <h3 id="s6-1">6.1 功能概述</h3>
+    <p>人才画像页面是对你<strong>全部学习数据的综合可视化展示</strong>。你可以在学习页面点击"查看完整画像"进入，或者在侧边栏中找到"人才画像"入口。</p>
+    <div class="note">如果没有学习数据，页面将显示空状态，各项统计数据均为 0。</div>
+
+    <h3 id="s6-2">6.2 核心数据卡片</h3>
+    <p>页面顶部展示五张统计卡片，分别反映以下关键指标：</p>
+    <ul>
+      <li><strong>岗位总知识点：</strong> 所有已经生成学习路径的岗位下，知识点的总数。</li>
+      <li><strong>已学完成：</strong> 你已经完成学习的知识点数量，附有完成度环形进度。</li>
+      <li><strong>学习中：</strong> 正在观看视频但尚未完成的知识点数量。</li>
+      <li><strong>待学习：</strong> 还未开始学习的知识点数量。</li>
+      <li><strong>测评平均分：</strong> 所有已测评知识点的平均得分。</li>
+    </ul>
+
+    <h3 id="s6-3">6.3 学习状态分布</h3>
+    <p>以环形饼图的形式，直观展示"已学完成"、"学习中"、"待学习"三者占总知识点数的比例，让你一眼看清整体学习进度。</p>
+
+    <h3 id="s6-4">6.4 岗位胜任力分析</h3>
+    <p>以雷达图的形式，对比你在不同目标岗位上的学习完成度。每个岗位作为一个维度，完成度越高代表该岗位的知识点覆盖越全面。最多同时展示 6 个岗位的对比数据。</p>
+
+    <h3 id="s6-5">6.5 学习动态时间线</h3>
+    <p>页面下方提供两项详细数据：</p>
+    <ul>
+      <li><strong>各岗位学习进度时间线：</strong> 按岗位展示已学/待学的详细数据，每个岗位有独立的进度条和最近学习时间。</li>
+      <li><strong>最近学习动态：</strong> 按时间倒序排列最近 20 条学习活动记录，包括完成学习、开始学习、获得测评分数等。每条记录都有图标标识活动类型和时间戳。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 7. 知识点拓扑图 ============ -->
+  <div class="section" id="s7">
+    <h2>七、知识点拓扑图</h2>
+
+    <h3 id="s7-1">7.1 功能概述</h3>
+    <p>知识点拓扑图以<strong>力导向图</strong>的形式，可视化展示某一学科下所有知识点及其之间的关联关系。拓扑图帮助你理清知识体系结构，理解各知识点之间的前后依赖和关联。</p>
+
+    <h3 id="s7-2">7.2 图谱交互</h3>
+    <p>进入拓扑图页面后，按照以下步骤操作：</p>
+    <ol class="step-list">
+      <li><strong>选择学科：</strong> 在顶部的下拉框中选择一个学科，系统会自动加载该学科的知识点图谱。</li>
+      <li><strong>查看统计概览：</strong> 选择学科后，上方会显示该学科知识点总数、关联关系数、难度等级数和平均难度的统计卡片。</li>
+      <li><strong>浏览图谱：</strong> 图谱中的每个圆形节点代表一个知识点，连线代表知识点之间的关联关系。</li>
+      <li><strong>拖拽和缩放：</strong> 你可以用鼠标拖拽节点自由调整布局，使用滚轮缩放图谱。</li>
+    </ol>
+    <p>图谱中的视觉元素含义：</p>
+    <ul>
+      <li><strong>节点颜色</strong> 按难度分级：绿色（简单）、蓝色（较易）、黄色（中等）、橙色（较难）、红色（困难）。</li>
+      <li><strong>节点大小</strong> 随难度增大。</li>
+      <li><strong>连线样式</strong> 区分关联类型：实线=前置依赖、虚线=相关参考、点线=扩展延伸。</li>
+      <li><strong>连线粗细</strong> 随关联权重变化。</li>
+    </ul>
+
+    <h3 id="s7-3">7.3 知识点详情查看</h3>
+    <p>点击任意知识点节点，会弹出详情对话框，包含：</p>
+    <ul>
+      <li>知识点名称、所属学科、困难程度标签、知识类型、重要程度星级评分。</li>
+      <li>知识点详细内容描述。</li>
+      <li>附件下载（如果有）和视频播放（如果有）。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 8. 后台管理功能 ============ -->
+  <div class="section" id="s8">
+    <h2>八、后台管理功能</h2>
+    <p>后台管理功能用于维护系统的基础数据，包括学科、知识点和知识点之间的关联关系。这些数据是 AI 学习路径生成的基础素材库。</p>
+
+    <h3 id="s8-1">8.1 学科管理</h3>
+    <p>学科管理页面提供对"学科"数据的新增、修改、删除和导出功能：</p>
+    <ul>
+      <li><strong>新增学科：</strong> 填写学科名称、描述和上传图标，点击确定保存。</li>
+      <li><strong>修改学科：</strong> 选择一条记录，修改其名称、描述或图标。</li>
+      <li><strong>删除学科：</strong> 可单选或多选批量删除。</li>
+      <li><strong>导出：</strong> 将学科数据导出为 Excel 文件。</li>
+      <li><strong>搜索：</strong> 按学科名称和排序号筛选。</li>
+    </ul>
+
+    <h3 id="s8-2">8.2 知识点管理</h3>
+    <p>知识点是最核心的业务数据单元。知识点管理页面提供全面的 CRUD 操作：</p>
+    <ul>
+      <li><strong>新增知识点：</strong> 选择所属学科，填写名称、难度等级（1-5）、重要程度（了解/掌握/重点/核心）、知识类型（概念/语法/方法/工具/框架/管理）、内容描述，可上传附件和视频。</li>
+      <li><strong>修改/删除：</strong> 同学科管理，支持行内操作和批量操作。</li>
+      <li><strong>搜索筛选：</strong> 支持按所属学科、名称、难度、重要程度、知识类型多条件组合搜索。</li>
+      <li><strong>视频预览：</strong> 在表格中可以直接预览知识点关联的视频。</li>
+      <li><strong>附件下载：</strong> 有附件的知识点可直接下载附件。</li>
+    </ul>
+
+    <h3 id="s8-3">8.3 关联关系管理</h3>
+    <p>关联关系用于定义同一个学科下不同知识点之间的逻辑联系，是生成拓扑图的数据基础：</p>
+    <ul>
+      <li><strong>选择学科：</strong> 进入页面后首先选择学科，系统会加载该学科下的所有知识点。</li>
+      <li><strong>新增关联：</strong> 选择"源知识点"→"目标知识点"，设置关联类型（前置依赖/相关参考/扩展延伸）、描述和权重（1-5）。</li>
+      <li><strong>修改/删除：</strong> 支持对已有关联关系的编辑和删除操作。</li>
+      <li><strong>关系类型说明：</strong>
+        <ul>
+          <li><strong>前置依赖：</strong> 表示必须先学习源知识点，才能学习目标知识点。</li>
+          <li><strong>相关参考：</strong> 表示两个知识点之间内容相关，可以互相参考学习。</li>
+          <li><strong>扩展延伸：</strong> 表示从源知识点扩展到目标知识点，属于进阶内容。</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="tip">关联关系的质量直接影响拓扑图的可视化效果和 AI 的路径规划建议，建议管理员仔细梳理知识点之间的逻辑关系。</div>
+  </div>
+
+  <!-- ============ 9. 常见问题 ============ -->
+  <div class="section" id="s9">
+    <h2>九、常见问题</h2>
+
+    <h4>Q：AI 生成学习路径需要多长时间？</h4>
+    <p>A：通常需要 5-15 秒，具体取决于网络状况和 AI 服务的响应速度。在等待期间按钮会显示"AI 分析中..."，请耐心等待，不要重复点击。</p>
+
+    <h4>Q：为什么我输入岗位后，AI 没有匹配到任何学科？</h4>
+    <p>A：可能的原因有两个：一是系统中还没有建立对应的学科和知识点数据，请先在后台管理中维护好学科和知识点；二是输入的岗位描述过于笼统，建议补充职责描述，让 AI 有更多信息进行匹配。</p>
+
+    <h4>Q：薄弱诊断和学后测评有什么区别？</h4>
+    <p>A：薄弱诊断是针对一个岗位下所有学科的综合评估，范围较广，做完后 AI 会根据错题生成学习路径。学后测评是在学完单个知识点后触发的快速测评，仅覆盖当前知识点，不做 AI 分析，主要用于检验单点掌握程度。</p>
+
+    <h4>Q：测评分数可以重测覆盖吗？</h4>
+    <p>A：可以重测，但系统只会保留最高分。如果重测得分更高，会自动更新；如果重测得分低于已有分数，不会覆盖。</p>
+
+    <h4>Q：为什么点击"查看完整画像"没有反应？</h4>
+    <p>A：如果还没有任何学习数据（没有生成过学习路径），系统会提示"暂无学习数据，请先生成学习路径"。请先在学习页面生成一条学习路径并开始学习。</p>
+
+    <h4>Q：为什么点击"查看记录"提示暂无记录？</h4>
+    <p>A：说明还没有任何学习记录，请先在首页点击"开始学习"，生成并学习一条学习路径后，该功能即可正常使用。</p>
+
+    <h4>Q：我创建的学科和知识点，其他用户能看到吗？</h4>
+    <p>A：学科、知识点、关联关系等基础数据是所有用户共享的。但学习记录、测评成绩、对话历史等个人数据是相互隔离的，每个用户只能看到自己的数据。</p>
+
+    <h4>Q：拓扑图中的关联关系如何建立？</h4>
+    <p>A：需要在"关联关系管理"中手动建立。建议先在一个学科下添加完知识点，然后进入关联关系管理，选择该学科，逐一建立知识点之间的逻辑联系。</p>
+
+    <h4>Q：视频播放没有声音或无法播放怎么办？</h4>
+    <p>A：请检查视频文件格式是否满足系统支持（mp4/webm/ogg）。如果格式正确仍无法播放，建议更换浏览器（推荐使用 Chrome 或 Edge）或检查网络连接。</p>
+  </div>
+
+</div>
+
+<script>
+function downloadWord() {
+  const content = document.getElementById('docContent').cloneNode(true)
+  const toc = content.querySelector('#toc')
+  if (toc) toc.remove()
+  const style = document.querySelector('style').innerHTML
+  const html = `<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>${style}</style>
+</head>
+<body style="background:#fff;">${content.innerHTML}</body>
+</html>`
+  const blob = new Blob(['\ufeff' + html], { type: 'application/msword' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = '智程学途_用户使用手册.doc'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+</script>
+</body>
+</html>

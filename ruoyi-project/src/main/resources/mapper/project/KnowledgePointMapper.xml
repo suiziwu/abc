@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.KnowledgePointMapper">
+    
+    <resultMap type="KnowledgePoint" id="KnowledgePointResult">
+        <result property="id"    column="id"    />
+        <result property="subjectId"    column="subject_id"    />
+        <result property="name"    column="name"    />
+        <result property="content"    column="content"    />
+        <result property="difficulty"    column="difficulty"    />
+        <result property="importance"    column="importance"    />
+        <result property="type"    column="type"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="attachment"    column="attachment"    />
+        <result property="video"    column="video"    />
+    </resultMap>
+
+    <sql id="selectKnowledgePointVo">
+        select id, subject_id, name, content, difficulty, importance, type, sort_order, status, create_by, create_time, update_by, update_time, del_flag, attachment, video from knowledge_point
+    </sql>
+
+    <select id="selectKnowledgePointList" parameterType="KnowledgePoint" resultMap="KnowledgePointResult">
+        <include refid="selectKnowledgePointVo"/>
+        <where>  
+            <if test="subjectId != null "> and subject_id = #{subjectId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="difficulty != null "> and difficulty = #{difficulty}</if>
+            <if test="importance != null "> and importance = #{importance}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="sortOrder != null "> and sort_order = #{sortOrder}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="attachment != null  and attachment != ''"> and attachment = #{attachment}</if>
+            <if test="video != null  and video != ''"> and video = #{video}</if>
+        </where>
+    </select>
+    
+    <select id="selectKnowledgePointById" parameterType="Long" resultMap="KnowledgePointResult">
+        <include refid="selectKnowledgePointVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKnowledgePoint" parameterType="KnowledgePoint" useGeneratedKeys="true" keyProperty="id">
+        insert into knowledge_point
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subjectId != null">subject_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="content != null">content,</if>
+            <if test="difficulty != null">difficulty,</if>
+            <if test="importance != null">importance,</if>
+            <if test="type != null">type,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="attachment != null">attachment,</if>
+            <if test="video != null">video,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subjectId != null">#{subjectId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="content != null">#{content},</if>
+            <if test="difficulty != null">#{difficulty},</if>
+            <if test="importance != null">#{importance},</if>
+            <if test="type != null">#{type},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="attachment != null">#{attachment},</if>
+            <if test="video != null">#{video},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKnowledgePoint" parameterType="KnowledgePoint">
+        update knowledge_point
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="difficulty != null">difficulty = #{difficulty},</if>
+            <if test="importance != null">importance = #{importance},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="attachment != null">attachment = #{attachment},</if>
+            <if test="video != null">video = #{video},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKnowledgePointById" parameterType="Long">
+        delete from knowledge_point where id = #{id}
+    </delete>
+
+    <delete id="deleteKnowledgePointByIds" parameterType="String">
+        delete from knowledge_point where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

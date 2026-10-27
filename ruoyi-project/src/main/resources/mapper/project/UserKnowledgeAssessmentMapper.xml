@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.UserKnowledgeAssessmentMapper">
+    
+    <resultMap type="UserKnowledgeAssessment" id="UserKnowledgeAssessmentResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="historyId"    column="history_id"    />
+        <result property="assessTitle"    column="assess_title"    />
+        <result property="questions"    column="questions"    />
+        <result property="answers"    column="answers"    />
+        <result property="weakPoints"    column="weak_points"    />
+        <result property="weakSubjects"    column="weak_subjects"    />
+        <result property="overallAnalysis"    column="overall_analysis"    />
+        <result property="aiResponse"    column="ai_response"    />
+        <result property="totalScore"    column="total_score"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectUserKnowledgeAssessmentVo">
+        select id, user_id, history_id, assess_title, questions, answers, weak_points, weak_subjects, overall_analysis, ai_response, total_score, status, create_by, create_time, update_by, update_time, del_flag from user_knowledge_assessment
+    </sql>
+
+    <select id="selectUserKnowledgeAssessmentList" parameterType="UserKnowledgeAssessment" resultMap="UserKnowledgeAssessmentResult">
+        <include refid="selectUserKnowledgeAssessmentVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="historyId != null "> and history_id = #{historyId}</if>
+            <if test="assessTitle != null  and assessTitle != ''"> and assess_title = #{assessTitle}</if>
+            <if test="questions != null  and questions != ''"> and questions = #{questions}</if>
+            <if test="answers != null  and answers != ''"> and answers = #{answers}</if>
+            <if test="weakPoints != null  and weakPoints != ''"> and weak_points = #{weakPoints}</if>
+            <if test="weakSubjects != null  and weakSubjects != ''"> and weak_subjects = #{weakSubjects}</if>
+            <if test="overallAnalysis != null  and overallAnalysis != ''"> and overall_analysis = #{overallAnalysis}</if>
+            <if test="totalScore != null "> and total_score = #{totalScore}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserKnowledgeAssessmentById" parameterType="Long" resultMap="UserKnowledgeAssessmentResult">
+        <include refid="selectUserKnowledgeAssessmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertUserKnowledgeAssessment" parameterType="UserKnowledgeAssessment" useGeneratedKeys="true" keyProperty="id">
+        insert into user_knowledge_assessment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="historyId != null">history_id,</if>
+            <if test="assessTitle != null">assess_title,</if>
+            <if test="questions != null">questions,</if>
+            <if test="answers != null">answers,</if>
+            <if test="weakPoints != null">weak_points,</if>
+            <if test="weakSubjects != null">weak_subjects,</if>
+            <if test="overallAnalysis != null">overall_analysis,</if>
+            <if test="aiResponse != null">ai_response,</if>
+            <if test="totalScore != null">total_score,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="historyId != null">#{historyId},</if>
+            <if test="assessTitle != null">#{assessTitle},</if>
+            <if test="questions != null">#{questions},</if>
+            <if test="answers != null">#{answers},</if>
+            <if test="weakPoints != null">#{weakPoints},</if>
+            <if test="weakSubjects != null">#{weakSubjects},</if>
+            <if test="overallAnalysis != null">#{overallAnalysis},</if>
+            <if test="aiResponse != null">#{aiResponse},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserKnowledgeAssessment" parameterType="UserKnowledgeAssessment">
+        update user_knowledge_assessment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="historyId != null">history_id = #{historyId},</if>
+            <if test="assessTitle != null">assess_title = #{assessTitle},</if>
+            <if test="questions != null">questions = #{questions},</if>
+            <if test="answers != null">answers = #{answers},</if>
+            <if test="weakPoints != null">weak_points = #{weakPoints},</if>
+            <if test="weakSubjects != null">weak_subjects = #{weakSubjects},</if>
+            <if test="overallAnalysis != null">overall_analysis = #{overallAnalysis},</if>
+            <if test="aiResponse != null">ai_response = #{aiResponse},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserKnowledgeAssessmentById" parameterType="Long">
+        delete from user_knowledge_assessment where id = #{id}
+    </delete>
+
+    <delete id="deleteUserKnowledgeAssessmentByIds" parameterType="String">
+        delete from user_knowledge_assessment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

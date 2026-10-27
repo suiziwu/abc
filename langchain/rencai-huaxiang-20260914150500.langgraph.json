@@ -1,0 +1,2248 @@
+{
+  "schema_version": "1.0.0",
+  "framework": "langchain/langgraph",
+  "format": "langgraph-state-graph",
+  "flow": {
+    "id": "人才画像20260914150500",
+    "name": "人才画像20260914150500",
+    "description": "工作流",
+    "category": 17,
+    "dsl_version": "v1",
+    "avatar_icon": "https://openres.xfyun.cn/xfyundoc/2026-01-13/68cb686b-ad05-45da-8376-45a4c9ce3fcc/1768290620925/5%402x.png",
+    "avatar_color": "#FFEAD5",
+    "advanced_config": {
+      "prologue": {
+        "enabled": true,
+        "inputExample": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "textToSpeech": {
+        "enabled": true,
+        "vcn_cn": "x4_lingxiaoqi",
+        "vcn_en": "x4_EnUs_Luna"
+      },
+      "needGuide": false
+    },
+    "advanced_config_raw": "{\"prologue\":{\"enabled\":true,\"inputExample\":[\"\",\"\",\"\"]},\"textToSpeech\":{\"enabled\":true,\"vcn_cn\":\"x4_lingxiaoqi\",\"vcn_en\":\"x4_EnUs_Luna\"},\"needGuide\":false}"
+  },
+  "state": {
+    "schema": {
+      "AGENT_USER_INPUT": {
+        "type": "string",
+        "default": "用户本轮对话输入内容",
+        "required": true,
+        "producer": "start"
+      },
+      "output": {
+        "type": "string",
+        "default": "",
+        "producer": "subject_selector"
+      },
+      "code": {
+        "type": "string",
+        "default": "",
+        "producer": "split_input"
+      },
+      "item": {
+        "type": "string",
+        "default": "",
+        "producer": "split_input"
+      },
+      "output2": {
+        "type": "string",
+        "default": "",
+        "producer": "question_generator"
+      },
+      "output3": {
+        "type": "string",
+        "default": "",
+        "producer": "wrong_answer_diagnoser"
+      },
+      "final_output": {
+        "type": "string",
+        "default": "",
+        "producer": "end"
+      }
+    },
+    "defaults": {
+      "AGENT_USER_INPUT": "用户本轮对话输入内容",
+      "output": "",
+      "code": "",
+      "item": "",
+      "output2": "",
+      "output3": "",
+      "final_output": ""
+    }
+  },
+  "models": {
+    "default": {
+      "provider": "openai-compatible",
+      "base_url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+      "model_name": "qwen3.8-flash",
+      "temperature": 1,
+      "timeout_seconds": 120,
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "provider_options": {
+        "source": "openai",
+        "model_name": "deepseek",
+        "model_id": 10799,
+        "llm_id": 668249608,
+        "service_id": "deepseek-flash",
+        "domain": "deepseek-flash",
+        "app_id": "12a0a7e2",
+        "uid": "21780452610",
+        "url": "https://api.deepseek.com/v1/chat/completions",
+        "temperature": 1,
+        "enable_chat_history": {
+          "isEnabled": false,
+          "rounds": 1
+        },
+        "auditing": "default",
+        "resp_format": 0,
+        "is_think": false,
+        "search_disable": true
+      }
+    }
+  },
+  "graph": {
+    "entrypoint": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+    "finish_point": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+    "entrypoint_runtime": "start",
+    "finish_runtime": "end",
+    "nodes": [
+      {
+        "id": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+        "runtime_name": "start",
+        "type": "start",
+        "iflytek_type": "开始节点",
+        "name": "开始",
+        "alias": "开始节点",
+        "node_meta": {
+          "aliasName": "开始节点",
+          "nodeType": "基础节点"
+        },
+        "description": "工作流的开启节点，用于定义流程调用所需的业务变量信息。",
+        "position": {
+          "x": -319.50681743332655,
+          "y": 347.19586299263585
+        },
+        "position_absolute": {
+          "x": -319.50681743332655,
+          "y": 347.19586299263585
+        },
+        "size": {
+          "width": 256,
+          "height": 74
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": false,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [],
+        "outputs": [
+          {
+            "id": "0918514b-72a8-4646-8dd9-ff4a8fc26d44",
+            "name": "AGENT_USER_INPUT",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "用户本轮对话输入内容",
+            "schema": {
+              "type": "string",
+              "default": "用户本轮对话输入内容"
+            }
+          }
+        ],
+        "node_param": {},
+        "state_writes": {
+          "AGENT_USER_INPUT": {
+            "type": "string",
+            "default": "用户本轮对话输入内容",
+            "required": true
+          }
+        }
+      },
+      {
+        "id": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "runtime_name": "end",
+        "type": "end",
+        "iflytek_type": "结束节点",
+        "name": "结束",
+        "alias": "结束节点",
+        "node_meta": {
+          "aliasName": "结束节点",
+          "nodeType": "基础节点"
+        },
+        "description": "工作流的结束节点，用于输出工作流运行后的最终结果。",
+        "position": {
+          "x": 1073.5330274084317,
+          "y": 226.2275263785985
+        },
+        "position_absolute": {
+          "x": 1073.5330274084317,
+          "y": 226.2275263785985
+        },
+        "size": {
+          "width": 264,
+          "height": 74
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": false,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "1f34c1ef-12dc-45cc-9be3-cefd8a705d17",
+            "name": "output",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "output",
+                  "id": "ee45137c-c58e-4995-b62c-996001202002",
+                  "nodeId": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+              "output": "output",
+              "output_id": "ee45137c-c58e-4995-b62c-996001202002"
+            }
+          },
+          {
+            "id": "20ef57ba-95c0-446d-9dd5-b6da081e2034",
+            "name": "output2",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "output",
+                  "id": "f02490a1-ec19-406d-b6a0-93f091a3a743",
+                  "nodeId": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+              "output": "output",
+              "output_id": "f02490a1-ec19-406d-b6a0-93f091a3a743"
+            }
+          },
+          {
+            "id": "e7f2bc0d-ac50-43e0-aa3b-2423b0b16c2f",
+            "name": "output3",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "output",
+                  "id": "39c1c529-92dd-4be0-b4e7-b589f5783823",
+                  "nodeId": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+              "output": "output",
+              "output_id": "39c1c529-92dd-4be0-b4e7-b589f5783823"
+            }
+          }
+        ],
+        "outputs": [],
+        "node_param": {
+          "template": "{{output}}{{output2}}{{output3}}",
+          "streamOutput": false,
+          "templateErrMsg": "",
+          "outputMode": 1
+        },
+        "output": {
+          "template": "{{output}}{{output2}}{{output3}}",
+          "stream_output": false,
+          "output_mode": 1,
+          "input_keys": [
+            {
+              "end_input": "output",
+              "state_key": "output",
+              "node_id": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+              "output": "output",
+              "output_id": "ee45137c-c58e-4995-b62c-996001202002"
+            },
+            {
+              "end_input": "output2",
+              "state_key": "output2",
+              "node_id": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+              "output": "output",
+              "output_id": "f02490a1-ec19-406d-b6a0-93f091a3a743"
+            },
+            {
+              "end_input": "output3",
+              "state_key": "output3",
+              "node_id": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+              "output": "output",
+              "output_id": "39c1c529-92dd-4be0-b4e7-b589f5783823"
+            }
+          ],
+          "state_keys": [
+            "output",
+            "output2",
+            "output3"
+          ]
+        }
+      },
+      {
+        "id": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+        "runtime_name": "subject_selector",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "大模型_1",
+        "alias": "大模型",
+        "node_meta": {
+          "aliasName": "大模型",
+          "nodeType": "基础节点"
+        },
+        "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+        "position": {
+          "x": 499.4926661287491,
+          "y": 58.13591612168162
+        },
+        "position_absolute": {
+          "x": 499.4926661287491,
+          "y": 58.13591612168162
+        },
+        "size": {
+          "width": 256,
+          "height": 124
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": false
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "021d1dd2-bf38-4b74-bfb0-2f4f9b810ca9",
+            "name": "input",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "item",
+                  "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "item",
+              "output_id": "bd2c7d9c-e608-4c2c-8f96-166fac004802"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "ee45137c-c58e-4995-b62c-996001202002",
+            "name": "output",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "{{input}}",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 1
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://api.deepseek.com/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "deepseek",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "deepseek-flash",
+          "systemTemplate": "# Role\n你是一位资深的职业教育课程架构师，精通岗位胜任力模型与学科知识图谱的映射关系。\n\n# Task\n请根据用户输入的【目标岗位】，从给定的【学科池】中筛选出与该岗位工作内容、核心技术及日常任务**强相关**的学科。\n\n# Strict Constraints (必须严格遵守)\n1. **相关性评分规则**：请对每个学科进行0-100的关联度打分（Relevance Score）。\n   - **90-100分**：核心必修。该学科是岗位的底层逻辑（如：程序员岗必选“数据结构”）。\n   - **70-89分**：强关联。该学科频繁用于解决岗位问题（如：算法工程师必选“概率论”）。\n   - **60-69分**：弱关联。该学科仅提供软实力或边缘知识（如：销售岗选“心理学”）。\n   - **< 60分**：**视为不相关，必须剔除**。\n\n2. **硬性剔除规则（防乱选）**：\n   - 如果学科内容属于通识教育（如“大学英语”、“体育”、“形势与政策”），除非用户岗位明确是“英语翻译”或“体育教练”，否则**直接打0分并剔除**。\n   - 如果学科所需的前置知识与该岗位完全不沾边（例如文科岗位匹配“量子力学”），**直接打0分并剔除**。\n\n3. **允许空结果**：如果学科池中没有一门课分数达到60分，请直接返回 `selected_subjects: []`，严禁强行凑数。\n\n4.请按合理的学科之间的前驱后继关系，按顺序返回数组内容\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n## JSON Schema\n{\n  \"selected_subjects\": [\n    {\n      \"id\": \"学科ID（字符串）\",\n      \"name\": \"学科名称（字符串）\",\n      \"relevance_score\": 关联度数值（整数，范围60-100）,\n      \"reason\": \"简短理由（说明为什么这门课对这个岗位重要，30字以内）\"\n    }\n  ],\n  \"overall_analysis\": \"对该岗位知识结构的简短总结（50字以内）\"\n}\n\n# Few-Shot Examples (参考范例)\n\n**Example 1**\nInput Job: \"后端开发工程师（Java）\"\nSubject Pool: [{\"id\":\"M01\",\"name\":\"数据结构\"}, {\"id\":\"M02\",\"name\":\"大学英语\"}, {\"id\":\"M03\",\"name\":\"计算机网络\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"M01\",\"name\":\"数据结构\",\"relevance_score\": 95,\"reason\":\"编程底层逻辑，笔试面试核心\"},\n    {\"id\":\"M03\",\"name\":\"计算机网络\",\"relevance_score\": 85,\"reason\":\"涉及API通信与网络协议排查\"}\n  ],\n  \"overall_analysis\": \"后端开发强依赖计算机基础，英语课程未达相关阈值。\"\n}\n\n**Example 2**\nInput Job: \"新媒体文案策划\"\nSubject Pool: [{\"id\":\"L01\",\"name\":\"广告学\"}, {\"id\":\"L02\",\"name\":\"高等数学\"}, {\"id\":\"L03\",\"name\":\"传播学\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"L01\",\"name\":\"广告学\",\"relevance_score\": 90,\"reason\":\"文案写作与营销逻辑直接相关\"},\n    {\"id\":\"L03\",\"name\":\"传播学\",\"relevance_score\": 80,\"reason\":\"受众心理与传播规律影响内容效果\"}\n  ],\n  \"overall_analysis\": \"该岗位偏文科与营销，高等数学与创意文案无直接关联。\"\n}\n\n# 现在，请针对以下实际输入，开始严格分析并输出 JSON：",
+          "model": "spark",
+          "modelEnabled": true,
+          "serviceId": "deepseek-flash",
+          "llmIdErrMsg": "",
+          "respFormat": 0
+        },
+        "llm": {
+          "model": "default",
+          "prompt": {
+            "system": "# Role\n你是一位资深的职业教育课程架构师，精通岗位胜任力模型与学科知识图谱的映射关系。\n\n# Task\n请根据用户输入的【目标岗位】，从给定的【学科池】中筛选出与该岗位工作内容、核心技术及日常任务**强相关**的学科。\n\n# Strict Constraints (必须严格遵守)\n1. **相关性评分规则**：请对每个学科进行0-100的关联度打分（Relevance Score）。\n   - **90-100分**：核心必修。该学科是岗位的底层逻辑（如：程序员岗必选“数据结构”）。\n   - **70-89分**：强关联。该学科频繁用于解决岗位问题（如：算法工程师必选“概率论”）。\n   - **60-69分**：弱关联。该学科仅提供软实力或边缘知识（如：销售岗选“心理学”）。\n   - **< 60分**：**视为不相关，必须剔除**。\n\n2. **硬性剔除规则（防乱选）**：\n   - 如果学科内容属于通识教育（如“大学英语”、“体育”、“形势与政策”），除非用户岗位明确是“英语翻译”或“体育教练”，否则**直接打0分并剔除**。\n   - 如果学科所需的前置知识与该岗位完全不沾边（例如文科岗位匹配“量子力学”），**直接打0分并剔除**。\n\n3. **允许空结果**：如果学科池中没有一门课分数达到60分，请直接返回 `selected_subjects: []`，严禁强行凑数。\n\n4.请按合理的学科之间的前驱后继关系，按顺序返回数组内容\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n## JSON Schema\n{\n  \"selected_subjects\": [\n    {\n      \"id\": \"学科ID（字符串）\",\n      \"name\": \"学科名称（字符串）\",\n      \"relevance_score\": 关联度数值（整数，范围60-100）,\n      \"reason\": \"简短理由（说明为什么这门课对这个岗位重要，30字以内）\"\n    }\n  ],\n  \"overall_analysis\": \"对该岗位知识结构的简短总结（50字以内）\"\n}\n\n# Few-Shot Examples (参考范例)\n\n**Example 1**\nInput Job: \"后端开发工程师（Java）\"\nSubject Pool: [{\"id\":\"M01\",\"name\":\"数据结构\"}, {\"id\":\"M02\",\"name\":\"大学英语\"}, {\"id\":\"M03\",\"name\":\"计算机网络\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"M01\",\"name\":\"数据结构\",\"relevance_score\": 95,\"reason\":\"编程底层逻辑，笔试面试核心\"},\n    {\"id\":\"M03\",\"name\":\"计算机网络\",\"relevance_score\": 85,\"reason\":\"涉及API通信与网络协议排查\"}\n  ],\n  \"overall_analysis\": \"后端开发强依赖计算机基础，英语课程未达相关阈值。\"\n}\n\n**Example 2**\nInput Job: \"新媒体文案策划\"\nSubject Pool: [{\"id\":\"L01\",\"name\":\"广告学\"}, {\"id\":\"L02\",\"name\":\"高等数学\"}, {\"id\":\"L03\",\"name\":\"传播学\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"L01\",\"name\":\"广告学\",\"relevance_score\": 90,\"reason\":\"文案写作与营销逻辑直接相关\"},\n    {\"id\":\"L03\",\"name\":\"传播学\",\"relevance_score\": 80,\"reason\":\"受众心理与传播规律影响内容效果\"}\n  ],\n  \"overall_analysis\": \"该岗位偏文科与营销，高等数学与创意文案无直接关联。\"\n}\n\n# 现在，请针对以下实际输入，开始严格分析并输出 JSON：",
+            "system_template_format": "text",
+            "user_template": "{{input}}",
+            "input_mapping": {
+              "input": "item"
+            }
+          },
+          "output": {
+            "name": "output",
+            "id": "ee45137c-c58e-4995-b62c-996001202002",
+            "state_key": "output",
+            "end_input": "output"
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "deepseek",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": "deepseek-flash",
+            "domain": "deepseek-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://api.deepseek.com/v1/chat/completions",
+            "temperature": 1,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": 0,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+        "runtime_name": "split_input",
+        "type": "code",
+        "iflytek_type": "代码",
+        "name": "代码_1",
+        "alias": "代码",
+        "node_meta": {
+          "aliasName": "代码",
+          "nodeType": "工具"
+        },
+        "description": "面向开发者提供代码开发能力，目前仅支持python语言，允许使用该节点已定义的变量作为参数传入，返回语句用于输出函数的结果",
+        "position": {
+          "x": -319.37509171055285,
+          "y": 159.43755091356013
+        },
+        "position_absolute": {
+          "x": -319.37509171055285,
+          "y": 159.43755091356013
+        },
+        "size": {
+          "width": 256,
+          "height": 100
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-question.svg",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": false
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "7393ccc1-c1d8-4693-8b0c-8dd7fb6e3e56",
+            "name": "input",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "0918514b-72a8-4646-8dd9-ff4a8fc26d44",
+                  "nodeId": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "0918514b-72a8-4646-8dd9-ff4a8fc26d44"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+            "name": "code",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+            "name": "item",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "properties": [],
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "uid": "20451142352",
+          "code": "\nimport typing\n\n# 函数功能：拆解传入的字符串前三位\n# 参数定义：\n#   input: 字符串类型，输入的待处理字符串\n# 返回：字典类型，包含拆解出的前三位字符串\ndef main(input: str):\n    # 获取字符串前三位，如果字符串长度不足三位则返回整个字符串\n    code = input[:3] if len(input) >= 3 else input\n    item = input[3:] if len(input) >= 3 else input\n    return {'code': code,'item': item}\n",
+          "appId": "12a0a7e2",
+          "codeErrMsg": ""
+        },
+        "code": {
+          "language": "python",
+          "entrypoint": "main",
+          "source": "\nimport typing\n\n# 函数功能：拆解传入的字符串前三位\n# 参数定义：\n#   input: 字符串类型，输入的待处理字符串\n# 返回：字典类型，包含拆解出的前三位字符串\ndef main(input: str):\n    # 获取字符串前三位，如果字符串长度不足三位则返回整个字符串\n    code = input[:3] if len(input) >= 3 else input\n    item = input[3:] if len(input) >= 3 else input\n    return {'code': code,'item': item}\n",
+          "uid": "20451142352",
+          "app_id": "12a0a7e2",
+          "input_mapping": {
+            "input": "AGENT_USER_INPUT"
+          },
+          "state_writes": [
+            "code",
+            "item"
+          ],
+          "operation": {
+            "type": "split_at",
+            "input_state_key": "AGENT_USER_INPUT",
+            "split_index": 3,
+            "outputs": {
+              "head": "code",
+              "tail": "item"
+            },
+            "semantics": "python: code = input[:3]; item = input[3:]"
+          }
+        }
+      },
+      {
+        "id": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "runtime_name": "route",
+        "type": "router",
+        "iflytek_type": "分支器",
+        "name": "分支器_1",
+        "alias": "分支器",
+        "node_meta": {
+          "aliasName": "分支器",
+          "nodeType": "分支器"
+        },
+        "description": "根据设立的条件，判断选择分支走向",
+        "position": {
+          "x": 52.67123246583742,
+          "y": 177.7131674997915
+        },
+        "position_absolute": {
+          "x": 52.67123246583742,
+          "y": 177.7131674997915
+        },
+        "size": {
+          "width": 263,
+          "height": 206
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-if-else.svg",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": false,
+          "label_edit": false
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "e5f09785-de40-4651-bff8-a959b2c11882",
+            "name": "input",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "code",
+                  "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "code",
+              "output_id": "87d0da4f-6354-4257-b5f6-22b7229b2874"
+            }
+          },
+          {
+            "id": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+            "name": "input1",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": null,
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "literal",
+                "content": "[0]",
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "literal",
+              "value": "[0]"
+            }
+          },
+          {
+            "id": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+            "name": "inpute044b6ba6222473e9abe26ec3616428c",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "code",
+                  "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "code",
+              "output_id": "87d0da4f-6354-4257-b5f6-22b7229b2874"
+            }
+          },
+          {
+            "id": "45005ab0-ed2e-4606-b063-be82817fa1be",
+            "name": "input1cc1cf41ef1644098a4adf6668ae1bcb",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": null,
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "literal",
+                "content": "[1]",
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "literal",
+              "value": "[1]"
+            }
+          },
+          {
+            "id": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+            "name": "inpute999a8d7a8894f8bbff19df0c7f7479b",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "code",
+                  "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "code",
+              "output_id": "87d0da4f-6354-4257-b5f6-22b7229b2874"
+            }
+          },
+          {
+            "id": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+            "name": "input8d2ecb7d9af64289932464ddb4255585",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": null,
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "literal",
+                "content": "[2]",
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "literal",
+              "value": "[2]"
+            }
+          }
+        ],
+        "outputs": [],
+        "node_param": {
+          "uid": "20451142352",
+          "cases": [
+            {
+              "level": 1,
+              "logicalOperator": "and",
+              "id": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+              "conditions": [
+                {
+                  "leftVarIndex": "e5f09785-de40-4651-bff8-a959b2c11882",
+                  "rightVarIndex": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+                  "compareOperatorErrMsg": "",
+                  "id": "",
+                  "compareOperator": "eq"
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "logicalOperator": "and",
+              "id": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+              "conditions": [
+                {
+                  "leftVarIndex": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+                  "rightVarIndex": "45005ab0-ed2e-4606-b063-be82817fa1be",
+                  "compareOperatorErrMsg": "",
+                  "id": "2c5a4f2b-d61e-4989-ac90-32d0b278b01a",
+                  "compareOperator": "eq"
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "logicalOperator": "and",
+              "id": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+              "conditions": [
+                {
+                  "leftVarIndex": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+                  "rightVarIndex": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+                  "compareOperatorErrMsg": "",
+                  "id": "3953abac-4e7a-47cb-84fb-a0814fb058f6",
+                  "compareOperator": "eq"
+                }
+              ]
+            },
+            {
+              "level": 999,
+              "logicalOperator": "and",
+              "id": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+              "conditions": []
+            }
+          ],
+          "appId": "12a0a7e2"
+        },
+        "router": {
+          "uid": "20451142352",
+          "app_id": "12a0a7e2",
+          "branches": [
+            {
+              "branch_id": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+              "level": 1,
+              "logical_operator": "and",
+              "conditions": [
+                {
+                  "id": "",
+                  "operator": "eq",
+                  "left": {
+                    "input_id": "e5f09785-de40-4651-bff8-a959b2c11882",
+                    "input_name": "input",
+                    "kind": "ref",
+                    "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                    "output": "code",
+                    "state_key": "code"
+                  },
+                  "right": {
+                    "input_id": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+                    "input_name": "input1",
+                    "kind": "literal",
+                    "value": "[0]"
+                  }
+                }
+              ],
+              "is_default": false,
+              "target": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+              "target_runtime": "subject_selector"
+            },
+            {
+              "branch_id": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+              "level": 2,
+              "logical_operator": "and",
+              "conditions": [
+                {
+                  "id": "2c5a4f2b-d61e-4989-ac90-32d0b278b01a",
+                  "operator": "eq",
+                  "left": {
+                    "input_id": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+                    "input_name": "inpute044b6ba6222473e9abe26ec3616428c",
+                    "kind": "ref",
+                    "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                    "output": "code",
+                    "state_key": "code"
+                  },
+                  "right": {
+                    "input_id": "45005ab0-ed2e-4606-b063-be82817fa1be",
+                    "input_name": "input1cc1cf41ef1644098a4adf6668ae1bcb",
+                    "kind": "literal",
+                    "value": "[1]"
+                  }
+                }
+              ],
+              "is_default": false,
+              "target": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+              "target_runtime": "question_generator"
+            },
+            {
+              "branch_id": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+              "level": 3,
+              "logical_operator": "and",
+              "conditions": [
+                {
+                  "id": "3953abac-4e7a-47cb-84fb-a0814fb058f6",
+                  "operator": "eq",
+                  "left": {
+                    "input_id": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+                    "input_name": "inpute999a8d7a8894f8bbff19df0c7f7479b",
+                    "kind": "ref",
+                    "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                    "output": "code",
+                    "state_key": "code"
+                  },
+                  "right": {
+                    "input_id": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+                    "input_name": "input8d2ecb7d9af64289932464ddb4255585",
+                    "kind": "literal",
+                    "value": "[2]"
+                  }
+                }
+              ],
+              "is_default": false,
+              "target": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+              "target_runtime": "wrong_answer_diagnoser"
+            },
+            {
+              "branch_id": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+              "level": 999,
+              "logical_operator": "and",
+              "conditions": [],
+              "is_default": true,
+              "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+              "target_runtime": "end"
+            }
+          ],
+          "default_target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88"
+        }
+      },
+      {
+        "id": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+        "runtime_name": "question_generator",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "大模型_2",
+        "alias": "大模型",
+        "node_meta": {
+          "aliasName": "大模型",
+          "nodeType": "基础节点"
+        },
+        "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+        "position": {
+          "x": 499.1703719706247,
+          "y": 210.5844060735604
+        },
+        "position_absolute": {
+          "x": 499.1703719706247,
+          "y": 210.5844060735604
+        },
+        "size": {
+          "width": 256,
+          "height": 124
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+        "flags": {
+          "dragging": false,
+          "selected": true,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": false
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "678266c0-8fb4-4efe-9360-703c54010001",
+            "name": "input",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "item",
+                  "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "item",
+              "output_id": "bd2c7d9c-e608-4c2c-8f96-166fac004802"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "f02490a1-ec19-406d-b6a0-93f091a3a743",
+            "name": "output",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "{{input}}",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 1
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://api.deepseek.com/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "deepseek",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "deepseek-flash",
+          "systemTemplate": "你是一位专业的技术面试出题专家，专门为特定岗位设计**客观题**（单选、多选、判断题）。  \n\n## 输入说明\n用户会提供三部分内容：\n1. 目标岗位（字符串）\n2. 匹配学科及知识点范围（JSON 数组）\n3. 可出题的知识点列表（JSON 数组）\n\n## 输出要求\n- 生成 **5~8 道题目**（具体数量由你根据知识点覆盖灵活决定）。\n- 每道题必须**综合至少 2 个不同知识点**，鼓励跨学科融合，并贴合岗位实际场景。\n- 题型只允许以下三种：\n  - `\"单选\"` —— 4 个选项，答案为一个索引（0-based）\n  - `\"多选\"` —— 4~5 个选项，答案为一个索引数组（0-based）\n  - `\"判断\"` —— 选项固定为 `[\"正确\",\"错误\"]`，答案为 `0` 或 `1`（0=正确，1=错误）\n\n- 输出 JSON 结构示例：\n  {\n    \"questions\": [\n      {\n        \"id\": 1,\n        \"type\": \"单选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\"],\n        \"answer\": 0\n      },\n      {\n        \"id\": 2,\n        \"type\": \"多选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\", \"选项E\"],\n        \"answer\": [0, 2]\n      },\n      {\n        \"id\": 3,\n        \"type\": \"判断\",\n        \"question\": \"判断表述\",\n        \"options\": [\"正确\", \"错误\"],\n        \"answer\": 0\n      }\n    ]\n  }\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。",
+          "model": "spark",
+          "modelEnabled": true,
+          "serviceId": "deepseek-flash",
+          "llmIdErrMsg": "",
+          "respFormat": 0
+        },
+        "llm": {
+          "model": "default",
+          "prompt": {
+            "system": "你是一位专业的技术面试出题专家，专门为特定岗位设计**客观题**（单选、多选、判断题）。  \n\n## 输入说明\n用户会提供三部分内容：\n1. 目标岗位（字符串）\n2. 匹配学科及知识点范围（JSON 数组）\n3. 可出题的知识点列表（JSON 数组）\n\n## 输出要求\n- 生成 **5~8 道题目**（具体数量由你根据知识点覆盖灵活决定）。\n- 每道题必须**综合至少 2 个不同知识点**，鼓励跨学科融合，并贴合岗位实际场景。\n- 题型只允许以下三种：\n  - `\"单选\"` —— 4 个选项，答案为一个索引（0-based）\n  - `\"多选\"` —— 4~5 个选项，答案为一个索引数组（0-based）\n  - `\"判断\"` —— 选项固定为 `[\"正确\",\"错误\"]`，答案为 `0` 或 `1`（0=正确，1=错误）\n\n- 输出 JSON 结构示例：\n  {\n    \"questions\": [\n      {\n        \"id\": 1,\n        \"type\": \"单选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\"],\n        \"answer\": 0\n      },\n      {\n        \"id\": 2,\n        \"type\": \"多选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\", \"选项E\"],\n        \"answer\": [0, 2]\n      },\n      {\n        \"id\": 3,\n        \"type\": \"判断\",\n        \"question\": \"判断表述\",\n        \"options\": [\"正确\", \"错误\"],\n        \"answer\": 0\n      }\n    ]\n  }\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。",
+            "system_template_format": "text",
+            "user_template": "{{input}}",
+            "input_mapping": {
+              "input": "item"
+            }
+          },
+          "output": {
+            "name": "output",
+            "id": "f02490a1-ec19-406d-b6a0-93f091a3a743",
+            "state_key": "output2",
+            "end_input": "output2"
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "deepseek",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": "deepseek-flash",
+            "domain": "deepseek-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://api.deepseek.com/v1/chat/completions",
+            "temperature": 1,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": 0,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+        "runtime_name": "wrong_answer_diagnoser",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "大模型_3",
+        "alias": "大模型",
+        "node_meta": {
+          "aliasName": "大模型",
+          "nodeType": "基础节点"
+        },
+        "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+        "position": {
+          "x": 508.01287472140825,
+          "y": 369.3833024111154
+        },
+        "position_absolute": {
+          "x": 508.01287472140825,
+          "y": 369.3833024111154
+        },
+        "size": {
+          "width": 256,
+          "height": 124
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": false
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "17af74e4-9e6b-4a50-823d-9f57d0d5ff87",
+            "name": "input",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "item",
+                  "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                  "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+              "output": "item",
+              "output_id": "bd2c7d9c-e608-4c2c-8f96-166fac004802"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "39c1c529-92dd-4be0-b4e7-b589f5783823",
+            "name": "output",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "{{input}}",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 1
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://api.deepseek.com/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "deepseek",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "deepseek-flash",
+          "systemTemplate": "你是一位专业的错题知识点诊断专家，负责根据用户的错题信息，从给定的知识点列表中精准识别每道错题所考察的知识点，并返回去重后的知识点清单。\n\n## 输入说明\n用户会提供两部分数据：\n1. **错题信息**：一个 JSON 数组，每个对象包含：\n   - `type`：题型（如 \"单选\"、\"多选\"、\"判断\"）\n   - `question`：题目正文\n   - `userAnswer`：用户的错误答案\n   - `correctAnswer`：正确答案\n2. **相关知识点**：一个 JSON 数组，每个对象包含：\n   - `subjectName`：学科名称\n   - `pointName`：知识点名称\n   - `pointId`：知识点唯一标识（整数）\n\n## 任务要求\n- 逐题分析错题内容（包括题目描述、正确答案），推断该题考核的核心知识点（可能一道题涉及多个知识点）。\n- 从提供的“相关知识点”列表中找出所有匹配的知识点，以 `pointId` 为准进行去重。\n- 最终输出一个 **JSON 数组**，每个元素包含 `subjectName`、`pointName`、`pointId` 三个字段，顺序不限。\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n- 示例输出：\n  [\n    {\"subjectName\":\"数据结构与算法\",\"pointName\":\"数组\",\"pointId\":1},\n    {\"subjectName\":\"Python编程语言\",\"pointName\":\"异常处理\",\"pointId\":58}\n  ]",
+          "model": "spark",
+          "modelEnabled": true,
+          "serviceId": "deepseek-flash",
+          "llmIdErrMsg": "",
+          "respFormat": 0
+        },
+        "llm": {
+          "model": "default",
+          "prompt": {
+            "system": "你是一位专业的错题知识点诊断专家，负责根据用户的错题信息，从给定的知识点列表中精准识别每道错题所考察的知识点，并返回去重后的知识点清单。\n\n## 输入说明\n用户会提供两部分数据：\n1. **错题信息**：一个 JSON 数组，每个对象包含：\n   - `type`：题型（如 \"单选\"、\"多选\"、\"判断\"）\n   - `question`：题目正文\n   - `userAnswer`：用户的错误答案\n   - `correctAnswer`：正确答案\n2. **相关知识点**：一个 JSON 数组，每个对象包含：\n   - `subjectName`：学科名称\n   - `pointName`：知识点名称\n   - `pointId`：知识点唯一标识（整数）\n\n## 任务要求\n- 逐题分析错题内容（包括题目描述、正确答案），推断该题考核的核心知识点（可能一道题涉及多个知识点）。\n- 从提供的“相关知识点”列表中找出所有匹配的知识点，以 `pointId` 为准进行去重。\n- 最终输出一个 **JSON 数组**，每个元素包含 `subjectName`、`pointName`、`pointId` 三个字段，顺序不限。\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n- 示例输出：\n  [\n    {\"subjectName\":\"数据结构与算法\",\"pointName\":\"数组\",\"pointId\":1},\n    {\"subjectName\":\"Python编程语言\",\"pointName\":\"异常处理\",\"pointId\":58}\n  ]",
+            "system_template_format": "text",
+            "user_template": "{{input}}",
+            "input_mapping": {
+              "input": "item"
+            }
+          },
+          "output": {
+            "name": "output",
+            "id": "39c1c529-92dd-4be0-b4e7-b589f5783823",
+            "state_key": "output3",
+            "end_input": "output3"
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "deepseek",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": "deepseek-flash",
+            "domain": "deepseek-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://api.deepseek.com/v1/chat/completions",
+            "temperature": 1,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": 0,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "reactflow__edge-spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+        "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783-ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+        "source": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+        "target": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "source": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+        "target": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1-spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+        "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "target": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+        "source_handle": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source_handle": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::e4212189-7121-40c6-b63b-fdc083446be0-spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+        "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "target": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+        "source_handle": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-spark-llm::25a3c442-3112-44bb-af11-229728051a9c-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+        "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106-spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+        "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "target": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+        "source_handle": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      },
+      {
+        "id": "reactflow__edge-spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+        "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "customEdge",
+        "edge_type": "curve",
+        "marker_end": {
+          "color": "#6356EA",
+          "type": "arrow"
+        }
+      }
+    ],
+    "conditional_edges": [
+      {
+        "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+        "source_runtime": "route",
+        "branches": [
+          {
+            "branch_id": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+            "level": 1,
+            "logical_operator": "and",
+            "conditions": [
+              {
+                "id": "",
+                "operator": "eq",
+                "left": {
+                  "input_id": "e5f09785-de40-4651-bff8-a959b2c11882",
+                  "input_name": "input",
+                  "kind": "ref",
+                  "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                  "output": "code",
+                  "state_key": "code"
+                },
+                "right": {
+                  "input_id": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+                  "input_name": "input1",
+                  "kind": "literal",
+                  "value": "[0]"
+                }
+              }
+            ],
+            "is_default": false,
+            "target": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+            "target_runtime": "subject_selector"
+          },
+          {
+            "branch_id": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+            "level": 2,
+            "logical_operator": "and",
+            "conditions": [
+              {
+                "id": "2c5a4f2b-d61e-4989-ac90-32d0b278b01a",
+                "operator": "eq",
+                "left": {
+                  "input_id": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+                  "input_name": "inpute044b6ba6222473e9abe26ec3616428c",
+                  "kind": "ref",
+                  "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                  "output": "code",
+                  "state_key": "code"
+                },
+                "right": {
+                  "input_id": "45005ab0-ed2e-4606-b063-be82817fa1be",
+                  "input_name": "input1cc1cf41ef1644098a4adf6668ae1bcb",
+                  "kind": "literal",
+                  "value": "[1]"
+                }
+              }
+            ],
+            "is_default": false,
+            "target": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+            "target_runtime": "question_generator"
+          },
+          {
+            "branch_id": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+            "level": 3,
+            "logical_operator": "and",
+            "conditions": [
+              {
+                "id": "3953abac-4e7a-47cb-84fb-a0814fb058f6",
+                "operator": "eq",
+                "left": {
+                  "input_id": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+                  "input_name": "inpute999a8d7a8894f8bbff19df0c7f7479b",
+                  "kind": "ref",
+                  "node_id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+                  "output": "code",
+                  "state_key": "code"
+                },
+                "right": {
+                  "input_id": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+                  "input_name": "input8d2ecb7d9af64289932464ddb4255585",
+                  "kind": "literal",
+                  "value": "[2]"
+                }
+              }
+            ],
+            "is_default": false,
+            "target": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+            "target_runtime": "wrong_answer_diagnoser"
+          },
+          {
+            "branch_id": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+            "level": 999,
+            "logical_operator": "and",
+            "conditions": [],
+            "is_default": true,
+            "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "target_runtime": "end"
+          }
+        ],
+        "default_target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88"
+      }
+    ]
+  },
+  "execution": {
+    "entrypoint": "start",
+    "finish_point": "end",
+    "input_keys": [
+      "AGENT_USER_INPUT"
+    ],
+    "output_template": "{{output}}{{output2}}{{output3}}",
+    "output_state_keys": [
+      "output",
+      "output2",
+      "output3"
+    ],
+    "output_key": "final_output",
+    "recursion_limit": 25
+  },
+  "extensions": {
+    "source_format": "iflytek-spark-workflow-dsl",
+    "source_dsl_version": "v1",
+    "source_file": "人才画像20260914150500.yml",
+    "source_sha256": "dd3b3ad15f1d29f1557f3a05d48eb9eda3f4e935d4e17c280c4972221cc2400b",
+    "converter": "langchain/convert_iflytek_workflow.py",
+    "source": {
+      "flowMeta": {
+        "name": "人才画像20260914150500",
+        "description": "工作流",
+        "avatarIcon": "https://openres.xfyun.cn/xfyundoc/2026-01-13/68cb686b-ad05-45da-8376-45a4c9ce3fcc/1768290620925/5%402x.png",
+        "avatarColor": "#FFEAD5",
+        "advancedConfig": "{\"prologue\":{\"enabled\":true,\"inputExample\":[\"\",\"\",\"\"]},\"textToSpeech\":{\"enabled\":true,\"vcn_cn\":\"x4_lingxiaoqi\",\"vcn_en\":\"x4_EnUs_Luna\"},\"needGuide\":false}",
+        "category": 17,
+        "dslVersion": "v1"
+      },
+      "flowData": {
+        "nodes": [
+          {
+            "id": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+            "dragging": false,
+            "selected": false,
+            "width": 256,
+            "height": 74,
+            "position": {
+              "x": -319.50681743332655,
+              "y": 347.19586299263585
+            },
+            "positionAbsolute": {
+              "x": -319.50681743332655,
+              "y": 347.19586299263585
+            },
+            "type": "开始节点",
+            "data": {
+              "allowInputReference": false,
+              "allowOutputReference": true,
+              "label": "开始",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "开始节点",
+                "nodeType": "基础节点"
+              },
+              "inputs": [],
+              "outputs": [
+                {
+                  "id": "0918514b-72a8-4646-8dd9-ff4a8fc26d44",
+                  "name": "AGENT_USER_INPUT",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": "用户本轮对话输入内容"
+                  },
+                  "required": true,
+                  "deleteDisabled": true
+                }
+              ],
+              "nodeParam": {},
+              "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png",
+              "description": "工作流的开启节点，用于定义流程调用所需的业务变量信息。",
+              "updatable": false
+            }
+          },
+          {
+            "id": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "dragging": false,
+            "selected": false,
+            "width": 264,
+            "height": 74,
+            "position": {
+              "x": 1073.5330274084317,
+              "y": 226.2275263785985
+            },
+            "positionAbsolute": {
+              "x": 1073.5330274084317,
+              "y": 226.2275263785985
+            },
+            "type": "结束节点",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": false,
+              "label": "结束",
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "结束节点",
+                "nodeType": "基础节点"
+              },
+              "inputs": [
+                {
+                  "id": "1f34c1ef-12dc-45cc-9be3-cefd8a705d17",
+                  "name": "output",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "output",
+                        "id": "ee45137c-c58e-4995-b62c-996001202002",
+                        "nodeId": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "20ef57ba-95c0-446d-9dd5-b6da081e2034",
+                  "name": "output2",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "output",
+                        "id": "f02490a1-ec19-406d-b6a0-93f091a3a743",
+                        "nodeId": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "e7f2bc0d-ac50-43e0-aa3b-2423b0b16c2f",
+                  "name": "output3",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "output",
+                        "id": "39c1c529-92dd-4be0-b4e7-b589f5783823",
+                        "nodeId": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [],
+              "nodeParam": {
+                "template": "{{output}}{{output2}}{{output3}}",
+                "streamOutput": false,
+                "templateErrMsg": "",
+                "outputMode": 1
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png",
+              "description": "工作流的结束节点，用于输出工作流运行后的最终结果。",
+              "updatable": false
+            }
+          },
+          {
+            "id": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+            "dragging": false,
+            "selected": false,
+            "width": 256,
+            "height": 124,
+            "position": {
+              "x": 499.4926661287491,
+              "y": 58.13591612168162
+            },
+            "positionAbsolute": {
+              "x": 499.4926661287491,
+              "y": 58.13591612168162
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "大模型_1",
+              "labelEdit": false,
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "大模型",
+                "nodeType": "基础节点"
+              },
+              "inputs": [
+                {
+                  "id": "021d1dd2-bf38-4b74-bfb0-2f4f9b810ca9",
+                  "name": "input",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "item",
+                        "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "ee45137c-c58e-4995-b62c-996001202002",
+                  "name": "output",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "{{input}}",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 1
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://api.deepseek.com/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "deepseek",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "deepseek-flash",
+                "systemTemplate": "# Role\n你是一位资深的职业教育课程架构师，精通岗位胜任力模型与学科知识图谱的映射关系。\n\n# Task\n请根据用户输入的【目标岗位】，从给定的【学科池】中筛选出与该岗位工作内容、核心技术及日常任务**强相关**的学科。\n\n# Strict Constraints (必须严格遵守)\n1. **相关性评分规则**：请对每个学科进行0-100的关联度打分（Relevance Score）。\n   - **90-100分**：核心必修。该学科是岗位的底层逻辑（如：程序员岗必选“数据结构”）。\n   - **70-89分**：强关联。该学科频繁用于解决岗位问题（如：算法工程师必选“概率论”）。\n   - **60-69分**：弱关联。该学科仅提供软实力或边缘知识（如：销售岗选“心理学”）。\n   - **< 60分**：**视为不相关，必须剔除**。\n\n2. **硬性剔除规则（防乱选）**：\n   - 如果学科内容属于通识教育（如“大学英语”、“体育”、“形势与政策”），除非用户岗位明确是“英语翻译”或“体育教练”，否则**直接打0分并剔除**。\n   - 如果学科所需的前置知识与该岗位完全不沾边（例如文科岗位匹配“量子力学”），**直接打0分并剔除**。\n\n3. **允许空结果**：如果学科池中没有一门课分数达到60分，请直接返回 `selected_subjects: []`，严禁强行凑数。\n\n4.请按合理的学科之间的前驱后继关系，按顺序返回数组内容\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n## JSON Schema\n{\n  \"selected_subjects\": [\n    {\n      \"id\": \"学科ID（字符串）\",\n      \"name\": \"学科名称（字符串）\",\n      \"relevance_score\": 关联度数值（整数，范围60-100）,\n      \"reason\": \"简短理由（说明为什么这门课对这个岗位重要，30字以内）\"\n    }\n  ],\n  \"overall_analysis\": \"对该岗位知识结构的简短总结（50字以内）\"\n}\n\n# Few-Shot Examples (参考范例)\n\n**Example 1**\nInput Job: \"后端开发工程师（Java）\"\nSubject Pool: [{\"id\":\"M01\",\"name\":\"数据结构\"}, {\"id\":\"M02\",\"name\":\"大学英语\"}, {\"id\":\"M03\",\"name\":\"计算机网络\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"M01\",\"name\":\"数据结构\",\"relevance_score\": 95,\"reason\":\"编程底层逻辑，笔试面试核心\"},\n    {\"id\":\"M03\",\"name\":\"计算机网络\",\"relevance_score\": 85,\"reason\":\"涉及API通信与网络协议排查\"}\n  ],\n  \"overall_analysis\": \"后端开发强依赖计算机基础，英语课程未达相关阈值。\"\n}\n\n**Example 2**\nInput Job: \"新媒体文案策划\"\nSubject Pool: [{\"id\":\"L01\",\"name\":\"广告学\"}, {\"id\":\"L02\",\"name\":\"高等数学\"}, {\"id\":\"L03\",\"name\":\"传播学\"}]\nOutput:\n{\n  \"selected_subjects\": [\n    {\"id\":\"L01\",\"name\":\"广告学\",\"relevance_score\": 90,\"reason\":\"文案写作与营销逻辑直接相关\"},\n    {\"id\":\"L03\",\"name\":\"传播学\",\"relevance_score\": 80,\"reason\":\"受众心理与传播规律影响内容效果\"}\n  ],\n  \"overall_analysis\": \"该岗位偏文科与营销，高等数学与创意文案无直接关联。\"\n}\n\n# 现在，请针对以下实际输入，开始严格分析并输出 JSON：",
+                "model": "spark",
+                "modelEnabled": true,
+                "serviceId": "deepseek-flash",
+                "llmIdErrMsg": "",
+                "respFormat": 0
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+              "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+              "updatable": false
+            }
+          },
+          {
+            "id": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+            "dragging": false,
+            "selected": false,
+            "width": 256,
+            "height": 100,
+            "position": {
+              "x": -319.37509171055285,
+              "y": 159.43755091356013
+            },
+            "positionAbsolute": {
+              "x": -319.37509171055285,
+              "y": 159.43755091356013
+            },
+            "type": "代码",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "代码_1",
+              "labelEdit": false,
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "代码",
+                "nodeType": "工具"
+              },
+              "inputs": [
+                {
+                  "id": "7393ccc1-c1d8-4693-8b0c-8dd7fb6e3e56",
+                  "name": "input",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "0918514b-72a8-4646-8dd9-ff4a8fc26d44",
+                        "nodeId": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                  "name": "code",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                },
+                {
+                  "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                  "name": "item",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "properties": [],
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "uid": "20451142352",
+                "code": "\nimport typing\n\n# 函数功能：拆解传入的字符串前三位\n# 参数定义：\n#   input: 字符串类型，输入的待处理字符串\n# 返回：字典类型，包含拆解出的前三位字符串\ndef main(input: str):\n    # 获取字符串前三位，如果字符串长度不足三位则返回整个字符串\n    code = input[:3] if len(input) >= 3 else input\n    item = input[3:] if len(input) >= 3 else input\n    return {'code': code,'item': item}\n",
+                "appId": "12a0a7e2",
+                "codeErrMsg": ""
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-question.svg",
+              "description": "面向开发者提供代码开发能力，目前仅支持python语言，允许使用该节点已定义的变量作为参数传入，返回语句用于输出函数的结果",
+              "updatable": false
+            }
+          },
+          {
+            "id": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "dragging": false,
+            "selected": false,
+            "width": 263,
+            "height": 206,
+            "position": {
+              "x": 52.67123246583742,
+              "y": 177.7131674997915
+            },
+            "positionAbsolute": {
+              "x": 52.67123246583742,
+              "y": 177.7131674997915
+            },
+            "type": "分支器",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": false,
+              "label": "分支器_1",
+              "labelEdit": false,
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "分支器",
+                "nodeType": "分支器"
+              },
+              "inputs": [
+                {
+                  "id": "e5f09785-de40-4651-bff8-a959b2c11882",
+                  "name": "input",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "code",
+                        "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+                  "name": "input1",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "literal",
+                      "content": "[0]",
+                      "contentErrMsg": ""
+                    }
+                  }
+                },
+                {
+                  "id": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+                  "name": "inpute044b6ba6222473e9abe26ec3616428c",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "code",
+                        "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "45005ab0-ed2e-4606-b063-be82817fa1be",
+                  "name": "input1cc1cf41ef1644098a4adf6668ae1bcb",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "literal",
+                      "content": "[1]",
+                      "contentErrMsg": ""
+                    }
+                  }
+                },
+                {
+                  "id": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+                  "name": "inpute999a8d7a8894f8bbff19df0c7f7479b",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "code",
+                        "id": "87d0da4f-6354-4257-b5f6-22b7229b2874",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+                  "name": "input8d2ecb7d9af64289932464ddb4255585",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "literal",
+                      "content": "[2]",
+                      "contentErrMsg": ""
+                    }
+                  }
+                }
+              ],
+              "outputs": [],
+              "nodeParam": {
+                "uid": "20451142352",
+                "cases": [
+                  {
+                    "level": 1,
+                    "logicalOperator": "and",
+                    "id": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+                    "conditions": [
+                      {
+                        "leftVarIndex": "e5f09785-de40-4651-bff8-a959b2c11882",
+                        "rightVarIndex": "b46c478a-949b-4115-a5ef-1f224a99f6de",
+                        "compareOperatorErrMsg": "",
+                        "id": "",
+                        "compareOperator": "eq"
+                      }
+                    ]
+                  },
+                  {
+                    "level": 2,
+                    "logicalOperator": "and",
+                    "id": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+                    "conditions": [
+                      {
+                        "leftVarIndex": "399d17c6-47d9-425e-94a0-6c392ca204e5",
+                        "rightVarIndex": "45005ab0-ed2e-4606-b063-be82817fa1be",
+                        "compareOperatorErrMsg": "",
+                        "id": "2c5a4f2b-d61e-4989-ac90-32d0b278b01a",
+                        "compareOperator": "eq"
+                      }
+                    ]
+                  },
+                  {
+                    "level": 3,
+                    "logicalOperator": "and",
+                    "id": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+                    "conditions": [
+                      {
+                        "leftVarIndex": "1a1697c6-e424-4c23-930b-cfb86b63c1ab",
+                        "rightVarIndex": "c2b821ab-ecce-45e8-8b36-c31622f160c9",
+                        "compareOperatorErrMsg": "",
+                        "id": "3953abac-4e7a-47cb-84fb-a0814fb058f6",
+                        "compareOperator": "eq"
+                      }
+                    ]
+                  },
+                  {
+                    "level": 999,
+                    "logicalOperator": "and",
+                    "id": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+                    "conditions": []
+                  }
+                ],
+                "appId": "12a0a7e2"
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-if-else.svg",
+              "description": "根据设立的条件，判断选择分支走向",
+              "updatable": false
+            }
+          },
+          {
+            "id": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+            "dragging": false,
+            "selected": true,
+            "width": 256,
+            "height": 124,
+            "position": {
+              "x": 499.1703719706247,
+              "y": 210.5844060735604
+            },
+            "positionAbsolute": {
+              "x": 499.1703719706247,
+              "y": 210.5844060735604
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "大模型_2",
+              "labelEdit": false,
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "大模型",
+                "nodeType": "基础节点"
+              },
+              "inputs": [
+                {
+                  "id": "678266c0-8fb4-4efe-9360-703c54010001",
+                  "name": "input",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "item",
+                        "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "f02490a1-ec19-406d-b6a0-93f091a3a743",
+                  "name": "output",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "{{input}}",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 1
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://api.deepseek.com/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "deepseek",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "deepseek-flash",
+                "systemTemplate": "你是一位专业的技术面试出题专家，专门为特定岗位设计**客观题**（单选、多选、判断题）。  \n\n## 输入说明\n用户会提供三部分内容：\n1. 目标岗位（字符串）\n2. 匹配学科及知识点范围（JSON 数组）\n3. 可出题的知识点列表（JSON 数组）\n\n## 输出要求\n- 生成 **5~8 道题目**（具体数量由你根据知识点覆盖灵活决定）。\n- 每道题必须**综合至少 2 个不同知识点**，鼓励跨学科融合，并贴合岗位实际场景。\n- 题型只允许以下三种：\n  - `\"单选\"` —— 4 个选项，答案为一个索引（0-based）\n  - `\"多选\"` —— 4~5 个选项，答案为一个索引数组（0-based）\n  - `\"判断\"` —— 选项固定为 `[\"正确\",\"错误\"]`，答案为 `0` 或 `1`（0=正确，1=错误）\n\n- 输出 JSON 结构示例：\n  {\n    \"questions\": [\n      {\n        \"id\": 1,\n        \"type\": \"单选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\"],\n        \"answer\": 0\n      },\n      {\n        \"id\": 2,\n        \"type\": \"多选\",\n        \"question\": \"题目正文\",\n        \"options\": [\"选项A\", \"选项B\", \"选项C\", \"选项D\", \"选项E\"],\n        \"answer\": [0, 2]\n      },\n      {\n        \"id\": 3,\n        \"type\": \"判断\",\n        \"question\": \"判断表述\",\n        \"options\": [\"正确\", \"错误\"],\n        \"answer\": 0\n      }\n    ]\n  }\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。",
+                "model": "spark",
+                "modelEnabled": true,
+                "serviceId": "deepseek-flash",
+                "llmIdErrMsg": "",
+                "respFormat": 0
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+              "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+              "updatable": false
+            }
+          },
+          {
+            "id": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+            "dragging": false,
+            "selected": false,
+            "width": 256,
+            "height": 124,
+            "position": {
+              "x": 508.01287472140825,
+              "y": 369.3833024111154
+            },
+            "positionAbsolute": {
+              "x": 508.01287472140825,
+              "y": 369.3833024111154
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "大模型_3",
+              "labelEdit": false,
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "大模型",
+                "nodeType": "基础节点"
+              },
+              "inputs": [
+                {
+                  "id": "17af74e4-9e6b-4a50-823d-9f57d0d5ff87",
+                  "name": "input",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "item",
+                        "id": "bd2c7d9c-e608-4c2c-8f96-166fac004802",
+                        "nodeId": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "39c1c529-92dd-4be0-b4e7-b589f5783823",
+                  "name": "output",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "{{input}}",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 1
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://api.deepseek.com/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "deepseek",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "deepseek-flash",
+                "systemTemplate": "你是一位专业的错题知识点诊断专家，负责根据用户的错题信息，从给定的知识点列表中精准识别每道错题所考察的知识点，并返回去重后的知识点清单。\n\n## 输入说明\n用户会提供两部分数据：\n1. **错题信息**：一个 JSON 数组，每个对象包含：\n   - `type`：题型（如 \"单选\"、\"多选\"、\"判断\"）\n   - `question`：题目正文\n   - `userAnswer`：用户的错误答案\n   - `correctAnswer`：正确答案\n2. **相关知识点**：一个 JSON 数组，每个对象包含：\n   - `subjectName`：学科名称\n   - `pointName`：知识点名称\n   - `pointId`：知识点唯一标识（整数）\n\n## 任务要求\n- 逐题分析错题内容（包括题目描述、正确答案），推断该题考核的核心知识点（可能一道题涉及多个知识点）。\n- 从提供的“相关知识点”列表中找出所有匹配的知识点，以 `pointId` 为准进行去重。\n- 最终输出一个 **JSON 数组**，每个元素包含 `subjectName`、`pointName`、`pointId` 三个字段，顺序不限。\n\n# Output Format\n请**只输出**以下标准的 JSON 格式，不要包含 Markdown 代码块标记（不要用 ```json），不要包含任何解释性文字，确保可直接被 `JSON.parse()` 解析。\n\n- 示例输出：\n  [\n    {\"subjectName\":\"数据结构与算法\",\"pointName\":\"数组\",\"pointId\":1},\n    {\"subjectName\":\"Python编程语言\",\"pointName\":\"异常处理\",\"pointId\":58}\n  ]",
+                "model": "spark",
+                "modelEnabled": true,
+                "serviceId": "deepseek-flash",
+                "llmIdErrMsg": "",
+                "respFormat": 0
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg",
+              "description": "根据输入的提示词，调用选定的大模型，对提示词作出回答",
+              "updatable": false
+            }
+          }
+        ],
+        "edges": [
+          {
+            "source": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+            "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "type": "customEdge",
+            "id": "reactflow__edge-spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783",
+            "target": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+            "type": "customEdge",
+            "id": "reactflow__edge-node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783-ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1",
+            "target": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "type": "customEdge",
+            "id": "reactflow__edge-ifly-code::6ce13762-aa8a-4900-b712-74f0667f0ef1-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "sourceHandle": "branch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1",
+            "target": "spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+            "type": "customEdge",
+            "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::8302115b-24ff-4219-96aa-c33f86d1dea1-spark-llm::a3a568ee-8806-48e4-abfc-3710aeb47f3e",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "sourceHandle": "branch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d",
+            "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "type": "customEdge",
+            "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::ac1cec0d-58b9-4241-b092-c6fee388602d-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "sourceHandle": "branch_one_of::e4212189-7121-40c6-b63b-fdc083446be0",
+            "target": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+            "type": "customEdge",
+            "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::e4212189-7121-40c6-b63b-fdc083446be0-spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "spark-llm::25a3c442-3112-44bb-af11-229728051a9c",
+            "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "type": "customEdge",
+            "id": "reactflow__edge-spark-llm::25a3c442-3112-44bb-af11-229728051a9c-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871e",
+            "sourceHandle": "branch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106",
+            "target": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+            "type": "customEdge",
+            "id": "reactflow__edge-if-else::f8d02024-1c96-474d-a1cb-a8bd7af1871ebranch_one_of::7bd68a81-0478-4f2f-bd79-463beb1cc106-spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          },
+          {
+            "source": "spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1",
+            "target": "node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "type": "customEdge",
+            "id": "reactflow__edge-spark-llm::dcac176c-0898-4b5f-a880-ccfeafeb20f1-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88",
+            "markerEnd": {
+              "color": "#6356EA",
+              "type": "arrow"
+            },
+            "data": {
+              "edgeType": "curve"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
