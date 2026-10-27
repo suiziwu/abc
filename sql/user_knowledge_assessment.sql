@@ -16,6 +16,7 @@ CREATE TABLE `user_knowledge_assessment` (
   `weak_subjects` json DEFAULT NULL COMMENT '分析出的薄弱学科列表（JSON数组，含id/name/weak_score）',
   `overall_analysis` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT 'AI总体分析建议',
   `ai_response` json DEFAULT NULL COMMENT 'AI生成的针对性学习路径（JSON）',
+  `point_count` int DEFAULT NULL COMMENT '生成学习路径时的候选知识点池大小',
   `total_score` tinyint DEFAULT 0 COMMENT '总体得分（0-100）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '状态（0-待答题 1-已完成答题 2-已分析出结果）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '创建者',

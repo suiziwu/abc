@@ -54,6 +54,10 @@ public class UserKnowledgeAssessment extends BaseEntity
     @Excel(name = "AI生成的针对性学习路径")
     private String aiResponse;
 
+    /** 生成学习路径时的候选知识点池大小 */
+    @Excel(name = "候选知识点池大小")
+    private Long pointCount;
+
     /** 总体得分（0-100） */
     @Excel(name = "总体得分", readConverterExp = "0=-100")
     private Long totalScore;
@@ -165,6 +169,16 @@ public class UserKnowledgeAssessment extends BaseEntity
         return aiResponse;
     }
 
+    public void setPointCount(Long pointCount) 
+    {
+        this.pointCount = pointCount;
+    }
+
+    public Long getPointCount() 
+    {
+        return pointCount;
+    }
+
     public void setTotalScore(Long totalScore) 
     {
         this.totalScore = totalScore;
@@ -208,6 +222,7 @@ public class UserKnowledgeAssessment extends BaseEntity
             .append("weakSubjects", getWeakSubjects())
             .append("overallAnalysis", getOverallAnalysis())
             .append("aiResponse", getAiResponse())
+            .append("pointCount", getPointCount())
             .append("totalScore", getTotalScore())
             .append("status", getStatus())
             .append("createBy", getCreateBy())

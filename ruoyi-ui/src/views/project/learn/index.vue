@@ -249,14 +249,28 @@
     </el-card>
 
     <!-- 诊断范围选择弹窗 -->
-    <el-dialog v-model="diagnosisDialogVisible" title="选择诊断范围" width="420px" :close-on-click-modal="false">
+    <el-dialog v-model="diagnosisDialogVisible" title="选择诊断范围" width="460px" :close-on-click-modal="false">
       <el-form label-width="0">
         <el-form-item>
-          <el-select v-model="selectedDiagnosisSubject" placeholder="请选择诊断范围" style="width:100%">
+          <el-select v-model="selectedDiagnosisSubject" placeholder="请选择诊断范围" style="width:100%" @change="onDiagnosisSubjectChange">
             <el-option label="综合诊断（所有学科）" value="" />
             <el-option v-for="s in diagnosisSubjects" :key="s.id" :label="s.name" :value="s.id" />
           </el-select>
         </el-form-item>
+        <el-form-item v-if="diagnosisChapters.length > 0">
+          <el-select v-model="selectedDiagnosisChapter" placeholder="全部章节（可指定某一章）" clearable style="width:100%">
+            <el-option label="全部章节" :value="''" />
+            <el-option
+              v-for="c in diagnosisChapters"
+              :key="c.id"
+              :label="`${c.chapterNo || ''} ${c.title || ''}`"
+              :value="c.id"
+            />
+          </el-select>
+        </el-form-item>
+        <div v-if="selectedDiagnosisSubject && diagnosisChapters.length === 0" class="diagnosis-tip">
+          该学科暂无章节数据，将按学科全部知识点出题
+        </div>
       </el-form>
       <template #footer>
         <el-button @click="diagnosisDialogVisible = false">取消</el-button>
@@ -407,6 +421,7 @@ import { chatWithAI } from '@/api/project/learn'
 import { transcribeAudio } from '@/api/project/asr'
 import { listSubject } from '@/api/project/subject'
 import { listPoint } from '@/api/project/point'
+import { listChapter, listChapterPoints, listPointChapters } from '@/api/project/chapter'
 import { listHistory, addHistory, delHistory } from '@/api/project/history'
 import { listRecord } from '@/api/project/record'
 import { listAssessment, addAssessment, getAssessment, delAssessment } from '@/api/project/assessment'
@@ -481,6 +496,8 @@ const savedAssessmentId = ref(null)
 const diagnosisDialogVisible = ref(false)
 const diagnosisSubjects = ref([])
 const selectedDiagnosisSubject = ref('')
+const diagnosisChapters = ref([])
+const selectedDiagnosisChapter = ref('')
 
 const answeredCount = computed(() => questions.value.filter(q => userAnswers.value[q.id] !== undefined).length)
 const unansweredCount = computed(() => questions.value.length - answeredCount.value)
@@ -713,17 +730,31 @@ function showDiagnosisDialog() {
 
   diagnosisSubjects.value = subjects
   selectedDiagnosisSubject.value = ''
+  diagnosisChapters.value = []
+  selectedDiagnosisChapter.value = ''
   diagnosisDialogVisible.value = true
+}
+
+// 切换诊断学科时加载该学科的章节（用于进一步限定出题范围）
+function onDiagnosisSubjectChange(subjectId) {
+  selectedDiagnosisChapter.value = ''
+  diagnosisChapters.value = []
+  if (!subjectId) return
+  listChapter({ subjectId }).then(res => {
+    diagnosisChapters.value = res.data || res.rows || []
+  }).catch(() => {
+    diagnosisChapters.value = []
+  })
 }
 
 // 确认诊断范围并开始
 async function confirmDiagnosis() {
   diagnosisDialogVisible.value = false
-  await handleStartAssess(selectedDiagnosisSubject.value)
+  await handleStartAssess(selectedDiagnosisSubject.value, selectedDiagnosisChapter.value)
 }
 
 // 开始诊断 - AI出题 → 做题
-async function handleStartAssess(subjectFilter) {
+async function handleStartAssess(subjectFilter, chapterFilter) {
   if (!assessHistoryId.value) {
     ElMessage.warning('请先选择要诊断的岗位')
     return
@@ -750,24 +781,54 @@ async function handleStartAssess(subjectFilter) {
       subjects = subjects.filter(s => String(s.id) === String(subjectFilter))
     }
 
-    // 查询各学科下的知识点列表
+    // 查询可出题的知识点列表
     let allPoints = []
-    for (const s of subjects) {
+    let chapterScope = null
+    if (chapterFilter) {
+      // 限定到具体章节：仅使用该章节关联的知识点
+      const chapterSubject = subjects[0] || { id: subjectFilter, name: '' }
       try {
-        const pointRes = await listPoint({ subjectId: s.id, pageSize: 9999, pageNum: 1 })
-        const rows = pointRes.rows || []
-        allPoints = allPoints.concat(rows.map(r => ({ subjectName: s.name, pointName: r.name, pointId: r.id })))
-      } catch { /* 单个学科查询失败不影响整体 */ }
+        const pointRes = await listChapterPoints(chapterFilter)
+        const rows = pointRes.data || pointRes.rows || []
+        allPoints = rows.map(r => ({
+          subjectName: chapterSubject.name,
+          pointName: r.pointName,
+          pointId: r.pointId
+        }))
+        const chapterRes = await listChapter({ subjectId: chapterSubject.id })
+        const chapters = chapterRes.data || chapterRes.rows || []
+        chapterScope = chapters.find(c => String(c.id) === String(chapterFilter)) || null
+      } catch { /* 章节查询失败则回退为空，由下方统一校验 */ }
+    } else {
+      for (const s of subjects) {
+        try {
+          const pointRes = await listPoint({ subjectId: s.id, pageSize: 9999, pageNum: 1 })
+          const rows = pointRes.rows || []
+          allPoints = allPoints.concat(rows.map(r => ({ subjectName: s.name, pointName: r.name, pointId: r.id })))
+        } catch { /* 单个学科查询失败不影响整体 */ }
+      }
+    }
+
+    if (allPoints.length === 0) {
+      throw new Error('所选范围内没有可出题的知识点，请更换诊断范围')
     }
     knowledgePoints.value = allPoints
 
+    if (chapterScope) {
+      quizTitle.value = `薄弱知识诊断 · ${chapterScope.chapterNo || ''} ${chapterScope.title || ''}`
+    }
+
     // 构建 Prompt
+    const scopeText = chapterScope
+      ? `${JSON.stringify(subjects, null, 2)}\n章节范围：${chapterScope.chapterNo || ''} ${chapterScope.title || ''}`
+      : JSON.stringify(subjects, null, 2)
+
     const promptTemplate = `[1]
 ## 目标岗位
 ${history.userInput}
 
 ## 匹配学科及知识点范围
-${JSON.stringify(subjects, null, 2)}
+${scopeText}
 
 ## 可出题的知识点列表
 ${JSON.stringify(allPoints, null, 2)}`
@@ -933,6 +994,45 @@ async function handleSubmitQuiz() {
   }
 }
 
+// 把知识点池按章节聚合，供 AI 生成“章节 → 知识点”学习路径
+// 返回：chapterStructure（章节树 + 每章知识点）、pointsWithChapter（知识点附带所属章节）
+async function buildChapterScope(pointsInfo) {
+  const flat = Array.isArray(pointsInfo) ? pointsInfo.filter(p => p && p.pointId) : []
+  if (flat.length === 0) {
+    // 知识点池为空或退化数据（如学科对象）时，保持原样透传，避免丢信息
+    return { chapterStructure: [], pointsWithChapter: Array.isArray(pointsInfo) ? pointsInfo : [] }
+  }
+
+  const chapterIndex = new Map()
+  const chapterMap = new Map()
+  try {
+    const res = await listPointChapters(flat.map(p => p.pointId))
+    const rows = res.data || res.rows || []
+    rows.forEach(r => {
+      const point = flat.find(p => String(p.pointId) === String(r.pointId))
+      const subjectName = point?.subjectName || ''
+      const chapterNo = r.chapterNo || ''
+      const chapterTitle = r.chapterTitle || ''
+      if (!chapterNo && !chapterTitle) return
+      const key = `${subjectName}::${chapterNo}`
+      if (!chapterMap.has(key)) {
+        chapterMap.set(key, { subjectName, chapterNo, chapterTitle, points: [] })
+      }
+      chapterMap.get(key).points.push({
+        pointId: r.pointId,
+        pointName: r.pointName || point?.pointName || ''
+      })
+      chapterIndex.set(String(r.pointId), { chapterNo, chapterTitle })
+    })
+  } catch { /* 章节结构查询失败时退化为扁平知识点 */ }
+
+  const pointsWithChapter = flat.map(p => ({
+    ...p,
+    ...(chapterIndex.get(String(p.pointId)) || {})
+  }))
+  return { chapterStructure: Array.from(chapterMap.values()), pointsWithChapter }
+}
+
 // 保存诊断结果
 async function handleSaveResult() {
   savingAndGenerating.value = true
@@ -958,12 +1058,18 @@ async function handleSaveResult() {
       ? knowledgePoints.value
       : (() => { try { return JSON.parse(history?.selectedSubjects || '[]') } catch { return [] } })()
 
+    // 附带章节结构，让 AI 按“章节 → 知识点”输出学习路径
+    const { chapterStructure, pointsWithChapter } = await buildChapterScope(pointsInfo)
+
     const aiRes = await chatWithAI({ message: `[2]
 ## 错题信息
 ${JSON.stringify(wrongInfo, null, 2)}
 
+## 章节结构
+${JSON.stringify(chapterStructure, null, 2)}
+
 ## 相关知识点
-${JSON.stringify(pointsInfo, null, 2)}` })
+${JSON.stringify(pointsWithChapter, null, 2)}` })
 
     let aiReply = ''
     if (aiRes.code === 200 && aiRes.data) {
@@ -980,6 +1086,7 @@ ${JSON.stringify(pointsInfo, null, 2)}` })
       weakPoints: JSON.stringify(wrongAnswers),
       overallAnalysis: quizResult.value.overall_analysis,
       aiResponse: aiReply,
+      pointCount: Array.isArray(pointsInfo) ? pointsInfo.length : null,
       totalScore: totalScore,
       status: '2'
     })
@@ -1362,6 +1469,13 @@ async function handleAudioFile(event) {
   font-size: 13px;
   color: #606266;
   white-space: nowrap;
+}
+
+.diagnosis-tip {
+  padding: 0 4px 8px;
+  font-size: 12px;
+  color: #909399;
+  line-height: 1.6;
 }
 
 .assess-title {

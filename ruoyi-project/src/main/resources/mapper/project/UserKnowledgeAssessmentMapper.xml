@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="weakSubjects"    column="weak_subjects"    />
         <result property="overallAnalysis"    column="overall_analysis"    />
         <result property="aiResponse"    column="ai_response"    />
+        <result property="pointCount"    column="point_count"    />
         <result property="totalScore"    column="total_score"    />
         <result property="status"    column="status"    />
         <result property="createBy"    column="create_by"    />
@@ -25,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectUserKnowledgeAssessmentVo">
-        select id, user_id, history_id, assess_title, questions, answers, weak_points, weak_subjects, overall_analysis, ai_response, total_score, status, create_by, create_time, update_by, update_time, del_flag from user_knowledge_assessment
+        select id, user_id, history_id, assess_title, questions, answers, weak_points, weak_subjects, overall_analysis, ai_response, point_count, total_score, status, create_by, create_time, update_by, update_time, del_flag from user_knowledge_assessment
     </sql>
 
     <select id="selectUserKnowledgeAssessmentList" parameterType="UserKnowledgeAssessment" resultMap="UserKnowledgeAssessmentResult">
@@ -61,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="weakSubjects != null">weak_subjects,</if>
             <if test="overallAnalysis != null">overall_analysis,</if>
             <if test="aiResponse != null">ai_response,</if>
+            <if test="pointCount != null">point_count,</if>
             <if test="totalScore != null">total_score,</if>
             <if test="status != null">status,</if>
             <if test="createBy != null">create_by,</if>
@@ -79,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="weakSubjects != null">#{weakSubjects},</if>
             <if test="overallAnalysis != null">#{overallAnalysis},</if>
             <if test="aiResponse != null">#{aiResponse},</if>
+            <if test="pointCount != null">#{pointCount},</if>
             <if test="totalScore != null">#{totalScore},</if>
             <if test="status != null">#{status},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -101,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="weakSubjects != null">weak_subjects = #{weakSubjects},</if>
             <if test="overallAnalysis != null">overall_analysis = #{overallAnalysis},</if>
             <if test="aiResponse != null">ai_response = #{aiResponse},</if>
+            <if test="pointCount != null">point_count = #{pointCount},</if>
             <if test="totalScore != null">total_score = #{totalScore},</if>
             <if test="status != null">status = #{status},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

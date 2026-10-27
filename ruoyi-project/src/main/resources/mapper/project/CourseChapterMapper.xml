@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.CourseChapterMapper">
+
+    <resultMap type="CourseChapter" id="CourseChapterResult">
+        <result property="id"    column="id"    />
+        <result property="subjectId"    column="subject_id"    />
+        <result property="chapterNo"    column="chapter_no"    />
+        <result property="title"    column="title"    />
+        <result property="courseTitle"    column="course_title"    />
+        <result property="description"    column="description"    />
+        <result property="video"    column="video"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="pointCount"    column="point_count"    />
+    </resultMap>
+
+    <resultMap type="ChapterPoint" id="ChapterPointResult">
+        <result property="id"    column="id"    />
+        <result property="chapterId"    column="chapter_id"    />
+        <result property="pointId"    column="point_id"    />
+        <result property="section"    column="section"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="pointName"    column="point_name"    />
+        <result property="pointContent"    column="point_content"    />
+        <result property="subjectId"    column="subject_id"    />
+        <result property="difficulty"    column="difficulty"    />
+        <result property="importance"    column="importance"    />
+        <result property="type"    column="type"    />
+        <result property="video"    column="video"    />
+        <result property="chapterNo"    column="chapter_no"    />
+        <result property="chapterTitle"    column="chapter_title"    />
+        <result property="chapterVideo"    column="chapter_video"    />
+    </resultMap>
+
+    <sql id="selectCourseChapterVo">
+        select id, subject_id, chapter_no, title, course_title, description, video, start_time, end_time, sort_order, status, create_by, create_time, update_by, update_time, del_flag from course_chapter
+    </sql>
+
+    <select id="selectCourseChapterList" parameterType="CourseChapter" resultMap="CourseChapterResult">
+        select cc.id, cc.subject_id, cc.chapter_no, cc.title, cc.course_title, cc.description, cc.video,
+               cc.start_time, cc.end_time, cc.sort_order, cc.status, cc.create_by, cc.create_time,
+               cc.update_by, cc.update_time, cc.del_flag,
+               (select count(1) from chapter_point cp where cp.chapter_id = cc.id) as point_count
+        from course_chapter cc
+        <where>
+            cc.del_flag = '0'
+            <if test="subjectId != null "> and cc.subject_id = #{subjectId}</if>
+            <if test="chapterNo != null  and chapterNo != ''"> and cc.chapter_no = #{chapterNo}</if>
+            <if test="title != null  and title != ''"> and cc.title like concat('%', #{title}, '%')</if>
+            <if test="status != null  and status != ''"> and cc.status = #{status}</if>
+        </where>
+        order by cc.sort_order asc, cc.id asc
+    </select>
+
+    <select id="selectCourseChapterById" parameterType="Long" resultMap="CourseChapterResult">
+        <include refid="selectCourseChapterVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="checkChapterNoUnique" resultMap="CourseChapterResult">
+        <include refid="selectCourseChapterVo"/>
+        where subject_id = #{subjectId} and chapter_no = #{chapterNo} and del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insertCourseChapter" parameterType="CourseChapter" useGeneratedKeys="true" keyProperty="id">
+        insert into course_chapter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subjectId != null">subject_id,</if>
+            <if test="chapterNo != null">chapter_no,</if>
+            <if test="title != null">title,</if>
+            <if test="courseTitle != null">course_title,</if>
+            <if test="description != null">description,</if>
+            <if test="video != null">video,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subjectId != null">#{subjectId},</if>
+            <if test="chapterNo != null">#{chapterNo},</if>
+            <if test="title != null">#{title},</if>
+            <if test="courseTitle != null">#{courseTitle},</if>
+            <if test="description != null">#{description},</if>
+            <if test="video != null">#{video},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCourseChapter" parameterType="CourseChapter">
+        update course_chapter
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="chapterNo != null">chapter_no = #{chapterNo},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="courseTitle != null">course_title = #{courseTitle},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="video != null">video = #{video},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCourseChapterById" parameterType="Long">
+        delete from course_chapter where id = #{id}
+    </delete>
+
+    <select id="selectChapterPointList" parameterType="Long" resultMap="ChapterPointResult">
+        select cp.id, cp.chapter_id, cp.point_id, cp.section, cp.sort_order, cp.create_time,
+               kp.name as point_name, kp.content as point_content, kp.subject_id,
+               kp.difficulty, kp.importance, kp.type, kp.video
+        from chapter_point cp
+        inner join knowledge_point kp on kp.id = cp.point_id
+        where cp.chapter_id = #{chapterId}
+        order by cp.sort_order asc, cp.id asc
+    </select>
+
+    <select id="selectChapterPointByPointIds" resultMap="ChapterPointResult">
+        select cp.id, cp.chapter_id, cp.point_id, cp.section, cp.sort_order, cp.create_time,
+               cc.chapter_no, cc.title as chapter_title, cc.video as chapter_video
+        from chapter_point cp
+        inner join course_chapter cc on cc.id = cp.chapter_id and cc.del_flag = '0'
+        where cp.point_id in
+        <foreach item="pointId" collection="pointIds" open="(" separator="," close=")">
+            #{pointId}
+        </foreach>
+        order by cc.sort_order asc, cc.id asc, cp.sort_order asc, cp.id asc
+    </select>
+
+    <delete id="deleteChapterPointByChapterId" parameterType="Long">
+        delete from chapter_point where chapter_id = #{chapterId}
+    </delete>
+
+    <insert id="batchChapterPoint">
+        insert into chapter_point (chapter_id, point_id, section, sort_order, create_time) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.chapterId}, #{item.pointId}, #{item.section}, #{item.sortOrder}, now())
+        </foreach>
+    </insert>
+
+</mapper>

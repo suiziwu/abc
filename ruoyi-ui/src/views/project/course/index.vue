@@ -434,20 +434,29 @@ import { ElMessage } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { courseChat, getCourseModels, getCourseQuiz } from '@/api/project/course'
 import { listPoint } from '@/api/project/point'
+import { listChapter, listChapterPoints } from '@/api/project/chapter'
 import networkTranscript from './network-transcript.json'
 
 const router = useRouter()
 const route = useRoute()
 
+// 课程上下文支持通过菜单 query 参数注入（?subjectId=&chapterNo=&testId=&courseTitle=&video=），
+// 未传时回退到《计算机网络》第一章的默认配置。
+const querySubjectId = Number(route.query.subjectId)
+const queryTestId = Number(route.query.testId)
+
 const course = {
-  title: '计算机网络 · 第一章 概念和功能',
-  subtitle: '第一章 计算机网络体系结构 · 概念、组成、功能与性能指标',
-  description: '以《计算机网络》第 1 章视频逐字稿为案例，学习计算机网络的概念、组成、功能、分类、标准化、性能指标以及体系结构与参考模型。',
-  subjectId: 94,
-  testId: 102
+  title: String(route.query.courseTitle || '计算机网络 · 第一章 概念和功能'),
+  subtitle: String(route.query.subtitle || '第一章 计算机网络体系结构 · 概念、组成、功能与性能指标'),
+  description: String(route.query.description || '以《计算机网络》第 1 章视频逐字稿为案例，学习计算机网络的概念、组成、功能、分类、标准化、性能指标以及体系结构与参考模型。'),
+  subjectId: Number.isFinite(querySubjectId) && querySubjectId > 0 ? querySubjectId : 94,
+  chapterNo: String(route.query.chapterNo || '第1章'),
+  testId: Number.isFinite(queryTestId) && queryTestId > 0 ? queryTestId : 102
 }
 
-const videoUrl = import.meta.env.BASE_URL + 'videos/network-course.mp4'
+const videoUrl = route.query.video
+  ? String(route.query.video)
+  : import.meta.env.BASE_URL + 'videos/network-course.mp4'
 
 const chapterMeta = [
   { desc: '概念、组成、功能与分类', color: '#14b8a6' },
@@ -531,6 +540,7 @@ const transcriptSearch = ref('')
 
 const activePanel = ref('overview')
 const points = ref([])
+const currentChapter = ref(null)
 const pointDialogVisible = ref(false)
 const currentPoint = ref(null)
 
@@ -816,13 +826,48 @@ function handleChatClick(event) {
 }
 
 function loadPoints() {
-  return listPoint({ subjectId: course.subjectId, pageSize: 9999, pageNum: 1 }).then(res => {
-    const all = res.rows || res.data || []
-    const chapterPoints = all.filter(point => (point.content || '').includes('第1章'))
-    points.value = chapterPoints.length ? chapterPoints : all.slice(0, 12)
+  return loadPointsByChapter().then(loaded => {
+    if (!loaded) return loadPointsByContent()
+  }).catch(() => {
+    points.value = []
+  }).finally(() => {
     if (activePanel.value === 'mindmap') {
       nextTick(initMindmap)
     }
+  })
+}
+
+// 优先按章节查询（course_chapter / chapter_point 结构化关联）
+function loadPointsByChapter() {
+  return listChapter({ subjectId: course.subjectId, chapterNo: course.chapterNo }).then(res => {
+    const chapterList = res.data || res.rows || []
+    const chapter = chapterList[0]
+    if (!chapter) return false
+    currentChapter.value = chapter
+    return listChapterPoints(chapter.id).then(pointRes => {
+      const rows = pointRes.data || pointRes.rows || []
+      points.value = rows.map(row => ({
+        id: row.pointId,
+        name: row.pointName,
+        content: row.pointContent,
+        subjectId: row.subjectId,
+        difficulty: row.difficulty,
+        importance: row.importance,
+        type: row.type,
+        video: row.video,
+        section: row.section
+      }))
+      return true
+    })
+  }).catch(() => false)
+}
+
+// 兜底：章节数据尚未建立时，沿用按学科 + 内容关键字匹配（并排除已失效章节的记录）
+function loadPointsByContent() {
+  return listPoint({ subjectId: course.subjectId, pageSize: 9999, pageNum: 1 }).then(res => {
+    const all = res.rows || res.data || []
+    const chapterPoints = all.filter(point => (point.content || '').includes(course.chapterNo))
+    points.value = chapterPoints.length ? chapterPoints : all.slice(0, 12)
   }).catch(() => {
     points.value = []
   })
@@ -838,8 +883,8 @@ function initMindmap() {
   const sectionMap = new Map()
   points.value.forEach(point => {
     const content = point.content || ''
-    const match = content.match(/第1章[^·]*·\s*([^\n【]+)/)
-    const section = match ? match[1].trim() : '本章其他'
+    const match = content.match(/第[0-9]+章[^·]*·\s*([^\n【]+)/)
+    const section = (point.section || '').trim() || (match ? match[1].trim() : '本章其他')
     if (!sectionMap.has(section)) sectionMap.set(section, [])
     sectionMap.get(section).push(point)
   })
@@ -877,8 +922,10 @@ function initMindmap() {
       }
     }))
   }))
+  const chapterLabel = currentChapter.value?.chapterNo || course.chapterNo || '第1章'
+  const chapterTitle = currentChapter.value?.title || '计算机网络概论'
   const root = {
-    name: '第一章 计算机网络概论',
+    name: `${chapterLabel} ${chapterTitle}`,
     symbolSize: 48,
     itemStyle: { color: '#0f766e' },
     label: {
@@ -886,7 +933,7 @@ function initMindmap() {
       position: 'inside',
       align: 'center',
       verticalAlign: 'middle',
-      formatter: '第1章',
+      formatter: chapterLabel,
       fontWeight: 'bold',
       color: '#ffffff',
       fontSize: 12
