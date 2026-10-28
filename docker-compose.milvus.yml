@@ -1,0 +1,71 @@
+# Milvus Standalone（向量库）—— 知识库的可选后端
+#
+# 说明：
+#   * 本项目知识库默认 provider=local（MySQL 存向量，Windows 开箱可用）；
+#     需要真正使用 Milvus 时再启动本编排，并把 kb.provider 改为 milvus。
+#   * Milvus 官方不支持 Windows 原生运行，必须依赖 Docker（Docker Desktop + WSL2 后端）。
+#   * 默认使用 **本地磁盘存储**（storageType=local），不依赖 MinIO。
+#     （MinIO 已停止发布 Windows 二进制，且国内 Docker Hub 镜像站缺失该镜像）
+#
+# 启动：
+#   & 'C:\Program Files\Docker\Docker\resources\bin\docker.exe' compose -f docker-compose.milvus.yml up -d
+# 查看状态：
+#   ... docker.exe compose -f docker-compose.milvus.yml ps
+# 停止：
+#   ... docker.exe compose -f docker-compose.milvus.yml down
+#
+# 验证（Milvus 2.5 RESTful v2）：
+#   curl http://127.0.0.1:19530/v2/vectordb/collections/list -X POST -H "Content-Type: application/json" -d '{}'
+#
+# 切换后端：config/application.yml（外部配置优先级高于 jar 内配置）
+#   kb:
+#     provider: milvus
+#     milvus:
+#       base-url: http://127.0.0.1:19530
+#       collection: course_kb
+#       fallback-to-local: true
+
+services:
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.16
+    restart: unless-stopped
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - ./data/milvus/etcd:/etcd
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  standalone:
+    container_name: milvus-standalone
+    image: milvusdb/milvus:v2.5.4
+    restart: unless-stopped
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      # 使用本地磁盘作为对象存储，省掉 MinIO 依赖
+      COMMON_STORAGETYPE: local
+      LOCALSTORAGE_PATH: /var/lib/milvus/data
+    volumes:
+      - ./data/milvus/milvus:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 20s
+      retries: 3
+    ports:
+      - "19530:19530"     # gRPC / RESTful v2
+      - "9091:9091"       # metrics / healthz
+    depends_on:
+      - etcd

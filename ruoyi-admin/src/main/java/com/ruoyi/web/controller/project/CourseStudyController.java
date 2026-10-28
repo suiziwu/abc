@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.project.course.domain.CourseQuizItem;
+import com.ruoyi.project.course.service.CourseAnswer;
 import com.ruoyi.project.course.service.CourseStudyService;
 
 /**
@@ -34,6 +36,7 @@ public class CourseStudyController extends BaseController
      *
      * @param body question、context、model（可选，为空时使用默认模型）
      */
+    @PreAuthorize("@ss.hasPermi('project:point:list')")
     @PostMapping("/chat")
     public AjaxResult chat(@RequestBody Map<String, String> body)
     {
@@ -60,8 +63,58 @@ public class CourseStudyController extends BaseController
     }
 
     /**
+     * 知识库增强问答（RAG）：基于整门课程（或指定章节）的知识库检索后作答。
+     *
+     * <p>与 {@code /chat} 的区别：本接口先用问题向量检索知识库（kb_base/kb_chunk + Milvus），
+     * 命中片段拼成上下文交给大模型，并在 {@code sources} 中返回引用来源；
+     * 知识库无命中时才回退到前端传入的 {@code context}。</p>
+     *
+     * <p>请求体示例：
+     * <pre>
+     * {
+     *   "question": "计算机网络由哪些部分组成？",
+     *   "model": "qwen3.8-flash",
+     *   "subjectId": 94,
+     *   "chapterId": null
+     * }
+     * </pre></p>
+     */
+    @PreAuthorize("@ss.hasPermi('project:point:list')")
+    @PostMapping("/ask")
+    public AjaxResult ask(@RequestBody Map<String, Object> body)
+    {
+        String question = body == null ? null : toText(body.get("question"));
+        if (question == null || question.trim().isEmpty())
+        {
+            return error("问题不能为空");
+        }
+        try
+        {
+            CourseAnswer answer = courseStudyService.ask(
+                    question.trim(),
+                    toText(body.get("context")),
+                    toText(body.get("model")),
+                    toLong(body.get("subjectId")),
+                    toLong(body.get("chapterId")));
+            Map<String, Object> data = new LinkedHashMap<>();
+            data.put("answer", answer.getAnswer());
+            data.put("model", answer.getModel());
+            data.put("strategy", answer.getStrategy());
+            data.put("topScore", answer.getTopScore());
+            data.put("sources", answer.getSources());
+            return success(data);
+        }
+        catch (Exception e)
+        {
+            logger.error("课程知识库问答失败", e);
+            return error(friendlyError(e));
+        }
+    }
+
+    /**
      * 获取 AI 助教可选的模型列表。
      */
+    @PreAuthorize("@ss.hasPermi('project:point:list')")
     @GetMapping("/models")
     public AjaxResult models()
     {
@@ -82,6 +135,7 @@ public class CourseStudyController extends BaseController
      * @param testId 题库测试 ID，默认 101（Java 题库）
      * @param limit 返回题目数量
      */
+    @PreAuthorize("@ss.hasPermi('project:point:list')")
     @GetMapping("/quiz")
     public AjaxResult quiz(@RequestParam(value = "testId", defaultValue = "101") Long testId,
             @RequestParam(value = "limit", defaultValue = "10") Integer limit)
@@ -115,5 +169,42 @@ public class CourseStudyController extends BaseController
                     + message;
         }
         return "AI 助教调用失败: " + message;
+    }
+
+    /**
+     * 请求体取值转字符串，空值统一返回 null。
+     */
+    private static String toText(Object value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+        String text = String.valueOf(value).trim();
+        return text.isEmpty() ? null : text;
+    }
+
+    /**
+     * 请求体取值转 Long，空值统一返回 null。
+     */
+    private static Long toLong(Object value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+        String text = String.valueOf(value).trim();
+        if (text.isEmpty())
+        {
+            return null;
+        }
+        try
+        {
+            return Long.valueOf(text);
+        }
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
     }
 }

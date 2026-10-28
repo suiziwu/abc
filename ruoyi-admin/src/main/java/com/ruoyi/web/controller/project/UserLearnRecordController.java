@@ -55,6 +55,7 @@ public class UserLearnRecordController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, UserLearnRecord userLearnRecord)
     {
+        userLearnRecord.setUserId(getUserId());
         List<UserLearnRecord> list = userLearnRecordService.selectUserLearnRecordList(userLearnRecord);
         ExcelUtil<UserLearnRecord> util = new ExcelUtil<UserLearnRecord>(UserLearnRecord.class);
         util.exportExcel(response, list, "用户学习记录数据");
@@ -67,7 +68,12 @@ public class UserLearnRecordController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(userLearnRecordService.selectUserLearnRecordById(id));
+        UserLearnRecord row = userLearnRecordService.selectUserLearnRecordById(id);
+        if (row == null || !getUserId().equals(row.getUserId()))
+        {
+            return error("无权访问该记录");
+        }
+        return success(row);
     }
 
     /**
@@ -90,6 +96,7 @@ public class UserLearnRecordController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody UserLearnRecord userLearnRecord)
     {
+        userLearnRecord.setUserId(getUserId());
         return toAjax(userLearnRecordService.updateUserLearnRecord(userLearnRecord));
     }
 
@@ -101,6 +108,6 @@ public class UserLearnRecordController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(userLearnRecordService.deleteUserLearnRecordByIds(ids));
+        return toAjax(userLearnRecordService.deleteUserLearnRecordByIds(ids, getUserId()));
     }
 }

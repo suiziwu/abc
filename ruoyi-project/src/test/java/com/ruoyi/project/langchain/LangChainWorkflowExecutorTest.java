@@ -47,7 +47,8 @@ public class LangChainWorkflowExecutorTest
             {
                 return "QUESTION_GENERATOR_RESULT";
             }
-            if (systemPrompt.contains("错题知识点诊断专家"))
+            if (systemPrompt.contains("个性化学习路径规划专家")
+                    || systemPrompt.contains("错题知识点诊断专家"))
             {
                 return "WRONG_ANSWER_DIAGNOSER_RESULT";
             }

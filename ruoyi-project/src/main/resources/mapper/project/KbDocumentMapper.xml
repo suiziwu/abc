@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.KbDocumentMapper">
+
+    <resultMap type="KbDocument" id="KbDocumentResult">
+        <result property="id"           column="id"           />
+        <result property="kbId"         column="kb_id"        />
+        <result property="docKey"       column="doc_key"      />
+        <result property="subjectId"    column="subject_id"   />
+        <result property="chapterId"    column="chapter_id"   />
+        <result property="sourceType"   column="source_type"  />
+        <result property="title"        column="title"        />
+        <result property="sectionPath"  column="section_path" />
+        <result property="sourceUri"    column="source_uri"   />
+        <result property="pageStart"    column="page_start"   />
+        <result property="pageEnd"      column="page_end"     />
+        <result property="chunkCount"   column="chunk_count"  />
+        <result property="tokenCount"   column="token_count"  />
+        <result property="contentHash"  column="content_hash" />
+        <result property="status"       column="status"       />
+        <result property="version"      column="version"      />
+        <result property="tags"         column="tags"         />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateTime"   column="update_time"  />
+    </resultMap>
+
+    <!--
+      version 必须先于 content_hash 赋值：ON DUPLICATE KEY 的赋值按从左到右生效，
+      放在后面会用已被覆盖的新 hash 做比较，导致永远判定为「未变更」。
+    -->
+    <insert id="upsertKbDocument" parameterType="KbDocument" useGeneratedKeys="true" keyProperty="id">
+        insert into kb_document
+            (kb_id, doc_key, subject_id, chapter_id, source_type, title, section_path, source_uri,
+             page_start, page_end, chunk_count, token_count, content_hash, status, version, tags,
+             create_time, update_time)
+        values
+            (#{kbId}, #{docKey}, #{subjectId}, #{chapterId}, #{sourceType}, #{title}, #{sectionPath}, #{sourceUri},
+             #{pageStart}, #{pageEnd}, #{chunkCount}, #{tokenCount}, #{contentHash}, #{status}, 1, #{tags},
+             now(), now())
+        on duplicate key update
+            version = if(content_hash &lt;&gt; values(content_hash), version + 1, version),
+            kb_id = values(kb_id),
+            subject_id = values(subject_id),
+            chapter_id = values(chapter_id),
+            source_type = values(source_type),
+            title = values(title),
+            section_path = values(section_path),
+            source_uri = values(source_uri),
+            page_start = values(page_start),
+            page_end = values(page_end),
+            chunk_count = values(chunk_count),
+            token_count = values(token_count),
+            content_hash = values(content_hash),
+            status = values(status),
+            tags = values(tags),
+            update_time = now(),
+            id = last_insert_id(id)
+    </insert>
+
+    <select id="selectKbDocumentByKey" resultMap="KbDocumentResult">
+        select id, kb_id, doc_key, subject_id, chapter_id, source_type, title, section_path, source_uri,
+               page_start, page_end, chunk_count, token_count, content_hash, status, version, tags,
+               create_time, update_time
+        from kb_document
+        where doc_key = #{docKey}
+        limit 1
+    </select>
+
+    <select id="selectKbDocumentList" resultMap="KbDocumentResult">
+        select id, kb_id, doc_key, subject_id, chapter_id, source_type, title, section_path, source_uri,
+               page_start, page_end, chunk_count, token_count, content_hash, status, version, tags,
+               create_time, update_time
+        from kb_document
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+            <if test="sourceType != null and sourceType != ''"> and source_type = #{sourceType}</if>
+        </where>
+        order by id asc
+    </select>
+
+    <delete id="deleteKbDocumentByKeys">
+        delete from kb_document where doc_key in
+        <foreach item="docKey" collection="docKeys" open="(" separator="," close=")">
+            #{docKey}
+        </foreach>
+    </delete>
+
+    <delete id="deleteKbDocumentByFilter">
+        delete from kb_document
+        <where>
+            <!-- 兜底：条件全空时不得退化为全表删除 -->
+            <if test="subjectId == null and chapterId == null and (sourceType == null or sourceType == '')">
+                and 1 = 0
+            </if>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+            <if test="sourceType != null and sourceType != ''"> and source_type = #{sourceType}</if>
+        </where>
+    </delete>
+
+    <select id="countKbDocument" resultType="int">
+        select count(1) from kb_document
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+        </where>
+    </select>
+
+</mapper>

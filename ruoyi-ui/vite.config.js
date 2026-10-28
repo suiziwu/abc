@@ -52,6 +52,11 @@ export default defineConfig(({ mode, command }) => {
           changeOrigin: true,
           rewrite: (p) => p.replace(/^\/dev-api/, '')
         },
+        // 本地上传文件（含课程视频）直连后端
+        '/profile': {
+          target: baseUrl,
+          changeOrigin: true
+        },
          // springdoc proxy
          '^/v3/api-docs/(.*)': {
           target: baseUrl,

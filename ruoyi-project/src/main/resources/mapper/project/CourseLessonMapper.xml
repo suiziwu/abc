@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.CourseLessonMapper">
+
+    <resultMap type="CourseLesson" id="CourseLessonResult">
+        <result property="id"           column="id"            />
+        <result property="chapterId"    column="chapter_id"   />
+        <result property="subjectId"    column="subject_id"   />
+        <result property="lessonNo"     column="lesson_no"    />
+        <result property="lessonCode"   column="lesson_code"  />
+        <result property="title"        column="title"         />
+        <result property="videoPath"    column="video_path"   />
+        <result property="durationSec"  column="duration_sec" />
+        <result property="sortOrder"    column="sort_order"   />
+        <result property="status"       column="status"       />
+        <result property="testId"       column="test_id"      />
+        <result property="transcriptCount" column="transcript_count" />
+        <result property="pointCount"   column="point_count"  />
+        <result property="questionCount" column="question_count" />
+        <result property="kbCount"      column="kb_count"     />
+        <result property="createBy"     column="create_by"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateBy"     column="update_by"    />
+        <result property="updateTime"   column="update_time"  />
+    </resultMap>
+
+    <sql id="selectCourseLessonVo">
+        select id, chapter_id, subject_id, lesson_no, lesson_code, title, video_path, duration_sec,
+               sort_order, status, test_id, transcript_count, point_count, question_count, kb_count,
+               create_by, create_time, update_by, update_time
+        from course_lesson
+    </sql>
+
+    <select id="selectByChapterId" parameterType="Long" resultMap="CourseLessonResult">
+        <include refid="selectCourseLessonVo"/>
+        where chapter_id = #{chapterId}
+        order by lesson_no asc, id asc
+    </select>
+
+    <select id="selectBySubjectId" parameterType="Long" resultMap="CourseLessonResult">
+        <include refid="selectCourseLessonVo"/>
+        where subject_id = #{subjectId}
+        order by chapter_id asc, lesson_no asc, id asc
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="CourseLessonResult">
+        <include refid="selectCourseLessonVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectNextLessonNo" parameterType="Long" resultType="java.lang.Integer">
+        select coalesce(max(lesson_no), 0) + 1 from course_lesson where chapter_id = #{chapterId}
+    </select>
+
+    <insert id="insert" parameterType="CourseLesson" useGeneratedKeys="true" keyProperty="id">
+        insert into course_lesson (chapter_id, subject_id, lesson_no, lesson_code, title, video_path,
+                                   duration_sec, sort_order, status, test_id, transcript_count,
+                                   point_count, question_count, kb_count, create_by, create_time)
+        values (#{chapterId}, #{subjectId}, #{lessonNo}, #{lessonCode}, #{title}, #{videoPath},
+                #{durationSec}, #{sortOrder}, #{status}, #{testId}, #{transcriptCount},
+                #{pointCount}, #{questionCount}, #{kbCount}, #{createBy}, sysdate())
+    </insert>
+
+    <update id="update" parameterType="CourseLesson">
+        update course_lesson
+        <set>
+            <if test="lessonNo != null">lesson_no = #{lessonNo},</if>
+            <if test="lessonCode != null">lesson_code = #{lessonCode},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="videoPath != null">video_path = #{videoPath},</if>
+            <if test="durationSec != null">duration_sec = #{durationSec},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="testId != null">test_id = #{testId},</if>
+            <if test="transcriptCount != null">transcript_count = #{transcriptCount},</if>
+            <if test="pointCount != null">point_count = #{pointCount},</if>
+            <if test="questionCount != null">question_count = #{questionCount},</if>
+            <if test="kbCount != null">kb_count = #{kbCount},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from course_lesson where id = #{id}
+    </delete>
+
+    <delete id="deleteByChapterId" parameterType="Long">
+        delete from course_lesson where chapter_id = #{chapterId}
+    </delete>
+
+</mapper>

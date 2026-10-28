@@ -53,6 +53,7 @@ public class QwenFileTransClient
         TranscriptionResult transcription = poll(taskId);
         AsrResult result = new AsrResult();
         result.setText(transcription.text);
+        result.setSegments(transcription.segments);
         result.setModel(properties.getModel());
         result.setAudioSeconds(transcription.audioSeconds);
         result.setDurationMs((System.nanoTime() - startedAt) / 1000000L);
@@ -91,8 +92,10 @@ public class QwenFileTransClient
         long deadline = System.currentTimeMillis() + properties.getTimeoutSeconds() * 1000L;
         JsonNode last = null;
         String lastError = null;
+        long interval = Math.max(200L, properties.getPollIntervalMs());
+        int errorCount = 0;
         // 百炼任务创建后可能存在短暂的可查询延迟，先等待一个轮询周期
-        sleep(properties.getPollIntervalMs());
+        sleep(interval);
         while (System.currentTimeMillis() < deadline)
         {
             HttpResult result = request("GET",
@@ -100,11 +103,22 @@ public class QwenFileTransClient
                     authHeaders(null), null, null, 30);
             if (!result.isSuccess())
             {
-                // 任务刚创建时可能短暂返回 403/404，继续重试直到超时
                 lastError = result.body;
-                sleep(properties.getPollIntervalMs());
+                errorCount++;
+                // 403/404 多为任务刚创建时的短暂不可查，只容忍前 3 次；
+                // 其余 4xx 属于请求本身有问题，继续重试没有意义
+                boolean retryable = (result.status == 403 || result.status == 404)
+                        ? errorCount <= 3
+                        : result.status >= 500 || result.status <= 0;
+                if (!retryable)
+                {
+                    throw new AsrException("查询语音识别任务失败(" + result.status + "): " + result.body);
+                }
+                sleep(interval);
+                interval = Math.min(10_000L, interval * 2);
                 continue;
             }
+            errorCount = 0;
             last = readJson(result.body);
             JsonNode output = last.path("output");
             String status = output.path("task_status").asText();
@@ -118,7 +132,8 @@ public class QwenFileTransClient
                 String message = output.path("message").asText();
                 throw new AsrException("语音识别任务失败: " + code + " " + message);
             }
-            sleep(properties.getPollIntervalMs());
+            sleep(interval);
+            interval = Math.min(10_000L, interval * 2);
         }
         throw new AsrException("语音识别任务超时（" + properties.getTimeoutSeconds() + "s）: "
                 + (lastError != null ? lastError : (last == null ? taskId : last.toString())));
@@ -162,6 +177,21 @@ public class QwenFileTransClient
                 for (JsonNode transcript : transcripts)
                 {
                     text.append(transcript.path("text").asText(""));
+                    JsonNode sentences = transcript.path("sentences");
+                    if (sentences.isArray())
+                    {
+                        for (JsonNode sentence : sentences)
+                        {
+                            String sentenceText = sentence.path("text").asText("");
+                            if (sentenceText.trim().isEmpty())
+                            {
+                                continue;
+                            }
+                            int begin = sentence.path("begin_time").asInt(0);
+                            int end = sentence.path("end_time").asInt(begin);
+                            result.segments.add(new AsrResult.Segment(begin, end, sentenceText.trim()));
+                        }
+                    }
                 }
             }
         }
@@ -262,7 +292,8 @@ public class QwenFileTransClient
         }
         catch (IOException e)
         {
-            return "";
+            // 吞掉异常会让上层把「读取失败」当成空响应继续走，必须显式抛出
+            throw new AsrException("读取 DashScope 响应失败: " + e.getMessage(), e);
         }
     }
 
@@ -302,5 +333,7 @@ public class QwenFileTransClient
         private String text = "";
 
         private double audioSeconds;
+
+        private List<AsrResult.Segment> segments = new ArrayList<AsrResult.Segment>();
     }
 }

@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="delFlag"    column="del_flag"    />
         <result property="pointCount"    column="point_count"    />
+        <result property="lessonCount"   column="lesson_count"   />
     </resultMap>
 
     <resultMap type="ChapterPoint" id="ChapterPointResult">
@@ -51,7 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select cc.id, cc.subject_id, cc.chapter_no, cc.title, cc.course_title, cc.description, cc.video,
                cc.start_time, cc.end_time, cc.sort_order, cc.status, cc.create_by, cc.create_time,
                cc.update_by, cc.update_time, cc.del_flag,
-               (select count(1) from chapter_point cp where cp.chapter_id = cc.id) as point_count
+               (select count(1) from chapter_point cp where cp.chapter_id = cc.id) as point_count,
+               (select count(1) from course_lesson cl where cl.chapter_id = cc.id) as lesson_count
         from course_chapter cc
         <where>
             cc.del_flag = '0'

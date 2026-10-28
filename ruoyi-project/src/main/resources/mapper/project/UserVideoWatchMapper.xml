@@ -74,16 +74,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where id = #{id}
+        <if test="userId != null"> and user_id = #{userId}</if>
     </update>
 
     <delete id="deleteUserVideoWatchById" parameterType="Long">
         delete from user_video_watch where id = #{id}
     </delete>
 
-    <delete id="deleteUserVideoWatchByIds" parameterType="String">
+    <delete id="deleteUserVideoWatchByIds">
         delete from user_video_watch where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
+        <if test="userId != null"> and user_id = #{userId}</if>
     </delete>
 </mapper>

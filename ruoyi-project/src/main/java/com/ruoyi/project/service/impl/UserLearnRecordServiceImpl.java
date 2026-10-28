@@ -74,12 +74,13 @@ public class UserLearnRecordServiceImpl implements IUserLearnRecordService
      * 批量删除用户学习记录
      * 
      * @param ids 需要删除的用户学习记录主键
+     * @param userId 归属用户，为 null 时不限制
      * @return 结果
      */
     @Override
-    public int deleteUserLearnRecordByIds(Long[] ids)
+    public int deleteUserLearnRecordByIds(Long[] ids, Long userId)
     {
-        return userLearnRecordMapper.deleteUserLearnRecordByIds(ids);
+        return userLearnRecordMapper.deleteUserLearnRecordByIds(ids, userId);
     }
 
     /**

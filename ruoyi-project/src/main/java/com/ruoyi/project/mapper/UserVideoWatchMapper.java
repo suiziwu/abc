@@ -1,6 +1,7 @@
 package com.ruoyi.project.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.domain.UserVideoWatch;
 
 /**
@@ -52,10 +53,11 @@ public interface UserVideoWatchMapper
     public int deleteUserVideoWatchById(Long id);
 
     /**
-     * 批量删除用户视频观看记录
+     * 批量删除用户视频观看记录（限定归属用户）
      * 
      * @param ids 需要删除的数据主键集合
+     * @param userId 归属用户，为 null 时不限制（仅内部调用）
      * @return 结果
      */
-    public int deleteUserVideoWatchByIds(Long[] ids);
+    public int deleteUserVideoWatchByIds(@Param("ids") Long[] ids, @Param("userId") Long userId);
 }

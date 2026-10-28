@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.CourseVideoImportMapper">
+
+    <resultMap type="CourseVideoImport" id="CourseVideoImportResult">
+        <result property="id"             column="id"              />
+        <result property="subjectId"      column="subject_id"      />
+        <result property="chapterId"      column="chapter_id"      />
+        <result property="lessonId"       column="lesson_id"       />
+        <result property="lessonCode"     column="lesson_code"     />
+        <result property="chapterNo"      column="chapter_no"      />
+        <result property="title"          column="title"           />
+        <result property="fileName"       column="file_name"       />
+        <result property="videoPath"      column="video_path"      />
+        <result property="durationSec"    column="duration_sec"    />
+        <result property="status"         column="status"          />
+        <result property="stage"          column="stage"           />
+        <result property="progress"       column="progress"        />
+        <result property="message"        column="message"         />
+        <result property="transcriptCount" column="transcript_count" />
+        <result property="pointCount"     column="point_count"     />
+        <result property="questionCount"  column="question_count"  />
+        <result property="kbCount"        column="kb_count"        />
+        <result property="testId"         column="test_id"         />
+        <result property="createBy"       column="create_by"       />
+        <result property="createTime"     column="create_time"     />
+        <result property="updateTime"     column="update_time"     />
+    </resultMap>
+
+    <insert id="insert" parameterType="CourseVideoImport" useGeneratedKeys="true" keyProperty="id">
+        insert into course_video_import (subject_id, chapter_id, lesson_id, lesson_code, chapter_no, title,
+                                         file_name, video_path, duration_sec, status, stage, progress,
+                                         message, test_id, create_by, create_time, update_time)
+        values (#{subjectId}, #{chapterId}, #{lessonId}, #{lessonCode}, #{chapterNo}, #{title},
+                #{fileName}, #{videoPath}, #{durationSec}, #{status}, #{stage}, #{progress},
+                #{message}, #{testId}, #{createBy}, sysdate(), sysdate())
+    </insert>
+
+    <update id="update" parameterType="CourseVideoImport">
+        update course_video_import
+        <set>
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
+            <if test="lessonId != null">lesson_id = #{lessonId},</if>
+            <if test="lessonCode != null">lesson_code = #{lessonCode},</if>
+            <if test="chapterNo != null and chapterNo != ''">chapter_no = #{chapterNo},</if>
+            <if test="durationSec != null">duration_sec = #{durationSec},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="stage != null">stage = #{stage},</if>
+            <if test="progress != null">progress = #{progress},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="transcriptCount != null">transcript_count = #{transcriptCount},</if>
+            <if test="pointCount != null">point_count = #{pointCount},</if>
+            <if test="questionCount != null">question_count = #{questionCount},</if>
+            <if test="kbCount != null">kb_count = #{kbCount},</if>
+            <if test="testId != null">test_id = #{testId},</if>
+            update_time = sysdate(),
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="CourseVideoImportResult">
+        select * from course_video_import where id = #{id}
+    </select>
+
+    <select id="selectList" resultMap="CourseVideoImportResult">
+        select * from course_video_import
+        <where>
+            <if test="subjectId != null">subject_id = #{subjectId}</if>
+        </where>
+        order by id desc
+        limit 50
+    </select>
+
+    <select id="selectByChapterId" resultMap="CourseVideoImportResult">
+        select * from course_video_import
+        where chapter_id = #{chapterId}
+        order by id desc
+    </select>
+
+    <select id="selectLatestSuccessByChapterId" resultMap="CourseVideoImportResult">
+        select * from course_video_import
+        where chapter_id = #{chapterId} and status = '2'
+        order by id desc
+        limit 1
+    </select>
+
+    <select id="selectLatestSuccessByLessonId" resultMap="CourseVideoImportResult">
+        select * from course_video_import
+        where lesson_id = #{lessonId} and status = '2'
+        order by id desc
+        limit 1
+    </select>
+
+</mapper>

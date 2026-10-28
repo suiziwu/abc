@@ -79,7 +79,9 @@ public class AiChatHistoryController extends BaseController
     public AjaxResult add(@RequestBody AiChatHistory aiChatHistory)
     {
         aiChatHistory.setUserId(getUserId());
-        return toAjax(aiChatHistoryService.insertAiChatHistory(aiChatHistory));
+        int rows = aiChatHistoryService.insertAiChatHistory(aiChatHistory);
+        // 返回带主键的实体：前端需要它直接跳转到新生成的记录，而不是猜列表第一条
+        return rows > 0 ? success(aiChatHistory) : error();
     }
 
     /**

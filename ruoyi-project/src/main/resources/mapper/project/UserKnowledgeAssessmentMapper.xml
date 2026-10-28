@@ -114,16 +114,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="delFlag != null">del_flag = #{delFlag},</if>
         </trim>
         where id = #{id}
+        <if test="userId != null"> and user_id = #{userId}</if>
     </update>
 
     <delete id="deleteUserKnowledgeAssessmentById" parameterType="Long">
         delete from user_knowledge_assessment where id = #{id}
     </delete>
 
-    <delete id="deleteUserKnowledgeAssessmentByIds" parameterType="String">
+    <delete id="deleteUserKnowledgeAssessmentByIds">
         delete from user_knowledge_assessment where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
+        <if test="userId != null"> and user_id = #{userId}</if>
     </delete>
 </mapper>

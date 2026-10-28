@@ -169,16 +169,22 @@ async function loadAllData() {
     const allRecords = recordRes.rows || []
     const doneCount = allRecords.filter(r => r.status === '2').length
     const learningCount = allRecords.filter(r => r.status === '1').length
-    const totalCount = allRecords.length
-    const pendingCount = Math.max(0, totalCount - doneCount - learningCount)
 
     // 2. 历史查询（岗位）
     const historyRes = await listHistory({ pageSize: 9999, pageNum: 1 })
     const allHistory = historyRes.rows || []
 
-    // 3. 按岗位统计知识点
+    // 3. 按岗位统计知识点：一次取全量再按学科分组，避免「岗位×学科」次串行请求
     let globalTotalPoints = 0
     const positions = []
+    const pointsBySubject = new Map()
+    try {
+      const pr = await listPoint({ pageSize: 9999, pageNum: 1 })
+      ;(pr.rows || []).forEach(p => {
+        const key = String(p.subjectId)
+        pointsBySubject.set(key, (pointsBySubject.get(key) || 0) + 1)
+      })
+    } catch {}
 
     for (const h of allHistory) {
       if (!h.selectedSubjects) continue
@@ -188,10 +194,7 @@ async function loadAllData() {
 
       let posTotal = 0
       for (const s of subjects) {
-        try {
-          const pr = await listPoint({ subjectId: s.id, pageSize: 9999, pageNum: 1 })
-          posTotal += (pr.rows || []).length
-        } catch {}
+        posTotal += pointsBySubject.get(String(s.id)) || 0
       }
 
       const hr = allRecords.filter(r => String(r.historyId) === String(h.id))
@@ -205,7 +208,7 @@ async function loadAllData() {
           totalCount: posTotal,
           doneCount: hDone,
           learningCount: hLearning,
-          percent: Math.round((hDone / posTotal) * 100),
+          percent: Math.min(100, Math.round((hDone / posTotal) * 100)),
           recentLearn: hr.length > 0 ? formatTime(hr[hr.length - 1].updateTime) : null
         })
         globalTotalPoints += posTotal
@@ -312,7 +315,8 @@ async function loadAllData() {
 
     // 7. 渲染图表
     await nextTick()
-    renderPieChart(doneCount, learningCount, pendingCount)
+    // 饼图与指标卡统一用「知识点数」口径，避免同一页出现两套总数
+    renderPieChart(doneCount, learningCount, pendingPoints)
     renderRadarChart(positionList.value)
   } catch (e) {
     console.error('加载画像数据失败', e)

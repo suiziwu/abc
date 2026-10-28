@@ -55,6 +55,7 @@ public class UserKnowledgeAssessmentController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, UserKnowledgeAssessment userKnowledgeAssessment)
     {
+        userKnowledgeAssessment.setUserId(getUserId());
         List<UserKnowledgeAssessment> list = userKnowledgeAssessmentService.selectUserKnowledgeAssessmentList(userKnowledgeAssessment);
         ExcelUtil<UserKnowledgeAssessment> util = new ExcelUtil<UserKnowledgeAssessment>(UserKnowledgeAssessment.class);
         util.exportExcel(response, list, "用户知识点测评记录数据");
@@ -67,7 +68,12 @@ public class UserKnowledgeAssessmentController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(userKnowledgeAssessmentService.selectUserKnowledgeAssessmentById(id));
+        UserKnowledgeAssessment row = userKnowledgeAssessmentService.selectUserKnowledgeAssessmentById(id);
+        if (row == null || !getUserId().equals(row.getUserId()))
+        {
+            return error("无权访问该记录");
+        }
+        return success(row);
     }
 
     /**
@@ -90,6 +96,7 @@ public class UserKnowledgeAssessmentController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody UserKnowledgeAssessment userKnowledgeAssessment)
     {
+        userKnowledgeAssessment.setUserId(getUserId());
         return toAjax(userKnowledgeAssessmentService.updateUserKnowledgeAssessment(userKnowledgeAssessment));
     }
 
@@ -101,6 +108,6 @@ public class UserKnowledgeAssessmentController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(userKnowledgeAssessmentService.deleteUserKnowledgeAssessmentByIds(ids));
+        return toAjax(userKnowledgeAssessmentService.deleteUserKnowledgeAssessmentByIds(ids, getUserId()));
     }
 }

@@ -34,7 +34,7 @@ public class CourseChapterController extends BaseController
     /**
      * 查询课程章节列表（可按 subjectId / chapterNo 过滤）
      */
-    @PreAuthorize("@ss.hasPermi('project:point:list')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:list')")
     @GetMapping("/list")
     public AjaxResult list(CourseChapter courseChapter)
     {
@@ -44,7 +44,7 @@ public class CourseChapterController extends BaseController
     /**
      * 获取课程章节详细信息
      */
-    @PreAuthorize("@ss.hasPermi('project:point:list')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:list')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -54,7 +54,7 @@ public class CourseChapterController extends BaseController
     /**
      * 查询章节下的知识点列表
      */
-    @PreAuthorize("@ss.hasPermi('project:point:list')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:list')")
     @GetMapping(value = "/{id}/points")
     public AjaxResult points(@PathVariable("id") Long id)
     {
@@ -66,7 +66,7 @@ public class CourseChapterController extends BaseController
      *
      * 用法：GET /project/chapter/pointChapters?pointIds=1,2,3
      */
-    @PreAuthorize("@ss.hasPermi('project:point:list')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:list')")
     @GetMapping("/pointChapters")
     public AjaxResult pointChapters(@RequestParam(value = "pointIds", required = false) List<Long> pointIds)
     {
@@ -76,7 +76,7 @@ public class CourseChapterController extends BaseController
     /**
      * 新增课程章节
      */
-    @PreAuthorize("@ss.hasPermi('project:point:add')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:add')")
     @Log(title = "课程章节", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CourseChapter courseChapter)
@@ -92,7 +92,7 @@ public class CourseChapterController extends BaseController
     /**
      * 修改课程章节
      */
-    @PreAuthorize("@ss.hasPermi('project:point:edit')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:edit')")
     @Log(title = "课程章节", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CourseChapter courseChapter)
@@ -108,7 +108,7 @@ public class CourseChapterController extends BaseController
     /**
      * 删除课程章节
      */
-    @PreAuthorize("@ss.hasPermi('project:point:remove')")
+    @PreAuthorize("@ss.hasPermi('project:chapter:remove')")
     @Log(title = "课程章节", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

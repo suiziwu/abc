@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,11 +12,19 @@ import com.ruoyi.project.course.domain.CourseQuestion;
 import com.ruoyi.project.course.domain.CourseQuizItem;
 import com.ruoyi.project.course.domain.CourseQuizItem.QuizOption;
 import com.ruoyi.project.course.mapper.CourseQuestionMapper;
+import com.ruoyi.project.domain.KbChunk;
+import com.ruoyi.project.kb.KbIngestService;
+import com.ruoyi.project.kb.KbProperties;
+import com.ruoyi.project.kb.KbVectorStore;
+import com.ruoyi.project.kb.KbVectorStoreFactory;
 import com.ruoyi.project.langchain.ChatModelClient;
 import com.ruoyi.project.langchain.ChatModelOption;
 
 /**
  * 课程学习服务实现。
+ *
+ * <p>AI 助教采用「知识库优先」策略：先用问题做向量检索（RAG），
+ * 命中则用检索片段拼上下文；知识库不可用或无命中时回退到前端传入的课程文本。</p>
  *
  * @author ruoyi
  */
@@ -26,23 +33,34 @@ public class CourseStudyServiceImpl implements CourseStudyService
 {
     private static final Pattern OPTION_LINE = Pattern.compile("^\\s*([A-Za-z])[\\.、:：]\\s*(.+)$");
 
-    private static final String SYSTEM_PROMPT = "你是“智程学途”的课程助教，负责基于课程视频文本回答学生问题。\n"
+    private static final String SYSTEM_PROMPT = "你是“智程学途”的课程助教，负责基于课程知识库回答学生问题。\n"
             + "要求：\n"
-            + "1. 只依据提供的课程文本回答，不要编造课程中没有的知识；\n"
+            + "1. 只依据提供的知识库片段回答，不要编造片段中没有的知识；\n"
             + "2. 回答使用中文，条理清晰，必要时分点说明；\n"
-            + "3. 如果知识点在文本中有时间戳，请在回答中引用，例如 [01:20]；\n"
-            + "4. 如果课程文本不足以回答，请明确说明并给出建议的思考方向。";
+            + "3. 逐字稿片段带有时间戳，引用时请原样标注，例如 [01:20]；\n"
+            + "4. 如果片段不足以回答，请明确说明并给出建议的思考方向。";
 
     private final CourseQuestionMapper questionMapper;
 
     private final ChatModelClient chatModelClient;
 
+    private final KbVectorStoreFactory kbVectorStoreFactory;
+
+    private final KbIngestService kbIngestService;
+
+    private final KbProperties kbProperties;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public CourseStudyServiceImpl(CourseQuestionMapper questionMapper, ChatModelClient chatModelClient)
+    public CourseStudyServiceImpl(CourseQuestionMapper questionMapper, ChatModelClient chatModelClient,
+            KbVectorStoreFactory kbVectorStoreFactory, KbIngestService kbIngestService,
+            KbProperties kbProperties)
     {
         this.questionMapper = questionMapper;
         this.chatModelClient = chatModelClient;
+        this.kbVectorStoreFactory = kbVectorStoreFactory;
+        this.kbIngestService = kbIngestService;
+        this.kbProperties = kbProperties;
     }
 
     @Override
@@ -57,8 +75,155 @@ public class CourseStudyServiceImpl implements CourseStudyService
         {
             safeContext = safeContext.substring(0, 8000);
         }
-        String userPrompt = "【课程文本】\n" + safeContext + "\n\n【学生问题】\n" + question.trim();
+        String userPrompt = "【课程文本】\n" + (safeContext.isEmpty() ? "（无相关课程文本）" : safeContext)
+                + "\n\n【学生问题】\n" + question.trim();
         return chatModelClient.chat(model, SYSTEM_PROMPT, userPrompt);
+    }
+
+    @Override
+    public CourseAnswer ask(String question, String fallbackContext, String model,
+            Long subjectId, Long chapterId)
+    {
+        if (question == null || question.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("问题不能为空");
+        }
+        String safeQuestion = question.trim();
+        CourseAnswer result = new CourseAnswer();
+        result.setModel(model == null || model.trim().isEmpty() ? null : model.trim());
+
+        // 1. 知识库检索
+        List<KbChunk> hits = retrieve(safeQuestion, subjectId, chapterId);
+        String context;
+        if (!hits.isEmpty())
+        {
+            context = buildRagContext(hits);
+            result.setStrategy("rag");
+            result.setTopScore(hits.get(0).getScore());
+            for (KbChunk hit : hits)
+            {
+                result.getSources().add(toSource(hit));
+            }
+        }
+        else if (fallbackContext != null && !fallbackContext.trim().isEmpty())
+        {
+            // 2. 回退：前端传入的课程文本
+            context = fallbackContext.trim();
+            result.setStrategy("context");
+        }
+        else
+        {
+            context = "";
+            result.setStrategy("none");
+        }
+        if (context.length() > 8000)
+        {
+            context = context.substring(0, 8000);
+        }
+
+        String userPrompt = "【知识库片段】\n" + (context.isEmpty() ? "（无相关片段）" : context)
+                + "\n\n【学生问题】\n" + safeQuestion;
+        result.setAnswer(chatModelClient.chat(result.getModel(), SYSTEM_PROMPT, userPrompt));
+        return result;
+    }
+
+    /**
+     * 语义检索；知识库未启用、未配置或向量库不可用时返回空列表（走兜底）。
+     */
+    private List<KbChunk> retrieve(String question, Long subjectId, Long chapterId)
+    {
+        if (!kbProperties.isEnabled())
+        {
+            return new ArrayList<>();
+        }
+        try
+        {
+            KbVectorStore store = kbVectorStoreFactory.active();
+            if (!store.available() || store.count(subjectId) == 0)
+            {
+                return new ArrayList<>();
+            }
+            // 相似度阈值已在 KbIngestService.search 内部按「向量召回」阶段过滤，
+            // 这里不能再按 score 过滤，否则关键词召回（score 为空）的命中会被误杀
+            return kbIngestService.search(question, subjectId, chapterId, kbProperties.getTopK());
+        }
+        catch (Exception e)
+        {
+            // 知识库异常不应阻断问答，交由调用方回退上下文
+            org.slf4j.LoggerFactory.getLogger(CourseStudyServiceImpl.class)
+                    .warn("知识库检索失败，回退课程上下文：{}", e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    private String buildRagContext(List<KbChunk> hits)
+    {
+        StringBuilder sb = new StringBuilder();
+        int index = 1;
+        for (KbChunk hit : hits)
+        {
+            sb.append("【片段").append(index++).append("｜").append(sourceLabel(hit));
+            if (hit.getSectionPath() != null && !hit.getSectionPath().isEmpty())
+            {
+                sb.append("｜").append(hit.getSectionPath());
+            }
+            sb.append("】\n");
+            if (hit.getStartTime() != null)
+            {
+                sb.append("[").append(formatTime(hit.getStartTime())).append("] ");
+            }
+            sb.append(hit.getContent() == null ? "" : hit.getContent()).append("\n\n");
+        }
+        return sb.toString().trim();
+    }
+
+    private CourseAnswer.Source toSource(KbChunk hit)
+    {
+        CourseAnswer.Source source = new CourseAnswer.Source();
+        source.setChunkId(hit.getId());
+        source.setDocId(hit.getDocId());
+        source.setSourceType(hit.getSourceType());
+        source.setTitle(hit.getTitle());
+        source.setSubjectId(hit.getSubjectId());
+        source.setChapterId(hit.getChapterId());
+        source.setPointId(hit.getPointId());
+        source.setStartTime(hit.getStartTime());
+        source.setScore(hit.getScore());
+        String content = hit.getContent() == null ? "" : hit.getContent();
+        source.setSnippet(content.length() > 120 ? content.substring(0, 120) + "…" : content);
+        return source;
+    }
+
+    private String sourceLabel(KbChunk hit)
+    {
+        String type = hit.getSourceType() == null ? "" : hit.getSourceType();
+        String typeLabel;
+        switch (type)
+        {
+            case KbIngestService.TYPE_TRANSCRIPT:
+                typeLabel = "视频逐字稿";
+                break;
+            case KbIngestService.TYPE_POINT:
+                typeLabel = "知识点";
+                break;
+            case KbIngestService.TYPE_CHAPTER:
+                typeLabel = "章节";
+                break;
+            case KbIngestService.TYPE_QUIZ:
+                typeLabel = "随堂练习";
+                break;
+            default:
+                typeLabel = "知识库";
+                break;
+        }
+        String title = hit.getTitle() == null ? "" : hit.getTitle();
+        return title.isEmpty() ? typeLabel : typeLabel + "：" + title;
+    }
+
+    private static String formatTime(Integer seconds)
+    {
+        int value = seconds == null ? 0 : Math.max(0, seconds);
+        return String.format("%02d:%02d", value / 60, value % 60);
     }
 
     @Override
@@ -70,9 +235,13 @@ public class CourseStudyServiceImpl implements CourseStudyService
     @Override
     public List<CourseQuizItem> getQuiz(Long testId, int limit)
     {
-        Long actualTestId = testId == null ? 101L : testId;
+        if (testId == null)
+        {
+            throw new IllegalArgumentException("题库ID不能为空");
+        }
         int actualLimit = limit <= 0 ? 10 : limit;
-        List<CourseQuestion> questions = questionMapper.selectByTestId(actualTestId);
+        // SQL 侧直接 limit，避免整个题库读进内存再截断
+        List<CourseQuestion> questions = questionMapper.selectByTestIdLimit(testId, actualLimit);
         List<CourseQuizItem> result = new ArrayList<>();
         for (CourseQuestion question : questions)
         {

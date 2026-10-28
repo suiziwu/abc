@@ -1,4 +1,4 @@
-<template>
+﻿﻿﻿﻿<template>
   <div class="course-page">
     <div class="course-topbar">
       <div class="topbar-left">
@@ -9,23 +9,120 @@
         </div>
         <el-breadcrumb separator="/">
           <el-breadcrumb-item>课程学习</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ course.title }}</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="viewMode === 'study'">{{ course.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="viewMode === 'study'">{{ course.title }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="topbar-right">
-        <el-button text @click="switchPanel('chat')">
-          <el-icon><ChatDotRound /></el-icon>
-          AI 对话
-        </el-button>
-        <el-tag type="success" effect="plain">课程进行中</el-tag>
+        <template v-if="viewMode === 'study'">
+          <el-button text :icon="Grid" @click="backToCatalog">课程列表</el-button>
+          <el-select
+            v-model="selectedChapterId"
+            placeholder="选择章节"
+            filterable
+            style="width: 260px"
+            @change="onChapterChange"
+          >
+            <el-option
+              v-for="item in chapterOptions"
+              :key="item.id"
+              :label="chapterLabel(item)"
+              :value="item.id"
+            />
+          </el-select>
+          <el-select
+            v-if="lessonOptions.length"
+            v-model="selectedLessonId"
+            placeholder="选择课时"
+            filterable
+            style="width: 240px"
+            @change="onLessonChange"
+          >
+            <el-option
+              v-for="item in lessonOptions"
+              :key="item.id"
+              :label="lessonLabel(item)"
+              :value="item.id"
+            />
+          </el-select>
+          <el-button text @click="openCourseChat">
+            <el-icon><ChatDotRound /></el-icon>
+            AI 对话
+          </el-button>
+          <el-tag type="success" effect="plain">课程进行中</el-tag>
+        </template>
+        <el-input
+          v-else
+          v-model="courseKeyword"
+          placeholder="搜索课程或章节"
+          clearable
+          style="width: 240px"
+        >
+          <template #prefix>
+            <el-icon><Search /></el-icon>
+          </template>
+        </el-input>
       </div>
     </div>
 
-    <div class="course-main">
+    <!-- 课程卡片列表：进入课程前的入口 -->
+    <div v-if="viewMode === 'catalog'" class="course-catalog">
+      <div class="catalog-head">
+        <div class="catalog-title">课程列表</div>
+        <div class="catalog-desc">选择一门课程开始学习；每门课程包含若干章节，可在页面右上角切换本课程的章节。</div>
+      </div>
+      <div v-loading="catalogLoading" class="catalog-grid">
+        <div
+          v-for="card in filteredCourseCards"
+          :key="card.id"
+          class="course-card"
+          @click="enterCourse(card)"
+        >
+          <div class="course-card-head">
+            <div class="course-card-icon">
+              <el-icon><Reading /></el-icon>
+            </div>
+            <div class="course-card-title">{{ card.name }}</div>
+          </div>
+          <div class="course-card-desc">{{ card.description || '暂无课程简介' }}</div>
+          <div class="course-card-meta">
+            <el-tag size="small" effect="plain">{{ card.chapterCount }} 个章节</el-tag>
+            <el-tag size="small" type="info" effect="plain">{{ card.pointCount }} 个知识点</el-tag>
+            <el-tag size="small" :type="card.videoCount ? 'success' : 'info'" effect="plain">
+              {{ card.videoCount ? card.videoCount + ' 个视频' : '暂无视频' }}
+            </el-tag>
+          </div>
+          <div class="course-card-chapters">
+            <span
+              v-for="chapter in card.chapters.slice(0, 4)"
+              :key="chapter.id"
+              class="course-card-chapter"
+            >{{ chapterLabel(chapter) }}</span>
+            <span v-if="card.chapters.length > 4" class="course-card-chapter">
+              等 {{ card.chapters.length }} 个章节
+            </span>
+          </div>
+          <div class="course-card-footer">
+            <el-button type="primary" plain size="small" @click.stop="enterCourse(card)">
+              进入学习
+              <el-icon><ArrowRight /></el-icon>
+            </el-button>
+          </div>
+        </div>
+        <el-empty
+          v-if="!catalogLoading && filteredCourseCards.length === 0"
+          description="暂无可学习的课程"
+          class="catalog-empty"
+        />
+      </div>
+    </div>
+
+    <div v-else class="course-main">
       <section class="course-left">
         <div class="video-card">
           <div class="video-shell">
             <video
+              v-if="videoUrl"
               ref="videoRef"
               :src="videoUrl"
               controls
@@ -33,6 +130,10 @@
               @timeupdate="onTimeUpdate"
               @loadedmetadata="onLoadedMetadata"
             ></video>
+            <div v-else class="video-empty">
+              <el-icon><VideoPlay /></el-icon>
+              <span>该课程还没有视频，请到「知识架构管理 → 课程章节」上传</span>
+            </div>
             <div class="video-badge">课程视频</div>
           </div>
           <div class="video-info">
@@ -41,6 +142,15 @@
               <div class="video-sub">{{ course.subtitle }}</div>
             </div>
             <div class="video-actions">
+              <el-button
+                v-if="isBuiltinChapter && (videoUrl !== defaultVideoUrl || dynamicCourseActive)"
+                size="small"
+                text
+                type="primary"
+                @click="restoreDefaultVideo"
+              >
+                恢复默认
+              </el-button>
               <el-tag effect="plain">{{ formatTime(videoDuration) }}</el-tag>
               <el-tag type="info" effect="plain">{{ points.length }} 个知识点</el-tag>
             </div>
@@ -183,7 +293,18 @@
               <el-icon><Reading /></el-icon>
               教学空间
             </div>
-            <el-tag size="small" effect="plain">AI 学习</el-tag>
+            <div class="panel-head-actions">
+              <el-button
+                text
+                class="panel-video-chat-btn"
+                :icon="ChatDotRound"
+                title="基于视频的 AI 对话"
+                @click="openVideoChat"
+              >
+                视频 AI
+              </el-button>
+              <el-tag size="small" effect="plain">AI 学习</el-tag>
+            </div>
           </div>
           <div class="panel-tabs">
             <button
@@ -328,6 +449,9 @@
                   <el-tag size="small" effect="plain">{{ points.length }} 个知识点</el-tag>
                 </div>
                 <div class="mindmap-actions">
+                  <el-button size="small" type="primary" plain :icon="MagicStick" @click="openAiMindmap">
+                    AI 梳理
+                  </el-button>
                   <el-button circle size="small" title="放大" @click="zoomMindmap(1.2)">
                     <el-icon><Plus /></el-icon>
                   </el-button>
@@ -421,6 +545,135 @@
         <el-descriptions-item label="说明" :span="2">{{ currentPoint.content || '暂无说明' }}</el-descriptions-item>
       </el-descriptions>
     </el-dialog>
+
+    <!-- AI 结构化知识梳理 -->
+    <el-dialog
+      v-model="aiMindmapVisible"
+      title="AI 结构化知识梳理"
+      width="760px"
+      append-to-body
+      :close-on-click-modal="false"
+    >
+      <div v-if="aiAnalyzing" class="ai-mindmap-loading">
+        <el-icon class="is-loading"><Loading /></el-icon>
+        <div>
+          <div class="ai-mindmap-loading-title">正在分析视频逐字稿…</div>
+          <div class="ai-mindmap-loading-desc">AI 正在提取知识点、层级结构与关联关系，约需 20-60 秒</div>
+        </div>
+      </div>
+      <template v-else-if="aiAnalysis">
+        <div class="ai-mindmap-head">
+          <div class="ai-mindmap-title">{{ aiAnalysis.title || '课程知识结构' }}</div>
+          <div v-if="aiAnalysis.summary" class="ai-mindmap-summary">{{ aiAnalysis.summary }}</div>
+          <div class="ai-mindmap-meta">
+            <el-tag size="small" effect="plain">知识点 {{ aiNodes.length }}</el-tag>
+            <el-tag size="small" effect="plain" type="success">关系 {{ aiRelations.length }}</el-tag>
+            <el-tag size="small" effect="plain" type="warning">结论 {{ aiConclusions.length }}</el-tag>
+            <el-select v-model="aiModel" size="small" style="width: 150px" :disabled="aiAnalyzing || aiSyncing">
+              <el-option
+                v-for="item in modelOptions"
+                :key="item.id"
+                :label="item.label"
+                :value="item.id"
+                :disabled="!item.available"
+              />
+            </el-select>
+            <el-tag v-if="aiMeta.durationMs" size="small" effect="plain" type="info">
+              {{ (aiMeta.durationMs / 1000).toFixed(1) }} 秒
+            </el-tag>
+          </div>
+        </div>
+        <el-tabs v-model="aiTab" class="ai-mindmap-tabs">
+          <el-tab-pane label="层级导图" name="tree">
+            <el-tree
+              v-if="aiTreeData.length"
+              :data="aiTreeData"
+              node-key="key"
+              default-expand-all
+              :props="{ label: 'name', children: 'children' }"
+              class="ai-tree"
+            >
+              <template #default="{ data }">
+                <span class="ai-tree-row">
+                  <span class="ai-tree-name">{{ data.name }}</span>
+                  <el-tag v-if="data.type" size="small" effect="plain">{{ data.type }}</el-tag>
+                  <span v-if="data.section" class="ai-tree-section">{{ data.section }}</span>
+                </span>
+              </template>
+            </el-tree>
+            <el-empty v-else description="暂无结构化节点" />
+          </el-tab-pane>
+          <el-tab-pane :label="`关联关系 ${aiRelations.length}`" name="relations">
+            <div class="ai-relation-list">
+              <div v-for="(rel, index) in aiRelations" :key="index" class="ai-relation-row">
+                <span class="ai-relation-node">{{ aiNodeName(rel.sourceKey) }}</span>
+                <el-tag size="small" effect="plain" :type="relationTagType(rel.relationType)">
+                  {{ relationTypeLabel(rel.relationType) }}
+                </el-tag>
+                <span class="ai-relation-node">{{ aiNodeName(rel.targetKey) }}</span>
+                <span class="ai-relation-desc">{{ rel.description }}</span>
+              </div>
+              <el-empty v-if="aiRelations.length === 0" description="暂无关联关系" />
+            </div>
+          </el-tab-pane>
+          <el-tab-pane :label="`关键结论 ${aiConclusions.length}`" name="conclusions">
+            <ul v-if="aiConclusions.length" class="ai-conclusion-list">
+              <li v-for="(item, index) in aiConclusions" :key="index">{{ item }}</li>
+            </ul>
+            <el-empty v-else description="暂无关键结论" />
+          </el-tab-pane>
+        </el-tabs>
+        <div v-if="aiSyncResult" class="ai-sync-result">
+          <div class="ai-sync-title">已同步到知识图谱</div>
+          <div class="ai-sync-tags">
+            <el-tag size="small" type="success" effect="plain">新建知识点 {{ aiSyncResult.createdPoints }}</el-tag>
+            <el-tag size="small" type="primary" effect="plain">匹配已有 {{ aiSyncResult.matchedPoints }}</el-tag>
+            <el-tag size="small" type="warning" effect="plain">新增关系 {{ aiSyncResult.createdRelations }}</el-tag>
+            <el-tag size="small" type="info" effect="plain">跳过关系 {{ aiSyncResult.skippedRelations }}</el-tag>
+            <el-tag size="small" type="info" effect="plain">章节绑定 {{ aiSyncResult.chapterBound }}</el-tag>
+          </div>
+        </div>
+      </template>
+      <el-empty v-else description="尚未生成结构化结果" />
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="aiMindmapVisible = false">关 闭</el-button>
+          <el-button v-if="aiAnalysis" :loading="aiAnalyzing" @click="analyzeMindmap">重新分析</el-button>
+          <el-button
+            v-if="aiAnalysis && !aiSyncResult"
+            type="primary"
+            :loading="aiSyncing"
+            @click="syncMindmap"
+          >
+            同步到知识图谱
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 二级界面：基于整门课程的 AI 对话（知识库 RAG） -->
+    <CourseChatDialog
+      v-model="courseChatVisible"
+      scope="course"
+      :subject-id="course.subjectId"
+      :chapter-id="currentChapterId"
+      :course-title="course.name"
+      :chapter-title="course.title"
+      :context-provider="buildTranscriptContext"
+      @seek="seekTo"
+    />
+
+    <!-- 二级界面：基于当前视频的 AI 对话（逐字稿） -->
+    <CourseChatDialog
+      v-model="videoChatVisible"
+      scope="video"
+      :subject-id="course.subjectId"
+      :chapter-id="currentChapterId"
+      :course-title="course.name"
+      :chapter-title="course.title"
+      :context-provider="buildTranscriptContext"
+      @seek="seekTo"
+    />
   </div>
 </template>
 
@@ -428,35 +681,547 @@
 import * as echarts from 'echarts'
 import {
   ArrowLeft, ArrowRight, ChatDotRound, Search, Promotion, Plus, Minus, Refresh,
-  Document, Share, EditPen, DataAnalysis, Reading, VideoPlay, Grid, Clock
+  Document, Share, EditPen, DataAnalysis, Reading, VideoPlay, Grid, Clock,
+  MagicStick, Loading
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
-import { courseChat, getCourseModels, getCourseQuiz } from '@/api/project/course'
+import {
+  courseChat, getCourseModels, getCourseQuiz, getCourseTranscript,
+  analyzeCourseMindmap, syncCourseMindmap, listCourseLessons
+} from '@/api/project/course'
 import { listPoint } from '@/api/project/point'
 import { listChapter, listChapterPoints } from '@/api/project/chapter'
+import { listSubject } from '@/api/project/subject'
+import { formatChapterLabel, cleanChapterTitle, sortChapters } from '@/utils/chapter'
 import networkTranscript from './network-transcript.json'
+import CourseChatDialog from './components/CourseChatDialog.vue'
 
 const router = useRouter()
 const route = useRoute()
 
-// 课程上下文支持通过菜单 query 参数注入（?subjectId=&chapterNo=&testId=&courseTitle=&video=），
-// 未传时回退到《计算机网络》第一章的默认配置。
+// 课程上下文通过 URL query 注入（?subjectId=&chapterNo=&testId=&courseTitle=&video=）。
+// 不带 subjectId 时停留在课程卡片列表；带上 subjectId 才进入具体课程的学习界面。
 const querySubjectId = Number(route.query.subjectId)
 const queryTestId = Number(route.query.testId)
 
-const course = {
-  title: String(route.query.courseTitle || '计算机网络 · 第一章 概念和功能'),
+/** 当前课程（课程按学科划分），章节由本课程下的 course_chapter 决定 */
+const course = reactive({
+  name: String(route.query.courseName || '计算机网络原理与实践（完整图谱）'),
+  title: cleanChapterTitle(String(route.query.courseTitle || '计算机网络 · 第一章 概念和功能')),
   subtitle: String(route.query.subtitle || '第一章 计算机网络体系结构 · 概念、组成、功能与性能指标'),
   description: String(route.query.description || '以《计算机网络》第 1 章视频逐字稿为案例，学习计算机网络的概念、组成、功能、分类、标准化、性能指标以及体系结构与参考模型。'),
   subjectId: Number.isFinite(querySubjectId) && querySubjectId > 0 ? querySubjectId : 94,
   chapterNo: String(route.query.chapterNo || '第1章'),
   testId: Number.isFinite(queryTestId) && queryTestId > 0 ? queryTestId : 102
+})
+
+// 默认视频：菜单可通过 ?video= 注入；否则使用内置课程视频
+const queryVideoUrl = route.query.video ? String(route.query.video) : ''
+const defaultVideoUrl = queryVideoUrl || import.meta.env.BASE_URL + 'videos/network-course.mp4'
+
+// 「恢复默认」时的完整回滚目标（标题/简介/章号/题库）
+const DEFAULT_COURSE = Object.freeze({ ...course })
+
+// 恢复默认后记住该选择，刷新页面不再用数据库中的上传分析结果覆盖内置案例
+function resetFlagKey() {
+  return `course-default:${course.subjectId}:${course.chapterNo}`
 }
 
-const videoUrl = route.query.video
-  ? String(route.query.video)
-  : import.meta.env.BASE_URL + 'videos/network-course.mp4'
+function isDefaultRestored() {
+  try {
+    return localStorage.getItem(resetFlagKey()) === '1'
+  } catch (e) {
+    return false
+  }
+}
+
+function markDefaultRestored(flag) {
+  try {
+    if (flag) localStorage.setItem(resetFlagKey(), '1')
+    else localStorage.removeItem(resetFlagKey())
+  } catch (e) {
+    /* 忽略存储异常 */
+  }
+}
+
+// 上传过的视频按 学科+章节 记住，刷新后继续使用（菜单显式指定 ?video= 时优先）
+const VIDEO_STORAGE_KEY = `course-video-url:${course.subjectId}:${course.chapterNo}`
+
+function readSavedVideoUrl() {
+  try {
+    return localStorage.getItem(VIDEO_STORAGE_KEY) || ''
+  } catch (e) {
+    return ''
+  }
+}
+
+const videoUrl = ref(queryVideoUrl || readSavedVideoUrl() || defaultVideoUrl)
+
+// ---------- AI 结构化知识梳理 ----------
+const aiMindmapVisible = ref(false)
+const aiAnalyzing = ref(false)
+const aiSyncing = ref(false)
+const aiAnalysis = ref(null)
+const aiExtractionId = ref(null)
+const aiSyncResult = ref(null)
+const aiTab = ref('tree')
+const aiModel = ref('')
+const aiMeta = ref({ model: '', durationMs: 0, transcriptChars: 0 })
+
+const aiNodes = computed(() => aiAnalysis.value?.nodes || [])
+const aiRelations = computed(() => aiAnalysis.value?.relations || [])
+const aiConclusions = computed(() => aiAnalysis.value?.conclusions || [])
+const aiTreeData = computed(() => buildAiTree(aiNodes.value))
+const aiNodeNameMap = computed(() => {
+  const map = new Map()
+  aiNodes.value.forEach(node => map.set(node.key, node.name))
+  return map
+})
+
+function buildAiTree(nodes) {
+  const map = new Map()
+  nodes.forEach(node => map.set(node.key, { ...node, children: [] }))
+  const roots = []
+  nodes.forEach(node => {
+    const item = map.get(node.key)
+    const parent = node.parentKey ? map.get(node.parentKey) : null
+    if (parent && parent !== item) {
+      parent.children.push(item)
+    } else {
+      roots.push(item)
+    }
+  })
+  return roots
+}
+
+function aiNodeName(key) {
+  return aiNodeNameMap.value.get(key) || key || ''
+}
+
+function relationTypeLabel(type) {
+  const map = { prerequisite: '前置依赖', related: '相关参考', extension: '扩展延伸' }
+  return map[type] || type || '关联'
+}
+
+function relationTagType(type) {
+  const map = { prerequisite: 'primary', related: 'success', extension: 'warning' }
+  return map[type] || 'info'
+}
+
+function openAiMindmap() {
+  aiMindmapVisible.value = true
+  aiTab.value = 'tree'
+  aiSyncResult.value = null
+  // 分析输出较大，默认优先使用响应更快的 DeepSeek，可在弹窗中切换
+  if (!aiModel.value || !modelOptions.value.some(item => item.id === aiModel.value && item.available)) {
+    const preferred = modelOptions.value.find(item => item.id === 'deepseek-chat' && item.available)
+      || modelOptions.value.find(item => item.available)
+    aiModel.value = preferred ? preferred.id : (selectedModel.value || '')
+  }
+  if (!aiAnalysis.value) {
+    analyzeMindmap()
+  }
+}
+
+function analyzeMindmap() {
+  if (aiAnalyzing.value) return
+  if (!transcriptGroups.value.length) {
+    ElMessage.warning('暂无视频逐字稿可分析，请先上传视频或打开课程视频')
+    return
+  }
+  aiAnalyzing.value = true
+  aiSyncResult.value = null
+  const payload = {
+    subjectId: course.subjectId,
+    chapterNo: course.chapterNo,
+    model: aiModel.value || selectedModel.value || undefined,
+    chapters: transcriptGroups.value.map(group => ({
+      title: group.title,
+      segments: group.segments.map(segment => ({
+        start: Math.round(segment.time || 0),
+        text: segment.text
+      }))
+    }))
+  }
+  analyzeCourseMindmap(payload).then(res => {
+    const data = res?.data || {}
+    aiExtractionId.value = data.extractionId || null
+    aiAnalysis.value = data.analysis || null
+    aiMeta.value = {
+      model: data.model || '',
+      durationMs: data.durationMs || 0,
+      transcriptChars: data.transcriptChars || 0
+    }
+    if (!aiNodes.value.length) {
+      ElMessage.warning('AI 未返回有效知识点，请重试')
+    }
+  }).catch(error => {
+    ElMessage.error('AI 梳理失败：' + (error.message || '请稍后重试'))
+    aiMindmapVisible.value = false
+  }).finally(() => {
+    aiAnalyzing.value = false
+  })
+}
+
+function syncMindmap() {
+  if (!aiExtractionId.value || aiSyncing.value) return
+  aiSyncing.value = true
+  syncCourseMindmap({ extractionId: aiExtractionId.value }).then(res => {
+    const data = res?.data || {}
+    aiSyncResult.value = data
+    ElMessage.success(data.message || '已同步到知识图谱')
+    loadPoints()
+  }).catch(error => {
+    ElMessage.error('同步失败：' + (error.message || '请稍后重试'))
+  }).finally(() => {
+    aiSyncing.value = false
+  })
+}
+
+// ---------- 课程卡片列表与「本课程章节」切换 ----------
+// 课程 = 学科；一门课程下的多个章节来自 course_chapter（按 subjectId 归属）。
+// 页面先展示课程卡片列表，点击卡片进入该课程，右上角下拉框切换本课程的章节。
+const allChapters = ref([])
+const subjectList = ref([])
+const selectedChapterId = ref(null)
+/** 章节下的课时（一章多视频） */
+const lessonOptions = ref([])
+const selectedLessonId = ref(null)
+const catalogLoading = ref(false)
+const courseKeyword = ref('')
+
+function lessonLabel(item) {
+  const code = item.lessonCode || `第${item.lessonNo}节`
+  return item.title ? `${code} ${item.title}` : code
+}
+
+/** 加载章节下的课时，并默认选中第一个 */
+function loadLessons(chapterId) {
+  lessonOptions.value = []
+  selectedLessonId.value = null
+  if (!chapterId) {
+    return Promise.resolve([])
+  }
+  return listCourseLessons(chapterId).then(res => {
+    const rows = res?.data || res?.rows || []
+    lessonOptions.value = rows
+    if (rows.length) {
+      selectedLessonId.value = rows[0].id
+      applyLesson(rows[0])
+    }
+    return rows
+  }).catch(() => {
+    lessonOptions.value = []
+    return []
+  })
+}
+
+/** 应用课时：视频、时长、题库 */
+function applyLesson(lesson) {
+  if (!lesson) return
+  if (lesson.videoPath) {
+    videoUrl.value = resolveMediaUrl(lesson.videoPath)
+  }
+  if (lesson.durationSec) {
+    videoDuration.value = lesson.durationSec
+  }
+  if (lesson.testId) {
+    course.testId = Number(lesson.testId)
+  }
+}
+
+/** 切换课时：重载逐字稿与题库 */
+function onLessonChange(lessonId) {
+  const lesson = lessonOptions.value.find(item => item.id === lessonId)
+  if (!lesson) return
+  currentTime.value = 0
+  applyLesson(lesson)
+  loadCourseTranscript(lesson.id).then(loaded => {
+    if (!loaded) {
+      loadQuiz()
+    }
+  })
+}
+
+/** 当前课程 ID（课程按学科划分） */
+const currentSubjectId = computed(() => Number(route.query.subjectId) || 0)
+
+/** 卡片列表 / 学习界面 */
+const viewMode = ref(currentSubjectId.value > 0 ? 'study' : 'catalog')
+
+function loadCatalog() {
+  catalogLoading.value = true
+  return Promise.all([
+    listChapter({}),
+    listSubject({ pageSize: 9999, pageNum: 1 })
+  ]).then(([chapterRes, subjectRes]) => {
+    allChapters.value = chapterRes.data || chapterRes.rows || []
+    subjectList.value = subjectRes.rows || subjectRes.data || []
+  }).catch(() => {
+    allChapters.value = []
+    subjectList.value = []
+  }).finally(() => {
+    catalogLoading.value = false
+  })
+}
+
+/** 课程卡片：按学科聚合其章节 */
+const courseCards = computed(() => {
+  const chapterMap = new Map()
+  allChapters.value.forEach(chapter => {
+    const key = String(chapter.subjectId)
+    if (!chapterMap.has(key)) chapterMap.set(key, [])
+    chapterMap.get(key).push(chapter)
+  })
+  return subjectList.value
+    .filter(subject => chapterMap.has(String(subject.id)))
+    .map(subject => {
+      const chapters = chapterMap.get(String(subject.id))
+      return {
+        id: subject.id,
+        name: subject.name,
+        code: subject.code,
+        description: subject.description,
+        chapters,
+        chapterCount: chapters.length,
+        pointCount: chapters.reduce((total, item) => total + Number(item.pointCount || 0), 0),
+        videoCount: chapters.filter(item => item.video).length
+      }
+    })
+})
+
+const filteredCourseCards = computed(() => {
+  const keyword = courseKeyword.value.trim().toLowerCase()
+  if (!keyword) return courseCards.value
+  return courseCards.value.filter(card =>
+    String(card.name || '').toLowerCase().includes(keyword) ||
+    card.chapters.some(chapter =>
+      String(chapter.title || '').toLowerCase().includes(keyword) ||
+      String(chapter.chapterNo || '').toLowerCase().includes(keyword)))
+})
+
+/** 本课程的章节（右上角下拉框）：按章号自然序排列，避免「1.1」这类小节号排到「第1章」前面 */
+const chapterOptions = computed(() =>
+  sortChapters(allChapters.value.filter(item => String(item.subjectId) === String(course.subjectId)))
+)
+
+/** 当前章节是否为内置案例章节（可「恢复默认」） */
+const isBuiltinChapter = computed(() =>
+  String(course.subjectId) === String(DEFAULT_COURSE.subjectId) &&
+  course.chapterNo === DEFAULT_COURSE.chapterNo
+)
+
+/**
+ * 章节下拉/卡片统一的展示文案：统一成「第N章 · 标题」「第N章 第M节 · 标题」，
+ * 顺带去掉标题里重复的章号（如「1.1 1.1.0 引言」）。
+ */
+function chapterLabel(chapter) {
+  return formatChapterLabel(chapter)
+}
+
+/** 页面标题只展示章节名，不重复章号 */
+function chapterTitleText(chapter) {
+  if (!chapter) return ''
+  return cleanChapterTitle(chapter.title) || formatChapterLabel(chapter)
+}
+
+/** 点击课程卡片：进入该课程并打开第一个章节 */
+function enterCourse(card) {
+  const first = card.chapters[0]
+  if (!first) {
+    ElMessage.warning('该课程暂无可用章节')
+    return
+  }
+  router.push({
+    path: route.path,
+    query: { subjectId: String(card.id), chapterNo: first.chapterNo || '' }
+  })
+}
+
+/** 返回课程卡片列表 */
+function backToCatalog() {
+  router.push({ path: route.path, query: {} })
+}
+
+/** 打开指定课程（按学科），并定位到路由指定的章节 */
+function applySubject(subjectId) {
+  const subject = subjectList.value.find(item => String(item.id) === String(subjectId))
+  course.subjectId = subjectId
+  course.name = subject ? subject.name : course.name
+  const chapters = allChapters.value.filter(item => String(item.subjectId) === String(subjectId))
+  const wanted = String(route.query.chapterNo || '')
+  const target = chapters.find(item => item.chapterNo === wanted) || chapters[0]
+  if (target) {
+    switchChapter(target)
+  }
+}
+
+function onChapterChange(chapterId) {
+  const target = chapterOptions.value.find(item => item.id === chapterId)
+  if (!target) return
+  // 切到具体章节后不再保持「已恢复默认」标记，刷新时按该章节加载
+  markDefaultRestored(false)
+  switchChapter(target)
+}
+
+/**
+ * 切换章节：重置逐字稿 / 知识点 / 题库 / 对话，再按新章节加载。
+ * 不整页刷新，避免丢失左侧面板的展开状态。
+ */
+function switchChapter(chapter) {
+  if (!chapter) return
+  const subject = subjectList.value.find(item => String(item.id) === String(chapter.subjectId))
+  course.subjectId = chapter.subjectId
+  course.name = subject ? subject.name : course.name
+  course.chapterNo = chapter.chapterNo
+  course.title = chapterTitleText(chapter) || '未命名章节'
+  course.subtitle = chapter.description || ''
+  course.description = chapter.description || ''
+  course.testId = null
+  currentChapter.value = chapter
+  selectedChapterId.value = chapter.id
+  dynamicCourseActive.value = false
+  // 内置默认章节（第1章）在数据库里没有 video 字段，应回退到内置视频；
+  // 其它章节若未上传视频，则保持空态（提示去「课程章节」上传）。
+  const isBuiltinDefault =
+    String(chapter.subjectId) === String(DEFAULT_COURSE.subjectId) &&
+    chapter.chapterNo === DEFAULT_COURSE.chapterNo
+  videoUrl.value = chapter.video
+    ? resolveMediaUrl(chapter.video)
+    : (isBuiltinDefault ? defaultVideoUrl : '')
+  videoDuration.value = chapter.endTime || 0
+  currentTime.value = 0
+  transcriptSourceLabel.value = chapter.courseTitle || chapter.title || '课程视频'
+  transcriptSegments.value = []
+  chapters.value = []
+  transcriptGroups.value = []
+  points.value = []
+  quizList.value = []
+  quizIndex.value = 0
+  quizAnswers.value = {}
+  quizCheckedMap.value = {}
+  transcriptSearch.value = ''
+  aiAnalysis.value = null
+  aiExtractionId.value = null
+  aiSyncResult.value = null
+  chatMessages.value = [
+    { role: 'assistant', text: `你好，我是《${chapter.title || '本课程'}》的 AI 助教，可以结合视频逐字稿为你解答课程内容。` }
+  ]
+  chatInput.value = ''
+
+  // 「恢复默认」标记存在时不再用数据库逐字稿覆盖内置案例
+  const transcriptPromise = isDefaultRestored()
+    ? Promise.resolve(false)
+    : loadLessons(chapter.id).then(() => loadCourseTranscript(selectedLessonId.value))
+  transcriptPromise.then(loaded => {
+    syncRouteQuery()
+    if (!loaded) {
+      if (isBuiltinDefault) {
+        // 数据库里没有该节逐字稿时，回到内置案例（221 句），否则「切走再切回」整段消失
+        applyStaticTranscript()
+      }
+      // 该章节还没有逐字稿：保留空态，但仍加载知识点与题库
+      loadPoints()
+      loadQuiz()
+    }
+  })
+}
+
+/** 把当前课程写回地址栏，刷新后仍停在所选课程 */
+function syncRouteQuery() {
+  const query = {
+    ...route.query,
+    subjectId: String(course.subjectId),
+    chapterNo: String(course.chapterNo)
+  }
+  if (course.testId) {
+    query.testId = String(course.testId)
+  }
+  router.replace({ path: route.path, query }).catch(() => {})
+}
+
+function resolveMediaUrl(path) {
+  if (!path) return ''
+  if (/^https?:\/\//.test(path)) return path
+  if (path.startsWith('/profile')) {
+    return (import.meta.env.VITE_APP_BASE_API || '') + path
+  }
+  return path
+}
+
+// ---------- 逐字稿：优先数据库（上传视频分析结果），否则内置案例 ----------
+function loadCourseTranscript(lessonId) {
+  const chapter = currentChapter.value
+  return getCourseTranscript({
+    subjectId: course.subjectId,
+    chapterNo: course.chapterNo,
+    chapterId: chapter && chapter.id ? chapter.id : undefined,
+    lessonId: lessonId || undefined
+  }).then(res => {
+    const data = res?.data
+    if (!data || !data.chapter || !Array.isArray(data.segments) || data.segments.length === 0) {
+      return false
+    }
+    applyDynamicCourse(data)
+    return true
+  }).catch(() => false)
+}
+
+function applyDynamicCourse(data) {
+  const chapter = data.chapter
+  course.subjectId = chapter.subjectId || course.subjectId
+  course.chapterNo = chapter.chapterNo || course.chapterNo
+  course.title = chapterTitleText(chapter) || course.title
+  course.subtitle = chapter.description || course.subtitle
+  course.description = chapter.description || course.description
+  if (data.testId) {
+    course.testId = Number(data.testId)
+  }
+  // 下拉回显当前章节
+  const matchedChapter = chapterOptions.value.find(item =>
+    String(item.subjectId) === String(course.subjectId) && item.chapterNo === course.chapterNo)
+  selectedChapterId.value = matchedChapter ? matchedChapter.id : null
+  dynamicCourseActive.value = true
+  currentChapter.value = chapter
+  transcriptSourceLabel.value = chapter.courseTitle || chapter.title || '课程视频'
+  if (chapter.video && !selectedLessonId.value) {
+    videoUrl.value = resolveMediaUrl(chapter.video)
+  }
+  if (chapter.endTime) {
+    videoDuration.value = chapter.endTime
+  }
+  const segments = (data.segments || []).map(segment => ({
+    key: segment.seq,
+    time: (segment.startMs || 0) / 1000,
+    end: (segment.endMs || segment.startMs || 0) / 1000,
+    text: String(segment.text || '').trim(),
+    section: segment.section || ''
+  })).filter(segment => segment.text.length > 0)
+  transcriptSegments.value = segments
+
+  const sectionMap = new Map()
+  segments.forEach(segment => {
+    const title = segment.section || '课程内容'
+    if (!sectionMap.has(title)) {
+      sectionMap.set(title, { title, start: segment.time, end: segment.end, segments: [] })
+    }
+    const group = sectionMap.get(title)
+    group.end = Math.max(group.end, segment.end)
+    group.segments.push(segment)
+  })
+  chapters.value = Array.from(sectionMap.values()).map((group, index) => ({
+    start: group.start,
+    end: group.end,
+    title: group.title,
+    desc: `${group.segments.length} 句`,
+    color: chapterPalette[index % chapterPalette.length]
+  }))
+  rebuildTranscriptGroups()
+  currentTime.value = 0
+  loadPoints()
+  loadQuiz()
+}
 
 const chapterMeta = [
   { desc: '概念、组成、功能与分类', color: '#14b8a6' },
@@ -466,42 +1231,62 @@ const chapterMeta = [
   { desc: '本节总结与下节预告', color: '#eab308' }
 ]
 
-const chapters = networkTranscript.chapters.map((chapter, index) => ({
-  start: chapter.start / 1000,
-  end: chapter.end / 1000,
-  title: chapter.title,
-  desc: chapterMeta[index]?.desc || '',
-  color: chapterMeta[index]?.color || '#14b8a6'
-}))
+const chapterPalette = ['#14b8a6', '#8b5cf6', '#ec4899', '#f59e0b', '#eab308', '#3b82f6', '#0ea5e9']
 
-// 逐句字幕：直接使用 ASR 输出的一句话级片段，避免把整章拼接成大段文字
-const transcriptSegments = (networkTranscript.segments || [])
-  .map(segment => ({
-    key: segment.index,
-    time: segment.start / 1000,
-    end: segment.end / 1000,
-    text: String(segment.text || '').trim()
+// 课程文本来源（静态案例或上传视频分析结果）
+const transcriptSourceLabel = ref(networkTranscript.video)
+// 当前展示的是否为上传视频分析结果（用于显示「恢复默认」按钮）
+const dynamicCourseActive = ref(false)
+
+const chapters = ref([])
+const transcriptSegments = ref([])
+const transcriptGroups = ref([])
+
+/** 按「章节时间范围」把逐句字幕分组成小节 */
+function rebuildTranscriptGroups() {
+  const groups = chapters.value.map(chapter => ({
+    key: chapter.title,
+    title: chapter.title,
+    start: chapter.start,
+    end: chapter.end,
+    color: chapter.color,
+    segments: []
   }))
-  .filter(segment => segment.text.length > 0)
-  .sort((a, b) => a.time - b.time)
+  transcriptSegments.value.forEach(segment => {
+    const group = groups.find(item => segment.time >= item.start && segment.time < item.end)
+      || groups[groups.length - 1]
+    if (group) {
+      group.segments.push(segment)
+    }
+  })
+  transcriptGroups.value = groups
+}
 
-// 章节分组：仅用于按小节折叠，句子本身仍保持独立、可点击跳转
-const transcriptGroups = chapters.map(chapter => ({
-  key: chapter.title,
-  title: chapter.title,
-  start: chapter.start,
-  end: chapter.end,
-  color: chapter.color,
-  segments: []
-}))
+/** 载入内置案例（未上传新视频时的默认数据） */
+function applyStaticTranscript() {
+  chapters.value = networkTranscript.chapters.map((chapter, index) => ({
+    start: chapter.start / 1000,
+    end: chapter.end / 1000,
+    title: chapter.title,
+    desc: chapterMeta[index]?.desc || '',
+    color: chapterMeta[index]?.color || '#14b8a6'
+  }))
+  transcriptSegments.value = (networkTranscript.segments || [])
+    .map(segment => ({
+      key: segment.index,
+      time: segment.start / 1000,
+      end: segment.end / 1000,
+      text: String(segment.text || '').trim(),
+      section: ''
+    }))
+    .filter(segment => segment.text.length > 0)
+    .sort((a, b) => a.time - b.time)
+  transcriptSourceLabel.value = networkTranscript.video
+  dynamicCourseActive.value = false
+  rebuildTranscriptGroups()
+}
 
-transcriptSegments.forEach(segment => {
-  const group = transcriptGroups.find(item => segment.time >= item.start && segment.time < item.end)
-    || transcriptGroups[transcriptGroups.length - 1]
-  if (group) {
-    group.segments.push(segment)
-  }
-})
+applyStaticTranscript()
 
 const leftTabs = [
   { key: 'transcript', label: '视频文本', icon: Document },
@@ -554,6 +1339,22 @@ const modelOptions = ref([])
 const selectedModel = ref('')
 const modelLoading = ref(false)
 
+// ===== 二级界面：AI 对话 =====
+// courseChatVisible：基于整门课程的 AI 对话（走知识库 RAG，检索课本/知识点/逐字稿）
+// videoChatVisible：基于当前视频的 AI 对话（走逐字稿上下文）
+const courseChatVisible = ref(false)
+const videoChatVisible = ref(false)
+// 当前章节 ID：课程对话可切换到「当前章节」范围检索
+const currentChapterId = computed(() => currentChapter.value?.id ?? null)
+
+function openCourseChat() {
+  courseChatVisible.value = true
+}
+
+function openVideoChat() {
+  videoChatVisible.value = true
+}
+
 function loadModels() {
   modelLoading.value = true
   return getCourseModels().then(res => {
@@ -592,8 +1393,8 @@ const smartGrading = ref(true)
 
 const filteredTranscriptGroups = computed(() => {
   const keyword = transcriptSearch.value.trim().toLowerCase()
-  if (!keyword) return transcriptGroups
-  return transcriptGroups
+  if (!keyword) return transcriptGroups.value
+  return transcriptGroups.value
     .map(group => ({
       ...group,
       segments: group.title.toLowerCase().includes(keyword)
@@ -608,8 +1409,8 @@ const filteredSegmentCount = computed(() =>
 )
 
 const activeSegmentKey = computed(() => {
-  let key = transcriptSegments.length ? transcriptSegments[0].key : null
-  for (const segment of transcriptSegments) {
+  let key = transcriptSegments.value.length ? transcriptSegments.value[0].key : null
+  for (const segment of transcriptSegments.value) {
     if (currentTime.value >= segment.time) key = segment.key
     else break
   }
@@ -646,20 +1447,22 @@ const quizCorrect = computed(() => {
   return selected.length === answer.length && selected.every((item, index) => item === answer[index])
 })
 
-const transcriptContext = computed(() => {
-  const current = transcriptGroups.find(item => currentTime.value >= item.start && currentTime.value < item.end)
-    || transcriptGroups[0]
-  if (!current) return `课程：${networkTranscript.video}`
+// 按需构建对话上下文：写成 computed 会随 currentTime（约 4Hz）重算几十 KB 字符串
+function buildTranscriptContext() {
+  const groups = transcriptGroups.value
+  const current = groups.find(item => currentTime.value >= item.start && currentTime.value < item.end)
+    || groups[0]
+  if (!current) return `课程：${transcriptSourceLabel.value}`
   const currentSegments = current.segments
     .map(segment => `[${formatTime(segment.time)}] ${segment.text}`)
     .join('\n')
-  const otherChapters = transcriptGroups
+  const otherChapters = groups
     .filter(item => item !== current)
     .map(item => `【${item.title}】${item.segments.slice(0, 3)
       .map(segment => `[${formatTime(segment.time)}] ${segment.text}`).join('\n')}`)
     .join('\n')
-  return `课程：${networkTranscript.video}\n当前章节：${current.title}\n当前章节文本：\n${currentSegments}\n其他章节概要：\n${otherChapters}`
-})
+  return `课程：${transcriptSourceLabel.value}\n当前章节：${current.title}\n当前章节文本：\n${currentSegments}\n其他章节概要：\n${otherChapters}`
+}
 
 const leftTranscriptRef = ref(null)
 const panelTranscriptRef = ref(null)
@@ -670,7 +1473,13 @@ watch(activeSegmentKey, () => {
     ;[leftTranscriptRef.value, panelTranscriptRef.value].forEach(container => {
       if (!container) return
       const item = container.querySelector('.transcript-item.active')
-      if (item) item.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+      if (!item) return
+      // 用容器自身滚动代替 scrollIntoView：后者会连带滚动所有祖先节点，播放时整页会被反复拽动
+      const itemRect = item.getBoundingClientRect()
+      const boxRect = container.getBoundingClientRect()
+      if (itemRect.top >= boxRect.top && itemRect.bottom <= boxRect.bottom) return
+      container.scrollTop += itemRect.top - boxRect.top
+        - container.clientHeight / 2 + itemRect.height / 2
     })
   })
 })
@@ -680,9 +1489,26 @@ onMounted(() => {
   if (['overview', 'transcript', 'chat', 'mindmap', 'quiz'].includes(panel)) {
     activePanel.value = panel
   }
-  loadPoints()
-  loadQuiz()
   loadModels()
+  // 先取课程卡片数据，再按路由上的 subjectId 进入对应课程
+  loadCatalog().then(() => {
+    if (currentSubjectId.value > 0) {
+      viewMode.value = 'study'
+      applySubject(currentSubjectId.value)
+    }
+  })
+})
+
+// 路由上的 subjectId 变化时（进入课程 / 返回课程列表）同步视图
+watch(currentSubjectId, subjectId => {
+  if (!subjectId) {
+    viewMode.value = 'catalog'
+    return
+  }
+  viewMode.value = 'study'
+  if (allChapters.value.length) {
+    applySubject(subjectId)
+  }
 })
 
 onBeforeUnmount(() => {
@@ -704,6 +1530,52 @@ function onLoadedMetadata() {
 
 function onTimeUpdate() {
   if (videoRef.value) currentTime.value = videoRef.value.currentTime
+}
+
+function restoreDefaultVideo() {
+  // 完整还原课程上下文（标题、简介、章号、题库）
+  Object.assign(course, DEFAULT_COURSE)
+  videoUrl.value = defaultVideoUrl
+  videoDuration.value = networkTranscript.duration_ms / 1000
+  currentTime.value = 0
+  currentChapter.value = null
+  points.value = []
+  transcriptSearch.value = ''
+  quizIndex.value = 0
+  quizAnswers.value = {}
+  quizCheckedMap.value = {}
+
+  // 清空基于上传视频产生的 AI 问答与结构化结果
+  aiAnalysis.value = null
+  aiExtractionId.value = null
+  aiSyncResult.value = null
+  aiMeta.value = { model: '', durationMs: 0, transcriptChars: 0 }
+  chatMessages.value = [
+    { role: 'assistant', text: '你好，我是《计算机网络》课程 AI 助教。你可以问我本章的概念、组成、功能、性能指标和体系结构，我会结合视频逐字稿为你解答。' }
+  ]
+  chatInput.value = ''
+
+  // 还原内置逐字稿（章节 / 221 句字幕）
+  applyStaticTranscript()
+  // 记住「已恢复默认」，刷新页面时不再加载上传视频的分析结果
+  markDefaultRestored(true)
+  // 路由回到默认章节，刷新后仍展示内置案例
+  router.replace({
+    path: route.path,
+    query: { ...route.query, chapterNo: String(DEFAULT_COURSE.chapterNo), testId: String(DEFAULT_COURSE.testId) }
+  }).catch(() => {})
+  loadPoints()
+  loadQuiz()
+
+  try { localStorage.removeItem(VIDEO_STORAGE_KEY) } catch (e) { /* 忽略存储异常 */ }
+  nextTick(() => {
+    if (videoRef.value) {
+      videoRef.value.load()
+      videoRef.value.currentTime = 0
+    }
+    if (activePanel.value === 'mindmap') initMindmap()
+  })
+  ElMessage.success('已恢复默认课程内容')
 }
 
 function seekTo(seconds) {
@@ -771,12 +1643,14 @@ function sendChat(text) {
   chatInput.value = ''
   chatLoading.value = true
   scrollChat()
+  // 只依据当前视频课程的逐字稿回答，不检索知识库
   courseChat({
     question,
-    context: transcriptContext.value,
+    context: buildTranscriptContext(),
     model: selectedModel.value || undefined
   }).then(res => {
-    const answer = res?.data?.answer || ''
+    const data = res?.data || {}
+    const answer = data.answer || ''
     chatMessages.value.push({
       role: 'assistant',
       text: answer || '我暂时没有找到对应的课程内容，你可以换一种问法再试试。'
@@ -945,9 +1819,10 @@ function initMindmap() {
       trigger: 'item',
       formatter: params => {
         const point = params.data?.point
+        // content 来自 LLM 输出并写库，ECharts 用 innerHTML 渲染 tooltip，必须转义
         return point
-          ? `<strong>${point.name}</strong><br/>${point.content || ''}`
-          : `<strong>${params.name}</strong>`
+          ? `<strong>${escapeHtml(point.name)}</strong><br/>${escapeHtml(point.content || '')}`
+          : `<strong>${escapeHtml(params.name)}</strong>`
       }
     },
     series: [{
@@ -1131,6 +2006,128 @@ function nextQuiz() {
   height: 24px;
 }
 
+/* 课程卡片列表 */
+.course-catalog {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px 24px 32px;
+}
+
+.catalog-head {
+  margin-bottom: 18px;
+}
+
+.catalog-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.catalog-desc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  min-height: 200px;
+}
+
+.catalog-empty {
+  grid-column: 1 / -1;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e8eef7;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.course-card:hover {
+  transform: translateY(-3px);
+  border-color: #99f6e4;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
+}
+
+.course-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+  flex-shrink: 0;
+}
+
+.course-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
+}
+
+.course-card-desc {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #64748b;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 40px;
+}
+
+.course-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.course-card-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.course-card-chapter {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 11px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.course-card-footer {
+  margin-top: auto;
+  padding-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .course-main {
   max-width: 1600px;
   margin: 0 auto;
@@ -1165,6 +2162,21 @@ function nextQuiz() {
   aspect-ratio: 16 / 9;
   max-height: 560px;
   overflow: hidden;
+}
+
+.video-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  color: #94a3b8;
+  font-size: 14px;
+}
+.video-empty .el-icon {
+  font-size: 40px;
+  color: #475569;
 }
 
 .video-shell video {
@@ -1213,8 +2225,14 @@ function nextQuiz() {
 .video-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 8px;
   flex-shrink: 0;
+}
+
+.video-file-input {
+  display: none;
 }
 
 .video-question {
@@ -1581,6 +2599,19 @@ function nextQuiz() {
   font-size: 16px;
   font-weight: 700;
   color: #0f172a;
+}
+.panel-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.panel-video-chat-btn {
+  color: #0f766e;
+  font-weight: 600;
+  padding: 4px 8px;
+}
+.panel-video-chat-btn:hover {
+  background: #ccfbf1;
 }
 
 .panel-tabs {
@@ -2079,5 +3110,181 @@ function nextQuiz() {
   .panel-body {
     min-height: 520px;
   }
+}
+
+.analysis-body {
+  padding: 4px 2px 8px;
+}
+
+.analysis-stage {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.analysis-message {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.analysis-stats {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* AI 结构化知识梳理 */
+.ai-mindmap-loading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 36px 12px;
+  color: #475569;
+}
+
+.ai-mindmap-loading .el-icon {
+  font-size: 28px;
+  color: #0d9488;
+}
+
+.ai-mindmap-loading-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ai-mindmap-loading-desc {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.ai-mindmap-head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.ai-mindmap-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.ai-mindmap-summary {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.ai-mindmap-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.ai-mindmap-tabs {
+  margin-top: 8px;
+}
+
+.ai-tree {
+  max-height: 360px;
+  overflow: auto;
+  padding: 6px 4px;
+  background: #fafbfc;
+  border-radius: 8px;
+}
+
+.ai-tree-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-tree-name {
+  font-size: 13px;
+  color: #1e293b;
+}
+
+.ai-tree-section {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.ai-relation-list {
+  max-height: 360px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 2px;
+}
+
+.ai-relation-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.ai-relation-node {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ai-relation-desc {
+  width: 100%;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.ai-conclusion-list {
+  margin: 0;
+  padding-left: 20px;
+  max-height: 360px;
+  overflow: auto;
+}
+
+.ai-conclusion-list li {
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.9;
+}
+
+.ai-sync-result {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  border: 1px solid #d1fae5;
+}
+
+.ai-sync-title {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #047857;
+}
+
+.ai-sync-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 </style>

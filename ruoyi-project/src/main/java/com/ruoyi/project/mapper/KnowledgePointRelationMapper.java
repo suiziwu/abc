@@ -1,6 +1,7 @@
 package com.ruoyi.project.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.domain.KnowledgePointRelation;
 
 /**
@@ -26,6 +27,14 @@ public interface KnowledgePointRelationMapper
      * @return 知识点关联（拓扑图边）集合
      */
     public List<KnowledgePointRelation> selectKnowledgePointRelationList(KnowledgePointRelation knowledgePointRelation);
+
+    /**
+     * 查询指定知识点集合内部的关联（用于导图同步去重，避免全表扫描）
+     *
+     * @param pointIds 知识点主键集合
+     * @return 关联集合
+     */
+    public List<KnowledgePointRelation> selectRelationsByPointIds(@Param("pointIds") List<Long> pointIds);
 
     /**
      * 新增知识点关联（拓扑图边）

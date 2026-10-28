@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="app-container">
     <div v-if="loading" v-loading="loading" class="result-loading" />
 
@@ -348,7 +348,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getAssessment, updateAssessment } from '@/api/project/assessment'
 import { getPoint, listPoint } from '@/api/project/point'
@@ -868,7 +868,6 @@ async function ensureLearnRecord(point) {
   if (!existing) {
     try {
       const res = await addRecord({
-        userId: 1,
         pointId: point.id,
         historyId: assessment.value?.historyId || null,
         status: '1',
@@ -925,14 +924,23 @@ function onVideoTimeUpdate() {
   const progress = v.duration ? Math.round((v.currentTime / v.duration) * 100) : 0
 
   if (!watchTimer) {
+    // 排程时快照 pointId：回调在 5s 后执行，期间用户可能已切到别的知识点，
+    // 若那时再读 currentVideo 会把 A 的进度写到 B 上
+    const pointId = currentVideo.value.pointId
+    const scheduledProgress = progress
     watchTimer = setTimeout(async () => {
       watchTimer = null
-      const pointId = currentVideo.value.pointId
+      if (!currentVideo.value || String(currentVideo.value.pointId) !== String(pointId)) return
+      const latest = videoRef.value
+      const currentProgress = latest && latest.duration
+        ? Math.round((latest.currentTime / latest.duration) * 100)
+        : scheduledProgress
+      const currentSeconds = latest ? Math.round(latest.currentTime) : 0
       const existing = records.value.find(r => String(r.pointId) === String(pointId))
 
       if (existing && existing.status !== '2') {
         try {
-          await updateRecord({ id: existing.id, progress })
+          await updateRecord({ id: existing.id, progress: currentProgress })
         } catch {}
       }
 
@@ -943,18 +951,17 @@ function onVideoTimeUpdate() {
         if (existingWatch) {
           await updateWatch({
             id: existingWatch.id,
-            watchProgress: progress,
-            watchDuration: Math.round(v.currentTime),
+            watchProgress: currentProgress,
+            watchDuration: currentSeconds,
             lastWatchTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            completed: progress >= 95 ? '1' : existingWatch.completed
+            completed: currentProgress >= 95 ? '1' : existingWatch.completed
           })
         } else {
           await addWatch({
-            userId: 1,
             pointId,
-            watchProgress: progress,
-            watchDuration: Math.round(v.currentTime),
-            completed: progress >= 95 ? '1' : '0'
+            watchProgress: currentProgress,
+            watchDuration: currentSeconds,
+            completed: currentProgress >= 95 ? '1' : '0'
           })
         }
       } catch {}
@@ -1200,6 +1207,14 @@ async function quizSubmit() {
 function goBack() {
   router.push({ name: 'Learn' })
 }
+
+// 路由切走后回调仍会触发，必须清理，否则会对已卸载组件发请求
+onBeforeUnmount(() => {
+  if (watchTimer) {
+    clearTimeout(watchTimer)
+    watchTimer = null
+  }
+})
 </script>
 
 <style scoped>

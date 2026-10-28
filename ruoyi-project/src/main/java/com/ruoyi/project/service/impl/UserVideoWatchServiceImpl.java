@@ -74,12 +74,13 @@ public class UserVideoWatchServiceImpl implements IUserVideoWatchService
      * 批量删除用户视频观看记录
      * 
      * @param ids 需要删除的用户视频观看记录主键
+     * @param userId 归属用户，为 null 时不限制
      * @return 结果
      */
     @Override
-    public int deleteUserVideoWatchByIds(Long[] ids)
+    public int deleteUserVideoWatchByIds(Long[] ids, Long userId)
     {
-        return userVideoWatchMapper.deleteUserVideoWatchByIds(ids);
+        return userVideoWatchMapper.deleteUserVideoWatchByIds(ids, userId);
     }
 
     /**

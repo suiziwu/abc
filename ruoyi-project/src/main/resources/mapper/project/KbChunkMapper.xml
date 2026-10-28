@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.KbChunkMapper">
+
+    <resultMap type="KbChunk" id="KbChunkResult">
+        <result property="id"            column="id"            />
+        <result property="kbId"          column="kb_id"         />
+        <result property="docPk"         column="doc_pk"        />
+        <result property="docId"         column="doc_id"        />
+        <result property="sourceType"    column="source_type"   />
+        <result property="subjectId"     column="subject_id"    />
+        <result property="chapterId"     column="chapter_id"    />
+        <result property="pointId"       column="point_id"      />
+        <result property="title"         column="title"         />
+        <result property="sectionPath"   column="section_path"  />
+        <result property="content"       column="content"       />
+        <result property="pageStart"     column="page_start"    />
+        <result property="pageEnd"       column="page_end"      />
+        <result property="chunkIndex"    column="chunk_index"   />
+        <result property="startTime"     column="start_time"    />
+        <result property="tokenCount"    column="token_count"   />
+        <result property="contentHash"   column="content_hash"  />
+        <result property="status"        column="status"        />
+        <result property="model"         column="model"         />
+        <result property="dimensions"    column="dimensions"    />
+        <result property="embedding"     column="embedding"     />
+        <result property="createTime"    column="create_time"   />
+        <result property="updateTime"    column="update_time"   />
+        <result property="keywordScore"  column="keyword_score" />
+    </resultMap>
+
+    <sql id="kbChunkColumns">
+        id, kb_id, doc_pk, doc_id, source_type, subject_id, chapter_id, point_id, title, section_path,
+        content, page_start, page_end, chunk_index, start_time, token_count, content_hash, status,
+        model, dimensions, create_time, update_time
+    </sql>
+
+    <insert id="batchInsertKbChunk">
+        insert into kb_chunk (kb_id, doc_pk, doc_id, source_type, subject_id, chapter_id, point_id, title,
+                              section_path, content, page_start, page_end, chunk_index, start_time,
+                              token_count, content_hash, status, model, dimensions, embedding,
+                              create_time, update_time)
+        values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.kbId}, #{item.docPk}, #{item.docId}, #{item.sourceType}, #{item.subjectId}, #{item.chapterId},
+             #{item.pointId}, #{item.title}, #{item.sectionPath}, #{item.content}, #{item.pageStart}, #{item.pageEnd},
+             #{item.chunkIndex}, #{item.startTime}, #{item.tokenCount}, #{item.contentHash},
+             #{item.status}, #{item.model}, #{item.dimensions}, #{item.embedding}, now(), now())
+        </foreach>
+        on duplicate key update
+            kb_id = values(kb_id),
+            doc_pk = values(doc_pk),
+            source_type = values(source_type),
+            subject_id = values(subject_id),
+            chapter_id = values(chapter_id),
+            point_id = values(point_id),
+            title = values(title),
+            section_path = values(section_path),
+            content = values(content),
+            page_start = values(page_start),
+            page_end = values(page_end),
+            start_time = values(start_time),
+            token_count = values(token_count),
+            content_hash = values(content_hash),
+            status = values(status),
+            model = values(model),
+            dimensions = values(dimensions),
+            embedding = values(embedding),
+            update_time = now()
+    </insert>
+
+    <select id="selectKbChunkList" resultMap="KbChunkResult">
+        select <include refid="kbChunkColumns"/>, embedding
+        from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+            <if test="sourceTypes != null and sourceTypes.size() > 0">
+                and source_type in
+                <foreach item="type" collection="sourceTypes" open="(" separator="," close=")">
+                    #{type}
+                </foreach>
+            </if>
+        </where>
+        order by id asc
+        <if test="limit != null"> limit #{limit}</if>
+    </select>
+
+    <select id="selectKbChunkByDocIds" resultMap="KbChunkResult">
+        select <include refid="kbChunkColumns"/>
+        from kb_chunk
+        where doc_id in
+        <foreach item="docId" collection="docIds" open="(" separator="," close=")">
+            #{docId}
+        </foreach>
+    </select>
+
+    <select id="selectKbChunkByDocPks" resultMap="KbChunkResult">
+        select <include refid="kbChunkColumns"/>
+        from kb_chunk
+        where doc_pk in
+        <foreach item="docPk" collection="docPks" open="(" separator="," close=")">
+            #{docPk}
+        </foreach>
+    </select>
+
+    <delete id="deleteKbChunkByFilter">
+        delete from kb_chunk
+        <where>
+            <!-- 兜底：四个条件全为空时不得退化为全表删除 -->
+            <if test="subjectId == null and chapterId == null and (sourceType == null or sourceType == '')
+                      and (docId == null or docId == '')">
+                and 1 = 0
+            </if>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+            <if test="sourceType != null and sourceType != ''"> and source_type = #{sourceType}</if>
+            <if test="docId != null and docId != ''"> and doc_id = #{docId}</if>
+        </where>
+    </delete>
+
+    <delete id="deleteKbChunkByDocIds">
+        delete from kb_chunk where doc_id in
+        <foreach item="docId" collection="docIds" open="(" separator="," close=")">
+            #{docId}
+        </foreach>
+    </delete>
+
+    <select id="selectKbChunkIds" resultType="java.lang.Long">
+        select id from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+            <if test="sourceTypes != null and sourceTypes.size() > 0">
+                and source_type in
+                <foreach item="type" collection="sourceTypes" open="(" separator="," close=")">
+                    #{type}
+                </foreach>
+            </if>
+        </where>
+        order by id asc
+    </select>
+
+    <select id="selectKbChunkByIds" resultMap="KbChunkResult">
+        select <include refid="kbChunkColumns"/>, embedding
+        from kb_chunk
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectKbChunkDocIds" resultType="java.lang.String">
+        select distinct doc_id from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+        </where>
+    </select>
+
+    <!-- 增量入库：取现有分块的内容指纹，与本次构建结果比对 -->
+    <select id="selectKbChunkHashes" resultType="java.util.LinkedHashMap">
+        select doc_id as docId, chunk_index as chunkIndex, content_hash as contentHash
+        from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+        </where>
+    </select>
+
+    <!--
+      关键词召回：中文用 ngram 全文索引（ft_kb_text）。
+      NATURAL LANGUAGE MODE 不接受 + - * 等布尔操作符，避免用户输入把 SQL 打成语法错误。
+    -->
+    <select id="searchKbChunkByKeyword" resultMap="KbChunkResult">
+        select <include refid="kbChunkColumns"/>,
+               match(title, content) against(#{keyword} in natural language mode) as keyword_score
+        from kb_chunk
+        where match(title, content) against(#{keyword} in natural language mode)
+          and status = 1
+          <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+          <if test="chapterId != null"> and chapter_id = #{chapterId}</if>
+          <if test="sourceTypes != null and sourceTypes.size() > 0">
+              and source_type in
+              <foreach item="type" collection="sourceTypes" open="(" separator="," close=")">
+                  #{type}
+              </foreach>
+          </if>
+        order by keyword_score desc
+        limit #{limit}
+    </select>
+
+    <select id="countKbChunk" resultType="int">
+        select count(1) from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+        </where>
+    </select>
+
+    <select id="countGroupBySourceType" resultType="java.util.LinkedHashMap">
+        select source_type as sourceType, count(1) as total
+        from kb_chunk
+        <where>
+            <if test="subjectId != null"> and subject_id = #{subjectId}</if>
+        </where>
+        group by source_type
+    </select>
+
+    <select id="countGroupBySubjectAndChapter" resultType="java.util.LinkedHashMap">
+        select subject_id as subjectId, chapter_id as chapterId, count(1) as total
+        from kb_chunk
+        group by subject_id, chapter_id
+        order by subject_id asc, chapter_id asc
+    </select>
+
+</mapper>

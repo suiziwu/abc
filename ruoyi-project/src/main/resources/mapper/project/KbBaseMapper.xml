@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.KbBaseMapper">
+
+    <resultMap type="KbBase" id="KbBaseResult">
+        <result property="id"          column="id"           />
+        <result property="subjectId"   column="subject_id"   />
+        <result property="name"        column="name"         />
+        <result property="status"      column="status"       />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"  column="create_time"  />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"  column="update_time"  />
+        <result property="delFlag"     column="del_flag"     />
+        <result property="chunkCount"  column="chunk_count"  />
+    </resultMap>
+
+    <select id="selectKbBaseList" resultMap="KbBaseResult">
+        select k.id, k.subject_id, k.name, k.status, k.create_by, k.create_time,
+               k.update_by, k.update_time, k.del_flag,
+               coalesce(c.chunk_count, 0) as chunk_count
+        from kb_base k
+        left join (
+            select subject_id, count(1) as chunk_count from kb_chunk group by subject_id
+        ) c on c.subject_id = k.subject_id
+        where k.del_flag = '0'
+        order by k.subject_id asc
+    </select>
+
+    <select id="selectKbBaseBySubjectId" resultMap="KbBaseResult">
+        select k.id, k.subject_id, k.name, k.status, k.create_by, k.create_time,
+               k.update_by, k.update_time, k.del_flag,
+               coalesce(c.chunk_count, 0) as chunk_count
+        from kb_base k
+        left join (
+            select subject_id, count(1) as chunk_count from kb_chunk group by subject_id
+        ) c on c.subject_id = k.subject_id
+        where k.subject_id = #{subjectId} and k.del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insertKbBase" parameterType="KbBase" useGeneratedKeys="true" keyProperty="id">
+        insert into kb_base (subject_id, name, status, create_by, create_time, del_flag)
+        values (#{subjectId}, #{name}, #{status}, #{createBy}, #{createTime}, #{delFlag})
+    </insert>
+
+    <update id="updateKbBaseNameBySubjectId">
+        update kb_base
+        set name = #{name}, update_by = #{updateBy}, update_time = sysdate()
+        where subject_id = #{subjectId}
+    </update>
+
+    <delete id="deleteKbBaseBySubjectIds">
+        delete from kb_base where subject_id in
+        <foreach item="subjectId" collection="subjectIds" open="(" separator="," close=")">
+            #{subjectId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -41,4 +41,27 @@ public class AsrServiceImpl implements AsrService
         }
         return result;
     }
+
+    @Override
+    public AsrResult transcribe(PcmAudioSource source)
+    {
+        double duration = source.durationSeconds();
+        if (duration < 0.2D)
+        {
+            throw new AsrException("音频时长太短，请至少 0.2 秒");
+        }
+        if (properties.getMaxAudioSeconds() != null && duration > properties.getMaxAudioSeconds())
+        {
+            throw new AsrException("音频超过 " + properties.getMaxAudioSeconds() + " 秒，请分段识别");
+        }
+        // 只读取当前分片，不解析整段音频
+        int targetRate = properties.getSampleRate();
+        byte[] wav = source.readWav(0, (int) source.frameCount(), targetRate);
+        AsrResult result = qwenFileTransClient.transcribe(wav);
+        if (result.getAudioSeconds() <= 0D)
+        {
+            result.setAudioSeconds(duration);
+        }
+        return result;
+    }
 }

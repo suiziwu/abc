@@ -47,9 +47,10 @@ public interface IUserKnowledgeAssessmentService
      * 批量删除用户知识点测评记录
      * 
      * @param ids 需要删除的用户知识点测评记录主键集合
+     * @param userId 归属用户，为 null 时不限制（仅内部调用）
      * @return 结果
      */
-    public int deleteUserKnowledgeAssessmentByIds(Long[] ids);
+    public int deleteUserKnowledgeAssessmentByIds(Long[] ids, Long userId);
 
     /**
      * 删除用户知识点测评记录信息

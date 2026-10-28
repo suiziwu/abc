@@ -54,6 +54,19 @@ __pycache__/
 *.pyc
 *.pyo
 
+# 本地外部配置（含真实密钥，禁止入库）
+/config/
+
+# 前端临时构建目录（校验用）
+/ruoyi-ui/.build-check*/
+/ruoyi-ui/.build-verify/
+
+# Milvus 本地运行数据（Docker 卷，体积大，禁止入库）
+/data/
+
+# 前端构建产物备份目录
+/ruoyi-ui/dist_bak_*/
+
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml

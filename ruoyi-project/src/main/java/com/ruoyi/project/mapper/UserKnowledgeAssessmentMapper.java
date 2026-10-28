@@ -1,6 +1,7 @@
 package com.ruoyi.project.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import com.ruoyi.project.domain.UserKnowledgeAssessment;
 
 /**
@@ -55,7 +56,8 @@ public interface UserKnowledgeAssessmentMapper
      * 批量删除用户知识点测评记录
      * 
      * @param ids 需要删除的数据主键集合
+     * @param userId 归属用户，为 null 时不限制（仅内部调用）
      * @return 结果
      */
-    public int deleteUserKnowledgeAssessmentByIds(Long[] ids);
+    public int deleteUserKnowledgeAssessmentByIds(@Param("ids") Long[] ids, @Param("userId") Long userId);
 }

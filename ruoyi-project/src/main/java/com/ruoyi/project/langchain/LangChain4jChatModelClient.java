@@ -150,6 +150,7 @@ public class LangChain4jChatModelClient implements ChatModelClient
                             .modelName(properties.getModelName())
                             .temperature(properties.getTemperature())
                             .timeout(Duration.ofSeconds(properties.getTimeoutSeconds()))
+                            .maxRetries(1)
                             .logRequests(properties.getLogRequests())
                             .logResponses(properties.getLogResponses())
                             .build();
@@ -177,6 +178,7 @@ public class LangChain4jChatModelClient implements ChatModelClient
                 .modelName(config.getModel())
                 .temperature(config.getTemperature() == null ? 1.0D : config.getTemperature())
                 .timeout(Duration.ofSeconds(config.getTimeoutSeconds() == null ? 120 : config.getTimeoutSeconds()))
+                .maxRetries(1)
                 .logRequests(properties.getLogRequests())
                 .logResponses(properties.getLogResponses())
                 .build();

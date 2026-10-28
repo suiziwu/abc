@@ -74,12 +74,13 @@ public class UserKnowledgeAssessmentServiceImpl implements IUserKnowledgeAssessm
      * 批量删除用户知识点测评记录
      * 
      * @param ids 需要删除的用户知识点测评记录主键
+     * @param userId 归属用户，为 null 时不限制
      * @return 结果
      */
     @Override
-    public int deleteUserKnowledgeAssessmentByIds(Long[] ids)
+    public int deleteUserKnowledgeAssessmentByIds(Long[] ids, Long userId)
     {
-        return userKnowledgeAssessmentMapper.deleteUserKnowledgeAssessmentByIds(ids);
+        return userKnowledgeAssessmentMapper.deleteUserKnowledgeAssessmentByIds(ids, userId);
     }
 
     /**

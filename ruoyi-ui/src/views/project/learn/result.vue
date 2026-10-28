@@ -93,7 +93,7 @@
                 <el-input
                   v-model="pointSearch"
                   placeholder="搜索知识点..."
-                  prefix-icon="Search"
+                  :prefix-icon="Search"
                   size="small"
                   style="width:180px"
                   clearable
@@ -107,7 +107,7 @@
                 :key="sIdx"
                 class="subject-group"
               >
-                <div class="subject-group-header" @click="toggleSubject(sIdx)">
+                <div class="subject-group-header" @click="toggleSubject(subjectItem)">
                   <div class="subject-group-title">
                     <el-icon :class="subjectItem._expanded ? 'expand-rotate' : ''">
                       <CaretRight />
@@ -184,7 +184,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getHistory, delHistory } from '@/api/project/history'
 import { listPoint } from '@/api/project/point'
@@ -309,31 +309,33 @@ function buildSubjectTree() {
   })
 }
 
-// 搜索过滤
+// 搜索过滤：只过滤知识点，_expanded 沿用原数组，避免折叠状态与展示错位
 const filteredSubjects = computed(() => {
   if (!pointSearch.value.trim()) return subjects.value
   const q = pointSearch.value.trim().toLowerCase()
-  return subjects.value.map(s => {
-    const filtered = s._points.filter(p => p.name.toLowerCase().includes(q))
-    return { ...s, _points: filtered, _expanded: filtered.length > 0 }
-  }).filter(s => s._points.length > 0)
+  return subjects.value
+    .map(s => ({ ...s, _points: s._points.filter(p => p.name.toLowerCase().includes(q)) }))
+    .filter(s => s._points.length > 0)
 })
 
 // ====== 统计 ======
 
 const allPointsCount = computed(() => allPoints.value.length)
 
+/** 只统计本岗位知识点范围内的记录，避免跨岗位记录把完成度算超 100% */
 const learnedCount = computed(() => {
-  return records.value.filter(r => r.status === '2').length
+  const ids = new Set(allPoints.value.map(p => String(p.id)))
+  return records.value.filter(r => r.status === '2' && ids.has(String(r.pointId))).length
 })
 
 const learningCount = computed(() => {
-  return records.value.filter(r => r.status === '1').length
+  const ids = new Set(allPoints.value.map(p => String(p.id)))
+  return records.value.filter(r => r.status === '1' && ids.has(String(r.pointId))).length
 })
 
 const profilePercent = computed(() => {
   if (allPointsCount.value === 0) return 0
-  return Math.round((learnedCount.value / allPointsCount.value) * 100)
+  return Math.min(100, Math.round((learnedCount.value / allPointsCount.value) * 100))
 })
 
 const profileColor = computed(() => {
@@ -345,9 +347,11 @@ const profileColor = computed(() => {
 
 // ====== 交互 ======
 
-function toggleSubject(idx) {
-  const item = subjects.value[idx]
-  if (item) item._expanded = !item._expanded
+function toggleSubject(subjectItem) {
+  if (!subjectItem) return
+  // filteredSubjects 是 map 出来的新对象，必须按 id 回写原数组
+  const target = subjects.value.find(s => String(s.id) === String(subjectItem.id))
+  if (target) target._expanded = !target._expanded
 }
 
 async function selectPoint(point, subjectItem) {
@@ -379,7 +383,6 @@ async function ensureLearnRecord(point) {
   if (!existing) {
     try {
       const res = await addRecord({
-        userId: 1, // 实际应该从store取
         pointId: point.id,
         historyId: parseInt(route.params.id),
         status: '1',
@@ -440,16 +443,24 @@ function onVideoTimeUpdate() {
 
   // 每10秒或每10%更新一次，避免频繁请求
   if (!watchTimer) {
+    // 排程时快照 pointId：回调 5s 后执行，期间切换知识点会把进度写到错误的点上
+    const pointId = currentVideo.value.pointId
+    const scheduledProgress = progress
     watchTimer = setTimeout(async () => {
       watchTimer = null
-      const pointId = currentVideo.value.pointId
+      if (!currentVideo.value || String(currentVideo.value.pointId) !== String(pointId)) return
+      const latest = videoRef.value
+      const currentProgress = latest && latest.duration
+        ? Math.round((latest.currentTime / latest.duration) * 100)
+        : scheduledProgress
+      const currentSeconds = latest ? Math.round(latest.currentTime) : 0
       const existing = records.value.find(r => String(r.pointId) === String(pointId))
 
       if (existing && existing.status !== '2') {
         try {
           await updateRecord({
             id: existing.id,
-            progress: progress
+            progress: currentProgress
           })
         } catch (e) {}
       }
@@ -460,21 +471,20 @@ function onVideoTimeUpdate() {
         const watchList = watchRes.rows || []
         const existingWatch = watchList.find(w => String(w.pointId) === String(pointId))
         if (existingWatch) {
-          const completed = progress >= 95 ? '1' : existingWatch.completed
+          const completed = currentProgress >= 95 ? '1' : existingWatch.completed
           await updateWatch({
             id: existingWatch.id,
-            watchProgress: progress,
-            watchDuration: Math.round(v.currentTime),
+            watchProgress: currentProgress,
+            watchDuration: currentSeconds,
             lastWatchTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
             completed
           })
         } else {
           await addWatch({
-            userId: 1,
             pointId,
-            watchProgress: progress,
-            watchDuration: Math.round(v.currentTime),
-            completed: progress >= 95 ? '1' : '0'
+            watchProgress: currentProgress,
+            watchDuration: currentSeconds,
+            completed: currentProgress >= 95 ? '1' : '0'
           })
         }
       } catch (e) {}
@@ -537,6 +547,14 @@ function handleDelete() {
     })
   }).catch(() => {})
 }
+
+// 路由切走后回调仍会触发，必须清理
+onBeforeUnmount(() => {
+  if (watchTimer) {
+    clearTimeout(watchTimer)
+    watchTimer = null
+  }
+})
 </script>
 
 <style scoped>

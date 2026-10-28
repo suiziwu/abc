@@ -10,6 +10,12 @@ import com.ruoyi.project.course.domain.CourseQuestion;
 import com.ruoyi.project.course.domain.CourseQuizItem;
 import com.ruoyi.project.course.mapper.CourseQuestionMapper;
 import com.ruoyi.project.course.service.CourseStudyServiceImpl;
+import com.ruoyi.project.kb.EmbeddingClient;
+import com.ruoyi.project.kb.KbIngestService;
+import com.ruoyi.project.kb.KbProperties;
+import com.ruoyi.project.kb.KbVectorStoreFactory;
+import com.ruoyi.project.kb.store.LocalKbVectorStore;
+import com.ruoyi.project.kb.store.MilvusKbVectorStore;
 import com.ruoyi.project.langchain.ChatModelClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * 课程题库解析与 AI 助教服务测试。
+ * 课程题库解析、AI 助教服务与知识库检索测试。
  *
  * @author ruoyi
  */
@@ -26,7 +32,7 @@ public class CourseStudyServiceTest
     @Test
     public void testQuizParsing()
     {
-        CourseStudyServiceImpl service = new CourseStudyServiceImpl(stubMapper(), stubChat());
+        CourseStudyServiceImpl service = newService();
         List<CourseQuizItem> quiz = service.getQuiz(101L, 10);
         assertEquals(3, quiz.size());
 
@@ -48,16 +54,90 @@ public class CourseStudyServiceTest
         assertEquals(Arrays.asList("B"), third.getAnswer());
     }
 
+    /**
+     * 知识库关闭（或未配置）时应回退到前端传入的课程文本，行为与改造前一致。
+     */
     @Test
-    public void testChat()
+    public void testChatFallsBackToContext()
     {
-        CourseStudyServiceImpl service = new CourseStudyServiceImpl(stubMapper(), stubChat());
+        CourseStudyServiceImpl service = newService();
         assertEquals("stub-answer", service.chat("集合框架怎么选？", "[00:30] 集合框架"));
+    }
+
+    /**
+     * L2 归一化：归一化后模长为 1，点积即余弦相似度。
+     */
+    @Test
+    public void testEmbeddingNormalize()
+    {
+        float[] vector = EmbeddingClient.normalize(new float[] { 3F, 4F });
+        assertEquals(0.6D, vector[0], 1e-6);
+        assertEquals(0.8D, vector[1], 1e-6);
+        assertEquals(1.0D, Math.hypot(vector[0], vector[1]), 1e-6);
+    }
+
+    private CourseStudyServiceImpl newService()
+    {
+        return new CourseStudyServiceImpl(stubMapper(), stubChat(), stubStoreFactory(),
+                stubIngestService(), stubProperties());
+    }
+
+    /** 知识库关闭的配置：确保问答走 context 兜底 */
+    private KbProperties stubProperties()
+    {
+        KbProperties properties = new KbProperties();
+        properties.setEnabled(false);
+        return properties;
+    }
+
+    private KbVectorStoreFactory stubStoreFactory()
+    {
+        KbProperties properties = stubProperties();
+        LocalKbVectorStore local = new LocalKbVectorStore(null, null);
+        MilvusKbVectorStore milvus = new MilvusKbVectorStore(properties, null, null);
+        return new KbVectorStoreFactory(properties, local, milvus);
+    }
+
+    private KbIngestService stubIngestService()
+    {
+        return new KbIngestService(stubProperties(), null, stubStoreFactory(), null, null, null, null, null, null);
     }
 
     private CourseQuestionMapper stubMapper()
     {
-        return testId -> buildQuestions();
+        return new CourseQuestionMapper()
+        {
+            @Override
+            public List<CourseQuestion> selectByTestId(Long testId)
+            {
+                return buildQuestions();
+            }
+
+            @Override
+            public List<CourseQuestion> selectByTestIdLimit(Long testId, int limit)
+            {
+                List<CourseQuestion> all = buildQuestions();
+                return all.size() <= limit ? all : new ArrayList<>(all.subList(0, limit));
+            }
+
+            @Override
+            public Long selectNextTestId()
+            {
+                return 1001L;
+            }
+
+            @Override
+            public int selectMaxQuestionNumber(Long testId)
+            {
+                return buildQuestions().size();
+            }
+
+            @Override
+            public int insertQuestion(CourseQuestion question)
+            {
+                return 1;
+            }
+        };
     }
 
     private ChatModelClient stubChat()

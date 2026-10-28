@@ -1,0 +1,25 @@
+-- 视频知识结构化梳理记录（可追溯）
+CREATE TABLE IF NOT EXISTS `knowledge_extraction` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '梳理记录ID',
+  `subject_id` bigint NOT NULL COMMENT '学科ID',
+  `chapter_no` varchar(50) DEFAULT NULL COMMENT '章号',
+  `source_type` varchar(20) DEFAULT 'video' COMMENT '来源类型（video-视频课程）',
+  `model` varchar(100) DEFAULT NULL COMMENT '使用的模型',
+  `transcript_chars` int DEFAULT 0 COMMENT '输入逐字稿字符数',
+  `raw_response` mediumtext COMMENT '大模型原始返回',
+  `analysis_json` mediumtext COMMENT '标准化后的导图结构（nodes/relations/conclusions）',
+  `mapping_json` mediumtext COMMENT '同步时的知识点映射（含 pointId/matchType）',
+  `node_count` int DEFAULT 0 COMMENT '知识点数量',
+  `relation_count` int DEFAULT 0 COMMENT '关系数量',
+  `created_points` int DEFAULT 0 COMMENT '新建知识点数',
+  `matched_points` int DEFAULT 0 COMMENT '匹配已有知识点数',
+  `created_relations` int DEFAULT 0 COMMENT '新建关系数',
+  `status` varchar(20) DEFAULT 'analyzed' COMMENT '状态（analyzed-已分析 synced-已同步 failed-失败）',
+  `error_msg` varchar(500) DEFAULT NULL COMMENT '失败原因',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '分析人',
+  `create_time` datetime DEFAULT NULL COMMENT '分析时间',
+  `sync_by` varchar(64) DEFAULT NULL COMMENT '同步人',
+  `sync_time` datetime DEFAULT NULL COMMENT '同步时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_extract_subject` (`subject_id`, `chapter_no`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='视频知识结构化梳理记录';

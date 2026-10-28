@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.CourseTranscriptMapper">
+
+    <resultMap type="CourseTranscript" id="CourseTranscriptResult">
+        <result property="id"        column="id"         />
+        <result property="chapterId" column="chapter_id" />
+        <result property="lessonId"  column="lesson_id"  />
+        <result property="seq"       column="seq"        />
+        <result property="startMs"   column="start_ms"   />
+        <result property="endMs"     column="end_ms"     />
+        <result property="section"   column="section"    />
+        <result property="text"      column="text"       />
+    </resultMap>
+
+    <select id="selectByChapterId" resultMap="CourseTranscriptResult">
+        select id, chapter_id, lesson_id, seq, start_ms, end_ms, section, text
+        from course_transcript
+        where chapter_id = #{chapterId}
+        order by lesson_id asc, seq asc
+    </select>
+
+    <select id="selectByLessonId" resultMap="CourseTranscriptResult">
+        select id, chapter_id, lesson_id, seq, start_ms, end_ms, section, text
+        from course_transcript
+        where lesson_id = #{lessonId}
+        order by seq asc
+    </select>
+
+    <delete id="deleteByChapterId">
+        delete from course_transcript where chapter_id = #{chapterId}
+    </delete>
+
+    <delete id="deleteByLessonId">
+        delete from course_transcript where lesson_id = #{lessonId}
+    </delete>
+
+    <insert id="batchInsert">
+        insert into course_transcript (chapter_id, lesson_id, seq, start_ms, end_ms, section, text)
+        values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.chapterId}, #{item.lessonId}, #{item.seq}, #{item.startMs}, #{item.endMs}, #{item.section}, #{item.text})
+        </foreach>
+    </insert>
+
+</mapper>

@@ -47,9 +47,10 @@ public interface IUserVideoWatchService
      * 批量删除用户视频观看记录
      * 
      * @param ids 需要删除的用户视频观看记录主键集合
+     * @param userId 归属用户，为 null 时不限制（仅内部调用）
      * @return 结果
      */
-    public int deleteUserVideoWatchByIds(Long[] ids);
+    public int deleteUserVideoWatchByIds(Long[] ids, Long userId);
 
     /**
      * 删除用户视频观看记录信息

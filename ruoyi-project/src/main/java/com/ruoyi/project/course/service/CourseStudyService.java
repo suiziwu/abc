@@ -28,6 +28,18 @@ public interface CourseStudyService
     String chat(String question, String context, String model);
 
     /**
+     * 知识库增强问答（RAG）：先用问题检索知识库，再用命中片段作答。
+     *
+     * @param question 学生问题
+     * @param fallbackContext 知识库无命中时的兜底上下文（可为空）
+     * @param model 模型标识（可为空）
+     * @param subjectId 学科过滤（可空）
+     * @param chapterId 章节过滤（可空）
+     * @return 回答内容 + 引用来源
+     */
+    CourseAnswer ask(String question, String fallbackContext, String model, Long subjectId, Long chapterId);
+
+    /**
      * 返回 AI 助教可选的模型列表。
      */
     List<ChatModelOption> getModels();

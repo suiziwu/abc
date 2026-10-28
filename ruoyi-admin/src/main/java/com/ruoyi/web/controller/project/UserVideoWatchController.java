@@ -41,6 +41,7 @@ public class UserVideoWatchController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(UserVideoWatch userVideoWatch)
     {
+        userVideoWatch.setUserId(getUserId());
         startPage();
         List<UserVideoWatch> list = userVideoWatchService.selectUserVideoWatchList(userVideoWatch);
         return getDataTable(list);
@@ -54,6 +55,7 @@ public class UserVideoWatchController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, UserVideoWatch userVideoWatch)
     {
+        userVideoWatch.setUserId(getUserId());
         List<UserVideoWatch> list = userVideoWatchService.selectUserVideoWatchList(userVideoWatch);
         ExcelUtil<UserVideoWatch> util = new ExcelUtil<UserVideoWatch>(UserVideoWatch.class);
         util.exportExcel(response, list, "用户视频观看记录数据");
@@ -66,7 +68,12 @@ public class UserVideoWatchController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(userVideoWatchService.selectUserVideoWatchById(id));
+        UserVideoWatch row = userVideoWatchService.selectUserVideoWatchById(id);
+        if (row == null || !getUserId().equals(row.getUserId()))
+        {
+            return error("无权访问该记录");
+        }
+        return success(row);
     }
 
     /**
@@ -77,6 +84,7 @@ public class UserVideoWatchController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody UserVideoWatch userVideoWatch)
     {
+        userVideoWatch.setUserId(getUserId());
         return toAjax(userVideoWatchService.insertUserVideoWatch(userVideoWatch));
     }
 
@@ -88,6 +96,7 @@ public class UserVideoWatchController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody UserVideoWatch userVideoWatch)
     {
+        userVideoWatch.setUserId(getUserId());
         return toAjax(userVideoWatchService.updateUserVideoWatch(userVideoWatch));
     }
 
@@ -99,6 +108,6 @@ public class UserVideoWatchController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(userVideoWatchService.deleteUserVideoWatchByIds(ids));
+        return toAjax(userVideoWatchService.deleteUserVideoWatchByIds(ids, getUserId()));
     }
 }

@@ -213,8 +213,13 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listSubject(queryParams.value).then(response => {
-    subjectList.value = response.rows
+    subjectList.value = response.rows || []
     total.value = response.total
+  }).catch(() => {
+    subjectList.value = []
+    total.value = 0
+    proxy?.$modal?.msgError('加载学科失败')
+  }).finally(() => {
     loading.value = false
   })
 }
@@ -334,7 +339,10 @@ function handleFileSuccess(response, file) {
   upload.open = false
   upload.isUploading = false
   proxy.$refs["uploadRef"].handleRemove(file)
-  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + (response.msg || "导入完成") + "</div>", "导入结果", { dangerouslyUseHTMLString: true })
+  // response.msg 是后端返回的导入结果，拼进 HTML 前必须转义
+  const safeMsg = String(response.msg || "导入完成")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + safeMsg + "</div>", "导入结果", { dangerouslyUseHTMLString: true })
   getList()
 }
 

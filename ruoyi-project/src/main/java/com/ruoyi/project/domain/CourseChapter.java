@@ -53,6 +53,9 @@ public class CourseChapter extends BaseEntity
     /** 章节包含的知识点数量（联表统计，只读） */
     private Long pointCount;
 
+    /** 章节包含的课时数量（联表统计，只读） */
+    private Long lessonCount;
+
     /** 提交时携带的章节知识点ID集合（用于保存章节-知识点关联，非表字段） */
     private List<Long> pointIds;
 
@@ -184,6 +187,16 @@ public class CourseChapter extends BaseEntity
     public Long getPointCount()
     {
         return pointCount;
+    }
+
+    public Long getLessonCount()
+    {
+        return lessonCount;
+    }
+
+    public void setLessonCount(Long lessonCount)
+    {
+        this.lessonCount = lessonCount;
     }
 
     public void setPointIds(List<Long> pointIds)

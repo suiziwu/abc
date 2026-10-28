@@ -332,17 +332,18 @@ function initChart(pointData, relationData) {
     tooltip: {
       trigger: 'item',
       formatter: (params) => {
+        // 知识点内容来自后端（可能由 LLM 生成），tooltip 用 innerHTML 渲染，必须转义
         if (params.dataType === 'node') {
           const p = params.data.point
-          return `<strong>${p.name}</strong><br/>
-            类型：${p.type || '-'}<br/>
-            难度：${difficultyLabel(p.difficulty)}<br/>
-            描述：${p.content || '-'}`
+          return `<strong>${escapeHtml(p.name)}</strong><br/>
+            类型：${escapeHtml(p.type || '-')}<br/>
+            难度：${escapeHtml(difficultyLabel(p.difficulty))}<br/>
+            描述：${escapeHtml(p.content || '-')}`
         }
         if (params.dataType === 'edge') {
           return `<strong>关联关系</strong><br/>
-            类型：${relationLabel(params.data.relationType)}<br/>
-            描述：${params.data.value || '-'}`
+            类型：${escapeHtml(relationLabel(params.data.relationType))}<br/>
+            描述：${escapeHtml(params.data.value || '-')}`
         }
         return ''
       }
@@ -523,6 +524,16 @@ function difficultyColor(difficulty) {
 function difficultyLabel(difficulty) {
   const map = { 1: '简单', 2: '较易', 3: '中等', 4: '较难', 5: '困难' }
   return map[difficulty] || '未知'
+}
+
+/** ECharts tooltip 走 innerHTML，插值前必须转义，避免知识点内容里的标签被执行 */
+function escapeHtml(text) {
+  return String(text == null ? '' : text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 function difficultyTag(difficulty) {

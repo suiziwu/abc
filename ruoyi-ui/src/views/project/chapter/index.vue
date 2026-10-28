@@ -49,7 +49,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['project:point:add']"
+          v-hasPermi="['project:chapter:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -59,7 +59,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['project:point:edit']"
+          v-hasPermi="['project:chapter:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -69,13 +69,13 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['project:point:remove']"
+          v-hasPermi="['project:chapter:remove']"
         >删除</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="chapterList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="pagedChapters" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="章号" align="center" prop="chapterNo" width="90" />
       <el-table-column label="章节名称" align="center" prop="title" min-width="160" show-overflow-tooltip />
@@ -88,6 +88,11 @@
       <el-table-column label="知识点数" align="center" prop="pointCount" width="90">
         <template #default="scope">
           <el-tag type="info" size="small">{{ scope.row.pointCount || 0 }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="课时" align="center" prop="lessonCount" width="90">
+        <template #default="scope">
+          <el-tag type="success" size="small">{{ scope.row.lessonCount || 0 }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="排序" align="center" prop="sortOrder" width="70" />
@@ -109,11 +114,20 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="160" fixed="right">
         <template #default="scope">
           <el-button link type="primary" icon="View" @click="handleViewPoints(scope.row)">知识点</el-button>
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['project:point:edit']">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['project:point:remove']">删除</el-button>
+          <el-button link type="primary" icon="Film" @click="handleViewLessons(scope.row)">课时</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['project:chapter:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['project:chapter:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      v-model:page="queryParams.pageNum"
+      v-model:limit="queryParams.pageSize"
+      @pagination="getList"
+    />
 
     <!-- 添加或修改章节对话框 -->
     <el-dialog :title="title" v-model="open" width="720px" append-to-body>
@@ -246,6 +260,63 @@
       </template>
     </el-dialog>
 
+    <!-- 课时抽屉：上传视频并解析（与课程学习同一套链路） -->
+    <el-drawer v-model="lessonsVisible" :title="lessonsTitle" size="820px" append-to-body @closed="stopAnalysisPolling">
+      <div class="upload-file-row" style="margin-bottom: 12px;">
+        <el-upload
+          :show-file-list="false"
+          :http-request="handleUploadVideo"
+          accept="video/*"
+          :disabled="uploading"
+        >
+          <el-button type="primary" icon="Upload" :loading="uploading" v-hasPermi="['project:point:edit']">
+            上传视频并解析
+          </el-button>
+        </el-upload>
+        <span class="upload-file-name">
+          上传后自动完成：提取音频 → 语音识别 → AI 拆分知识点 → 生成随堂练习 → 重建知识库
+        </span>
+      </div>
+
+      <div v-if="analysisTask" class="analysis-body">
+        <el-progress
+          :percentage="analysisTask.progress || 0"
+          :status="analysisTask.status === '3' ? 'exception' : (analysisTask.status === '2' ? 'success' : undefined)"
+        />
+        <div class="analysis-stage">{{ analysisStageLabel }}</div>
+        <div class="analysis-message">{{ analysisTask.message || '正在处理…' }}</div>
+        <div class="analysis-stats">
+          <el-tag size="small" effect="plain">逐字稿 {{ analysisTask.transcriptCount || 0 }}</el-tag>
+          <el-tag size="small" effect="plain">知识点 {{ analysisTask.pointCount || 0 }}</el-tag>
+          <el-tag size="small" effect="plain">题目 {{ analysisTask.questionCount || 0 }}</el-tag>
+          <el-tag size="small" effect="plain">知识库 {{ analysisTask.kbCount || 0 }}</el-tag>
+        </div>
+      </div>
+
+      <el-table v-loading="lessonsLoading" :data="lessonList" empty-text="本章暂无课时">
+        <el-table-column type="index" label="#" width="50" align="center" />
+        <el-table-column label="课时编号" align="center" prop="lessonCode" width="110" />
+        <el-table-column label="课时名称" align="center" prop="title" min-width="180" show-overflow-tooltip />
+        <el-table-column label="时长" align="center" width="90">
+          <template #default="scope">
+            <span>{{ formatDuration(scope.row.durationSec) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="逐字稿" align="center" prop="transcriptCount" width="80" />
+        <el-table-column label="知识点" align="center" prop="pointCount" width="80" />
+        <el-table-column label="题目" align="center" prop="questionCount" width="80" />
+        <el-table-column label="知识库" align="center" prop="kbCount" width="80" />
+        <el-table-column label="视频" align="center" width="90">
+          <template #default="scope">
+            <el-link v-if="scope.row.videoPath" type="primary" :underline="false" icon="VideoCamera" @click="previewVideo(scope.row.videoPath)">
+              预览
+            </el-link>
+            <span v-else class="text-secondary">-</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-drawer>
+
     <!-- 视频预览弹窗 -->
     <el-dialog v-model="videoDialogVisible" title="章节视频预览" width="720px" destroy-on-close>
       <video
@@ -265,10 +336,18 @@
 import { listChapter, getChapter, listChapterPoints, addChapter, updateChapter, delChapter } from '@/api/project/chapter'
 import { listSubject } from '@/api/project/subject'
 import { listPoint } from '@/api/project/point'
+import { getVideoImportStatus, listCourseLessons, uploadCourseVideo } from '@/api/project/course'
 
 const { proxy } = getCurrentInstance()
 
 const chapterList = ref([])
+const total = ref(0)
+/** 当前页展示的章节：接口一次性返回全部（课程学习页需要完整列表），这里做前端分页 */
+const pagedChapters = computed(() => {
+  const { pageNum, pageSize } = queryParams.value
+  const start = Math.max(0, (pageNum - 1) * pageSize)
+  return chapterList.value.slice(start, start + pageSize)
+})
 const subjectList = ref([])
 const formPointList = ref([])
 const chapterPoints = ref([])
@@ -285,6 +364,118 @@ const title = ref('')
 
 const videoDialogVisible = ref(false)
 const videoUrl = ref('')
+
+// ====== 课时（章下多视频） ======
+const lessonsVisible = ref(false)
+const lessonsTitle = ref('')
+const lessonsLoading = ref(false)
+const lessonList = ref([])
+const currentChapter = ref(null)
+const uploading = ref(false)
+const analysisTask = ref(null)
+let analysisTimer = null
+
+const STAGE_LABEL = {
+  queued: '排队中',
+  media: '解析视频 / 提取音频',
+  asr: '语音识别生成逐字稿',
+  llm: 'AI 提取章节、知识点与随堂练习',
+  persist: '写入章节、知识点、逐字稿与题库',
+  kb: '重建知识库',
+  done: '解析完成',
+  error: '解析失败'
+}
+
+const analysisStageLabel = computed(() => {
+  const stage = analysisTask.value?.stage
+  return STAGE_LABEL[stage] || stage || '处理中'
+})
+
+function formatDuration(seconds) {
+  const value = Number(seconds) || 0
+  if (value <= 0) return '-'
+  const m = Math.floor(value / 60)
+  const s = value % 60
+  return m > 0 ? `${m}分${String(s).padStart(2, '0')}秒` : `${s}秒`
+}
+
+/** 打开章节的课时抽屉 */
+function handleViewLessons(row) {
+  currentChapter.value = row
+  lessonsTitle.value = `${row.chapterNo || ''} ${row.title || ''} · 课时`
+  lessonsVisible.value = true
+  loadLessons(row.id)
+}
+
+function loadLessons(chapterId) {
+  lessonsLoading.value = true
+  return listCourseLessons(chapterId).then(res => {
+    lessonList.value = res.data || res.rows || []
+    lessonsLoading.value = false
+  }).catch(() => {
+    lessonList.value = []
+    lessonsLoading.value = false
+  })
+}
+
+/** 上传视频并触发课程学习那一套解析 */
+function handleUploadVideo(options) {
+  const chapter = currentChapter.value
+  if (!chapter) return
+  uploading.value = true
+  analysisTask.value = null
+  const fileName = options.file?.name || ''
+  const payload = {
+    subjectId: chapter.subjectId,
+    chapterNo: chapter.chapterNo,
+    chapterTitle: chapter.title,
+    lessonTitle: fileName.replace(/\.[^.]+$/, '')
+  }
+  uploadCourseVideo(options.file, payload).then(res => {
+    const taskId = res?.data?.taskId
+    if (!taskId) {
+      uploading.value = false
+      proxy.$modal.msgError('上传失败：未返回任务号')
+      return
+    }
+    proxy.$modal.msgSuccess('上传成功，正在后台解析…')
+    pollAnalysis(taskId)
+  }).catch(() => {
+    uploading.value = false
+    proxy.$modal.msgError('上传失败，请重试')
+  })
+}
+
+/** 轮询解析进度 */
+function pollAnalysis(taskId) {
+  stopAnalysisPolling()
+  const tick = () => {
+    getVideoImportStatus(taskId).then(res => {
+      const task = res?.data || {}
+      analysisTask.value = task
+      if (task.status === '2' || task.status === '3') {
+        uploading.value = false
+        stopAnalysisPolling()
+        if (task.status === '2') {
+          proxy.$modal.msgSuccess('解析完成')
+          loadLessons(currentChapter.value.id)
+          getList()
+        } else {
+          proxy.$modal.msgError(task.message || '解析失败')
+        }
+      }
+    }).catch(() => {})
+  }
+  tick()
+  analysisTimer = setInterval(tick, 8000)
+}
+
+function stopAnalysisPolling() {
+  if (analysisTimer) {
+    clearInterval(analysisTimer)
+    analysisTimer = null
+  }
+}
 
 const data = reactive({
   form: {},
@@ -320,13 +511,15 @@ function difficultyTag(d) {
 /** 查询章节列表 */
 function getList() {
   loading.value = true
-  listChapter(queryParams.value).then(response => {
+  return listChapter(queryParams.value).then(response => {
+    // 章节接口返回 AjaxResult（数据在 data 里），不是分页结构（rows）
     const rows = response.data || response.rows || []
     const subjectMap = new Map(subjectList.value.map(s => [s.id, s.name]))
     rows.forEach(row => {
       row.subjectName = subjectMap.get(row.subjectId) || '未知'
     })
     chapterList.value = rows
+    total.value = Number(response.total || rows.length)
     loading.value = false
   }).catch(() => {
     loading.value = false
@@ -485,7 +678,9 @@ function previewVideo(path) {
   videoDialogVisible.value = true
 }
 
-getSubjectList().then(() => getList())
+getSubjectList().then(() => {
+  getList()
+})
 </script>
 
 <style scoped>
@@ -499,6 +694,43 @@ getSubjectList().then(() => getList())
   font-size: 12px;
   line-height: 1.5;
 }
+
+/* 上传视频 */
+.upload-file-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.upload-file-name {
+  color: #606266;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+/* 解析进度 */
+.analysis-body {
+  padding: 4px 2px;
+}
+.analysis-stage {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #303133;
+}
+.analysis-message {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #909399;
+  line-height: 1.6;
+  word-break: break-all;
+}
+.analysis-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
 .app-container {
   background-color: #f7f8fa;
   padding: 20px;

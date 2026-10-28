@@ -4,6 +4,8 @@ import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.ruoyi.project.kb.KbBaseService;
 import com.ruoyi.project.mapper.SubjectMapper;
 import com.ruoyi.project.domain.Subject;
 import com.ruoyi.project.service.ISubjectService;
@@ -19,6 +21,9 @@ public class SubjectServiceImpl implements ISubjectService
 {
     @Autowired
     private SubjectMapper subjectMapper;
+
+    @Autowired
+    private KbBaseService kbBaseService;
 
     /**
      * 查询学科
@@ -54,7 +59,13 @@ public class SubjectServiceImpl implements ISubjectService
     public int insertSubject(Subject subject)
     {
         subject.setCreateTime(DateUtils.getNowDate());
-        return subjectMapper.insertSubject(subject);
+        int rows = subjectMapper.insertSubject(subject);
+        if (rows > 0 && subject.getId() != null)
+        {
+            // 每个学科自动创建一个同名知识库（一对一）
+            kbBaseService.ensureForSubject(subject.getId(), subject.getName(), subject.getCreateBy());
+        }
+        return rows;
     }
 
     /**
@@ -67,7 +78,13 @@ public class SubjectServiceImpl implements ISubjectService
     public int updateSubject(Subject subject)
     {
         subject.setUpdateTime(DateUtils.getNowDate());
-        return subjectMapper.updateSubject(subject);
+        int rows = subjectMapper.updateSubject(subject);
+        if (rows > 0 && subject.getId() != null && subject.getName() != null)
+        {
+            // 学科改名时同步知识库名称
+            kbBaseService.ensureForSubject(subject.getId(), subject.getName(), subject.getUpdateBy());
+        }
+        return rows;
     }
 
     /**
@@ -77,8 +94,10 @@ public class SubjectServiceImpl implements ISubjectService
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteSubjectByIds(Long[] ids)
     {
+        kbBaseService.removeBySubjectIds(ids);
         return subjectMapper.deleteSubjectByIds(ids);
     }
 
@@ -89,8 +108,10 @@ public class SubjectServiceImpl implements ISubjectService
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteSubjectById(Long id)
     {
+        kbBaseService.removeBySubjectIds(new Long[] { id });
         return subjectMapper.deleteSubjectById(id);
     }
 }

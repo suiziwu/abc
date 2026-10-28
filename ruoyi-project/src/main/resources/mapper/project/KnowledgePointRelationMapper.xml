@@ -34,6 +34,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <select id="selectRelationsByPointIds" resultMap="KnowledgePointRelationResult">
+        <include refid="selectKnowledgePointRelationVo"/>
+        where source_id in
+        <foreach item="id" collection="pointIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and target_id in
+        <foreach item="id" collection="pointIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <insert id="insertKnowledgePointRelation" parameterType="KnowledgePointRelation" useGeneratedKeys="true" keyProperty="id">
         insert into knowledge_point_relation
         <trim prefix="(" suffix=")" suffixOverrides=",">

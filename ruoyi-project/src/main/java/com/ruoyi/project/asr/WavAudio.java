@@ -181,6 +181,26 @@ public final class WavAudio
         return samples.length / (double) sampleRate;
     }
 
+    /**
+     * 截取一段音频（用于长音频分片识别）。
+     *
+     * @param startSeconds 起始秒
+     * @param lengthSeconds 长度秒
+     * @return 截取后的音频
+     */
+    public WavAudio slice(double startSeconds, double lengthSeconds)
+    {
+        int from = Math.max(0, (int) Math.floor(startSeconds * sampleRate));
+        int to = Math.min(samples.length, from + (int) Math.max(0D, lengthSeconds * sampleRate));
+        if (to <= from)
+        {
+            return new WavAudio(sampleRate, new float[0]);
+        }
+        float[] part = new float[to - from];
+        System.arraycopy(samples, from, part, 0, part.length);
+        return new WavAudio(sampleRate, part);
+    }
+
     public int getSampleRate()
     {
         return sampleRate;

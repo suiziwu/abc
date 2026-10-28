@@ -437,6 +437,12 @@ function getList() {
     })
     pointList.value = rows
     total.value = response.total
+  }).catch(() => {
+    pointList.value = []
+    total.value = 0
+    proxy?.$modal?.msgError('加载知识点失败')
+  }).finally(() => {
+    // 无论成功失败都要收起 loading，否则接口异常时页面一直转圈
     loading.value = false
   })
 }
@@ -558,7 +564,10 @@ function handleFileSuccess(response, file) {
   upload.open = false
   upload.isUploading = false
   proxy.$refs["uploadRef"].handleRemove(file)
-  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + (response.msg || "导入完成") + "</div>", "导入结果", { dangerouslyUseHTMLString: true })
+  // response.msg 是后端返回的导入结果，拼进 HTML 前必须转义
+  const safeMsg = String(response.msg || "导入完成")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + safeMsg + "</div>", "导入结果", { dangerouslyUseHTMLString: true })
   getSubjectList()
   getList()
 }

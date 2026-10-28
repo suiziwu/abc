@@ -23,7 +23,7 @@ langchain:
   api-key: ${DASHSCOPE_API_KEY:}
   model-name: qwen3.8-flash
   temperature: 1.0
-  timeout-seconds: 120
+  timeout-seconds: 300
   log-requests: false
   log-responses: false
 
@@ -39,14 +39,14 @@ ai:
         api-key: ${DASHSCOPE_API_KEY:}
         model: qwen3.8-flash
         temperature: 1.0
-        timeout-seconds: 120
+        timeout-seconds: 300
       - id: deepseek-chat
         label: DeepSeek Chat
         base-url: https://api.deepseek.com/v1
         api-key: ${DEEPSEEK_API_KEY:}
         model: deepseek-chat
         temperature: 1.0
-        timeout-seconds: 120
+        timeout-seconds: 300
   asr:
     dashscope-base-url: https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/api/v1
     api-key: ${DASHSCOPE_API_KEY:}
@@ -182,4 +182,49 @@ media-kit:
   timeout-seconds: 600
   # 上传文件保存目录；为空时使用 <ruoyi.profile>/media_kit
   upload-dir:
+
+# 知识库（RAG）：视频 AI 助教改为「先检索知识库，再生成回答」
+kb:
+  # 总开关；关闭后退回“前端传课程文本”的旧链路
+  enabled: true
+  # 向量库实现：local（MySQL 存向量，Windows 开箱可用）| milvus
+  provider: local
+  # 切块目标长度（字符）与重叠：对标百炼「智能切分 600 token」，中文约 900 字符；
+  # 课程逐字稿按 600 字符一个窗口，保留 100 字符重叠
+  chunk-size: 600
+  chunk-overlap: 100
+  # 检索返回条数与相似度下限（余弦，-1~1）
+  top-k: 6
+  min-score: 0.2
+  # 召回策略：向量 + 关键词双路并行，RRF 融合
+  retrieval:
+    hybrid: true
+    # 单路召回候选数（百炼建议 50~100）
+    candidate-k: 50
+    rrf-k: 60
+    keyword-min-score: 0
+    dedupe-by-hash: true
+  # 精排（百炼 rerank）：默认关闭，配置 api-key 后置 enabled=true 生效
+  rerank:
+    enabled: false
+    base-url: https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank
+    api-key:
+    model: qwen3-rerank
+    top-n: 20
+    timeout-seconds: 10
+  embedding:
+    # 为空时回退到 langchain.api-key
+    api-key:
+    # 为空时回退到 ai.chat.models 中第一个模型的 base-url
+    base-url:
+    model: text-embedding-v3
+    dimensions: 1024
+    batch-size: 10
+    timeout-seconds: 60
+  milvus:
+    # Milvus 2.4+ RESTful v2，启动方式见 docker-compose.milvus.yml
+    base-url: http://127.0.0.1:19530
+    collection: course_kb
+    # Milvus 连不上时自动回退 local，避免影响问答主流程
+    fallback-to-local: true
 

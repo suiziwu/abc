@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class LearnController extends BaseController
     /**
      * AI 对话接口。
      */
+    @PreAuthorize("@ss.hasPermi('project:learn:query')")
     @PostMapping("/chat")
     public AjaxResult chat(@RequestBody Map<String, String> params)
     {
@@ -39,6 +41,11 @@ public class LearnController extends BaseController
         if (userInput == null || userInput.trim().isEmpty())
         {
             return AjaxResult.error("消息不能为空");
+        }
+        // 限制长度：该输入会直接进入大模型上下文，过长既贵又容易被塞入无关指令
+        if (userInput.length() > 4000)
+        {
+            userInput = userInput.substring(0, 4000);
         }
 
         try
