@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.talent.mapper.TalentMapper">
+
+    <select id="countSnapshotPostings" resultType="java.lang.Long">
+        select count(*) from talent_job_posting
+        where batch_date = ''
+        <if test="jobFamily != null and jobFamily != ''">
+            and job_family = #{jobFamily}
+        </if>
+    </select>
+
+    <select id="countBatchPostings" resultType="java.lang.Long">
+        select count(*) from talent_job_posting
+        where batch_date &lt;&gt; ''
+        <if test="jobFamily != null and jobFamily != ''">
+            and job_family = #{jobFamily}
+        </if>
+    </select>
+
+    <select id="countPostings" resultType="java.lang.Long">
+        select count(*) from talent_job_posting p
+        where 1 = 1
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        <if test="batchDate != null">
+            and p.batch_date = #{batchDate}
+        </if>
+    </select>
+
+    <select id="countSkills" resultType="java.lang.Long">
+        select count(distinct s.skill_name)
+        from talent_job_skill s
+        join talent_job_posting p on p.id = s.posting_id
+        where 1 = 1
+        <if test="batchDate != null">
+            and s.batch_date = #{batchDate} and p.batch_date = #{batchDate}
+        </if>
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+    </select>
+
+    <select id="countMajors" resultType="java.lang.Long">
+        select count(*) from talent_major
+    </select>
+
+    <select id="countSubjects" resultType="java.lang.Long">
+        select count(*) from subject where del_flag = '0' and status = '0'
+    </select>
+
+    <select id="countSubjectPoints" resultType="java.lang.Long">
+        select count(*) from knowledge_point where del_flag = '0' and status = '0'
+    </select>
+
+    <select id="countBasicCourses" resultType="java.lang.Long">
+        select count(*) from subject
+        where del_flag = '0' and status = '0'
+          and code in ('sub_algorithm', 'sub_os', 'sub_network', 'sub_computer_org')
+    </select>
+
+    <select id="selectSubjects" resultType="java.util.HashMap">
+        select s.id as subjectId,
+               s.name as courseName,
+               s.code as courseCode,
+               s.description as description,
+               s.sort_order as sortOrder,
+               (select count(*) from knowledge_point p
+                 where p.subject_id = s.id and p.del_flag = '0' and p.status = '0') as pointCount
+        from subject s
+        where s.del_flag = '0' and s.status = '0'
+        order by s.sort_order, s.id
+    </select>
+
+    <select id="selectSubjectPoints" resultType="java.util.HashMap">
+        select p.subject_id as subjectId,
+               p.name as pointName,
+               p.difficulty as difficulty,
+               p.importance as importance
+        from knowledge_point p
+        join subject s on s.id = p.subject_id
+        where p.del_flag = '0' and p.status = '0'
+          and s.del_flag = '0' and s.status = '0'
+        order by p.subject_id, p.sort_order, p.id
+    </select>
+
+    <select id="selectLastImportTime" resultType="java.lang.String">
+        select date_format(max(create_time), '%Y-%m-%d %H:%i:%s') from talent_job_posting
+    </select>
+
+    <select id="selectJobFamilyStat" resultType="java.util.HashMap">
+        select p.job_family as jobFamily,
+               group_concat(distinct p.industry order by p.industry separator '、') as industry,
+               (select group_concat(m.major_name separator '、') from talent_major m where m.job_family = p.job_family) as majorName,
+               count(*) as jobCount
+        from talent_job_posting p
+        where p.job_family is not null and p.job_family &lt;&gt; ''
+        <if test="batchDate != null">
+            and p.batch_date = #{batchDate}
+        </if>
+        group by p.job_family
+        order by jobCount desc
+    </select>
+
+    <select id="selectIndustryStat" resultType="java.util.HashMap">
+        select p.industry as industry,
+               count(*) as jobCount,
+               count(distinct p.job_family) as familyCount
+        from talent_job_posting p
+        where p.industry is not null and p.industry &lt;&gt; ''
+        <if test="batchDate != null">
+            and p.batch_date = #{batchDate}
+        </if>
+        group by p.industry
+        order by jobCount desc
+    </select>
+
+    <select id="selectBatchList" resultType="java.util.HashMap">
+        select batch_date as batchDate, count(*) as jobCount
+        from talent_job_posting
+        where batch_date &lt;&gt; ''
+        <if test="jobFamily != null and jobFamily != ''">
+            and job_family = #{jobFamily}
+        </if>
+        group by batch_date
+        order by batch_date
+    </select>
+
+    <select id="selectBatchOverview" resultType="java.util.HashMap">
+        select p.batch_date as batchDate,
+               count(*) as jobCount,
+               count(distinct p.job_family) as familyCount,
+               (select count(distinct s.skill_name) from talent_job_skill s
+                 where s.batch_date = p.batch_date) as skillCount,
+               date_format(min(p.create_time), '%Y-%m-%d %H:%i') as firstTime,
+               date_format(max(p.create_time), '%Y-%m-%d %H:%i') as lastTime
+        from talent_job_posting p
+        group by p.batch_date
+        order by p.batch_date
+    </select>
+
+    <select id="selectSkillRank" resultType="java.util.HashMap">
+        select s.skill_name as skillName,
+               max(s.skill_category) as skillCategory,
+               count(distinct s.posting_id) as jobCount
+        from talent_job_skill s
+        join talent_job_posting p on p.id = s.posting_id
+        where 1 = 1
+        <if test="batchDate != null">
+            and s.batch_date = #{batchDate} and p.batch_date = #{batchDate}
+        </if>
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        <if test="category != null and category != ''">
+            and s.skill_category = #{category}
+        </if>
+        group by s.skill_name
+        order by jobCount desc, s.skill_name
+        limit #{limit}
+    </select>
+
+    <select id="selectCategoryStat" resultType="java.util.HashMap">
+        select s.skill_category as name, count(*) as value
+        from talent_job_skill s
+        join talent_job_posting p on p.id = s.posting_id
+        where s.skill_category &lt;&gt; ''
+        <if test="batchDate != null">
+            and s.batch_date = #{batchDate} and p.batch_date = #{batchDate}
+        </if>
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        group by s.skill_category
+        order by value desc
+    </select>
+
+    <select id="selectSkillTrend" resultType="java.util.HashMap">
+        select s.batch_date as batchDate,
+               s.skill_name as skillName,
+               count(distinct s.posting_id) as jobCount
+        from talent_job_skill s
+        join talent_job_posting p on p.id = s.posting_id
+        where s.batch_date &lt;&gt; '' and p.batch_date = s.batch_date
+          and s.skill_name in
+        <foreach collection="skills" item="skill" open="(" separator="," close=")">
+            #{skill}
+        </foreach>
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        group by s.batch_date, s.skill_name
+        order by s.batch_date
+    </select>
+
+    <select id="selectSnapshotDayStats" resultType="java.util.HashMap">
+        select date_format(p.create_time, '%Y-%m-%d') as batchDate,
+               count(*) as jobCount
+        from talent_job_posting p
+        where p.batch_date = ''
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        group by date_format(p.create_time, '%Y-%m-%d')
+        order by batchDate
+    </select>
+
+    <select id="selectSnapshotSkillTrend" resultType="java.util.HashMap">
+        select date_format(p.create_time, '%Y-%m-%d') as batchDate,
+               s.skill_name as skillName,
+               count(distinct s.posting_id) as jobCount
+        from talent_job_skill s
+        join talent_job_posting p on p.id = s.posting_id
+        where p.batch_date = '' and s.batch_date = ''
+          and s.skill_name in
+        <foreach collection="skills" item="skill" open="(" separator="," close=")">
+            #{skill}
+        </foreach>
+        <if test="jobFamily != null and jobFamily != ''">
+            and p.job_family = #{jobFamily}
+        </if>
+        group by date_format(p.create_time, '%Y-%m-%d'), s.skill_name
+        order by batchDate
+    </select>
+
+    <select id="selectMajors" resultType="java.util.HashMap">
+        select m.id as majorId,
+               m.major_code as majorCode,
+               m.major_name as majorName,
+               m.job_family as jobFamily,
+               m.graduate as graduate,
+               m.remark as remark
+        from talent_major m
+        order by m.id
+    </select>
+
+    <select id="selectFamiliesWithoutMajor" resultType="java.util.HashMap">
+        select p.job_family as jobFamily, count(*) as jobCount
+        from talent_job_posting p
+        where p.job_family is not null and p.job_family &lt;&gt; ''
+          and not exists (select 1 from talent_major m where m.job_family = p.job_family)
+        <if test="batchDate != null">
+            and p.batch_date = #{batchDate}
+        </if>
+        group by p.job_family
+        order by jobCount desc
+    </select>
+
+    <delete id="deleteSkillsBySource">
+        delete from talent_job_skill
+        where posting_id in (
+            select id from talent_job_posting
+            where source = #{source} and batch_date = #{batchDate}
+        )
+    </delete>
+
+    <delete id="deletePostingsBySource">
+        delete from talent_job_posting where source = #{source} and batch_date = #{batchDate}
+    </delete>
+
+    <insert id="insertPosting" parameterType="com.ruoyi.project.talent.domain.TalentJobPosting"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into talent_job_posting
+            (batch_date, keyword, city, job_title, description, source, skill_names, create_time, job_family, industry)
+        values
+            (#{batchDate}, #{keyword}, #{city}, #{jobTitle}, #{description}, #{source}, #{skillNames}, #{createTime}, #{jobFamily}, #{industry})
+    </insert>
+
+    <insert id="insertSkill">
+        insert into talent_job_skill (posting_id, batch_date, skill_name, skill_category)
+        values (#{postingId}, #{batchDate}, #{skillName}, #{skillCategory})
+    </insert>
+
+    <select id="selectSkillCategoryDict" resultType="java.util.HashMap">
+        select skill_name as skillName, category
+        from talent_skill_category
+    </select>
+</mapper>

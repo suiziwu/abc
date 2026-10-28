@@ -228,3 +228,13 @@ kb:
     # Milvus 连不上时自动回退 local，避免影响问答主流程
     fallback-to-local: true
 
+# 人才培养 · 一键爬取（后台运行 Python 爬虫，完成后自动导入并刷新看板）
+talent:
+  crawl:
+    python: python
+    script: D:/000/fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
+    working-dir: D:/000/fiveEi/01-爬虫脚本
+    output-dir: D:/IDEA2025/xiangmu/fiveEi/新爬取
+    total-target: 200
+    timeout-minutes: 90
+
