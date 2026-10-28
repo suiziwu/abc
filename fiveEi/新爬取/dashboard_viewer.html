@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>岗位技能图谱可视化大屏 | 技能分析引擎</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b); font-family: 'Segoe UI', system-ui, sans-serif; color: #eef5ff; padding: 20px; min-height: 100vh; }
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        .dashboard { position: relative; z-index: 2; max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .card { background: rgba(12,20,35,0.65); backdrop-filter: blur(16px); border-radius: 32px; border: 1px solid rgba(0,255,255,0.25); box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05); transition: all 0.2s ease; overflow: hidden; display: flex; flex-direction: column; }
+        .card:hover { border-color: #0ff8; box-shadow: 0 0 18px rgba(0,200,255,0.2); }
+        .card-header { padding: 14px 20px; border-bottom: 1px solid rgba(0,255,255,0.2); font-weight: 600; background: rgba(0,20,40,0.4); }
+        .card-header i { margin-right: 8px; color: #2dd4bf; }
+        .card-content { flex: 1; padding: 16px; overflow-y: visible; }
+        .title-bar { backdrop-filter: blur(12px); background: rgba(10,20,40,0.55); border: 1px solid rgba(0,255,255,0.3); border-radius: 28px; padding: 12px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .title-bar h1 { font-size: 1.6rem; font-weight: 600; background: linear-gradient(135deg, #A0F0FF, #4A9EFF); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 1px; }
+        .badge { background: rgba(0,255,255,0.2); padding: 6px 14px; border-radius: 40px; font-size: 0.75rem; border-left: 2px solid #0ff; }
+        .refresh-btn { background: rgba(0,255,200,0.2); border: 1px solid #2dd4bf; border-radius: 40px; padding: 6px 16px; cursor: pointer; font-size: 0.75rem; transition: 0.2s; }
+        .refresh-btn:hover { background: rgba(0,255,200,0.4); }
+        .search-section { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; background: rgba(8,18,32,0.7); backdrop-filter: blur(12px); border-radius: 40px; padding: 16px 24px; border: 1px solid rgba(0,255,255,0.3); }
+        .search-group { flex: 1; min-width: 160px; }
+        .search-group label { font-size: 0.7rem; display: block; margin-bottom: 6px; letter-spacing: 1px; color: #9fd3ff; }
+        .search-input, .custom-select { width: 100%; background: rgba(0,10,25,0.8); border: 1px solid #2c5a7a; border-radius: 28px; padding: 10px 16px; color: white; font-size: 0.85rem; outline: none; font-family: inherit; }
+        .custom-select { appearance: none; -webkit-appearance: none; cursor: pointer; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2380ccff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-repeat: no-repeat; background-position: right 16px center; background-size: 14px; }
+        .custom-select option { background: #0a1428; color: #eef5ff; }
+        .search-btn, .reset-btn { background: linear-gradient(95deg, #0b5e7e, #00b4d8); border: none; border-radius: 40px; padding: 10px 28px; color: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; margin-top: 20px; }
+        .reset-btn { background: rgba(50,70,100,0.8); border: 1px solid #3a7caa; }
+        .grid-five { display: grid; grid-template-columns: 1fr 2.2fr 1fr; grid-template-rows: auto 1fr auto auto; gap: 18px; }
+        .center-card { grid-column: 2 / 3; grid-row: 1 / 3; }
+        .top-card { grid-column: 1 / 4; grid-row: 1 / 2; }
+        .left-card { grid-column: 1 / 2; grid-row: 2 / 3; }
+        .right-card { grid-column: 3 / 4; grid-row: 2 / 3; }
+        .bottom-card { grid-column: 1 / 4; grid-row: 3 / 4; }
+        .skill-card { grid-column: 1 / 4; grid-row: 4 / 5; }
+        .kpi-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 18px; }
+        .kpi-item { background: rgba(0,0,0,0.5); border-radius: 28px; padding: 12px 22px; text-align: center; min-width: 140px; border: 1px solid rgba(0,255,200,0.3); }
+        .kpi-number { font-size: 2.4rem; font-weight: 800; background: linear-gradient(135deg, #fff, #7ac7ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #9ac8ff; }
+        .chart-container { width: 100%; height: 300px; }
+        .center-chart { height: 380px; }
+        .graph-container { height: 420px; width: 100%; background: rgba(0,0,0,0.2); border-radius: 24px; margin-top: 8px; }
+        .job-list-wrapper { position: relative; overflow: hidden; border-radius: 20px; margin-top: 12px; }
+        .job-list-scroll { display: flex; flex-direction: column; gap: 8px; animation: scrollUpJob 35s linear infinite; }
+        .job-list-scroll:hover { animation-play-state: paused; }
+        @keyframes scrollUpJob { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .job-item { background: rgba(0,20,40,0.5); border-radius: 20px; padding: 12px 16px; border-left: 3px solid #2dd4bf; display: flex; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
+        .job-info { flex: 1; }
+        .job-title { font-weight: 600; font-size: 0.9rem; }
+        .job-meta { font-size: 0.7rem; color: #aad0ff; margin-top: 6px; }
+        .add-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+        .form-group { flex: 1; min-width: 120px; }
+        .form-group label { font-size: 0.7rem; display: block; margin-bottom: 4px; color: #9fd3ff; }
+        .form-control { background: rgba(0,10,25,0.8); border: 1px solid #2c5a7a; border-radius: 20px; padding: 8px 12px; width: 100%; color: white; font-size: 0.85rem; }
+        .btn-add { background: linear-gradient(95deg, #0b5e7e, #00b4d8); border: none; border-radius: 40px; padding: 8px 20px; color: white; font-weight: bold; cursor: pointer; margin-top: 18px; font-size: 0.8rem; }
+        .skill-scroll-wrapper { position: relative; overflow: hidden; border-radius: 24px; }
+        .skill-list-scroll { display: flex; flex-direction: column; gap: 12px; animation: scrollUpSkill 40s linear infinite; padding: 4px; }
+        .skill-list-scroll:hover { animation-play-state: paused; }
+        @keyframes scrollUpSkill { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .skill-job-card { background: rgba(0,30,50,0.6); border-radius: 24px; padding: 12px 18px; border: 1px solid rgba(0,255,200,0.2); flex-shrink: 0; }
+        .skill-job-card:hover { background: rgba(0,70,100,0.8); border-color: #0ff; transform: scale(1.01); }
+        .skill-job-name { font-size: 1rem; font-weight: 700; color: #b2f0ff; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .skill-badge-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+        .skill-badge { background: #0a3b4e; padding: 4px 12px; border-radius: 40px; font-size: 0.75rem; color: #b9f3ff; border-left: 2px solid #2dd4bf; }
+        .sub-header { font-size: 0.7rem; color: #8bbefe; margin-top: 4px; }
+        .stats-bar { background: rgba(0,20,40,0.5); border-radius: 20px; padding: 8px 16px; margin-bottom: 12px; font-size: 0.75rem; color: #7effe0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .pause-control { background: rgba(0,255,200,0.15); border: 1px solid #2dd4bf; border-radius: 20px; padding: 4px 12px; font-size: 0.7rem; cursor: pointer; }
+        .empty-state { text-align: center; padding: 40px; color: #6c8fb0; }
+        .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+        @media (max-width: 1000px) { .kpi-number { font-size: 1.7rem; } .search-section { flex-direction: column; align-items: stretch; } .grid-five { display: flex; flex-direction: column; } .chart-container { height: 280px; } }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="dashboard">
+    <div class="title-bar">
+        <h1><i class="fas fa-microchip"></i> NEURO·TALENT 智联观察站 | 技能图谱引擎</h1>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="badge" id="dataStatus"><i class="fas fa-check-circle"></i> 数据已嵌入 | 2条</div>
+            <button class="refresh-btn" onclick="location.reload();"><i class="fas fa-sync-alt"></i> 刷新页面</button>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <div class="search-group"><label><i class="fas fa-search"></i> 职位 / 关键词</label><input type="text" id="searchKeywordInput" class="search-input" placeholder="输入职位名称、技术栈..."></div>
+        <div class="search-group"><label><i class="fas fa-tag"></i> 岗位类别</label><select id="searchCategorySelect" class="custom-select"><option value="">全部类别</option></select></div>
+        <div class="search-group"><label><i class="fas fa-code"></i> 编程语言</label><select id="searchLanguageSelect" class="custom-select"><option value="">全部语言</option></select></div>
+        <div><button id="searchBtn" class="search-btn"><i class="fas fa-filter"></i> 智能筛选</button><button id="resetBtn" class="reset-btn"><i class="fas fa-undo-alt"></i> 重置</button></div>
+    </div>
+
+    <div class="grid-five">
+        <div class="card top-card"><div class="card-header"><i class="fas fa-chart-simple"></i> 核心指标引擎</div><div class="card-content" id="kpiContainer"></div></div>
+        <div class="card left-card"><div class="card-header"><i class="fas fa-briefcase"></i> 岗位关键词技能分布</div><div class="card-content"><div id="chartJobCategory" class="chart-container"></div></div></div>
+        <div class="card center-card"><div class="card-header"><i class="fas fa-chart-line"></i> 技能类别分布 | 各岗位技能需求对比</div><div class="card-content"><div id="chartSkillCategory" class="chart-container center-chart"></div></div></div>
+        <div class="card right-card"><div class="card-header"><i class="fab fa-python"></i> 编程语言热度榜</div><div class="card-content"><div id="chartLanguage" class="chart-container"></div></div></div>
+        <div class="card bottom-card">
+            <div class="card-header"><i class="fas fa-plus-circle"></i> 自由添加职位 · 动态更新</div>
+            <div class="card-content">
+                <div class="add-form">
+                    <div class="form-group"><label>岗位关键词</label><input type="text" id="newKeyword" class="form-control" placeholder="例: AI" value="AI"></div>
+                    <div class="form-group"><label>职位名称</label><input type="text" id="newTitle" class="form-control" placeholder="AI算法工程师" value="大模型架构师"></div>
+                    <div class="form-group"><label>编程语言</label><input type="text" id="newLang" class="form-control" placeholder="Python" value="Python"></div>
+                    <div class="form-group"><label>框架/库</label><input type="text" id="newFramework" class="form-control" placeholder="PyTorch" value="LangChain"></div>
+                    <button class="btn-add" id="addJobBtn"><i class="fas fa-satellite-dish"></i> 注入数据</button>
+                </div>
+                <div class="stats-bar" id="jobStatsBar"><span><i class="fas fa-list-ul"></i> 当前筛选职位列表</span><span class="pause-control" id="jobPauseToggle"><i class="fas fa-pause"></i> 悬停暂停</span></div>
+                <div id="jobScrollWrapper" class="job-list-wrapper" style="height: 280px; overflow: hidden;"><div id="jobListContainer" class="job-list-scroll"></div></div>
+            </div>
+        </div>
+        <div class="card skill-card">
+            <div class="card-header"><i class="fas fa-project-diagram"></i> 技能知识图谱 · 岗位关联技能全景</div>
+            <div class="card-content">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;"><span><i class="fas fa-share-alt"></i> 岗位⇄技能关系图谱</span><span style="font-size: 0.7rem; background: #0a2a3a; padding: 4px 12px; border-radius: 20px;">🔵岗位 | 🟢技能</span></div><div id="skillGraph" class="graph-container"></div></div>
+                    <div><div class="stats-bar" id="skillStatsBar"><span><i class="fas fa-clipboard-list"></i> 岗位所需技能清单（自动滚动）</span><span class="pause-control" id="skillPauseToggle"><i class="fas fa-pause"></i> 悬停暂停</span></div><div id="skillScrollWrapper" class="skill-scroll-wrapper" style="height: 480px; overflow: hidden;"><div id="skillDetailList" class="skill-list-scroll"></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const EMBEDDED_DATA = [{"岗位关键词": "AI全栈开发(北京)", "职位名称": "AI全栈开发-线索广告 急缺IC 和 poc\n55-85K·16薪", "编程语言": "Java"}, {"岗位关键词": "AI岗位详情", "职位名称": "Java\n9-10K", "工具/环境": "Linux, Nginx, Git"}];
+    let fullData = EMBEDDED_DATA;
+    let currentDisplayData = [...fullData];
+    let jobPlaying = true;
+    let skillPlaying = true;
+    let charts = {};
+
+    function extractSkillsFromJob(job) {
+        let skills = new Set();
+        ["编程语言", "框架/库", "数据库/中间件", "工具/环境"].forEach(field => {
+            let val = job[field];
+            if (val && val !== '无' && val.trim()) {
+                val.split(/[,，、;；|]+/).forEach(v => { let skill = v.trim(); if (skill && skill !== '无' && skill.length > 0) skills.add(skill); });
+            }
+        });
+        if (skills.size === 0) skills.add("无明确技能");
+        return Array.from(skills);
+    }
+
+    function buildGraphFromJobs(jobsData) {
+        let nodesMap = new Map(), links = [];
+        if (!jobsData.length) return { nodes: [], links: [] };
+        jobsData.forEach((job, idx) => {
+            let jobId = `job_${idx}`;
+            let jobName = job["职位名称"] || `${job["岗位关键词"]}_岗位`;
+            if (jobName.length > 22) jobName = jobName.slice(0,20)+'..';
+            nodesMap.set(jobId, { name: jobName, category: 0, symbolSize: 28, itemStyle: { color: '#3b82f6' } });
+            extractSkillsFromJob(job).forEach(skill => {
+                let skillId = `skill_${skill.replace(/\s/g, '')}`;
+                if (!nodesMap.has(skillId)) nodesMap.set(skillId, { name: skill, category: 1, symbolSize: 20, itemStyle: { color: '#2dd4bf' } });
+                links.push({ source: jobId, target: skillId, lineStyle: { color: '#aaccff', curveness: 0.2, width: 1.5 } });
+            });
+        });
+        return { nodes: Array.from(nodesMap.values()), links };
+    }
+
+    function renderSkillGraph() {
+        let chartDom = document.getElementById('skillGraph');
+        if (!chartDom) return;
+        if (charts.skillGraph) charts.skillGraph.dispose();
+        charts.skillGraph = echarts.init(chartDom);
+        let { nodes, links } = buildGraphFromJobs(currentDisplayData);
+        if (nodes.length === 0) {
+            charts.skillGraph.setOption({ title: { show: true, text: "暂无数据", left: 'center', top: 'center', textStyle: { color: '#aaa' } }, series: [] });
+            return;
+        }
+        charts.skillGraph.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}' },
+            series: [{ type: 'graph', layout: 'force', force: { repulsion: 500, edgeLength: 130, gravity: 0.1, friction: 0.2 }, roam: true, draggable: true, data: nodes, links: links, categories: [{ name: '岗位' }, { name: '技能' }], label: { show: true, position: 'right', fontSize: 10, color: '#eef5ff', offset: [5,0] }, emphasis: { focus: 'adjacency' }, lineStyle: { color: '#5aa9dd', curveness: 0.2, opacity: 0.7, width: 1.5 }, edgeSymbol: ['none', 'arrow'], edgeSymbolSize: [0, 6], roamZoom: true, itemStyle: { borderColor: '#fff', borderWidth: 1 } }]
+        });
+        charts.skillGraph.resize();
+    }
+
+    function renderJobList() {
+        let container = document.getElementById('jobListContainer');
+        if (!currentDisplayData.length) { container.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>暂无职位数据</p></div>'; return; }
+        let html = '';
+        currentDisplayData.forEach(job => {
+            let langHtml = job["编程语言"] ? `语言:${escapeHtml(job["编程语言"])}` : '';
+            let cityHtml = job["城市"] ? `城市:${escapeHtml(job["城市"])}` : '';
+            html += `<div class="job-item"><div class="job-info"><div class="job-title">${escapeHtml(job["职位名称"] || "未命名")} <span style="font-size:0.7rem;">${escapeHtml(job["岗位关键词"] || '')}</span></div><div class="job-meta">${langHtml} ${cityHtml}</div></div></div>`;
+        });
+        container.innerHTML = html + html;
+        let scrollElem = document.querySelector('.job-list-scroll');
+        if (scrollElem) { scrollElem.style.animation = 'none'; scrollElem.offsetHeight; scrollElem.style.animation = 'scrollUpJob 35s linear infinite'; }
+        document.getElementById('jobStatsBar').innerHTML = `<span><i class="fas fa-list-ul"></i> 当前筛选职位列表 (共 ${currentDisplayData.length} 条)</span><span class="pause-control" id="jobPauseToggle"><i class="fas fa-pause"></i> 悬停暂停</span>`;
+        document.getElementById('jobPauseToggle')?.addEventListener('click', () => {
+            let se = document.querySelector('.job-list-scroll');
+            if (se) { jobPlaying ? se.style.animationPlayState = 'paused' : se.style.animationPlayState = 'running'; jobPlaying = !jobPlaying; }
+        });
+    }
+
+    function renderSkillDetailList() {
+        let container = document.getElementById('skillDetailList');
+        if (!currentDisplayData.length) { container.innerHTML = '<div class="empty-state"><i class="fas fa-code"></i><p>暂无技能数据</p></div>'; return; }
+        let html = '';
+        currentDisplayData.forEach(job => {
+            let title = job["职位名称"] || job["岗位关键词"] || "未命名岗位";
+            let skills = extractSkillsFromJob(job);
+            let skillsHtml = skills.length ? skills.map(s => `<span class="skill-badge">${escapeHtml(s)}</span>`).join('') : '<span class="skill-badge">无明确技能</span>';
+            let cityInfo = job["城市"] ? `<span style="font-size:0.65rem; background:#0b4460; padding:2px 8px; border-radius:16px; margin-left:8px;">🏙️ ${escapeHtml(job["城市"])}</span>` : '';
+            html += `<div class="skill-job-card"><div class="skill-job-name"><i class="fas fa-briefcase"></i> ${escapeHtml(title)}<span style="font-size:0.7rem; background:#0b4460; padding:2px 8px; border-radius:16px;">${escapeHtml(job["岗位关键词"] || "其他")}</span>${cityInfo}</div><div class="sub-header"><i class="fas fa-code"></i> 核心技术栈：</div><div class="skill-badge-group">${skillsHtml}</div></div>`;
+        });
+        container.innerHTML = html + html;
+        let scrollElem = document.querySelector('.skill-list-scroll');
+        if (scrollElem) { scrollElem.style.animation = 'none'; scrollElem.offsetHeight; scrollElem.style.animation = 'scrollUpSkill 40s linear infinite'; }
+        document.getElementById('skillStatsBar').innerHTML = `<span><i class="fas fa-clipboard-list"></i> 岗位所需技能清单 (共 ${currentDisplayData.length} 条) | 自动滚动</span><span class="pause-control" id="skillPauseToggle"><i class="fas fa-pause"></i> 悬停暂停</span>`;
+        document.getElementById('skillPauseToggle')?.addEventListener('click', () => {
+            let se = document.querySelector('.skill-list-scroll');
+            if (se) { skillPlaying ? se.style.animationPlayState = 'paused' : se.style.animationPlayState = 'running'; skillPlaying = !skillPlaying; }
+        });
+    }
+
+    function refreshChartsAndKPI() {
+        if (currentDisplayData.length === 0) {
+            document.getElementById('kpiContainer').innerHTML = '<div class="empty-state"><i class="fas fa-chart-line"></i><p>暂无数据</p></div>';
+            if (charts.jobCategory) charts.jobCategory.clear();
+            if (charts.skillCategory) charts.skillCategory.clear();
+            if (charts.language) charts.language.clear();
+            return;
+        }
+
+        let catCount = new Map();
+        currentDisplayData.forEach(job => { let cat = job["岗位关键词"] || "其他"; if (cat.trim()) catCount.set(cat, (catCount.get(cat) || 0) + 1); });
+        let sortedCat = Array.from(catCount.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 12);
+        if (!charts.jobCategory) charts.jobCategory = echarts.init(document.getElementById('chartJobCategory'));
+        charts.jobCategory.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } }, grid: { containLabel: true, left: '15%', right: '5%', top: 20, bottom: '22%' },
+            xAxis: { type: 'category', data: sortedCat.map(c=>c[0]), axisLabel: { rotate: 45, interval: 0, fontSize: 11, color: '#e0f0ff', margin: 15, formatter: function(v) { if (v.length > 4) { let m = Math.ceil(v.length / 2); return v.substring(0, m) + '\n' + v.substring(m); } return v; } } },
+            yAxis: { type: 'value', name: '岗位数量' }, series: [{ type: 'bar', data: sortedCat.map(c=>c[1]), itemStyle: { borderRadius: [6,6,0,0], color: '#20dbc0' } }]
+        });
+
+        let skillCategoryData = { '编程语言': 0, '框架/库': 0, '数据库/中间件': 0, '工具/环境': 0 };
+        currentDisplayData.forEach(job => {
+            if (job["编程语言"] && job["编程语言"] !== '无') skillCategoryData['编程语言']++;
+            if (job["框架/库"] && job["框架/库"] !== '无') skillCategoryData['框架/库']++;
+            if (job["数据库/中间件"] && job["数据库/中间件"] !== '无') skillCategoryData['数据库/中间件']++;
+            if (job["工具/环境"] && job["工具/环境"] !== '无') skillCategoryData['工具/环境']++;
+        });
+        if (!charts.skillCategory) charts.skillCategory = echarts.init(document.getElementById('chartSkillCategory'));
+        charts.skillCategory.setOption({
+            tooltip: { trigger: 'axis' }, xAxis: { type: 'category', data: Object.keys(skillCategoryData), axisLabel: { rotate: 20, fontSize: 11, color: '#cceeff' } },
+            yAxis: { type: 'value', name: '包含该技能的岗位数' }, series: [{ type: 'bar', data: Object.values(skillCategoryData), itemStyle: { color: '#5f9eff', borderRadius: [8,8,0,0] } }]
+        });
+
+        let langMap = new Map();
+        currentDisplayData.forEach(job => {
+            let lang = job["编程语言"];
+            if (lang && lang !== '无') { lang.split(/[,，、]+/).forEach(l => { let lc = l.trim(); if(lc && lc !== '无') langMap.set(lc, (langMap.get(lc)||0)+1); }); }
+        });
+        let topLang = Array.from(langMap.entries()).sort((a,b)=>b[1]-a[1]).slice(0,6);
+        if (!charts.language) charts.language = echarts.init(document.getElementById('chartLanguage'));
+        charts.language.setOption({
+            tooltip: { trigger: 'axis' }, xAxis: { type: 'category', data: topLang.map(l=>l[0]), axisLabel: { rotate: 25, fontSize: 11, color: '#b6d0ff' } },
+            yAxis: { type: 'value', name: '出现次数' }, series: [{ type: 'bar', data: topLang.map(l=>l[1]), itemStyle: { color: '#f5a623', borderRadius: [8,8,0,0] } }]
+        });
+
+        let totalJobs = currentDisplayData.length;
+        document.getElementById('kpiContainer').innerHTML = `<div class="kpi-row"><div class="kpi-item"><div class="kpi-number">${totalJobs}</div><div class="kpi-label">当前岗位数</div></div><div class="kpi-item"><div class="kpi-number">${catCount.size}</div><div class="kpi-label">技术类别</div></div><div class="kpi-item"><div class="kpi-number">${topLang.length}</div><div class="kpi-label">活跃语言</div></div></div>`;
+    }
+
+    function refreshAll() { refreshChartsAndKPI(); renderJobList(); renderSkillGraph(); renderSkillDetailList(); }
+    function filterJobs() {
+        let keyword = document.getElementById('searchKeywordInput').value.trim().toLowerCase();
+        let category = document.getElementById('searchCategorySelect').value;
+        let language = document.getElementById('searchLanguageSelect').value;
+        let filtered = [...fullData];
+        if (keyword) filtered = filtered.filter(job => (job["职位名称"]||'').toLowerCase().includes(keyword) || (job["岗位关键词"]||'').toLowerCase().includes(keyword));
+        if (category) filtered = filtered.filter(job => (job["岗位关键词"]||'') === category);
+        if (language) filtered = filtered.filter(job => (job["编程语言"]||'').toLowerCase().includes(language.toLowerCase()));
+        currentDisplayData = filtered;
+        refreshAll();
+    }
+    function resetFilters() {
+        document.getElementById('searchKeywordInput').value = '';
+        document.getElementById('searchCategorySelect').value = '';
+        document.getElementById('searchLanguageSelect').value = '';
+        currentDisplayData = [...fullData];
+        refreshAll();
+    }
+    function populateFilterOptions() {
+        let catSet = new Set(), langSet = new Set();
+        fullData.forEach(job => { let c = job["岗位关键词"]; if(c && c.trim()) catSet.add(c.trim()); let l = job["编程语言"]; if(l && l !== '无' && l) { l.split(/[,，、]+/).forEach(lc => { if(lc && lc.trim()) langSet.add(lc.trim()); }); } });
+        let catSel = document.getElementById('searchCategorySelect'); catSel.innerHTML = '<option value="">全部类别</option>'; Array.from(catSet).sort().forEach(c => catSel.innerHTML += `<option value="${escapeHtml(c)}">${c}</option>`);
+        let langSel = document.getElementById('searchLanguageSelect'); langSel.innerHTML = '<option value="">全部语言</option>'; Array.from(langSet).sort().forEach(l => langSel.innerHTML += `<option value="${escapeHtml(l)}">${l}</option>`);
+    }
+    function addCustomJob() {
+        let keyword = document.getElementById('newKeyword').value.trim() || "AI";
+        let title = document.getElementById('newTitle').value.trim() || "新职位";
+        let lang = document.getElementById('newLang').value.trim() || "";
+        let framework = document.getElementById('newFramework').value.trim() || "";
+        fullData.push({ "岗位关键词": keyword, "职位名称": title, "编程语言": lang, "框架/库": framework });
+        populateFilterOptions();
+        resetFilters();
+    }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+    document.getElementById('searchBtn').addEventListener('click', filterJobs);
+    document.getElementById('resetBtn').addEventListener('click', resetFilters);
+    document.getElementById('addJobBtn').addEventListener('click', addCustomJob);
+    populateFilterOptions();
+    refreshAll();
+</script>
+</body>
+</html>
