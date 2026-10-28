@@ -480,6 +480,18 @@ public class CourseVideoImportService
             {
                 log.error("更新导入任务失败状态时出错，taskId=" + taskId, ignored);
             }
+            // 解析失败：删除刚建的空课时，避免课程页出现没有内容的课时
+            try
+            {
+                if (task.getLessonId() != null && transcriptMapper.selectByLessonId(task.getLessonId()).isEmpty())
+                {
+                    lessonMapper.deleteById(task.getLessonId());
+                }
+            }
+            catch (Throwable ignored)
+            {
+                log.warn("清理失败任务的空课时出错，lessonId=" + task.getLessonId());
+            }
         }
     }
 

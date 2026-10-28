@@ -862,10 +862,43 @@ docker compose -f docker-compose.milvus.yml up -d
 
 | 方法 | 路径 | 说明 |
 | --- | --- | --- |
-| POST | `/project/course/video/upload` | multipart：`file` + `subjectId`（`chapterNo/title/testId` 可选，兼容保留）。已有内容的章节**不会被覆盖**，自动新建下一章；未指定 `testId` 时按 `1000 + 章节ID` 分配独立题库，返回 `taskId` |
-| GET | `/project/course/video/status/{id}` | 任务状态：`status(0待处理/1处理中/2成功/3失败)`、`stage`、`progress`、统计数、`chapterNo/chapterId/testId` |
+| POST | `/project/course/video/upload` | multipart：`file` + `subjectId`，可选 `chapterNo`、`chapterTitle`（章名，一般传课程目录名）、`lessonCode`（课时编号）、`lessonTitle`（课时名）、`testId`。**章 → 课时两级**：`chapterNo` 命中已有章时本次视频作为该章的下一个课时，不会覆盖已有内容；未命中则新建章。未指定 `testId` 时按课时分配独立题库，返回 `taskId` |
+| GET | `/project/course/video/status/{id}` | 任务状态：`status(0待处理/1处理中/2成功/3失败)`、`stage`、`progress`、统计数、`chapterNo/chapterId/lessonId/lessonCode/testId` |
 | GET | `/project/course/video/list?subjectId=` | 最近 50 条导入任务 |
-| GET | `/project/course/transcript?chapterId=` | 章节 + 逐字稿分句（课程页动态加载）+ `testId`（该章节最近一次成功导入的题库） |
+| GET | `/project/course/transcript?chapterId=&lessonId=` | 章节 + 逐字稿分句（课程页动态加载）+ `testId`；传 `lessonId` 只返回该课时逐字稿并回传该课时的题库 |
+| GET | `/project/course/lessons/{chapterId}` | 章节下的课时列表（编号/名称/视频/时长/逐字稿数/知识点数/题目数/知识库分块数/题库） |
+
+### 14.1.1 章 → 课时两级结构（2026-10-28）
+
+课程视频按目录分层（`第一章 网络体系结构 / 1.1.0 引言 / 1.1.1 概念和功能`），因此把
+「一章一视频」升级为「一章多课时」：
+
+| 表 | 作用 |
+| --- | --- |
+| `course_chapter` | 章 = 课程目录（如「第一章 网络体系结构」，`chapter_no` = 1…6，`course_title` = 课程名） |
+| `course_lesson` | 课时 = 一个视频（`lesson_no` 章内序号、`lesson_code` 如 1.1.1、`video_path`、`test_id`、各项统计） |
+| `course_transcript` | 逐字稿，同时保留 `chapter_id` 与 `lesson_id`（唯一键改为 `lesson_id + seq`） |
+| `course_video_import` | 导入任务，新增 `lesson_id` / `lesson_code` |
+
+要点：
+
+- 逐字稿、随堂练习（题库）、知识库切片都挂到**课时**上；知识库文档键为
+  `transcript:{subjectId}:{chapterId}:{lessonId}`，一章多课时不会互相覆盖；
+- 重建知识库时按**整章**范围收集各课时逐字稿，避免把同章其它课时的切片当成陈旧文档清掉；
+- 章节-知识点关联改为**增量合并**（不再先删后插），多课时导入不会清空同章其它课时的知识点；
+- 解析失败会自动删除刚创建的空课时，避免课程页出现空条目；
+- 迁移脚本：`sql/migration_add_course_lesson.sql`（建表 + 加列）、
+  `sql/migration_lesson_transcript_key.sql`（逐字稿唯一键改为课时维度）。
+
+### 14.1.2 前端
+
+- `views/project/chapter/index.vue`：章节列表新增「课时」列与「课时」按钮，打开抽屉可
+  **上传视频并解析**（复用课程学习同一套链路：音频提取 → ASR → AI 知识点/题目 → 写库 → 重建知识库），
+  抽屉内实时显示阶段、进度与统计；
+- `views/project/course/index.vue`：右上角新增「课时」下拉，切换课时会加载该课时的
+  视频、逐字稿与随堂练习；
+- `api/project/course.js`：新增 `listCourseLessons(chapterId)`。
+
 
 ### 14.3 前端
 
