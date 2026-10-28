@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿<template>
+<template>
   <div class="app-container">
     <div v-if="loading" v-loading="loading" class="result-loading" />
 
@@ -9,52 +9,12 @@
           <el-button text :icon="ArrowLeft" @click="goBack">返回</el-button>
           <span class="header-title">{{ assessment.assessTitle || 'AI 推荐学习路径' }}</span>
         </div>
-        <div class="result-header-right">
-          <span v-if="assessment.createTime" class="header-time">生成于 {{ assessment.createTime }}</span>
+        <div>
           <el-tag type="success" effect="dark" size="small">
-            AI 推荐 · {{ chapterCount }} 个{{ hasChapterPath ? '章节' : '学科' }} · {{ validPoints.length }} 个知识点
+            AI 推荐 · {{ courses.length }} 门课程 · {{ allPoints.length }} 个知识点
           </el-tag>
-          <el-button
-            type="primary"
-            plain
-            :icon="Refresh"
-            :loading="regenerating"
-            @click="regeneratePath"
-          >重新生成路径</el-button>
         </div>
       </div>
-
-      <!-- 学习路径过期提示 -->
-      <el-alert
-        v-if="invalidPoints.length > 0"
-        type="warning"
-        show-icon
-        :closable="false"
-        class="stale-alert"
-      >
-        <template #title>
-          <span class="stale-text">
-            有 {{ invalidPoints.length }} 个推荐知识点已失效（可能已被删除或停用），当前学习路径可能已过期。
-          </span>
-          <el-button link type="primary" :loading="regenerating" @click="regeneratePath">立即重新生成</el-button>
-        </template>
-      </el-alert>
-
-      <!-- 知识点池变化提示（生成时的候选池大小 vs 当前） -->
-      <el-alert
-        v-else-if="poolGrowth !== null && poolGrowth > 0"
-        type="info"
-        show-icon
-        :closable="false"
-        class="stale-alert"
-      >
-        <template #title>
-          <span class="stale-text">
-            当前学科知识点较生成路径时新增 {{ poolGrowth }} 个（生成时 {{ generatedPointCount }} 个，现 {{ poolPointCount }} 个），建议重新生成以纳入最新知识点。
-          </span>
-          <el-button link type="primary" :loading="regenerating" @click="regeneratePath">立即重新生成</el-button>
-        </template>
-      </el-alert>
 
       <!-- 学习概览 -->
       <el-card shadow="never" class="profile-card">
@@ -65,12 +25,8 @@
         </template>
         <div class="profile-grid">
           <div class="profile-item">
-            <div class="profile-label">推荐知识点</div>
-            <div class="profile-value">{{ validPoints.length }}</div>
-          </div>
-          <div class="profile-item">
-            <div class="profile-label">{{ hasChapterPath ? '涉及章节' : '涉及学科' }}</div>
-            <div class="profile-value">{{ chapterCount }}</div>
+            <div class="profile-label">岗位知识点</div>
+            <div class="profile-value">{{ allPoints.length }}</div>
           </div>
           <div class="profile-item">
             <div class="profile-label">已学完</div>
@@ -82,7 +38,7 @@
           </div>
           <div class="profile-item">
             <div class="profile-label">待学习</div>
-            <div class="profile-value pending">{{ validPoints.length - learnedCount - learningCount }}</div>
+            <div class="profile-value pending">{{ allPoints.length - learnedCount - learningCount }}</div>
           </div>
           <div class="profile-item profile-item-wide">
             <div class="profile-label">学习完成度</div>
@@ -101,136 +57,86 @@
         </div>
       </el-card>
 
-      <!-- 主区域：左视频 + 右知识点 -->
-      <div class="learn-layout">
-        <!-- 左侧视频区 -->
-        <div class="learn-video">
-          <el-card shadow="never" class="video-card">
-            <template #header>
-              <div class="section-header">
-                <span><svg-icon icon-class="video" /> {{ currentVideo ? currentVideo.pointName : '视频播放' }}</span>
-              </div>
-            </template>
-            <div v-if="currentVideo" class="video-wrapper">
-              <video
-                :src="currentVideo.videoUrl"
-                controls
-                autoplay
-                class="video-player"
-                @timeupdate="onVideoTimeUpdate"
-                @ended="onVideoEnded"
-                ref="videoRef"
-              >
-                您的浏览器不支持视频播放
-              </video>
+      <!-- 课程学习卡片：点击进入完整课程学习页 -->
+      <CourseLearningSection
+        title="课程学习"
+        subtitle="点击课程卡片进入完整课程学习页"
+        :courses="courseCards"
+        empty-text="暂无岗位课程"
+        compact
+        @open="openCourse"
+      />
+
+      <!-- 岗位课程 → 知识点 → 视频，全部在当前页面内完成学习 -->
+      <CoursePointPanel
+        :courses="courses"
+        :active-course-id="activeCourseId"
+        :active-point-id="currentVideo ? currentVideo.pointId : null"
+        :weak-point-ids="weakPointIds"
+        :loading="loading"
+        :generating-course-id="generatingCourseId"
+        @select-course="selectCourse"
+        @select-point="selectPoint"
+        @generate-points="generateCoursePoints"
+      />
+
+      <el-card v-if="currentVideo" ref="videoCardRef" shadow="never" class="video-card">
+        <template #header>
+          <div class="section-header">
+            <div class="section-header-left">
+              <span><el-icon class="header-icon"><VideoCamera /></el-icon> {{ currentVideo.pointName }}</span>
+              <el-tag size="small" type="info" effect="plain">
+                {{ currentVideo.subjectName }}
+              </el-tag>
             </div>
-            <div v-else class="video-placeholder">
-              <svg-icon icon-class="video" style="font-size:64px;color:#d0d5dd" />
-              <p class="placeholder-text">请从右侧选择一个章节或知识点开始学习</p>
-            </div>
-          </el-card>
+            <el-button
+              v-if="currentVideo && currentVideo.point"
+              type="primary"
+              plain
+              size="small"
+              :icon="Aim"
+              @click="startQuizForPoint(currentVideo.point)"
+            >
+              知识点测评
+            </el-button>
+          </div>
+        </template>
+
+        <div v-if="currentVideo && currentVideo.videoUrl" class="video-wrapper">
+          <video
+            :src="currentVideo.videoUrl"
+            controls
+            autoplay
+            class="video-player"
+            @timeupdate="onVideoTimeUpdate"
+            @ended="onVideoEnded"
+            ref="videoRef"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </div>
 
-        <!-- 右侧知识点列表 -->
-        <div class="learn-points">
-          <el-card shadow="never" class="points-card">
-            <template #header>
-              <div class="section-header">
-                <span><svg-icon icon-class="list" /> {{ hasChapterPath ? '推荐学习路径（按章节）' : '推荐知识点' }}</span>
-                <span v-if="poolPointCount > 0" class="points-count-hint">
-                  学科共 {{ poolPointCount }} 个 · 本路径 {{ validPoints.length }} 个
-                </span>
-              </div>
-            </template>
-
-            <div class="subject-points-list">
-              <div
-                v-for="(group, gIdx) in chapterGroups"
-                :key="group.groupName + gIdx"
-                class="subject-group"
-              >
-                <div class="subject-group-header" @click="toggleSubject(gIdx)">
-                  <div class="subject-group-title">
-                    <el-icon :class="group._expanded ? 'expand-rotate' : ''">
-                      <CaretRight />
-                    </el-icon>
-                    <el-tag v-if="group._isChapter" size="small" effect="plain" class="chapter-badge">章节</el-tag>
-                    <span :title="group.groupName">{{ group.groupName }}</span>
-                    <el-progress
-                      :percentage="group._completionRate"
-                      :stroke-width="8"
-                      :text-inside="false"
-                      style="width:100px;margin-left:8px"
-                    />
-                  </div>
-                  <div class="group-header-right">
-                    <el-button
-                      v-if="group._chapterVideo"
-                      link
-                      type="primary"
-                      :icon="VideoPlay"
-                      title="播放本章视频"
-                      @click.stop="selectChapterVideo(group)"
-                    />
-                    <el-tag size="small" type="info">
-                      {{ group._doneCount }}/{{ group._points.length }}
-                    </el-tag>
-                  </div>
-                </div>
-
-                <div v-show="group._expanded" class="point-list">
-                  <div
-                    v-for="(point, pIdx) in group._points"
-                    :key="point.id"
-                    class="point-item"
-                    :class="{ active: currentVideo && currentVideo.pointId === point.id, invalid: point._invalid }"
-                    @click="!point._invalid && selectPoint(point, group)"
-                  >
-                    <div class="point-status">
-                      <el-icon v-if="point._invalid" class="status-invalid" color="#f56c6c">
-                        <WarningFilled />
-                      </el-icon>
-                      <el-icon v-else-if="point._status === '2'" class="status-done" color="#67c23a">
-                        <CircleCheck />
-                      </el-icon>
-                      <el-icon v-else-if="point._status === '1'" class="status-learning" color="#409eff">
-                        <VideoPlay />
-                      </el-icon>
-                      <span v-if="!point._invalid" class="status-dot status-pending-dot"></span>
-                    </div>
-                    <div class="point-info">
-                      <div class="point-name">{{ point.name }}</div>
-                      <div class="point-meta">
-                        <template v-if="point._invalid">
-                          <el-tag size="small" type="danger" effect="plain">已失效</el-tag>
-                          <span class="invalid-tip">该知识点已不存在，请重新生成路径</span>
-                        </template>
-                        <template v-else>
-                          <el-tag v-if="point.difficulty" size="small" :type="difficultyTag(point.difficulty)" style="margin-right:4px">
-                            {{ difficultyLabel(point.difficulty) }}
-                          </el-tag>
-                          <el-tag v-if="point.type" size="small" type="info">{{ point.type }}</el-tag>
-                        </template>
-                      </div>
-                    </div>
-                    <div v-if="!point._invalid" class="point-actions">
-                      <el-tag v-if="point._quizScore !== undefined && point._quizScore !== null" :type="point._quizScore >= 80 ? 'success' : point._quizScore >= 60 ? 'primary' : 'warning'" size="small" effect="dark" style="margin-right:4px">
-                        {{ point._quizScore }}分
-                      </el-tag>
-                      <el-icon v-if="point.video" color="#409eff" title="有视频"><VideoCamera /></el-icon>
-                      <el-icon v-else color="#c0c4cc" title="无视频"><VideoCameraFilled /></el-icon>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div v-if="chapterGroups.length === 0" class="no-points">
-                <el-empty description="暂无推荐知识点" :image-size="60" />
+        <div v-else-if="currentVideo" class="point-detail-panel">
+          <div class="point-detail-head">
+            <div class="point-detail-title">
+              <span class="point-detail-name">{{ currentVideo.pointName }}</span>
+              <div class="point-detail-tags">
+                <el-tag v-if="currentVideo.point?.difficulty" size="small" :type="difficultyTag(currentVideo.point.difficulty)">
+                  {{ difficultyLabel(currentVideo.point.difficulty) }}
+                </el-tag>
+                <el-tag v-if="currentVideo.point?.type" size="small" type="info" effect="plain">
+                  {{ currentVideo.point.type }}
+                </el-tag>
+                <el-tag v-if="currentVideo.point?._quizScore !== undefined && currentVideo.point?._quizScore !== null" size="small" type="warning">
+                  测评 {{ currentVideo.point._quizScore }} 分
+                </el-tag>
               </div>
             </div>
-          </el-card>
+            <el-tag type="info" effect="plain">该知识点暂无视频，已展示知识点内容</el-tag>
+          </div>
+          <div class="point-detail-content">{{ currentVideo.point?.content || '暂无知识点内容说明' }}</div>
         </div>
-      </div>
+      </el-card>
     </template>
 
     <div v-else class="result-empty">
@@ -348,16 +254,19 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getAssessment, updateAssessment } from '@/api/project/assessment'
-import { getPoint, listPoint } from '@/api/project/point'
-import { listPointChapters } from '@/api/project/chapter'
+import { getAssessment } from '@/api/project/assessment'
+import { getPoint, listPoint, addPoint, aiGeneratePointFromCourse } from '@/api/project/point'
+import { listSubject } from '@/api/project/subject'
 import { getHistory } from '@/api/project/history'
+import { listChapter } from '@/api/project/chapter'
 import { listRecord, updateRecord, addRecord } from '@/api/project/record'
 import { listWatch, addWatch, updateWatch } from '@/api/project/watch'
 import { chatWithAI } from '@/api/project/learn'
-import { ArrowLeft, CaretRight, CircleCheck, VideoPlay, VideoCamera, VideoCameraFilled, Check, Refresh, WarningFilled } from '@element-plus/icons-vue'
+import CoursePointPanel from './components/CoursePointPanel.vue'
+import CourseLearningSection from './components/CourseLearningSection.vue'
+import { ArrowLeft, Check, Aim, VideoCamera } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const route = useRoute()
@@ -365,13 +274,20 @@ const router = useRouter()
 
 const loading = ref(true)
 const assessment = ref(null)
-const chapterGroups = ref([])
+const history = ref(null)
+const courses = ref([])
+const rawCourseData = ref([])
 const allPoints = ref([])
 const records = ref([])
 const videoRef = ref(null)
+const videoCardRef = ref(null)
 const currentVideo = ref(null)
-const regenerating = ref(false)
-const poolPointCount = ref(0)
+const activeCourseId = ref(null)
+const weakPointIds = ref([])
+const generatingCourseId = ref(null)
+const quizPointId = ref(null)
+// 岗位下各学科的章列表：subjectId → 章数组
+const subjectChapterMap = ref({})
 
 // ====== 数据加载 ======
 
@@ -386,260 +302,247 @@ async function loadData() {
     return
   }
 
-  loading.value = true
   try {
     const res = await getAssessment(id)
     if (res.code === 200 && res.data) {
       assessment.value = res.data
-      await parseAiPoints()
+      await loadLearningContext()
       await loadUserRecords()
-      await buildPathTree()
-      computeStaleInfo()
+      buildCourses()
     } else {
       assessment.value = null
     }
-  } catch {
+  } catch (e) {
+    console.error('加载测评记录失败', e)
     assessment.value = null
   }
   loading.value = false
 }
 
-// 从 aiResponse 中提取知识点列表，兼容两种格式：
-//   1) 章节分组（新版）：[{subjectName, chapterNo, chapterTitle, points:[{pointId, pointName}]}]
-//   2) 扁平列表（旧版）：[{subjectName, pointName, pointId}]
-// 统一归一化为 [{pointId, pointName, subjectName, chapterNo, chapterTitle}]
-function extractRawPoints(aiResponse) {
-  if (!aiResponse) return []
-  let parsed
+function parseWeakPoints() {
+  const raw = assessment.value?.aiResponse
+  if (!raw) return []
   try {
-    parsed = typeof aiResponse === 'string' ? JSON.parse(aiResponse) : aiResponse
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
+    return Array.isArray(parsed) ? parsed : []
   } catch {
     return []
   }
-  if (!Array.isArray(parsed) || parsed.length === 0) return []
-
-  const result = []
-  parsed.forEach(item => {
-    if (!item) return
-    if (Array.isArray(item.points)) {
-      item.points.forEach(p => {
-        if (p && p.pointId) {
-          result.push({
-            pointId: p.pointId,
-            pointName: p.pointName || p.name || '',
-            subjectName: item.subjectName || '',
-            chapterNo: item.chapterNo || '',
-            chapterTitle: item.chapterTitle || ''
-          })
-        }
-      })
-    } else if (item.pointId) {
-      result.push({
-        pointId: item.pointId,
-        pointName: item.pointName || item.name || '',
-        subjectName: item.subjectName || '',
-        chapterNo: item.chapterNo || '',
-        chapterTitle: item.chapterTitle || ''
-      })
-    }
-  })
-  return result
 }
 
-// 解析 AI 返回的知识点列表
-async function parseAiPoints() {
-  const rawPoints = extractRawPoints(assessment.value.aiResponse)
-  if (rawPoints.length === 0) return
+// 加载岗位、岗位课程（学科）、章和知识点：学习页以岗位所需课程为入口
+async function loadLearningContext() {
+  const weakPoints = parseWeakPoints()
+  weakPointIds.value = weakPoints.map(item => String(item.pointId))
 
-  // 按 pointId 查完整信息；查不到则标记为失效，保留原条目以便提示用户
-  const pointPromises = rawPoints.map(async (rp) => {
+  // 测评关联的历史记录：岗位和匹配学科
+  if (assessment.value?.historyId) {
     try {
-      const res = await getPoint(rp.pointId)
-      if (res.code === 200 && res.data) {
-        return {
-          ...res.data,
-          _aiSubjectName: rp.subjectName || '',
-          _aiChapterNo: rp.chapterNo || '',
-          _aiChapterTitle: rp.chapterTitle || '',
-          _invalid: false
-        }
-      }
-    } catch {}
-    return {
-      id: rp.pointId,
-      name: rp.pointName || rp.name || `已失效知识点 #${rp.pointId}`,
-      _aiSubjectName: rp.subjectName || '未分类',
-      _aiChapterNo: rp.chapterNo || '',
-      _aiChapterTitle: rp.chapterTitle || '',
-      _invalid: true
+      const historyRes = await getHistory(assessment.value.historyId)
+      history.value = historyRes?.data || null
+    } catch {
+      history.value = null
     }
-  })
+  }
 
-  const results = await Promise.all(pointPromises)
-  allPoints.value = results.filter(Boolean)
-}
-
-// 计算“学科知识点池”规模，用于体现路径覆盖率（知识点池变大导致旧路径偏少）
-async function computeStaleInfo() {
-  poolPointCount.value = 0
-  const subjectIds = new Set()
-  chapterGroups.value.forEach(g => {
-    g._points.forEach(p => {
-      if (p.subjectId) subjectIds.add(p.subjectId)
-    })
-  })
-  const ids = Array.from(subjectIds)
-  if (ids.length === 0) return
-
+  let selectedSubjects = []
   try {
-    const results = await Promise.all(ids.map(id =>
-      listPoint({ subjectId: id, pageSize: 1, pageNum: 1 }).catch(() => null)
-    ))
-    poolPointCount.value = results.reduce((sum, res) => sum + (res?.total || 0), 0)
+    selectedSubjects = JSON.parse(history.value?.selectedSubjects || '[]')
   } catch {
-    poolPointCount.value = 0
+    selectedSubjects = []
   }
+  if (!Array.isArray(selectedSubjects)) selectedSubjects = []
+  // 兼容历史数据只存学科 id 的情况
+  selectedSubjects = selectedSubjects
+    .map(item => item && typeof item === 'object' ? item : { id: item })
+    .filter(item => item.id !== null && item.id !== undefined)
+
+  // 兼容旧数据：没有匹配学科时，从诊断知识点反推课程
+  if (selectedSubjects.length === 0 && weakPoints.length > 0) {
+    const pointResults = await Promise.all(weakPoints.map(async item => {
+      try {
+        const res = await getPoint(item.pointId)
+        return res?.data || null
+      } catch {
+        return null
+      }
+    }))
+    const groupMap = new Map()
+    pointResults.filter(Boolean).forEach(point => {
+      const key = String(point.subjectId)
+      if (!groupMap.has(key)) {
+        const item = weakPoints.find(w => String(w.pointId) === String(point.id))
+        groupMap.set(key, {
+          id: point.subjectId,
+          name: item?.subjectName || `课程 ${point.subjectId}`,
+          description: '',
+          points: []
+        })
+      }
+      groupMap.get(key).points.push(point)
+    })
+    rawCourseData.value = Array.from(groupMap.values())
+  }
+
+  // 学科元数据（课程简介/名称）
+  const subjectMeta = new Map()
+  try {
+    const subjectRes = await listSubject({ pageSize: 9999, pageNum: 1 })
+    const subjectRows = subjectRes.rows || subjectRes.data || []
+    subjectRows.forEach(item => subjectMeta.set(String(item.id), item))
+  } catch {}
+
+  // 岗位所需课程：加载每门课程下的全部知识点
+  if (rawCourseData.value.length === 0) {
+    const uniqueSubjects = []
+    const seen = new Set()
+    selectedSubjects.forEach(item => {
+      const key = String(item.id)
+      if (!item.id || seen.has(key)) return
+      seen.add(key)
+      const meta = subjectMeta.get(key)
+      uniqueSubjects.push({
+        id: item.id,
+        name: meta?.name || item.name || `课程 ${item.id}`,
+        code: meta?.code || item.code || '',
+        description: meta?.description || item.reason || ''
+      })
+    })
+
+    const courseResults = await Promise.all(uniqueSubjects.map(async item => {
+      try {
+        const pointRes = await listPoint({ subjectId: item.id, pageSize: 9999, pageNum: 1 })
+        return { ...item, points: pointRes.rows || pointRes.data || [] }
+      } catch {
+        return { ...item, points: [] }
+      }
+    }))
+    rawCourseData.value = courseResults
+  } else {
+    // 补全课程名称和简介
+    rawCourseData.value = rawCourseData.value.map(item => {
+      const meta = subjectMeta.get(String(item.id))
+      return {
+        ...item,
+        name: meta?.name || item.name,
+        code: meta?.code || item.code || '',
+        description: meta?.description || item.description || ''
+      }
+    })
+  }
+
+  // 岗位下的章：学科 → 章
+  await loadChapters()
 }
 
-// 重新生成学习路径：复用 [2] 工作流（错题信息 + 当前知识点池），并覆盖原记录
-async function regeneratePath() {
-  if (regenerating.value) return
-  if (!assessment.value) return
-
-  const rawPoints = extractRawPoints(assessment.value.aiResponse)
-  if (rawPoints.length === 0) {
-    ElMessage.warning('该记录没有可用的学习路径数据，无法重新生成')
-    return
-  }
-
-  regenerating.value = true
+// 通过测评关联的历史记录拿到岗位，加载该岗位下的章并按学科分组
+async function loadChapters() {
+  const chapterMap = {}
   try {
-    // 1. 还原错题信息（诊断时写入 weakPoints）
-    let wrongInfo = []
-    if (assessment.value.weakPoints) {
-      try {
-        const parsed = JSON.parse(assessment.value.weakPoints)
-        if (Array.isArray(parsed)) {
-          wrongInfo = parsed.map(w => ({
-            type: w.type,
-            question: w.question,
-            userAnswer: w.userAnswerText || w.userAnswer,
-            correctAnswer: w.correctAnswerText || w.correctAnswer
-          }))
-        }
-      } catch {}
+    const positionId = history.value?.positionId
+    if (positionId) {
+      const chapterRes = await listChapter({ positionId })
+      const chapterList = Array.isArray(chapterRes.data) ? chapterRes.data : []
+      chapterList.forEach(c => {
+        const key = String(c.subjectId)
+        if (!chapterMap[key]) chapterMap[key] = []
+        chapterMap[key].push(c)
+      })
     }
-
-    // 2. 按原路径涉及的学科重建“可出题知识点池”（取当前最新数据）
-    const subjectNames = Array.from(new Set(
-      rawPoints.map(p => p.subjectName).filter(Boolean)
-    ))
-    let historySubjects = []
-    if (assessment.value.historyId) {
-      try {
-        const historyRes = await getHistory(assessment.value.historyId)
-        const history = historyRes.data || historyRes.rows?.[0]
-        if (history?.selectedSubjects) {
-          const parsed = JSON.parse(history.selectedSubjects)
-          if (Array.isArray(parsed)) historySubjects = parsed
-        }
-      } catch {}
-    }
-
-    const scopedSubjects = subjectNames.length > 0
-      ? historySubjects.filter(s => subjectNames.includes(s.name))
-      : historySubjects
-    const poolSubjects = scopedSubjects.length > 0 ? scopedSubjects : historySubjects
-
-    let pointsPool = []
-    const chapterIndex = new Map()   // pointId -> {subjectName, chapterNo, chapterTitle}
-    const chapterStructMap = new Map() // chapterKey -> {subjectName, chapterNo, chapterTitle, points:[]}
-    for (const s of poolSubjects) {
-      if (!s?.id) continue
-      try {
-        const res = await listPoint({ subjectId: s.id, pageSize: 9999, pageNum: 1 })
-        const rows = res.rows || res.data || []
-        pointsPool = pointsPool.concat(rows.map(r => ({
-          subjectName: s.name,
-          pointName: r.name,
-          pointId: r.id
-        })))
-      } catch {}
-    }
-
-    // 构建“章节结构”，让 AI 直接按章节输出路径
-    if (pointsPool.length > 0) {
-      try {
-        const chapterRes = await listPointChapters(pointsPool.map(p => p.pointId))
-        const chapterRows = chapterRes.data || chapterRes.rows || []
-        chapterRows.forEach(r => {
-          const subjectName = pointsPool.find(p => p.pointId === r.pointId)?.subjectName || ''
-          const chapterNo = r.chapterNo || ''
-          const chapterTitle = r.chapterTitle || ''
-          if (!chapterNo && !chapterTitle) return
-          const key = `${subjectName}::${chapterNo}`
-          if (!chapterStructMap.has(key)) {
-            chapterStructMap.set(key, {
-              subjectName,
-              chapterNo,
-              chapterTitle,
-              points: []
-            })
-          }
-          chapterStructMap.get(key).points.push({
-            pointId: r.pointId,
-            pointName: r.pointName || ''
-          })
-          chapterIndex.set(r.pointId, { subjectName, chapterNo, chapterTitle })
-        })
-      } catch {}
-    }
-
-    // 知识点池附带所属章节，AI 才能把知识点归入章节
-    const pointsPoolWithChapter = pointsPool.map(p => ({
-      ...p,
-      ...(chapterIndex.get(p.pointId) || {})
-    }))
-    const chapterStructure = Array.from(chapterStructMap.values())
-
-    // 3. 调用 AI 工作流重新生成
-    const aiRes = await chatWithAI({ message: `[2]
-## 错题信息
-${JSON.stringify(wrongInfo, null, 2)}
-
-## 章节结构
-${JSON.stringify(chapterStructure, null, 2)}
-
-## 相关知识点
-${JSON.stringify(pointsPoolWithChapter, null, 2)}` })
-
-    if (aiRes.code !== 200 || !aiRes.data) {
-      throw new Error(aiRes.msg || 'AI 服务返回异常')
-    }
-    const aiReply = aiRes.data.reply || ''
-    const newRawPoints = extractRawPoints(aiReply)
-    if (newRawPoints.length === 0) {
-      throw new Error('AI 未生成有效的学习路径，请稍后重试')
-    }
-
-    // 4. 覆盖保存并重新加载（同步新的候选池大小，便于后续过期判定）
-    const saveRes = await updateAssessment({
-      id: assessment.value.id,
-      aiResponse: aiReply,
-      pointCount: pointsPool.length
-    })
-    if (saveRes.code !== 200) {
-      throw new Error(saveRes.msg || '保存失败')
-    }
-
-    await loadData()
-    ElMessage.success(`学习路径已重新生成（${newRawPoints.length} 个知识点）`)
-  } catch (error) {
-    console.error('重新生成学习路径失败:', error)
-    ElMessage.error('重新生成失败：' + (error.message || '请稍后重试'))
-  } finally {
-    regenerating.value = false
+  } catch (e) {
+    console.error('加载章列表失败', e)
   }
+  subjectChapterMap.value = chapterMap
+}
+
+// 将知识点按章分组：章列表为空时返回单个平铺分组（不渲染章标题，保持原平铺展示）
+function groupPointsByChapter(points, chapterList) {
+  if (!chapterList || chapterList.length === 0) {
+    return points.length > 0 ? [{ id: null, name: '', _flat: true, _points: points }] : []
+  }
+
+  const sorted = chapterList.slice().sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+  const chapterIds = new Set(sorted.map(c => String(c.id)))
+  const chapters = sorted.map(c => ({
+    id: c.id,
+    name: c.name || c.title,
+    _flat: false,
+    _points: points.filter(p => String(p.chapterId) === String(c.id))
+  }))
+
+  // 没有 chapterId 的知识点归入「未分章」虚拟章，排在最后
+  const unassigned = points.filter(p => !p.chapterId || !chapterIds.has(String(p.chapterId)))
+  if (unassigned.length > 0) {
+    chapters.push({ id: null, name: '未分章', _flat: false, _points: unassigned })
+  }
+
+  return chapters.filter(c => c._points.length > 0)
+}
+
+// 按岗位课程构建知识点树
+function buildCourses() {
+  const recordMap = {}
+  records.value.forEach(r => {
+    recordMap[String(r.pointId)] = r
+  })
+  const seenPointIds = new Set()
+
+  courses.value = rawCourseData.value.map(course => {
+    const points = (course.points || [])
+      .filter(point => {
+        const key = String(point.id)
+        if (seenPointIds.has(key)) return false
+        seenPointIds.add(key)
+        return true
+      })
+      .map(point => {
+        const record = recordMap[String(point.id)]
+        return {
+          ...point,
+          _status: record?.status || '0',
+          _progress: record?.progress || 0,
+          _quizScore: record?.pointQuizScore,
+          _recordId: record?.id || null
+        }
+      })
+    const done = points.filter(p => p._status === '2').length
+    const chapterList = subjectChapterMap.value[String(course.id)] || []
+    return {
+      id: course.id,
+      name: course.name,
+      code: course.code || '',
+      description: course.description,
+      _points: points,
+      _chapterList: chapterList,
+      _chapters: groupPointsByChapter(points, chapterList),
+      _doneCount: done,
+      _completionRate: points.length > 0 ? Math.round((done / points.length) * 100) : 0
+    }
+  })
+
+  allPoints.value = courses.value.flatMap(course => course._points)
+}
+
+// 学习记录变化后，只刷新状态和完成度，保留当前学习位置
+function applyRecordsToCourses() {
+  const recordMap = {}
+  records.value.forEach(r => {
+    recordMap[String(r.pointId)] = r
+  })
+  courses.value.forEach(course => {
+    course._points.forEach(point => {
+      const record = recordMap[String(point.id)]
+      point._status = record?.status || '0'
+      point._progress = record?.progress || 0
+      point._quizScore = record?.pointQuizScore
+      point._recordId = record?.id || null
+    })
+    const done = course._points.filter(p => p._status === '2').length
+    course._doneCount = done
+    course._completionRate = course._points.length > 0
+      ? Math.round((done / course._points.length) * 100)
+      : 0
+  })
 }
 
 // 加载学习记录
@@ -654,126 +557,41 @@ async function loadUserRecords() {
   }
 }
 
-// 构建「章节 → 知识点」学习路径树
-// 章节来源优先级：AI 直接给出的章节归属 > 库表 chapter_point 归属 > 学科名兜底
-async function buildPathTree() {
-  const recordMap = {}
-  records.value.forEach(r => {
-    recordMap[r.pointId] = r
-  })
-
-  // 批量取知识点所属章节（一次请求）；AI 已给出章节时仅用于补齐章节视频
-  const chapterMap = {}
-  const validIds = allPoints.value.filter(p => !p._invalid).map(p => p.id)
-  if (validIds.length > 0) {
-    try {
-      const res = await listPointChapters(validIds)
-      const rows = res.data || res.rows || []
-      rows.forEach(r => {
-        if (!chapterMap[r.pointId]) {
-          chapterMap[r.pointId] = {
-            key: `chapter:${r.chapterId}`,
-            chapterNo: r.chapterNo,
-            title: r.chapterTitle,
-            video: r.chapterVideo
-          }
-        }
-      })
-    } catch { /* 章节查询失败则仅依赖 AI 章节或学科名 */ }
-  }
-
-  const groupMap = new Map()
-  allPoints.value.forEach(p => {
-    const dbChapter = chapterMap[p.id]
-    let key
-    let name
-    let chapter
-
-    if (p._aiChapterNo || p._aiChapterTitle) {
-      // AI 明确给出的章节分组（章节顺序由 AI 路径决定）
-      key = `aiChapter:${p._aiSubjectName}:${p._aiChapterNo}`
-      name = `${p._aiChapterNo || ''} ${p._aiChapterTitle || ''}`.trim() || '未命名章节'
-      chapter = { video: dbChapter?.video || '' }
-    } else if (dbChapter) {
-      key = dbChapter.key
-      name = `${dbChapter.chapterNo || ''} ${dbChapter.title || ''}`.trim() || '未命名章节'
-      chapter = { video: dbChapter.video || '' }
-    } else {
-      key = `subject:${p._aiSubjectName || '未分类'}`
-      name = p._aiSubjectName || '未分类'
-      chapter = null
-    }
-
-    if (!groupMap.has(key)) {
-      groupMap.set(key, { key, groupName: name, chapter, points: [] })
-    }
-    groupMap.get(key).points.push(p)
-  })
-
-  const groups = Array.from(groupMap.values()).map(g => {
-    const enriched = g.points.map(p => ({
-      ...p,
-      _status: recordMap[p.id]?.status || '0',
-      _progress: recordMap[p.id]?.progress || 0,
-      _quizScore: recordMap[p.id]?.pointQuizScore,
-      _recordId: recordMap[p.id]?.id || null
-    }))
-    const done = enriched.filter(p => p._status === '2').length
-    const validCount = enriched.filter(p => !p._invalid).length
-    return {
-      groupName: g.groupName,
-      _isChapter: !!g.chapter,
-      _chapterVideo: g.chapter?.video || '',
-      _points: enriched,
-      _expanded: false,
-      _doneCount: done,
-      _completionRate: validCount > 0 ? Math.round((done / validCount) * 100) : 0
-    }
-  })
-
-  // 章节路径默认展开第一个，便于直接开始学习
-  if (groups.length > 0) {
-    groups[0]._expanded = true
-  }
-  chapterGroups.value = groups
-}
-
 // ====== 统计 ======
 
-const validPoints = computed(() => allPoints.value.filter(p => !p._invalid))
-const invalidPoints = computed(() => allPoints.value.filter(p => p._invalid))
-
-// 路径涉及的分组数（章节优先，无章节数据时为学科数）
-const chapterCount = computed(() => chapterGroups.value.length)
-const hasChapterPath = computed(() => chapterGroups.value.some(g => g._isChapter))
-
-// 生成学习路径时的候选知识点池大小（旧记录可能为空）
-const generatedPointCount = computed(() => {
-  const v = assessment.value?.pointCount
-  if (v === null || v === undefined || v === '') return null
-  return Number(v)
-})
-
-// 当前学科知识点池相对生成时的增量（仅在两者都有值时有效）
-const poolGrowth = computed(() => {
-  if (generatedPointCount.value === null) return null
-  if (poolPointCount.value === 0) return null
-  return poolPointCount.value - generatedPointCount.value
-})
-
 const learnedCount = computed(() => {
-  const pointIds = new Set(validPoints.value.map(p => p.id))
+  const pointIds = new Set(allPoints.value.map(p => p.id))
   return records.value.filter(r => r.status === '2' && pointIds.has(r.pointId)).length
 })
 
 const learningCount = computed(() => {
-  const pointIds = new Set(validPoints.value.map(p => p.id))
+  const pointIds = new Set(allPoints.value.map(p => p.id))
   return records.value.filter(r => r.status === '1' && pointIds.has(r.pointId)).length
 })
 
+// 岗位课程卡片：与左侧课程知识点面板共用同一份课程数据
+const courseCards = computed(() => courses.value.map((course, index) => {
+  const points = course._points || []
+  const learning = points.filter(point => point._status === '1').length
+  const done = course._doneCount || 0
+  const progress = course._completionRate || 0
+  return {
+    id: course.id,
+    name: course.name,
+    code: course.code || '',
+    description: course.description,
+    pointCount: points.length,
+    doneCount: done,
+    learningCount: learning,
+    progress,
+    statusLabel: progress >= 100 ? '已完成' : (learning > 0 ? '学习中' : '待学习'),
+    themeIndex: index
+  }
+}))
+
 const profilePercent = computed(() => {
-  if (validPoints.value.length === 0) return 0
-  return Math.round((learnedCount.value / validPoints.value.length) * 100)
+  if (allPoints.value.length === 0) return 0
+  return Math.round((learnedCount.value / allPoints.value.length) * 100)
 })
 
 const profileColor = computed(() => {
@@ -784,27 +602,14 @@ const profileColor = computed(() => {
 })
 
 const avgScore = computed(() => {
-  // 获取当前测评的所有知识点ID列表
-  let pointIds = new Set()
-  try {
-    const aiResponse = assessment.value?.aiResponse
-    if (aiResponse) {
-      const points = typeof aiResponse === 'string' ? JSON.parse(aiResponse) : aiResponse
-      if (Array.isArray(points)) {
-        points.forEach(p => {
-          if (p.pointId) pointIds.add(String(p.pointId))
-        })
-      }
-    }
-  } catch {}
-
-  // 筛选属于当前测评且有测评分数的记录
-  const scored = records.value.filter(r => 
-    pointIds.has(String(r.pointId)) && 
-    r.pointQuizScore !== null && 
+  // 统计当前岗位课程下所有已有测评分数的知识点
+  const pointIds = new Set(allPoints.value.map(p => String(p.id)))
+  const scored = records.value.filter(r =>
+    pointIds.has(String(r.pointId)) &&
+    r.pointQuizScore !== null &&
     r.pointQuizScore !== undefined
   )
-  
+
   if (scored.length === 0) return '暂无'
   const total = scored.reduce((sum, r) => sum + Number(r.pointQuizScore), 0)
   return Math.round(total / scored.length)
@@ -821,29 +626,28 @@ const avgScoreColor = computed(() => {
 
 // ====== 交互 ======
 
-function toggleSubject(idx) {
-  const item = chapterGroups.value[idx]
-  if (item) item._expanded = !item._expanded
+// 点击课程卡片，进入完整课程学习页
+function openCourse(course) {
+  if (!course?.id) return
+  router.push({
+    path: '/course',
+    query: {
+      subjectId: course.id,
+      subjectName: course.name || '',
+      from: 'card'
+    }
+  })
 }
 
-// 播放整章视频（章节级视频，作为该章知识点的合集入口）
-function selectChapterVideo(group) {
-  if (!group?._chapterVideo) return
-  const path = group._chapterVideo
-  currentVideo.value = {
-    pointId: null,
-    pointName: group.groupName,
-    subjectName: group.groupName,
-    videoUrl: path.startsWith('http') ? path : import.meta.env.VITE_APP_BASE_API + path
-  }
-  group._expanded = true
-  if (videoRef.value) {
-    videoRef.value.load()
-  }
+function selectCourse(course) {
+  activeCourseId.value = course.id
+  // 点击课程只切换课程，视频在点击具体知识点后再展示
+  currentVideo.value = null
 }
 
-async function selectPoint(point, group) {
-  if (!point || point._invalid) return
+async function selectPoint(point, course) {
+  activeCourseId.value = course.id
+
   let videoUrl = ''
   if (point.video) {
     videoUrl = point.video.startsWith('http') ? point.video : import.meta.env.VITE_APP_BASE_API + point.video
@@ -852,8 +656,9 @@ async function selectPoint(point, group) {
   currentVideo.value = {
     pointId: point.id,
     pointName: point.name,
-    subjectName: group?.groupName || '',
-    videoUrl: videoUrl
+    subjectName: course.name,
+    videoUrl: videoUrl,
+    point
   }
 
   if (videoRef.value && videoUrl) {
@@ -861,6 +666,104 @@ async function selectPoint(point, group) {
   }
 
   await ensureLearnRecord(point)
+
+  // 视频/知识点内容在当前页面下方展示，不跳转课程学习页
+  await nextTick()
+  const videoElement = videoCardRef.value?.$el || videoCardRef.value
+  videoElement?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
+}
+
+// 课程暂无知识点时，按课程视频内容/课程简介生成并保存知识点
+async function generateCoursePoints(course) {
+  if (generatingCourseId.value) return
+  const transcript = course._points
+    .slice(0, 30)
+    .map(point => [point.name, point.content].filter(Boolean).join('：'))
+    .filter(Boolean)
+    .join('\n') || [course.name, course.description].filter(Boolean).join('\n')
+
+  if (!transcript) {
+    ElMessage.warning('该课程暂无可分析的视频内容或课程简介')
+    return
+  }
+
+  generatingCourseId.value = course.id
+  try {
+    const res = await aiGeneratePointFromCourse({
+      subjectId: course.id,
+      chapterId: null,
+      courseTitle: course.name,
+      transcript
+    })
+    const drafts = Array.isArray(res.data) ? res.data : []
+    if (drafts.length === 0) {
+      ElMessage.warning('未从视频内容中提取到知识点，请稍后重试')
+      return
+    }
+
+    await ElMessageBox.confirm(
+      `已根据课程视频内容提取 ${drafts.length} 个知识点，是否保存到课程「${course.name}」？`,
+      '生成知识点',
+      { confirmButtonText: '保存', cancelButtonText: '取消', type: 'success' }
+    )
+
+    const existingNames = new Set(course._points.map(point => String(point.name || '').trim()))
+    let saved = 0
+    for (const draft of drafts) {
+      const name = String(draft.name || '').trim()
+      if (!name || existingNames.has(name)) continue
+      await addPoint({
+        subjectId: course.id,
+        chapterId: null,
+        name,
+        content: draft.content || '',
+        difficulty: Number(draft.difficulty) || 3,
+        importance: Number(draft.importance) || 2,
+        type: draft.type || '概念',
+        status: '0'
+      })
+      existingNames.add(name)
+      saved += 1
+    }
+
+    if (saved > 0) {
+      ElMessage.success(`已生成并保存 ${saved} 个知识点`)
+      await reloadCoursePoints(course)
+    } else {
+      ElMessage.info('没有新增知识点（生成结果已存在）')
+    }
+  } catch (error) {
+    if (error !== 'cancel' && error !== 'close') {
+      ElMessage.error('生成知识点失败：' + (error?.message || '请稍后重试'))
+    }
+  } finally {
+    generatingCourseId.value = null
+  }
+}
+
+// 重新读取指定课程的知识点，并保持当前课程/知识点选择
+async function reloadCoursePoints(course) {
+  try {
+    const res = await listPoint({ subjectId: course.id, pageSize: 9999, pageNum: 1 })
+    const points = res.rows || res.data || []
+    const index = rawCourseData.value.findIndex(item => String(item.id) === String(course.id))
+    if (index >= 0) {
+      rawCourseData.value[index] = { ...rawCourseData.value[index], points }
+    }
+    const currentPointId = currentVideo.value?.pointId
+    const currentCourseId = activeCourseId.value
+    buildCourses()
+    if (currentCourseId) activeCourseId.value = currentCourseId
+    if (currentPointId) {
+      const point = allPoints.value.find(item => String(item.id) === String(currentPointId))
+      const pointCourse = courses.value.find(item => String(item.id) === String(currentCourseId))
+      if (point && pointCourse) {
+        await selectPoint(point, pointCourse)
+      }
+    }
+  } catch (error) {
+    console.error('刷新课程知识点失败', error)
+  }
 }
 
 async function ensureLearnRecord(point) {
@@ -868,6 +771,7 @@ async function ensureLearnRecord(point) {
   if (!existing) {
     try {
       const res = await addRecord({
+        userId: 1,
         pointId: point.id,
         historyId: assessment.value?.historyId || null,
         status: '1',
@@ -875,7 +779,7 @@ async function ensureLearnRecord(point) {
       })
       if (res.code === 200) {
         await loadUserRecords()
-        await buildPathTree()
+        applyRecordsToCourses()
       }
     } catch (e) {
       const msg = e.message || ''
@@ -890,7 +794,7 @@ async function ensureLearnRecord(point) {
               startTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
             })
             await loadUserRecords()
-            await buildPathTree()
+            applyRecordsToCourses()
           }
         } catch (e2) {
           console.error('更新学习记录失败', e2)
@@ -907,7 +811,7 @@ async function ensureLearnRecord(point) {
         startTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
       })
       await loadUserRecords()
-      await buildPathTree()
+      applyRecordsToCourses()
     } catch (e) {
       console.error('更新学习记录失败', e)
     }
@@ -918,29 +822,18 @@ async function ensureLearnRecord(point) {
 let watchTimer = null
 function onVideoTimeUpdate() {
   if (!videoRef.value || !currentVideo.value) return
-  // 章节级视频不记录知识点学习进度
-  if (currentVideo.value.pointId === null || currentVideo.value.pointId === undefined) return
   const v = videoRef.value
   const progress = v.duration ? Math.round((v.currentTime / v.duration) * 100) : 0
 
   if (!watchTimer) {
-    // 排程时快照 pointId：回调在 5s 后执行，期间用户可能已切到别的知识点，
-    // 若那时再读 currentVideo 会把 A 的进度写到 B 上
-    const pointId = currentVideo.value.pointId
-    const scheduledProgress = progress
     watchTimer = setTimeout(async () => {
       watchTimer = null
-      if (!currentVideo.value || String(currentVideo.value.pointId) !== String(pointId)) return
-      const latest = videoRef.value
-      const currentProgress = latest && latest.duration
-        ? Math.round((latest.currentTime / latest.duration) * 100)
-        : scheduledProgress
-      const currentSeconds = latest ? Math.round(latest.currentTime) : 0
+      const pointId = currentVideo.value.pointId
       const existing = records.value.find(r => String(r.pointId) === String(pointId))
 
       if (existing && existing.status !== '2') {
         try {
-          await updateRecord({ id: existing.id, progress: currentProgress })
+          await updateRecord({ id: existing.id, progress })
         } catch {}
       }
 
@@ -951,17 +844,18 @@ function onVideoTimeUpdate() {
         if (existingWatch) {
           await updateWatch({
             id: existingWatch.id,
-            watchProgress: currentProgress,
-            watchDuration: currentSeconds,
+            watchProgress: progress,
+            watchDuration: Math.round(v.currentTime),
             lastWatchTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            completed: currentProgress >= 95 ? '1' : existingWatch.completed
+            completed: progress >= 95 ? '1' : existingWatch.completed
           })
         } else {
           await addWatch({
+            userId: 1,
             pointId,
-            watchProgress: currentProgress,
-            watchDuration: currentSeconds,
-            completed: currentProgress >= 95 ? '1' : '0'
+            watchProgress: progress,
+            watchDuration: Math.round(v.currentTime),
+            completed: progress >= 95 ? '1' : '0'
           })
         }
       } catch {}
@@ -971,8 +865,6 @@ function onVideoTimeUpdate() {
 
 async function onVideoEnded() {
   if (!currentVideo.value) return
-  // 章节级视频播放结束不做知识点完成的记录与测评（等待用户选择具体知识点）
-  if (currentVideo.value.pointId === null || currentVideo.value.pointId === undefined) return
   const pointId = currentVideo.value.pointId
   const pointName = currentVideo.value.pointName
   const existing = records.value.find(r => String(r.pointId) === String(pointId))
@@ -986,7 +878,7 @@ async function onVideoEnded() {
         completeTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
       })
       await loadUserRecords()
-      await buildPathTree()
+      applyRecordsToCourses()
       ElMessage.success(`已完成知识点「${pointName}」`)
     } catch {}
   }
@@ -1076,6 +968,7 @@ function quizClose() {
 
 async function startQuizForPoint(point) {
   if (!point) return
+  quizPointId.value = point.id
   quizTitleText.value = `「${point.name}」知识点测评`
   quizStep.value = 'loading'
   quizVisible.value = true
@@ -1185,14 +1078,14 @@ async function quizSubmit() {
     quizStep.value = 'result'
 
     // 保存测评最高分到学习记录
-    const record = records.value.find(r => String(r.pointId) === String(currentVideo.value?.pointId))
+    const record = records.value.find(r => String(r.pointId) === String(quizPointId.value))
     if (record && record.id) {
       const existingScore = record.pointQuizScore !== null && record.pointQuizScore !== undefined ? Number(record.pointQuizScore) : -1
       if (score > existingScore) {
         try {
           await updateRecord({ id: record.id, pointQuizScore: score })
           await loadUserRecords()
-          await buildPathTree() // 重新构建章节路径树，刷新显示分数
+          applyRecordsToCourses() // 重新构建知识点树，刷新显示分数
         } catch {}
       }
     }
@@ -1207,14 +1100,6 @@ async function quizSubmit() {
 function goBack() {
   router.push({ name: 'Learn' })
 }
-
-// 路由切走后回调仍会触发，必须清理，否则会对已卸载组件发请求
-onBeforeUnmount(() => {
-  if (watchTimer) {
-    clearTimeout(watchTimer)
-    watchTimer = null
-  }
-})
 </script>
 
 <style scoped>
@@ -1233,59 +1118,6 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.result-header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.header-time {
-  font-size: 12px;
-  color: #909399;
-}
-
-.stale-alert {
-  margin-bottom: 16px;
-}
-
-.stale-alert :deep(.el-alert__title) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.stale-text {
-  flex: 1;
-}
-
-.points-count-hint {
-  font-size: 12px;
-  color: #909399;
-  font-weight: 400;
-}
-
-.chapter-badge {
-  margin-right: 2px;
-  flex-shrink: 0;
-}
-
-.group-header-right {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.subject-group-title span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .header-title {
@@ -1335,22 +1167,67 @@ onBeforeUnmount(() => {
 .profile-value.learning { color: #409eff; }
 .profile-value.pending { color: #e6a23c; }
 
-.learn-layout {
+.section-header-left {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.section-header-left > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.video-card {
   margin-bottom: 16px;
 }
 
-.learn-video { flex: 3; min-width: 0; }
-
-.learn-points {
-  flex: 2;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
+.point-detail-panel {
+  background: #f8fafc;
+  border: 1px solid #ebeef5;
+  border-radius: 8px;
+  padding: 18px 20px;
+  min-height: 180px;
 }
 
-.video-card { height: 100%; }
+.point-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.point-detail-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.point-detail-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.point-detail-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.point-detail-content {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #606266;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
 .video-wrapper {
   background: #000;
@@ -1365,157 +1242,6 @@ onBeforeUnmount(() => {
   outline: none;
 }
 
-.video-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  background: #fafafa;
-  border-radius: 4px;
-}
-
-.placeholder-text {
-  color: #909399;
-  font-size: 14px;
-  margin-top: 12px;
-}
-
-.points-card { height: 100%; }
-
-.points-card :deep(.el-card__body) {
-  display: flex;
-  flex-direction: column;
-  height: 0;
-  min-height: 100%;
-  padding-bottom: 12px;
-}
-
-.subject-points-list {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.subject-points-list::-webkit-scrollbar { width: 4px; }
-.subject-points-list::-webkit-scrollbar-thumb { background: #d0d5dd; border-radius: 2px; }
-
-.subject-group {
-  margin-bottom: 8px;
-  border: 1px solid #ebeef5;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.subject-group-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  background: #f5f7fa;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.subject-group-header:hover { background: #ecf5ff; }
-
-.subject-group-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #303133;
-  flex: 1;
-  min-width: 0;
-}
-
-.expand-rotate { transform: rotate(90deg); transition: transform 0.2s; }
-
-.point-list { border-top: 1px solid #ebeef5; }
-
-.point-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-bottom: 1px solid #f2f2f2;
-}
-
-.point-item:last-child { border-bottom: none; }
-.point-item:hover { background: #f0f5ff; }
-
-.point-item.active {
-  background: #ecf5ff;
-  border-left: 3px solid #409eff;
-  padding-left: 9px;
-}
-
-.point-item.invalid {
-  cursor: not-allowed;
-  background: #fef7f7;
-}
-
-.point-item.invalid:hover {
-  background: #fef7f7;
-}
-
-.point-item.invalid .point-name {
-  color: #b1b3b8;
-  text-decoration: line-through;
-}
-
-.invalid-tip {
-  font-size: 12px;
-  color: #f56c6c;
-  margin-left: 4px;
-}
-
-.status-invalid {
-  color: #f56c6c;
-}
-
-.point-status {
-  flex-shrink: 0;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.status-pending-dot { background: #c0c4cc; }
-
-.point-info { flex: 1; min-width: 0; }
-
-.point-name {
-  font-size: 14px;
-  color: #303133;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.point-meta { margin-top: 4px; display: flex; align-items: center; flex-wrap: wrap; }
-
-.point-actions {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.no-points { padding: 20px 0; }
-
 .result-empty {
   display: flex;
   flex-direction: column;
@@ -1526,7 +1252,6 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 900px) {
-  .learn-layout { flex-direction: column; }
   .profile-grid { grid-template-columns: repeat(2, 1fr); }
   .profile-item-wide { grid-column: span 2; }
 }

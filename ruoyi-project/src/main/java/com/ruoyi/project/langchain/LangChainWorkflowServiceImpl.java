@@ -2,6 +2,10 @@ package com.ruoyi.project.langchain;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -31,7 +35,7 @@ public class LangChainWorkflowServiceImpl implements LangChainWorkflowService
 
     private final ResourceLoader resourceLoader;
 
-    private volatile LangChainWorkflow workflow;
+    private final Map<String, LangChainWorkflow> workflows = new LinkedHashMap<>();
 
     public LangChainWorkflowServiceImpl(LangChainWorkflowLoader workflowLoader,
             LangChainWorkflowExecutor workflowExecutor, ChatModelClient chatModelClient,
@@ -47,32 +51,87 @@ public class LangChainWorkflowServiceImpl implements LangChainWorkflowService
     @PostConstruct
     public void init()
     {
-        this.workflow = loadWorkflow();
-        logger.info("LangChain 工作流加载成功: name={}, nodes={}, edges={}",
-                workflow.getFlow().getName(),
-                workflow.getGraph().getNodes().size(),
-                workflow.getGraph().getEdges().size());
+        LangChainWorkflow defaultWorkflow = loadWorkflow(properties.getWorkflowLocation());
+        workflows.put(DEFAULT_WORKFLOW_ID, defaultWorkflow);
+        logger.info("LangChain 默认工作流加载成功: id={}, name={}, nodes={}, edges={}",
+                DEFAULT_WORKFLOW_ID, defaultWorkflow.getFlow().getName(),
+                defaultWorkflow.getGraph().getNodes().size(),
+                defaultWorkflow.getGraph().getEdges().size());
+
+        for (Map.Entry<String, String> entry : properties.getWorkflows().entrySet())
+        {
+            String workflowId = entry.getKey() == null ? "" : entry.getKey().trim();
+            String location = entry.getValue();
+            if (workflowId.isEmpty() || location == null || location.trim().isEmpty())
+            {
+                throw new LangChainWorkflowException("附加工作流配置不完整: " + entry);
+            }
+            if (DEFAULT_WORKFLOW_ID.equals(workflowId) || workflows.containsKey(workflowId))
+            {
+                throw new LangChainWorkflowException("工作流标识重复: " + workflowId);
+            }
+            LangChainWorkflow workflow = loadWorkflow(location.trim());
+            workflows.put(workflowId, workflow);
+            logger.info("LangChain 工作流加载成功: id={}, name={}, nodes={}, edges={}",
+                    workflowId, workflow.getFlow().getName(),
+                    workflow.getGraph().getNodes().size(),
+                    workflow.getGraph().getEdges().size());
+        }
     }
 
     @Override
     public LangChainWorkflow getWorkflow()
     {
+        return getWorkflow(DEFAULT_WORKFLOW_ID);
+    }
+
+    @Override
+    public LangChainWorkflow getWorkflow(String workflowId)
+    {
+        LangChainWorkflow workflow = workflows.get(normalizeId(workflowId));
+        if (workflow == null)
+        {
+            throw new LangChainWorkflowException("未知工作流: " + workflowId);
+        }
         return workflow;
+    }
+
+    @Override
+    public Set<String> listWorkflowIds()
+    {
+        return Collections.unmodifiableSet(workflows.keySet());
     }
 
     @Override
     public LangChainWorkflowResult invoke(String input)
     {
+        return invoke(DEFAULT_WORKFLOW_ID, input);
+    }
+
+    @Override
+    public LangChainWorkflowResult invoke(String workflowId, String input)
+    {
+        return invoke(workflowId, input, null);
+    }
+
+    @Override
+    public LangChainWorkflowResult invoke(String workflowId, String input, Map<String, Object> extraState)
+    {
         if (input == null || input.trim().isEmpty())
         {
             throw new LangChainWorkflowException("输入不能为空");
         }
-        return workflowExecutor.execute(workflow, chatModelClient, input);
+        return workflowExecutor.execute(getWorkflow(workflowId), chatModelClient, input, extraState);
     }
 
-    private LangChainWorkflow loadWorkflow()
+    private String normalizeId(String workflowId)
     {
-        String location = properties.getWorkflowLocation();
+        return workflowId == null || workflowId.trim().isEmpty()
+                ? DEFAULT_WORKFLOW_ID : workflowId.trim();
+    }
+
+    private LangChainWorkflow loadWorkflow(String location)
+    {
         Resource resource = resourceLoader.getResource(location);
         if (!resource.exists())
         {

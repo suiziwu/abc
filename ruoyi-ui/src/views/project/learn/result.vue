@@ -11,7 +11,7 @@
         </div>
         <div>
           <el-tag v-if="subjects.length > 0" type="success" effect="dark" size="small">
-            已匹配 {{ subjects.length }} 个学科 · {{ allPointsCount }} 个知识点
+            岗位所需 {{ subjects.length }} 门课程 · {{ allPointsCount }} 个知识点
           </el-tag>
           <el-button text :icon="Delete" type="danger" @click="handleDelete" style="margin-left:12px">删除</el-button>
         </div>
@@ -54,118 +54,72 @@
         </div>
       </el-card>
 
-      <!-- 主区域：左视频 + 右知识点 -->
-      <div class="learn-layout">
-        <!-- 左侧视频区 -->
-        <div class="learn-video">
-          <el-card shadow="never" class="video-card">
-            <template #header>
-              <div class="section-header">
-                <span><svg-icon icon-class="video" /> {{ currentVideo ? currentVideo.pointName : '视频播放' }}</span>
-              </div>
-            </template>
-            <div v-if="currentVideo" class="video-wrapper">
-              <video
-                :src="currentVideo.videoUrl"
-                controls
-                autoplay
-                class="video-player"
-                @timeupdate="onVideoTimeUpdate"
-                @ended="onVideoEnded"
-                ref="videoRef"
-              >
-                您的浏览器不支持视频播放
-              </video>
+      <!-- 课程学习卡片：点击进入完整课程学习页 -->
+      <CourseLearningSection
+        title="课程学习"
+        subtitle="点击课程卡片进入完整课程学习页"
+        :courses="courseCards"
+        empty-text="暂无岗位课程"
+        compact
+        @open="openCourse"
+      />
+
+      <!-- 岗位课程 → 知识点 → 视频，全部在当前页面内完成学习 -->
+      <CoursePointPanel
+        :courses="subjects"
+        :active-course-id="activeCourseId"
+        :active-point-id="currentVideo ? currentVideo.pointId : null"
+        :loading="loading"
+        :generating-course-id="generatingCourseId"
+        @select-course="selectCourse"
+        @select-point="selectPoint"
+        @generate-points="generateCoursePoints"
+      />
+
+      <el-card v-if="currentVideo" ref="videoCardRef" shadow="never" class="video-card">
+        <template #header>
+          <div class="section-header">
+            <div class="section-header-left">
+              <span><el-icon class="header-icon"><VideoCamera /></el-icon> {{ currentVideo.pointName }}</span>
+              <el-tag size="small" type="info" effect="plain">
+                {{ currentVideo.subjectName }}
+              </el-tag>
             </div>
-            <div v-else class="video-placeholder">
-              <svg-icon icon-class="video" style="font-size:64px;color:#d0d5dd" />
-              <p class="placeholder-text">请从右侧选择一个知识点开始学习</p>
-            </div>
-          </el-card>
+          </div>
+        </template>
+
+        <div v-if="currentVideo && currentVideo.videoUrl" class="video-wrapper">
+          <video
+            :src="currentVideo.videoUrl"
+            controls
+            autoplay
+            class="video-player"
+            @timeupdate="onVideoTimeUpdate"
+            @ended="onVideoEnded"
+            ref="videoRef"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </div>
 
-        <!-- 右侧知识点列表 -->
-        <div class="learn-points">
-          <el-card shadow="never" class="points-card">
-            <template #header>
-              <div class="section-header">
-                <span><svg-icon icon-class="list" /> 知识点列表</span>
-                <el-input
-                  v-model="pointSearch"
-                  placeholder="搜索知识点..."
-                  :prefix-icon="Search"
-                  size="small"
-                  style="width:180px"
-                  clearable
-                />
-              </div>
-            </template>
-
-            <div class="subject-points-list">
-              <div
-                v-for="(subjectItem, sIdx) in filteredSubjects"
-                :key="sIdx"
-                class="subject-group"
-              >
-                <div class="subject-group-header" @click="toggleSubject(subjectItem)">
-                  <div class="subject-group-title">
-                    <el-icon :class="subjectItem._expanded ? 'expand-rotate' : ''">
-                      <CaretRight />
-                    </el-icon>
-                    <span>{{ subjectItem.subjectName }}</span>
-                    <el-progress
-                      :percentage="subjectItem._completionRate"
-                      :stroke-width="8"
-                      :text-inside="false"
-                      style="width:100px;margin-left:8px"
-                    />
-                  </div>
-                  <el-tag size="small" type="info">
-                    {{ subjectItem._doneCount }}/{{ subjectItem._points.length }}
-                  </el-tag>
-                </div>
-
-                <div v-show="subjectItem._expanded" class="point-list">
-                  <div
-                    v-for="(point, pIdx) in subjectItem._points"
-                    :key="point.id"
-                    class="point-item"
-                    :class="{ active: currentVideo && currentVideo.pointId === point.id }"
-                    @click="selectPoint(point, subjectItem)"
-                  >
-                    <div class="point-status">
-                      <el-icon v-if="point._status === '2'" class="status-done" color="#67c23a">
-                        <CircleCheck />
-                      </el-icon>
-                      <el-icon v-else-if="point._status === '1'" class="status-learning" color="#409eff">
-                        <VideoPlay />
-                      </el-icon>
-                      <span class="status-dot status-pending-dot"></span>
-                    </div>
-                    <div class="point-info">
-                      <div class="point-name">{{ point.name }}</div>
-                      <div class="point-meta">
-                        <el-tag v-if="point.difficulty" size="small" :type="difficultyTag(point.difficulty)" style="margin-right:4px">
-                          {{ difficultyLabel(point.difficulty) }}
-                        </el-tag>
-                        <el-tag v-if="point.type" size="small" type="info">{{ point.type }}</el-tag>
-                      </div>
-                    </div>
-                    <div class="point-actions">
-                      <el-icon v-if="point.video" color="#409eff" title="有视频"><VideoCamera /></el-icon>
-                      <el-icon v-else color="#c0c4cc" title="无视频"><VideoCameraFilled /></el-icon>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div v-if="filteredSubjects.length === 0" class="no-points">
-                <el-empty description="暂无匹配的知识点" :image-size="60" />
+        <div v-else-if="currentVideo" class="point-detail-panel">
+          <div class="point-detail-head">
+            <div class="point-detail-title">
+              <span class="point-detail-name">{{ currentVideo.pointName }}</span>
+              <div class="point-detail-tags">
+                <el-tag v-if="currentVideo.point?.difficulty" size="small" :type="difficultyTag(currentVideo.point.difficulty)">
+                  {{ difficultyLabel(currentVideo.point.difficulty) }}
+                </el-tag>
+                <el-tag v-if="currentVideo.point?.type" size="small" type="info" effect="plain">
+                  {{ currentVideo.point.type }}
+                </el-tag>
               </div>
             </div>
-          </el-card>
+            <el-tag type="info" effect="plain">该知识点暂无视频，已展示知识点内容</el-tag>
+          </div>
+          <div class="point-detail-content">{{ currentVideo.point?.content || '暂无知识点内容说明' }}</div>
         </div>
-      </div>
+      </el-card>
 
       <!-- 总体分析 -->
       <el-card shadow="never" class="section-card" v-if="history.overallAnalysis">
@@ -184,13 +138,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getHistory, delHistory } from '@/api/project/history'
-import { listPoint } from '@/api/project/point'
+import { listPoint, addPoint, aiGeneratePointFromCourse } from '@/api/project/point'
+import { listSubject } from '@/api/project/subject'
+import { listChapter } from '@/api/project/chapter'
 import { listRecord, updateRecord, addRecord } from '@/api/project/record'
 import { listWatch, addWatch, updateWatch } from '@/api/project/watch'
-import { ArrowLeft, Delete, CaretRight, CircleCheck, VideoPlay, VideoCamera, VideoCameraFilled, Search } from '@element-plus/icons-vue'
+import CoursePointPanel from './components/CoursePointPanel.vue'
+import CourseLearningSection from './components/CourseLearningSection.vue'
+import { ArrowLeft, Delete, VideoCamera } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const route = useRoute()
@@ -202,8 +160,12 @@ const subjects = ref([])
 const allPoints = ref([])
 const records = ref([])
 const videoRef = ref(null)
+const videoCardRef = ref(null)
 const currentVideo = ref(null)
-const pointSearch = ref('')
+const activeCourseId = ref(null)
+const generatingCourseId = ref(null)
+// 岗位下各学科的章列表：subjectId → 章数组
+const subjectChapterMap = ref({})
 
 // ====== 数据加载 ======
 
@@ -243,6 +205,38 @@ async function loadSubjectPoints() {
   } catch {
     subjectList = []
   }
+
+  // 用学科表补全课程名称和简介，避免历史数据只存 id
+  const subjectMeta = new Map()
+  try {
+    const subjectRes = await listSubject({ pageSize: 9999, pageNum: 1 })
+    ;(subjectRes.rows || subjectRes.data || []).forEach(item => {
+      subjectMeta.set(String(item.id), item)
+    })
+  } catch (e) {
+    console.error('加载学科信息失败', e)
+  }
+
+  subjectList = subjectList.map(item => {
+    const entry = item && typeof item === 'object' ? item : { id: item }
+    const meta = subjectMeta.get(String(entry.id))
+    return {
+      ...entry,
+      name: meta?.name || entry.name || entry.subjectName || `课程 ${entry.id}`,
+      code: meta?.code || entry.code || '',
+      description: meta?.description || entry.description || entry.reason || ''
+    }
+  }).filter(item => item.id !== null && item.id !== undefined)
+
+  // 去重，避免同一课程重复展示
+  const seenSubjectIds = new Set()
+  subjectList = subjectList.filter(item => {
+    const key = String(item.id)
+    if (seenSubjectIds.has(key)) return false
+    seenSubjectIds.add(key)
+    return true
+  })
+
   subjects.value = subjectList
 
   // 并行加载每个学科的知识点
@@ -267,6 +261,47 @@ async function loadSubjectPoints() {
     all.push(...r.points)
   })
   allPoints.value = all
+
+  // 存在岗位时加载该岗位下的章，按学科分组，用于「学科 → 章 → 知识点」三层展示
+  const chapterMap = {}
+  if (history.value && history.value.positionId) {
+    try {
+      const chapterRes = await listChapter({ positionId: history.value.positionId })
+      const chapterList = Array.isArray(chapterRes.data) ? chapterRes.data : []
+      chapterList.forEach(c => {
+        const key = String(c.subjectId)
+        if (!chapterMap[key]) chapterMap[key] = []
+        chapterMap[key].push(c)
+      })
+    } catch (e) {
+      console.error('加载章列表失败', e)
+    }
+  }
+  subjectChapterMap.value = chapterMap
+}
+
+// 将知识点按章分组：章列表为空时返回单个平铺分组（不渲染章标题，保持原平铺展示）
+function groupPointsByChapter(points, chapterList) {
+  if (!chapterList || chapterList.length === 0) {
+    return points.length > 0 ? [{ id: null, name: '', _flat: true, _points: points }] : []
+  }
+
+  const sorted = chapterList.slice().sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+  const chapterIds = new Set(sorted.map(c => String(c.id)))
+  const chapters = sorted.map(c => ({
+    id: c.id,
+    name: c.name || c.title,
+    _flat: false,
+    _points: points.filter(p => String(p.chapterId) === String(c.id))
+  }))
+
+  // 没有 chapterId 的知识点归入「未分章」虚拟章，排在最后
+  const unassigned = points.filter(p => !p.chapterId || !chapterIds.has(String(p.chapterId)))
+  if (unassigned.length > 0) {
+    chapters.push({ id: null, name: '未分章', _flat: false, _points: unassigned })
+  }
+
+  return chapters.filter(c => c._points.length > 0)
 }
 
 // 加载用户学习记录（加载当前用户全部记录，不限historyId）
@@ -281,7 +316,7 @@ async function loadUserRecords() {
   }
 }
 
-// 构建带状态的知识点树
+// 构建带状态的课程知识点树
 function buildSubjectTree() {
   // 构建 pointId → record map
   const recordMap = {}
@@ -289,53 +324,65 @@ function buildSubjectTree() {
     recordMap[r.pointId] = r
   })
 
-  // 构建所有pointId集合
-  const allPointIds = new Set(allPoints.value.map(p => p.id))
-
-  // 为每个学科构建
+  // 为每门岗位课程构建知识点
   subjects.value.forEach(s => {
     const subjectResult = allPoints.value.filter(p => String(p.subjectId) === String(s.id))
+    s.name = s.name || s.subjectName || `课程 ${s.id}`
+    s.subjectName = s.name
+    s.description = s.description || s.reason || ''
     s._points = subjectResult.map(p => ({
       ...p,
       _status: recordMap[p.id]?.status || '0',
       _progress: recordMap[p.id]?.progress || 0,
+      _quizScore: recordMap[p.id]?.pointQuizScore,
       _recordId: recordMap[p.id]?.id || null
     }))
-    s._expanded = true
+    // 学科下的章及其知识点分组（无章时退化为平铺分组）
+    s._chapterList = subjectChapterMap.value[String(s.id)] || []
+    s._chapters = groupPointsByChapter(s._points, s._chapterList)
     const done = s._points.filter(p => p._status === '2').length
     s._doneCount = done
     s._completionRate = s._points.length > 0 ? Math.round((done / s._points.length) * 100) : 0
-    s.subjectName = s.name || `学科 ${s.id}`
   })
 }
-
-// 搜索过滤：只过滤知识点，_expanded 沿用原数组，避免折叠状态与展示错位
-const filteredSubjects = computed(() => {
-  if (!pointSearch.value.trim()) return subjects.value
-  const q = pointSearch.value.trim().toLowerCase()
-  return subjects.value
-    .map(s => ({ ...s, _points: s._points.filter(p => p.name.toLowerCase().includes(q)) }))
-    .filter(s => s._points.length > 0)
-})
 
 // ====== 统计 ======
 
 const allPointsCount = computed(() => allPoints.value.length)
 
-/** 只统计本岗位知识点范围内的记录，避免跨岗位记录把完成度算超 100% */
 const learnedCount = computed(() => {
-  const ids = new Set(allPoints.value.map(p => String(p.id)))
-  return records.value.filter(r => r.status === '2' && ids.has(String(r.pointId))).length
+  const pointIds = new Set(allPoints.value.map(p => String(p.id)))
+  return records.value.filter(r => r.status === '2' && pointIds.has(String(r.pointId))).length
 })
 
 const learningCount = computed(() => {
-  const ids = new Set(allPoints.value.map(p => String(p.id)))
-  return records.value.filter(r => r.status === '1' && ids.has(String(r.pointId))).length
+  const pointIds = new Set(allPoints.value.map(p => String(p.id)))
+  return records.value.filter(r => r.status === '1' && pointIds.has(String(r.pointId))).length
 })
+
+// 岗位课程卡片：与左侧课程知识点面板共用同一份课程数据
+const courseCards = computed(() => subjects.value.map((subject, index) => {
+  const points = subject._points || []
+  const learning = points.filter(point => point._status === '1').length
+  const done = subject._doneCount || 0
+  const progress = subject._completionRate || 0
+  return {
+    id: subject.id,
+    name: subject.name,
+    code: subject.code || '',
+    description: subject.description,
+    pointCount: points.length,
+    doneCount: done,
+    learningCount: learning,
+    progress,
+    statusLabel: progress >= 100 ? '已完成' : (learning > 0 ? '学习中' : '待学习'),
+    themeIndex: index
+  }
+}))
 
 const profilePercent = computed(() => {
   if (allPointsCount.value === 0) return 0
-  return Math.min(100, Math.round((learnedCount.value / allPointsCount.value) * 100))
+  return Math.round((learnedCount.value / allPointsCount.value) * 100)
 })
 
 const profileColor = computed(() => {
@@ -347,14 +394,28 @@ const profileColor = computed(() => {
 
 // ====== 交互 ======
 
-function toggleSubject(subjectItem) {
-  if (!subjectItem) return
-  // filteredSubjects 是 map 出来的新对象，必须按 id 回写原数组
-  const target = subjects.value.find(s => String(s.id) === String(subjectItem.id))
-  if (target) target._expanded = !target._expanded
+// 点击课程卡片，进入完整课程学习页
+function openCourse(course) {
+  if (!course?.id) return
+  router.push({
+    path: '/course',
+    query: {
+      subjectId: course.id,
+      subjectName: course.name || '',
+      from: 'card'
+    }
+  })
 }
 
-async function selectPoint(point, subjectItem) {
+function selectCourse(course) {
+  activeCourseId.value = course.id
+  // 点击课程只切换课程，视频在点击具体知识点后再展示
+  currentVideo.value = null
+}
+
+async function selectPoint(point, course) {
+  activeCourseId.value = course.id
+
   // 获取完整视频URL
   let videoUrl = ''
   if (point.video) {
@@ -364,8 +425,9 @@ async function selectPoint(point, subjectItem) {
   currentVideo.value = {
     pointId: point.id,
     pointName: point.name,
-    subjectName: subjectItem.subjectName,
-    videoUrl: videoUrl
+    subjectName: course.name,
+    videoUrl: videoUrl,
+    point
   }
 
   // 如果视频播放器已就绪，重新加载
@@ -375,6 +437,102 @@ async function selectPoint(point, subjectItem) {
 
   // 自动创建/更新学习记录
   await ensureLearnRecord(point)
+
+  // 视频/知识点内容在当前页面下方展示，不跳转课程学习页
+  await nextTick()
+  const videoElement = videoCardRef.value?.$el || videoCardRef.value
+  videoElement?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
+}
+
+// 课程暂无知识点时，按课程视频内容/课程简介生成并保存知识点
+async function generateCoursePoints(course) {
+  if (generatingCourseId.value) return
+  const transcript = course._points
+    .slice(0, 30)
+    .map(point => [point.name, point.content].filter(Boolean).join('：'))
+    .filter(Boolean)
+    .join('\n') || [course.name, course.description].filter(Boolean).join('\n')
+
+  if (!transcript) {
+    ElMessage.warning('该课程暂无可分析的视频内容或课程简介')
+    return
+  }
+
+  generatingCourseId.value = course.id
+  try {
+    const res = await aiGeneratePointFromCourse({
+      subjectId: course.id,
+      chapterId: null,
+      courseTitle: course.name,
+      transcript
+    })
+    const drafts = Array.isArray(res.data) ? res.data : []
+    if (drafts.length === 0) {
+      ElMessage.warning('未从视频内容中提取到知识点，请稍后重试')
+      return
+    }
+
+    await ElMessageBox.confirm(
+      `已根据课程视频内容提取 ${drafts.length} 个知识点，是否保存到课程「${course.name}」？`,
+      '生成知识点',
+      { confirmButtonText: '保存', cancelButtonText: '取消', type: 'success' }
+    )
+
+    const existingNames = new Set(course._points.map(point => String(point.name || '').trim()))
+    let saved = 0
+    for (const draft of drafts) {
+      const name = String(draft.name || '').trim()
+      if (!name || existingNames.has(name)) continue
+      await addPoint({
+        subjectId: course.id,
+        chapterId: null,
+        name,
+        content: draft.content || '',
+        difficulty: Number(draft.difficulty) || 3,
+        importance: Number(draft.importance) || 2,
+        type: draft.type || '概念',
+        status: '0'
+      })
+      existingNames.add(name)
+      saved += 1
+    }
+
+    if (saved > 0) {
+      ElMessage.success(`已生成并保存 ${saved} 个知识点`)
+      await reloadCoursePoints(course)
+    } else {
+      ElMessage.info('没有新增知识点（生成结果已存在）')
+    }
+  } catch (error) {
+    if (error !== 'cancel' && error !== 'close') {
+      ElMessage.error('生成知识点失败：' + (error?.message || '请稍后重试'))
+    }
+  } finally {
+    generatingCourseId.value = null
+  }
+}
+
+// 重新读取指定课程的知识点，并保持当前课程/知识点选择
+async function reloadCoursePoints(course) {
+  try {
+    const res = await listPoint({ subjectId: course.id, pageSize: 9999, pageNum: 1 })
+    const points = res.rows || res.data || []
+    allPoints.value = [
+      ...allPoints.value.filter(p => String(p.subjectId) !== String(course.id)),
+      ...points
+    ]
+    const currentPointId = currentVideo.value?.pointId
+    buildSubjectTree()
+    if (currentPointId) {
+      const point = allPoints.value.find(item => String(item.id) === String(currentPointId))
+      const pointCourse = subjects.value.find(item => String(item.id) === String(course.id))
+      if (point && pointCourse) {
+        await selectPoint(point, pointCourse)
+      }
+    }
+  } catch (error) {
+    console.error('刷新课程知识点失败', error)
+  }
 }
 
 // 确保有学习记录
@@ -383,6 +541,7 @@ async function ensureLearnRecord(point) {
   if (!existing) {
     try {
       const res = await addRecord({
+        userId: 1, // 实际应该从store取
         pointId: point.id,
         historyId: parseInt(route.params.id),
         status: '1',
@@ -443,24 +602,16 @@ function onVideoTimeUpdate() {
 
   // 每10秒或每10%更新一次，避免频繁请求
   if (!watchTimer) {
-    // 排程时快照 pointId：回调 5s 后执行，期间切换知识点会把进度写到错误的点上
-    const pointId = currentVideo.value.pointId
-    const scheduledProgress = progress
     watchTimer = setTimeout(async () => {
       watchTimer = null
-      if (!currentVideo.value || String(currentVideo.value.pointId) !== String(pointId)) return
-      const latest = videoRef.value
-      const currentProgress = latest && latest.duration
-        ? Math.round((latest.currentTime / latest.duration) * 100)
-        : scheduledProgress
-      const currentSeconds = latest ? Math.round(latest.currentTime) : 0
+      const pointId = currentVideo.value.pointId
       const existing = records.value.find(r => String(r.pointId) === String(pointId))
 
       if (existing && existing.status !== '2') {
         try {
           await updateRecord({
             id: existing.id,
-            progress: currentProgress
+            progress: progress
           })
         } catch (e) {}
       }
@@ -471,20 +622,21 @@ function onVideoTimeUpdate() {
         const watchList = watchRes.rows || []
         const existingWatch = watchList.find(w => String(w.pointId) === String(pointId))
         if (existingWatch) {
-          const completed = currentProgress >= 95 ? '1' : existingWatch.completed
+          const completed = progress >= 95 ? '1' : existingWatch.completed
           await updateWatch({
             id: existingWatch.id,
-            watchProgress: currentProgress,
-            watchDuration: currentSeconds,
+            watchProgress: progress,
+            watchDuration: Math.round(v.currentTime),
             lastWatchTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
             completed
           })
         } else {
           await addWatch({
+            userId: 1,
             pointId,
-            watchProgress: currentProgress,
-            watchDuration: currentSeconds,
-            completed: currentProgress >= 95 ? '1' : '0'
+            watchProgress: progress,
+            watchDuration: Math.round(v.currentTime),
+            completed: progress >= 95 ? '1' : '0'
           })
         }
       } catch (e) {}
@@ -547,14 +699,6 @@ function handleDelete() {
     })
   }).catch(() => {})
 }
-
-// 路由切走后回调仍会触发，必须清理
-onBeforeUnmount(() => {
-  if (watchTimer) {
-    clearTimeout(watchTimer)
-    watchTimer = null
-  }
-})
 </script>
 
 <style scoped>
@@ -628,28 +772,22 @@ onBeforeUnmount(() => {
 .profile-value.learning { color: #409eff; }
 .profile-value.pending { color: #e6a23c; }
 
-/* 学习布局 */
-.learn-layout {
+/* 视频/知识点内容区 */
+.section-header-left {
   display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.learn-video {
-  flex: 3;
+  align-items: center;
+  gap: 10px;
   min-width: 0;
 }
 
-.learn-points {
-  flex: 2;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
+.section-header-left > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* 视频区 */
 .video-card {
-  height: 100%;
+  margin-bottom: 16px;
 }
 
 .video-wrapper {
@@ -665,161 +803,46 @@ onBeforeUnmount(() => {
   outline: none;
 }
 
-.video-placeholder {
+/* 无视频知识点内容 */
+.point-detail-panel {
+  padding: 4px 2px;
+}
+
+.point-detail-head {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  background: #fafafa;
-  border-radius: 4px;
-}
-
-.placeholder-text {
-  color: #909399;
-  font-size: 14px;
-  margin-top: 12px;
-}
-
-/* 知识点列表 */
-.points-card {
-  height: 100%;
-}
-
-.points-card :deep(.el-card__body) {
-  display: flex;
-  flex-direction: column;
-  height: 0;
-  min-height: 100%;
-  padding-bottom: 12px;
-}
-
-.subject-points-list {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.subject-points-list::-webkit-scrollbar {
-  width: 4px;
-}
-.subject-points-list::-webkit-scrollbar-thumb {
-  background: #d0d5dd;
-  border-radius: 2px;
-}
-
-.subject-group {
-  margin-bottom: 8px;
-  border: 1px solid #ebeef5;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.subject-group-header {
-  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  background: #f5f7fa;
-  cursor: pointer;
-  transition: background 0.2s;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #ebeef5;
 }
 
-.subject-group-header:hover {
-  background: #ecf5ff;
+.point-detail-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.subject-group-title {
+.point-detail-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.point-detail-tags {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #303133;
-}
-
-.expand-rotate {
-  transform: rotate(90deg);
-  transition: transform 0.2s;
-}
-
-.point-list {
-  border-top: 1px solid #ebeef5;
-}
-
-.point-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-bottom: 1px solid #f2f2f2;
-}
-
-.point-item:last-child {
-  border-bottom: none;
-}
-
-.point-item:hover {
-  background: #f0f5ff;
-}
-
-.point-item.active {
-  background: #ecf5ff;
-  border-left: 3px solid #409eff;
-  padding-left: 9px;
-}
-
-.point-status {
-  flex-shrink: 0;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.status-pending-dot {
-  background: #c0c4cc;
-}
-
-.point-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.point-name {
-  font-size: 14px;
-  color: #303133;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.point-meta {
-  margin-top: 4px;
-  display: flex;
-  align-items: center;
   flex-wrap: wrap;
 }
 
-.point-actions {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.no-points {
-  padding: 20px 0;
+.point-detail-content {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #303133;
+  white-space: pre-wrap;
 }
 
 /* 分析 */
@@ -845,9 +868,6 @@ onBeforeUnmount(() => {
 
 /* 响应式 */
 @media (max-width: 900px) {
-  .learn-layout {
-    flex-direction: column;
-  }
   .profile-grid {
     grid-template-columns: repeat(2, 1fr);
   }

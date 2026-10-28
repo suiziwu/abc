@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.talent.mapper.TalentIndustryCodeMapper">
+
+    <select id="selectAll" resultType="java.util.LinkedHashMap">
+        select `code`        as `code`,
+               `name`        as `name`,
+               `level`       as `level`,
+               `parent_code` as `parentCode`,
+               `parent_name` as `parentName`,
+               `url`         as `url`
+        from `talent_industry_code`
+        order by `seq_no`, `id`
+    </select>
+
+    <select id="selectLatestCreateTime" resultType="java.lang.String">
+        select date_format(max(`create_time`), '%Y-%m-%d %H:%i')
+        from `talent_industry_code`
+    </select>
+
+</mapper>

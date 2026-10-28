@@ -1,0 +1,9521 @@
+{
+ "version": "1.0.0",
+ "source": "《中华人民共和国职业分类大典（2022年版）》与技能人才评价工作网公开标准",
+ "count": 1788,
+ "jobs": [
+  {
+   "name": "中国共产党机关负责人",
+   "code": "1-01-00-01",
+   "source": "codex"
+  },
+  {
+   "name": "中国共产党基层组织负责人",
+   "code": "1-01-00-02",
+   "source": "codex"
+  },
+  {
+   "name": "国家权力机关负责人",
+   "code": "1-02-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "国家行政机关负责人",
+   "code": "1-02-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "人民政协机关负责人",
+   "code": "1-02-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "监察机关负责人",
+   "code": "1-02-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "人民法院负责人",
+   "code": "1-02-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "人民检察院负责人",
+   "code": "1-02-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "民主党派负责人",
+   "code": "1-03-00-01",
+   "source": "codex"
+  },
+  {
+   "name": "工商联负责人",
+   "code": "1-03-00-02",
+   "source": "codex"
+  },
+  {
+   "name": "工会负责人",
+   "code": "1-04-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "共青团负责人",
+   "code": "1-04-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "妇联负责人",
+   "code": "1-04-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "其他人民团体和群众团体负责人",
+   "code": "1-04-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "社会团体负责人",
+   "code": "1-04-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "民办非企业单位负责人",
+   "code": "1-04-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "社会中介组织负责人",
+   "code": "1-04-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "基金会负责人",
+   "code": "1-04-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "宗教组织负责人",
+   "code": "1-04-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "居民委员会负责人",
+   "code": "1-05-00-01",
+   "source": "codex"
+  },
+  {
+   "name": "村民委员会负责人",
+   "code": "1-05-00-02",
+   "source": "codex"
+  },
+  {
+   "name": "企业董事",
+   "code": "1-06-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "企业经理",
+   "code": "1-06-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "国有企业中国共产党组织负责人",
+   "code": "1-06-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "事业单位负责人",
+   "code": "1-06-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "哲学研究人员",
+   "code": "2-01-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "经济学研究人员",
+   "code": "2-01-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "法学研究人员",
+   "code": "2-01-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "教育学研究人员",
+   "code": "2-01-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "心理学研究人员",
+   "code": "2-01-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "体育学研究人员",
+   "code": "2-01-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "历史学研究人员",
+   "code": "2-01-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "数学研究人员",
+   "code": "2-01-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "物理学研究人员",
+   "code": "2-01-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "化学研究人员",
+   "code": "2-01-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "天文学研究人员",
+   "code": "2-01-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "生物学研究人员",
+   "code": "2-01-06-05",
+   "source": "codex"
+  },
+  {
+   "name": "地球科学研究人员",
+   "code": "2-01-06-06",
+   "source": "codex"
+  },
+  {
+   "name": "农业科学研究人员",
+   "code": "2-01-07-00",
+   "source": "codex"
+  },
+  {
+   "name": "医学研究人员",
+   "code": "2-01-08-00",
+   "source": "codex"
+  },
+  {
+   "name": "管理学研究人员",
+   "code": "2-01-09-00",
+   "source": "codex"
+  },
+  {
+   "name": "文学、艺术学研究人员",
+   "code": "2-01-10-00",
+   "source": "codex"
+  },
+  {
+   "name": "军事学研究人员",
+   "code": "2-01-11-00",
+   "source": "codex"
+  },
+  {
+   "name": "地质实验测试工程技术人员",
+   "code": "2-02-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "地球物理地球化学与遥感勘查",
+   "code": "2-02-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "水工环地质工程技术人员",
+   "code": "2-02-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "地质矿产调查工程技术人员",
+   "code": "2-02-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "钻探工程技术人员",
+   "code": "2-02-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "大地测量工程技术人员",
+   "code": "2-02-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "工程测量工程技术人员",
+   "code": "2-02-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "摄影测量与遥感工程技术人员",
+   "code": "2-02-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "地图制图工程技术人员",
+   "code": "2-02-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "海洋测绘工程技术人员",
+   "code": "2-02-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "地理国情监测工程技术人员",
+   "code": "2-02-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "地理信息系统工程技术人员",
+   "code": "2-02-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "导航与位置服务工程技术人员",
+   "code": "2-02-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "地质测绘工程技术人员",
+   "code": "2-02-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "矿井建设工程技术人员",
+   "code": "2-02-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "采矿工程技术人员",
+   "code": "2-02-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "矿山通风工程技术人员",
+   "code": "2-02-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "选矿与矿物加工工程技术人员",
+   "code": "2-02-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "矿山环保复垦工程技术人员",
+   "code": "2-02-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "石油天然气开采工程技术人员",
+   "code": "2-02-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "石油天然气储运工程技术人员",
+   "code": "2-02-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "冶炼工程技术人员",
+   "code": "2-02-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "轧制工程技术人员",
+   "code": "2-02-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "焦化工程技术人员",
+   "code": "2-02-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "金属材料工程技术人员",
+   "code": "2-02-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "耐火材料工程技术人员",
+   "code": "2-02-05-05",
+   "source": "codex"
+  },
+  {
+   "name": "炭素材料工程技术人员",
+   "code": "2-02-05-06",
+   "source": "codex"
+  },
+  {
+   "name": "冶金热能工程技术人员",
+   "code": "2-02-05-07",
+   "source": "codex"
+  },
+  {
+   "name": "铸管工程技术人员",
+   "code": "2-02-05-08",
+   "source": "codex"
+  },
+  {
+   "name": "稀土工程技术人员",
+   "code": "2-02-05-09",
+   "source": "codex"
+  },
+  {
+   "name": "化工实验工程技术人员",
+   "code": "2-02-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "化工设计工程技术人员",
+   "code": "2-02-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "化工生产工程技术人员",
+   "code": "2-02-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "机械设计工程技术人员",
+   "code": "2-02-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "机械制造工程技术人员",
+   "code": "2-02-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "仪器仪表工程技术人员",
+   "code": "2-02-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "设备工程技术人员",
+   "code": "2-02-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "医学设备管理工程技术人员",
+   "code": "2-02-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "模具设计工程技术人员",
+   "code": "2-02-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "自动控制工程技术人员",
+   "code": "2-02-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "材料成形与改性工程技术人员",
+   "code": "2-02-07-08",
+   "source": "codex"
+  },
+  {
+   "name": "焊接工程技术人员",
+   "code": "2-02-07-09",
+   "source": "codex"
+  },
+  {
+   "name": "特种设备管理和应用工程技术",
+   "code": "2-02-07-10",
+   "source": "codex"
+  },
+  {
+   "name": "汽车工程技术人员",
+   "code": "2-02-07-11",
+   "source": "codex"
+  },
+  {
+   "name": "船舶工程技术人员",
+   "code": "2-02-07-12",
+   "source": "codex"
+  },
+  {
+   "name": "铸造工程技术人员",
+   "code": "2-02-07-13",
+   "source": "codex"
+  },
+  {
+   "name": "飞行器设计工程技术人员",
+   "code": "2-02-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "飞行器制造工程技术人员",
+   "code": "2-02-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "航空动力装置设计工程技术",
+   "code": "2-02-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "航空动力装置制造工程技术",
+   "code": "2-02-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "航空产品试验与飞行试验工程",
+   "code": "2-02-08-05",
+   "source": "codex"
+  },
+  {
+   "name": "航空产品适航工程技术人员",
+   "code": "2-02-08-06",
+   "source": "codex"
+  },
+  {
+   "name": "航空产品支援工程技术人员",
+   "code": "2-02-08-07",
+   "source": "codex"
+  },
+  {
+   "name": "机载设备设计制造工程技术",
+   "code": "2-02-08-08",
+   "source": "codex"
+  },
+  {
+   "name": "电子材料工程技术人员",
+   "code": "2-02-09-01",
+   "source": "codex"
+  },
+  {
+   "name": "电子元器件工程技术人员",
+   "code": "2-02-09-02",
+   "source": "codex"
+  },
+  {
+   "name": "雷达导航工程技术人员",
+   "code": "2-02-09-03",
+   "source": "codex"
+  },
+  {
+   "name": "电子仪器与电子测量工程技术",
+   "code": "2-02-09-04",
+   "source": "codex"
+  },
+  {
+   "name": "广播视听设备工程技术人员",
+   "code": "2-02-09-05",
+   "source": "codex"
+  },
+  {
+   "name": "通信工程技术人员",
+   "code": "2-02-10-01",
+   "source": "codex"
+  },
+  {
+   "name": "计算机硬件工程技术人员",
+   "code": "2-02-10-02",
+   "source": "codex"
+  },
+  {
+   "name": "计算机软件工程技术人员",
+   "code": "2-02-10-03",
+   "source": "codex"
+  },
+  {
+   "name": "计算机网络工程技术人员",
+   "code": "2-02-10-04",
+   "source": "codex"
+  },
+  {
+   "name": "信息系统分析工程技术人员",
+   "code": "2-02-10-05",
+   "source": "codex"
+  },
+  {
+   "name": "嵌入式系统设计工程技术人",
+   "code": "2-02-10-06",
+   "source": "codex"
+  },
+  {
+   "name": "信息安全工程技术人员",
+   "code": "2-02-10-07",
+   "source": "codex"
+  },
+  {
+   "name": "信息系统运行维护工程技术人",
+   "code": "2-02-10-08",
+   "source": "codex"
+  },
+  {
+   "name": "电工电器工程技术人员",
+   "code": "2-02-11-01",
+   "source": "codex"
+  },
+  {
+   "name": "电缆光缆工程技术人员",
+   "code": "2-02-11-02",
+   "source": "codex"
+  },
+  {
+   "name": "光源与照明工程技术人员",
+   "code": "2-02-11-03",
+   "source": "codex"
+  },
+  {
+   "name": "发电工程技术人员",
+   "code": "2-02-12-01",
+   "source": "codex"
+  },
+  {
+   "name": "供用电工程技术人员",
+   "code": "2-02-12-02",
+   "source": "codex"
+  },
+  {
+   "name": "变电工程技术人员",
+   "code": "2-02-12-03",
+   "source": "codex"
+  },
+  {
+   "name": "输电工程技术人员",
+   "code": "2-02-12-04",
+   "source": "codex"
+  },
+  {
+   "name": "电力工程安装工程技术人员",
+   "code": "2-02-12-05",
+   "source": "codex"
+  },
+  {
+   "name": "邮政工程技术人员",
+   "code": "2-02-13-01",
+   "source": "codex"
+  },
+  {
+   "name": "快递工程技术人员",
+   "code": "2-02-13-02",
+   "source": "codex"
+  },
+  {
+   "name": "广播电视制播工程技术人员",
+   "code": "2-02-14-01",
+   "source": "codex"
+  },
+  {
+   "name": "广播电视传输覆盖工程技术人",
+   "code": "2-02-14-02",
+   "source": "codex"
+  },
+  {
+   "name": "电影工程技术人员",
+   "code": "2-02-14-03",
+   "source": "codex"
+  },
+  {
+   "name": "演艺设备工程技术人员",
+   "code": "2-02-14-04",
+   "source": "codex"
+  },
+  {
+   "name": "汽车运用工程技术人员",
+   "code": "2-02-15-01",
+   "source": "codex"
+  },
+  {
+   "name": "船舶运用工程技术人员",
+   "code": "2-02-15-02",
+   "source": "codex"
+  },
+  {
+   "name": "水上交通工程技术人员",
+   "code": "2-02-15-03",
+   "source": "codex"
+  },
+  {
+   "name": "水上救助打捞工程技术人员",
+   "code": "2-02-15-04",
+   "source": "codex"
+  },
+  {
+   "name": "船舶检验工程技术人员",
+   "code": "2-02-15-05",
+   "source": "codex"
+  },
+  {
+   "name": "无线电航标操作与维护工程技",
+   "code": "2-02-15-06",
+   "source": "codex"
+  },
+  {
+   "name": "视觉航标工程技术人员",
+   "code": "2-02-15-07",
+   "source": "codex"
+  },
+  {
+   "name": "道路交通工程技术人员",
+   "code": "2-02-15-08",
+   "source": "codex"
+  },
+  {
+   "name": "公路养护工程技术人员",
+   "code": "2-02-15-09",
+   "source": "codex"
+  },
+  {
+   "name": "民用航空器维修与适航工程技",
+   "code": "2-02-16-01",
+   "source": "codex"
+  },
+  {
+   "name": "民航空中交通管理工程技术人员",
+   "code": "2-02-16-02",
+   "source": "codex"
+  },
+  {
+   "name": "民航通用航空工程技术人员",
+   "code": "2-02-16-03",
+   "source": "codex"
+  },
+  {
+   "name": "民航飞行签派工程技术人员",
+   "code": "2-02-16-04",
+   "source": "codex"
+  },
+  {
+   "name": "铁道运输工程技术人员",
+   "code": "2-02-17-01",
+   "source": "codex"
+  },
+  {
+   "name": "铁道机务工程技术人员",
+   "code": "2-02-17-02",
+   "source": "codex"
+  },
+  {
+   "name": "铁道车辆工程技术人员",
+   "code": "2-02-17-03",
+   "source": "codex"
+  },
+  {
+   "name": "铁道电务工程技术人员",
+   "code": "2-02-17-04",
+   "source": "codex"
+  },
+  {
+   "name": "铁道供电工程技术人员",
+   "code": "2-02-17-05",
+   "source": "codex"
+  },
+  {
+   "name": "铁道工务工程技术人员",
+   "code": "2-02-17-06",
+   "source": "codex"
+  },
+  {
+   "name": "建筑和市政设计工程技术人员",
+   "code": "2-02-18-01",
+   "source": "codex"
+  },
+  {
+   "name": "土木建筑工程技术人员",
+   "code": "2-02-18-02",
+   "source": "codex"
+  },
+  {
+   "name": "风景园林工程技术人员",
+   "code": "2-02-18-03",
+   "source": "codex"
+  },
+  {
+   "name": "供水排水工程技术人员",
+   "code": "2-02-18-04",
+   "source": "codex"
+  },
+  {
+   "name": "工程勘察与岩土工程技术人员",
+   "code": "2-02-18-05",
+   "source": "codex"
+  },
+  {
+   "name": "城镇燃气与供热工程技术人员",
+   "code": "2-02-18-06",
+   "source": "codex"
+  },
+  {
+   "name": "环境卫生工程技术人员",
+   "code": "2-02-18-07",
+   "source": "codex"
+  },
+  {
+   "name": "道路与桥隧工程技术人员",
+   "code": "2-02-18-08",
+   "source": "codex"
+  },
+  {
+   "name": "港口与航道工程技术人员",
+   "code": "2-02-18-09",
+   "source": "codex"
+  },
+  {
+   "name": "民航机场工程技术人员",
+   "code": "2-02-18-10",
+   "source": "codex"
+  },
+  {
+   "name": "铁路建筑工程技术人员",
+   "code": "2-02-18-11",
+   "source": "codex"
+  },
+  {
+   "name": "水利水电建筑工程技术人员",
+   "code": "2-02-18-12",
+   "source": "codex"
+  },
+  {
+   "name": "爆破工程技术人员",
+   "code": "2-02-18-13",
+   "source": "codex"
+  },
+  {
+   "name": "硅酸盐工程技术人员",
+   "code": "2-02-19-01",
+   "source": "codex"
+  },
+  {
+   "name": "非金属矿及制品工程技术人员",
+   "code": "2-02-19-02",
+   "source": "codex"
+  },
+  {
+   "name": "无机非金属材料工程技术人员",
+   "code": "2-02-19-03",
+   "source": "codex"
+  },
+  {
+   "name": "混凝土工程技术人员",
+   "code": "2-02-19-04",
+   "source": "codex"
+  },
+  {
+   "name": "防沙治沙工程技术人员",
+   "code": "2-02-20-01",
+   "source": "codex"
+  },
+  {
+   "name": "森林培育工程技术人员",
+   "code": "2-02-20-02",
+   "source": "codex"
+  },
+  {
+   "name": "园林绿化工程技术人员",
+   "code": "2-02-20-03",
+   "source": "codex"
+  },
+  {
+   "name": "野生动植物保护利用工程技术",
+   "code": "2-02-20-04",
+   "source": "codex"
+  },
+  {
+   "name": "自然保护区工程技术人员",
+   "code": "2-02-20-05",
+   "source": "codex"
+  },
+  {
+   "name": "森林保护工程技术人员",
+   "code": "2-02-20-06",
+   "source": "codex"
+  },
+  {
+   "name": "木竹藤棕草加工工程技术人员",
+   "code": "2-02-20-07",
+   "source": "codex"
+  },
+  {
+   "name": "森林采伐和运输工程技术人员",
+   "code": "2-02-20-08",
+   "source": "codex"
+  },
+  {
+   "name": "经济林产品加工工程技术人员",
+   "code": "2-02-20-09",
+   "source": "codex"
+  },
+  {
+   "name": "林业资源调查与监测工程技术",
+   "code": "2-02-20-10",
+   "source": "codex"
+  },
+  {
+   "name": "园林植物保护工程技术人员",
+   "code": "2-02-20-11",
+   "source": "codex"
+  },
+  {
+   "name": "湿地保护修复工程技术人员",
+   "code": "2-02-20-12",
+   "source": "codex"
+  },
+  {
+   "name": "水文水资源工程技术人员",
+   "code": "2-02-21-01",
+   "source": "codex"
+  },
+  {
+   "name": "水生态和河湖治理管护工程技",
+   "code": "2-02-21-02",
+   "source": "codex"
+  },
+  {
+   "name": "水利工程管理工程技术人员",
+   "code": "2-02-21-03",
+   "source": "codex"
+  },
+  {
+   "name": "防汛抗旱减灾工程技术人员",
+   "code": "2-02-21-04",
+   "source": "codex"
+  },
+  {
+   "name": "节水工程技术人员L",
+   "code": "2-02-21-05",
+   "source": "codex"
+  },
+  {
+   "name": "海洋调查与监测工程技术人员",
+   "code": "2-02-22-01",
+   "source": "codex"
+  },
+  {
+   "name": "海洋环境预报工程技术人员",
+   "code": "2-02-22-02",
+   "source": "codex"
+  },
+  {
+   "name": "海洋资源开发利用和保护工程",
+   "code": "2-02-22-03",
+   "source": "codex"
+  },
+  {
+   "name": "海洋工程勘察设计工程技术人",
+   "code": "2-02-22-04",
+   "source": "codex"
+  },
+  {
+   "name": "海水淡化工程技术人员",
+   "code": "2-02-22-05",
+   "source": "codex"
+  },
+  {
+   "name": "深潜工程技术人员",
+   "code": "2-02-22-06",
+   "source": "codex"
+  },
+  {
+   "name": "纺织工程技术人员",
+   "code": "2-02-23-01",
+   "source": "codex"
+  },
+  {
+   "name": "染整工程技术人员",
+   "code": "2-02-23-02",
+   "source": "codex"
+  },
+  {
+   "name": "化学纤维工程技术人员",
+   "code": "2-02-23-03",
+   "source": "codex"
+  },
+  {
+   "name": "非织造工程技术人员",
+   "code": "2-02-23-04",
+   "source": "codex"
+  },
+  {
+   "name": "服装工程技术人员",
+   "code": "2-02-23-05",
+   "source": "codex"
+  },
+  {
+   "name": "食品工程技术人员",
+   "code": "2-02-24-00",
+   "source": "codex"
+  },
+  {
+   "name": "气象观测工程技术人员",
+   "code": "2-02-25-01",
+   "source": "codex"
+  },
+  {
+   "name": "天气预报工程技术人员",
+   "code": "2-02-25-02",
+   "source": "codex"
+  },
+  {
+   "name": "气候监测预测工程技术人员",
+   "code": "2-02-25-03",
+   "source": "codex"
+  },
+  {
+   "name": "气象服务工程技术人员",
+   "code": "2-02-25-04",
+   "source": "codex"
+  },
+  {
+   "name": "人工影响天气工程技术人员",
+   "code": "2-02-25-05",
+   "source": "codex"
+  },
+  {
+   "name": "防雷工程技术人员",
+   "code": "2-02-25-06",
+   "source": "codex"
+  },
+  {
+   "name": "地震监测预测工程技术人员",
+   "code": "2-02-26-01",
+   "source": "codex"
+  },
+  {
+   "name": "地震应急救援工程技术人员",
+   "code": "2-02-26-02",
+   "source": "codex"
+  },
+  {
+   "name": "地震安全性评价工程技术人员",
+   "code": "2-02-26-03",
+   "source": "codex"
+  },
+  {
+   "name": "环境监测工程技术人员",
+   "code": "2-02-27-01",
+   "source": "codex"
+  },
+  {
+   "name": "环境污染防治工程技术人员",
+   "code": "2-02-27-02",
+   "source": "codex"
+  },
+  {
+   "name": "环境影响评价工程技术人员",
+   "code": "2-02-27-03",
+   "source": "codex"
+  },
+  {
+   "name": "核与辐射安全工程技术人员",
+   "code": "2-02-27-04",
+   "source": "codex"
+  },
+  {
+   "name": "核与辐射监测工程技术人员",
+   "code": "2-02-27-05",
+   "source": "codex"
+  },
+  {
+   "name": "健康安全环境工程技术人员",
+   "code": "2-02-27-06",
+   "source": "codex"
+  },
+  {
+   "name": "安全技术防范工程技术人员",
+   "code": "2-02-28-01",
+   "source": "codex"
+  },
+  {
+   "name": "消防工程技术人员",
+   "code": "2-02-28-02",
+   "source": "codex"
+  },
+  {
+   "name": "安全生产管理工程技术人员",
+   "code": "2-02-28-03",
+   "source": "codex"
+  },
+  {
+   "name": "安全评价工程技术人员",
+   "code": "2-02-28-04",
+   "source": "codex"
+  },
+  {
+   "name": "房屋安全鉴定工程技术人员",
+   "code": "2-02-28-05",
+   "source": "codex"
+  },
+  {
+   "name": "防伪工程技术人员",
+   "code": "2-02-28-06",
+   "source": "codex"
+  },
+  {
+   "name": "标准化工程技术人员",
+   "code": "2-02-29-01",
+   "source": "codex"
+  },
+  {
+   "name": "计量工程技术人员",
+   "code": "2-02-29-02",
+   "source": "codex"
+  },
+  {
+   "name": "质量管理工程技术人员",
+   "code": "2-02-29-03",
+   "source": "codex"
+  },
+  {
+   "name": "质量认证认可工程技术人员",
+   "code": "2-02-29-04",
+   "source": "codex"
+  },
+  {
+   "name": "可靠性工程技术人员",
+   "code": "2-02-29-05",
+   "source": "codex"
+  },
+  {
+   "name": "工业工程技术人员",
+   "code": "2-02-30-01",
+   "source": "codex"
+  },
+  {
+   "name": "物流工程技术人员",
+   "code": "2-02-30-02",
+   "source": "codex"
+  },
+  {
+   "name": "战略规划与管理工程技术人员",
+   "code": "2-02-30-03",
+   "source": "codex"
+  },
+  {
+   "name": "项目管理工程技术人员",
+   "code": "2-02-30-04",
+   "source": "codex"
+  },
+  {
+   "name": "再生资源工程技术人员",
+   "code": "2-02-30-05",
+   "source": "codex"
+  },
+  {
+   "name": "能源管理工程技术人员",
+   "code": "2-02-30-06",
+   "source": "codex"
+  },
+  {
+   "name": "监理工程技术人员",
+   "code": "2-02-30-07",
+   "source": "codex"
+  },
+  {
+   "name": "信息管理工程技术人员",
+   "code": "2-02-30-08",
+   "source": "codex"
+  },
+  {
+   "name": "数据分析处理工程技术人员",
+   "code": "2-02-30-09",
+   "source": "codex"
+  },
+  {
+   "name": "工程造价工程技术人员",
+   "code": "2-02-30-10",
+   "source": "codex"
+  },
+  {
+   "name": "供应链工程技术人员",
+   "code": "2-02-30-11",
+   "source": "codex"
+  },
+  {
+   "name": "产品质量检验工程技术人员",
+   "code": "2-02-31-01",
+   "source": "codex"
+  },
+  {
+   "name": "进出口商品检验鉴定工程技术",
+   "code": "2-02-31-02",
+   "source": "codex"
+  },
+  {
+   "name": "进出境动物和植物检验检疫人",
+   "code": "2-02-31-03",
+   "source": "codex"
+  },
+  {
+   "name": "特种设备检验检测工程技术",
+   "code": "2-02-31-04",
+   "source": "codex"
+  },
+  {
+   "name": "纤维质量检验工程技术人员",
+   "code": "2-02-31-05",
+   "source": "codex"
+  },
+  {
+   "name": "卫生检疫人员",
+   "code": "2-02-31-06",
+   "source": "codex"
+  },
+  {
+   "name": "制药工程技术人员",
+   "code": "2-02-32-00",
+   "source": "codex"
+  },
+  {
+   "name": "印刷复制工程技术人员",
+   "code": "2-02-33-00",
+   "source": "codex"
+  },
+  {
+   "name": "产品设计工程技术人员",
+   "code": "2-02-34-01",
+   "source": "codex"
+  },
+  {
+   "name": "工业设计工程技术人员",
+   "code": "2-02-34-02",
+   "source": "codex"
+  },
+  {
+   "name": "企业信息管理师",
+   "code": "2-02-34-10",
+   "source": "standard"
+  },
+  {
+   "name": "矫形器师",
+   "code": "2-02-35-01",
+   "source": "codex"
+  },
+  {
+   "name": "假肢师",
+   "code": "2-02-35-02",
+   "source": "codex"
+  },
+  {
+   "name": "听力师",
+   "code": "2-02-35-03",
+   "source": "codex"
+  },
+  {
+   "name": "制浆造纸工程技术人员",
+   "code": "2-02-36-01",
+   "source": "codex"
+  },
+  {
+   "name": "皮革化学工程技术人员",
+   "code": "2-02-36-02",
+   "source": "codex"
+  },
+  {
+   "name": "生物发酵工程技术人员",
+   "code": "2-02-36-03",
+   "source": "codex"
+  },
+  {
+   "name": "日用化工工程技术人员",
+   "code": "2-02-36-04",
+   "source": "codex"
+  },
+  {
+   "name": "塑料加工工程技术人员",
+   "code": "2-02-36-05",
+   "source": "codex"
+  },
+  {
+   "name": "土地整治与生态修复工程技术",
+   "code": "2-02-37-01",
+   "source": "codex"
+  },
+  {
+   "name": "城乡规划工程技术人员",
+   "code": "2-02-37-02",
+   "source": "codex"
+  },
+  {
+   "name": "人工智能工程技术人员",
+   "code": "2-02-38-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "物联网工程技术人员",
+   "code": "2-02-38-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "大数据工程技术人员",
+   "code": "2-02-38-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "云计算工程技术人员",
+   "code": "2-02-38-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "智能制造工程技术人员",
+   "code": "2-02-38-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业互联网工程技术人员",
+   "code": "2-02-38-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "虚拟现实工程技术人员",
+   "code": "2-02-38-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "区块链工程技术人员",
+   "code": "2-02-38-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "集成电路工程技术人员",
+   "code": "2-02-38-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机器人工程技术人员",
+   "code": "2-02-38-10",
+   "source": "codex"
+  },
+  {
+   "name": "增材制造工程技术人员",
+   "code": "2-02-38-11",
+   "source": "codex"
+  },
+  {
+   "name": "数据安全工程技术人员",
+   "code": "2-02-38-12",
+   "source": "codex"
+  },
+  {
+   "name": "密码工程技术人员",
+   "code": "2-02-38-13",
+   "source": "codex"
+  },
+  {
+   "name": "土壤肥料技术人员",
+   "code": "2-03-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "农业技术指导人员",
+   "code": "2-03-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "植物保护技术人员",
+   "code": "2-03-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "园艺技术人员",
+   "code": "2-03-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "作物遗传育种栽培技术人员",
+   "code": "2-03-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "兽医",
+   "code": "2-03-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "兽药技术人员",
+   "code": "2-03-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "宠物医师",
+   "code": "2-03-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "畜牧技术人员",
+   "code": "2-03-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "草业技术人员",
+   "code": "2-03-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "水产养殖技术人员",
+   "code": "2-03-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "渔业资源开发利用技术人员",
+   "code": "2-03-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "农业工程技术人员",
+   "code": "2-03-09-00",
+   "source": "codex"
+  },
+  {
+   "name": "飞行驾驶员",
+   "code": "2-04-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "飞行机械员",
+   "code": "2-04-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "飞行领航员",
+   "code": "2-04-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "飞行通信员",
+   "code": "2-04-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "甲板部技术人员",
+   "code": "2-04-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "轮机部技术人员",
+   "code": "2-04-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "船舶引航员",
+   "code": "2-04-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "内科医师",
+   "code": "2-05-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "外科医师",
+   "code": "2-05-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "儿科医师",
+   "code": "2-05-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "妇产科医师",
+   "code": "2-05-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "眼科医师",
+   "code": "2-05-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "耳鼻咽喉科医师",
+   "code": "2-05-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "口腔科医师",
+   "code": "2-05-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "皮肤科医师",
+   "code": "2-05-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "精神科医师",
+   "code": "2-05-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "传染病科医师",
+   "code": "2-05-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "急诊科医师",
+   "code": "2-05-01-11",
+   "source": "codex"
+  },
+  {
+   "name": "康复科医师",
+   "code": "2-05-01-12",
+   "source": "codex"
+  },
+  {
+   "name": "麻醉科医师",
+   "code": "2-05-01-13",
+   "source": "codex"
+  },
+  {
+   "name": "病理科医师",
+   "code": "2-05-01-14",
+   "source": "codex"
+  },
+  {
+   "name": "放射科医师",
+   "code": "2-05-01-15",
+   "source": "codex"
+  },
+  {
+   "name": "核医学科医师",
+   "code": "2-05-01-16",
+   "source": "codex"
+  },
+  {
+   "name": "超声科医师",
+   "code": "2-05-01-17",
+   "source": "codex"
+  },
+  {
+   "name": "肿瘤科医师",
+   "code": "2-05-01-18",
+   "source": "codex"
+  },
+  {
+   "name": "全科医师",
+   "code": "2-05-01-19",
+   "source": "codex"
+  },
+  {
+   "name": "医学遗传科医师",
+   "code": "2-05-01-20",
+   "source": "codex"
+  },
+  {
+   "name": "妇幼保健医师",
+   "code": "2-05-01-21",
+   "source": "codex"
+  },
+  {
+   "name": "疼痛科医师",
+   "code": "2-05-01-22",
+   "source": "codex"
+  },
+  {
+   "name": "重症医学科医师",
+   "code": "2-05-01-23",
+   "source": "codex"
+  },
+  {
+   "name": "临床检验科医师",
+   "code": "2-05-01-24",
+   "source": "codex"
+  },
+  {
+   "name": "职业病科医师",
+   "code": "2-05-01-25",
+   "source": "codex"
+  },
+  {
+   "name": "中医内科医师",
+   "code": "2-05-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "中医外科医师",
+   "code": "2-05-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "中医妇科医师",
+   "code": "2-05-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "中医儿科医师",
+   "code": "2-05-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "中医眼科医师",
+   "code": "2-05-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "中医皮肤科医师",
+   "code": "2-05-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "中医骨伤科医师",
+   "code": "2-05-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "中医肛肠科医师",
+   "code": "2-05-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "中医耳鼻咽喉科医师",
+   "code": "2-05-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "针灸医师",
+   "code": "2-05-02-10",
+   "source": "codex"
+  },
+  {
+   "name": "中医推拿医师",
+   "code": "2-05-02-11",
+   "source": "codex"
+  },
+  {
+   "name": "中医营养医师",
+   "code": "2-05-02-12",
+   "source": "codex"
+  },
+  {
+   "name": "中医整脊科医师",
+   "code": "2-05-02-13",
+   "source": "codex"
+  },
+  {
+   "name": "中医康复医师",
+   "code": "2-05-02-14",
+   "source": "codex"
+  },
+  {
+   "name": "中医全科医师",
+   "code": "2-05-02-15",
+   "source": "codex"
+  },
+  {
+   "name": "中医亚健康医师",
+   "code": "2-05-02-16",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合内科医师",
+   "code": "2-05-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合外科医师",
+   "code": "2-05-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合妇科医师",
+   "code": "2-05-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合儿科医师",
+   "code": "2-05-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合骨伤科医师",
+   "code": "2-05-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合肛肠科医师",
+   "code": "2-05-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "中西医结合皮肤与性病科医师",
+   "code": "2-05-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "民族医医师",
+   "code": "2-05-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "疾病控制医师",
+   "code": "2-05-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "健康教育医师",
+   "code": "2-05-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "公共卫生医师",
+   "code": "2-05-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "药师",
+   "code": "2-05-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "中药师",
+   "code": "2-05-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "民族药师",
+   "code": "2-05-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "影像技师",
+   "code": "2-05-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "口腔医学技师",
+   "code": "2-05-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "病理技师",
+   "code": "2-05-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "临床检验技师",
+   "code": "2-05-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "公卫检验技师",
+   "code": "2-05-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "卫生工程技师",
+   "code": "2-05-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "输血技师",
+   "code": "2-05-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "临床营养技师",
+   "code": "2-05-07-08",
+   "source": "codex"
+  },
+  {
+   "name": "消毒技师",
+   "code": "2-05-07-09",
+   "source": "codex"
+  },
+  {
+   "name": "肿瘤放射治疗技师",
+   "code": "2-05-07-10",
+   "source": "codex"
+  },
+  {
+   "name": "心电学技师",
+   "code": "2-05-07-11",
+   "source": "codex"
+  },
+  {
+   "name": "神经电生理脑电图技师",
+   "code": "2-05-07-12",
+   "source": "codex"
+  },
+  {
+   "name": "心理治疗技师",
+   "code": "2-05-07-13",
+   "source": "codex"
+  },
+  {
+   "name": "病案信息技师",
+   "code": "2-05-07-14",
+   "source": "codex"
+  },
+  {
+   "name": "中医技师",
+   "code": "2-05-07-15",
+   "source": "codex"
+  },
+  {
+   "name": "内科护士",
+   "code": "2-05-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "儿科护士",
+   "code": "2-05-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "急诊护士",
+   "code": "2-05-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "外科护士",
+   "code": "2-05-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "社区护士",
+   "code": "2-05-08-05",
+   "source": "codex"
+  },
+  {
+   "name": "助产士",
+   "code": "2-05-08-06",
+   "source": "codex"
+  },
+  {
+   "name": "口腔科护士",
+   "code": "2-05-08-07",
+   "source": "codex"
+  },
+  {
+   "name": "妇产科护士",
+   "code": "2-05-08-08",
+   "source": "codex"
+  },
+  {
+   "name": "中医护士",
+   "code": "2-05-08-09",
+   "source": "codex"
+  },
+  {
+   "name": "乡村医生",
+   "code": "2-05-09-00",
+   "source": "codex"
+  },
+  {
+   "name": "盲人医疗按摩人员",
+   "code": "2-05-10-00",
+   "source": "codex"
+  },
+  {
+   "name": "经济规划专业人员",
+   "code": "2-06-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "合作经济专业人员",
+   "code": "2-06-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "价格专业人员",
+   "code": "2-06-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "易货经济专业人员",
+   "code": "2-06-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "统计专业人员",
+   "code": "2-06-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "会计专业人员",
+   "code": "2-06-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "审计专业人员",
+   "code": "2-06-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "税务专业人员",
+   "code": "2-06-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "资产评估专业人员",
+   "code": "2-06-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "房地产估价专业人员",
+   "code": "2-06-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "森林资源评估专业人员",
+   "code": "2-06-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "矿业权评估专业人员",
+   "code": "2-06-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "海域海岛评估专业人员",
+   "code": "2-06-06-05",
+   "source": "codex"
+  },
+  {
+   "name": "国际商务专业人员",
+   "code": "2-06-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "市场营销专业人员",
+   "code": "2-06-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "商务策划专业人员",
+   "code": "2-06-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "品牌专业人员",
+   "code": "2-06-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "会展策划专业人员",
+   "code": "2-06-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "房地产开发专业人员",
+   "code": "2-06-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "医药代表",
+   "code": "2-06-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "管理咨询专业人员",
+   "code": "2-06-07-08",
+   "source": "codex"
+  },
+  {
+   "name": "拍卖师",
+   "code": "2-06-07-09",
+   "source": "codex"
+  },
+  {
+   "name": "物业经营管理专业人员",
+   "code": "2-06-07-10",
+   "source": "codex"
+  },
+  {
+   "name": "经纪与代理专业人员",
+   "code": "2-06-07-11",
+   "source": "codex"
+  },
+  {
+   "name": "报关人员",
+   "code": "2-06-07-12",
+   "source": "codex"
+  },
+  {
+   "name": "数字化管理师",
+   "code": "2-06-07-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "企业合规师",
+   "code": "2-06-07-14",
+   "source": "codex"
+  },
+  {
+   "name": "招标采购专业人员",
+   "code": "2-06-07-15",
+   "source": "codex"
+  },
+  {
+   "name": "技术经理人",
+   "code": "2-06-07-16",
+   "source": "codex"
+  },
+  {
+   "name": "不动产确权登记专业人员",
+   "code": "2-06-07-17",
+   "source": "codex"
+  },
+  {
+   "name": "人力资源管理专业人员",
+   "code": "2-06-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "人力资源服务专业人员",
+   "code": "2-06-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "职业信息分析专业人员",
+   "code": "2-06-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "职业技术实训指导专业人员",
+   "code": "2-06-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "银行国库业务专业人员",
+   "code": "2-06-09-01",
+   "source": "codex"
+  },
+  {
+   "name": "银行金融市场业务专业人员",
+   "code": "2-06-09-02",
+   "source": "codex"
+  },
+  {
+   "name": "银行清算专业人员",
+   "code": "2-06-09-03",
+   "source": "codex"
+  },
+  {
+   "name": "信贷审核专业人员",
+   "code": "2-06-09-04",
+   "source": "codex"
+  },
+  {
+   "name": "银行国际业务专业人员",
+   "code": "2-06-09-05",
+   "source": "codex"
+  },
+  {
+   "name": "公司金融顾问",
+   "code": "2-06-09-06",
+   "source": "codex"
+  },
+  {
+   "name": "精算专业人员",
+   "code": "2-06-10-01",
+   "source": "codex"
+  },
+  {
+   "name": "保险核保专业人员",
+   "code": "2-06-10-02",
+   "source": "codex"
+  },
+  {
+   "name": "保险理赔专业人员",
+   "code": "2-06-10-03",
+   "source": "codex"
+  },
+  {
+   "name": "保险资金运用专业人员",
+   "code": "2-06-10-04",
+   "source": "codex"
+  },
+  {
+   "name": "证券保荐承销专业人员",
+   "code": "2-06-11-01",
+   "source": "codex"
+  },
+  {
+   "name": "证券交易专业人员",
+   "code": "2-06-11-02",
+   "source": "codex"
+  },
+  {
+   "name": "证券投资专业人员",
+   "code": "2-06-11-03",
+   "source": "codex"
+  },
+  {
+   "name": "金融产品销售专业人员",
+   "code": "2-06-11-04",
+   "source": "codex"
+  },
+  {
+   "name": "黄金投资专业人员",
+   "code": "2-06-11-05",
+   "source": "codex"
+  },
+  {
+   "name": "期货专业人员",
+   "code": "2-06-11-06",
+   "source": "codex"
+  },
+  {
+   "name": "基金专业人员",
+   "code": "2-06-11-07",
+   "source": "codex"
+  },
+  {
+   "name": "专利代理专业人员",
+   "code": "2-06-12-01",
+   "source": "codex"
+  },
+  {
+   "name": "专利审查专业人员",
+   "code": "2-06-12-02",
+   "source": "codex"
+  },
+  {
+   "name": "专利管理专业人员",
+   "code": "2-06-12-03",
+   "source": "codex"
+  },
+  {
+   "name": "知识产权信息分析专业人员",
+   "code": "2-06-12-04",
+   "source": "codex"
+  },
+  {
+   "name": "版权专业人员",
+   "code": "2-06-12-05",
+   "source": "codex"
+  },
+  {
+   "name": "商标代理专业人员",
+   "code": "2-06-12-06",
+   "source": "codex"
+  },
+  {
+   "name": "商标审查审理专业人员",
+   "code": "2-06-12-07",
+   "source": "codex"
+  },
+  {
+   "name": "商标管理专业人员",
+   "code": "2-06-12-08",
+   "source": "codex"
+  },
+  {
+   "name": "医保经办专业人员",
+   "code": "2-06-13-00",
+   "source": "codex"
+  },
+  {
+   "name": "金融科技师",
+   "code": "2-06-14-00",
+   "source": "codex"
+  },
+  {
+   "name": "监察人员",
+   "code": "2-07-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "法官",
+   "code": "2-07-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "检察官",
+   "code": "2-07-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "律师",
+   "code": "2-07-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "公证员",
+   "code": "2-07-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "法医",
+   "code": "2-07-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "物证鉴定人员",
+   "code": "2-07-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "审判辅助人员",
+   "code": "2-07-07-00",
+   "source": "codex"
+  },
+  {
+   "name": "法律顾问",
+   "code": "2-07-08-00",
+   "source": "codex"
+  },
+  {
+   "name": "宗教教职人员",
+   "code": "2-07-09-00",
+   "source": "codex"
+  },
+  {
+   "name": "社会工作者",
+   "code": "2-07-10-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "社会组织专业人员",
+   "code": "2-07-10-02",
+   "source": "codex"
+  },
+  {
+   "name": "心理咨询师",
+   "code": "2-07-10-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "普通高等学校教师",
+   "code": "2-08-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "高等职业学校教师",
+   "code": "2-08-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "高级中学教师",
+   "code": "2-08-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "中等职业学校教师",
+   "code": "2-08-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "初级中学教师",
+   "code": "2-08-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "小学教师",
+   "code": "2-08-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "幼儿园教师",
+   "code": "2-08-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "特殊教育教师",
+   "code": "2-08-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "文学作家",
+   "code": "2-09-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "曲艺作家",
+   "code": "2-09-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "剧作家",
+   "code": "2-09-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "作曲家",
+   "code": "2-09-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "词作家",
+   "code": "2-09-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "导演",
+   "code": "2-09-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "舞蹈编导",
+   "code": "2-09-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "舞美设计",
+   "code": "2-09-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "音乐指挥",
+   "code": "2-09-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "电影电视演员",
+   "code": "2-09-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "戏剧戏曲演员",
+   "code": "2-09-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "舞蹈演员",
+   "code": "2-09-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "曲艺演员",
+   "code": "2-09-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "杂技魔术演员",
+   "code": "2-09-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "歌唱演员",
+   "code": "2-09-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "皮影戏木偶戏演员",
+   "code": "2-09-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "民族乐器演奏员",
+   "code": "2-09-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "外国乐器演奏员",
+   "code": "2-09-02-10",
+   "source": "codex"
+  },
+  {
+   "name": "电影电视制片人",
+   "code": "2-09-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "电影电视场记",
+   "code": "2-09-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "电影电视摄影师",
+   "code": "2-09-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "电影电视片发行人",
+   "code": "2-09-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "电视导播",
+   "code": "2-09-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "剪辑师",
+   "code": "2-09-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "灯光师",
+   "code": "2-09-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "音像师",
+   "code": "2-09-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "美工师",
+   "code": "2-09-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "化妆师",
+   "code": "2-09-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "装置师",
+   "code": "2-09-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "服装道具师",
+   "code": "2-09-04-06",
+   "source": "codex"
+  },
+  {
+   "name": "演出监督",
+   "code": "2-09-04-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "演出制作人",
+   "code": "2-09-04-08",
+   "source": "codex"
+  },
+  {
+   "name": "画家",
+   "code": "2-09-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "篆刻家",
+   "code": "2-09-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "雕塑家",
+   "code": "2-09-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "书法家",
+   "code": "2-09-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "摄影家",
+   "code": "2-09-05-05",
+   "source": "codex"
+  },
+  {
+   "name": "视觉传达设计人员",
+   "code": "2-09-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "服装设计人员",
+   "code": "2-09-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "动画设计人员",
+   "code": "2-09-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "环境设计人员",
+   "code": "2-09-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "染织艺术设计人员",
+   "code": "2-09-06-05",
+   "source": "codex"
+  },
+  {
+   "name": "工艺美术专业人员",
+   "code": "2-09-06-06",
+   "source": "codex"
+  },
+  {
+   "name": "数字媒体艺术专业人员",
+   "code": "2-09-06-07",
+   "source": "codex"
+  },
+  {
+   "name": "公共艺术专业人员",
+   "code": "2-09-06-08",
+   "source": "codex"
+  },
+  {
+   "name": "陈列展览设计人员",
+   "code": "2-09-06-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "教练员",
+   "code": "2-09-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "裁判员",
+   "code": "2-09-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "运动员",
+   "code": "2-09-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "运动防护师",
+   "code": "2-09-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "体育经理人",
+   "code": "2-09-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "文字记者",
+   "code": "2-10-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "摄影记者",
+   "code": "2-10-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "文字编辑",
+   "code": "2-10-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "美术编辑",
+   "code": "2-10-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "技术编辑",
+   "code": "2-10-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "数字出版编辑",
+   "code": "2-10-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "网络编辑",
+   "code": "2-10-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "电子音乐编辑",
+   "code": "2-10-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "校对员",
+   "code": "2-10-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "播音员",
+   "code": "2-10-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "节目主持人",
+   "code": "2-10-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "翻译",
+   "code": "2-10-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "手语翻译",
+   "code": "2-10-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "文献信息专业人员",
+   "code": "2-10-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "微缩摄影专业人员",
+   "code": "2-10-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "档案专业人员",
+   "code": "2-10-07-00",
+   "source": "codex"
+  },
+  {
+   "name": "考古专业人员",
+   "code": "2-10-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "文物藏品专业人员",
+   "code": "2-10-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "可移动文物保护专业人员",
+   "code": "2-10-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "不可移动文物保护专业人员",
+   "code": "2-10-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "文物展陈专业人员",
+   "code": "2-10-08-05",
+   "source": "codex"
+  },
+  {
+   "name": "行政办事员",
+   "code": "3-01-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "行政办事员（政务服务综合窗口办事员）",
+   "code": "3-01-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "政务服务办事员",
+   "code": "3-01-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "统计调查员",
+   "code": "3-01-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "社团会员管理员",
+   "code": "3-01-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "劝募员",
+   "code": "3-01-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机要员",
+   "code": "3-01-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "秘书",
+   "code": "3-01-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公关员",
+   "code": "3-01-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "收发员",
+   "code": "3-01-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "打字员",
+   "code": "3-01-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "计算机操作员",
+   "code": "3-01-02-05",
+   "source": "standard"
+  },
+  {
+   "name": "速录师",
+   "code": "3-01-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制图员",
+   "code": "3-01-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "后勤管理员",
+   "code": "3-01-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "行政执法员",
+   "code": "3-01-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "劳动人事争议仲裁员",
+   "code": "3-01-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "农村土地承包仲裁员",
+   "code": "3-01-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "村和社区工作者",
+   "code": "3-01-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "城市管理网格员",
+   "code": "3-01-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "劳动保障协理员",
+   "code": "3-01-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "退役军人事务员",
+   "code": "3-01-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "基层法律服务工作者",
+   "code": "3-01-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "医疗保障专理员",
+   "code": "3-01-04-06",
+   "source": "codex"
+  },
+  {
+   "name": "人民警察",
+   "code": "3-02-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "保卫管理员",
+   "code": "3-02-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "辅警",
+   "code": "3-02-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "消防员",
+   "code": "3-02-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "消防指挥员",
+   "code": "3-02-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "消防装备管理员",
+   "code": "3-02-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "消防安全管理员",
+   "code": "3-02-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "消防监督检查员",
+   "code": "3-02-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "森林消防员",
+   "code": "3-02-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "森林火情瞭望观察员",
+   "code": "3-02-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "应急救援员",
+   "code": "3-02-03-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "仲裁员",
+   "code": "3-03-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "仲裁秘书",
+   "code": "3-03-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "调解员",
+   "code": "3-03-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "电信业务营业员",
+   "code": "3-03-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "话务员",
+   "code": "3-03-02-02",
+   "source": "standard"
+  },
+  {
+   "name": "电信业务员",
+   "code": "3-03-02-04",
+   "source": "standard"
+  },
+  {
+   "name": "电信机务员",
+   "code": "3-03-03-01",
+   "source": "standard"
+  },
+  {
+   "name": "用户通信终端维修员",
+   "code": "3-03-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "采购员",
+   "code": "4-01-01-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "营业员",
+   "code": "4-01-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "营销员",
+   "code": "4-01-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "商品营业员",
+   "code": "4-01-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "收银员",
+   "code": "4-01-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "摊商",
+   "code": "4-01-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "连锁经营管理师",
+   "code": "4-01-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农产品经纪人",
+   "code": "4-01-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "粮油竞价交易员",
+   "code": "4-01-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "中药购销员",
+   "code": "4-01-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "易货师",
+   "code": "4-01-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "二手车经纪人",
+   "code": "4-01-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "再生物资回收挑选工",
+   "code": "4-01-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "农产品购销员",
+   "code": "4-01-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "医药商品购销员",
+   "code": "4-01-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "出版物发行员",
+   "code": "4-01-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "烟草制品购销员",
+   "code": "4-01-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子商务师",
+   "code": "4-01-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子商务师S",
+   "code": "4-01-06-01",
+   "source": "standard"
+  },
+  {
+   "name": "互联网营销师",
+   "code": "4-01-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "市场管理员（试行）",
+   "code": "4-01-07-02",
+   "source": "standard"
+  },
+  {
+   "name": "中药调剂员",
+   "code": "4-01-99-02",
+   "source": "standard"
+  },
+  {
+   "name": "轨道交通列车司机",
+   "code": "4-02-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "轨道列车司机（内燃机车司机）",
+   "code": "4-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "轨道列车司机（动车组司机）",
+   "code": "4-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "轨道列车司机（城市轨道交通列车司机）",
+   "code": "4-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "轨道列车司机（电力机车司机）",
+   "code": "4-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "铁路列车乘务员",
+   "code": "4-02-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "铁路车站客运服务员",
+   "code": "4-02-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "铁路行包运输服务员",
+   "code": "4-02-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "铁路车站货运服务员",
+   "code": "4-02-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "轨道交通调度员",
+   "code": "4-02-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "轨道交通调度员（城市轨道交通行车调度员）",
+   "code": "4-02-01-06",
+   "source": "standard"
+  },
+  {
+   "name": "城市轨道交通服务员",
+   "code": "4-02-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "客运车辆驾驶员",
+   "code": "4-02-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "道路货运汽车驾驶员",
+   "code": "4-02-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "道路客运服务员",
+   "code": "4-02-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "道路货运业务员",
+   "code": "4-02-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "道路运输调度员",
+   "code": "4-02-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "公路收费及监控员",
+   "code": "4-02-02-06",
+   "source": "standard"
+  },
+  {
+   "name": "路况信息监控员",
+   "code": "4-02-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "机动车驾驶教练员",
+   "code": "4-02-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "油气电站操作员",
+   "code": "4-02-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "汽车救援员",
+   "code": "4-02-02-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "客运船舶驾驶员",
+   "code": "4-02-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "船舶业务员",
+   "code": "4-02-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "港口客运员",
+   "code": "4-02-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水上救生员",
+   "code": "4-02-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航标工",
+   "code": "4-02-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "民航乘务员",
+   "code": "4-02-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航空运输地面服务员",
+   "code": "4-02-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机场运行指挥员",
+   "code": "4-02-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航空安全员",
+   "code": "4-02-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "机场场务员",
+   "code": "4-02-04-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "无人机驾驶员",
+   "code": "4-02-04-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "装卸搬运工",
+   "code": "4-02-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "客运售票员",
+   "code": "4-02-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "货运代理服务员",
+   "code": "4-02-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "危险货物运输作业员",
+   "code": "4-02-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "仓储管理员",
+   "code": "4-02-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "粮油保管员",
+   "code": "4-02-06-01",
+   "source": "standard"
+  },
+  {
+   "name": "（粮油）仓储管理员",
+   "code": "4-02-06-01",
+   "source": "standard"
+  },
+  {
+   "name": "理货员",
+   "code": "4-02-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "物流服务师",
+   "code": "4-02-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "冷藏工",
+   "code": "4-02-06-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "供应链管理师",
+   "code": "4-02-06-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "邮政营业员",
+   "code": "4-02-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "邮件分拣员",
+   "code": "4-02-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "邮件转运员",
+   "code": "4-02-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "邮政投递员",
+   "code": "4-02-07-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "报刊业务员",
+   "code": "4-02-07-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "集邮业务员",
+   "code": "4-02-07-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "邮政市场业务员",
+   "code": "4-02-07-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "快递员",
+   "code": "4-02-07-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "快件处理员",
+   "code": "4-02-07-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "国际快递业务师",
+   "code": "4-02-07-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "快递站点管理师",
+   "code": "4-02-07-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "前厅服务员",
+   "code": "4-03-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "客房服务员",
+   "code": "4-03-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "旅店服务员",
+   "code": "4-03-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "中式烹调师",
+   "code": "4-03-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "中式烹调师（火锅料理师）",
+   "code": "4-03-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "中式烹调师（药膳制作师）",
+   "code": "4-03-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "中式面点师",
+   "code": "4-03-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "西式烹调师",
+   "code": "4-03-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "西式面点师",
+   "code": "4-03-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "餐厅服务员",
+   "code": "4-03-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "营养配餐员",
+   "code": "4-03-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "茶艺师",
+   "code": "4-03-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "咖啡师",
+   "code": "4-03-02-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "调酒师",
+   "code": "4-03-02-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "调饮师",
+   "code": "4-03-02-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "食品安全管理师",
+   "code": "4-03-02-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "侍酒师",
+   "code": "4-03-02-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "宴会定制服务师",
+   "code": "4-03-02-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息通信营业员",
+   "code": "4-04-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "信息通信业务员",
+   "code": "4-04-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "信息通信网络机务员",
+   "code": "4-04-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息通信网络机务员S（数据中心运行维护管理员）",
+   "code": "4-04-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "信息通信网络线务员",
+   "code": "4-04-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息通信网络动力机务员",
+   "code": "4-04-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "信息通信网络测量员",
+   "code": "4-04-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "无线电监测与设备运维员",
+   "code": "4-04-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "广播电视天线工",
+   "code": "4-04-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "广播电视机线员",
+   "code": "4-04-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "足部按摩师",
+   "code": "4-04-03-04",
+   "source": "standard"
+  },
+  {
+   "name": "信息通信网络运行管理员",
+   "code": "4-04-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "网络与信息安全管理员",
+   "code": "4-04-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "网络与信息安全管理员（数据安全管理员）S",
+   "code": "4-04-04-02",
+   "source": "standard"
+  },
+  {
+   "name": "信息通信信息化系统管理员",
+   "code": "4-04-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息安全测试员",
+   "code": "4-04-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息安全测试员S（个人信息保护合规管理员）",
+   "code": "4-04-04-04",
+   "source": "standard"
+  },
+  {
+   "name": "数字化解决方案设计师",
+   "code": "4-04-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "数字化解决方案设计师S",
+   "code": "4-04-04-05",
+   "source": "standard"
+  },
+  {
+   "name": "网络安全等级保护测评师",
+   "code": "4-04-04-06",
+   "source": "codex"
+  },
+  {
+   "name": "密码技术应用员",
+   "code": "4-04-04-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "计算机程序设计员",
+   "code": "4-04-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "计算机软件测试员",
+   "code": "4-04-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "计算机软件测试员S",
+   "code": "4-04-05-02",
+   "source": "standard"
+  },
+  {
+   "name": "呼叫中心服务员",
+   "code": "4-04-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "建筑信息模型技术员L",
+   "code": "4-04-05-04",
+   "source": "standard"
+  },
+  {
+   "name": "数据库运行管理员",
+   "code": "4-04-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "数据库运行管理员S",
+   "code": "4-04-05-04",
+   "source": "standard"
+  },
+  {
+   "name": "人工智能训练师",
+   "code": "4-04-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "区块链应用操作员",
+   "code": "4-04-05-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "服务机器人应用技术员",
+   "code": "4-04-05-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子数据取证分析师",
+   "code": "4-04-05-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息系统适配验证师",
+   "code": "4-04-05-09",
+   "source": "codex"
+  },
+  {
+   "name": "信息系统适配验证师S",
+   "code": "4-04-05-09",
+   "source": "standard"
+  },
+  {
+   "name": "数字孪生应用技术员",
+   "code": "4-04-05-10",
+   "source": "codex"
+  },
+  {
+   "name": "数字孪生应用技术员S",
+   "code": "4-04-05-10",
+   "source": "standard"
+  },
+  {
+   "name": "虚拟现实产品设计师",
+   "code": "4-04-05-11",
+   "source": "codex"
+  },
+  {
+   "name": "银行综合柜员",
+   "code": "4-05-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "银行信贷员",
+   "code": "4-05-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "银行客户业务员",
+   "code": "4-05-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "银行信用卡业务员",
+   "code": "4-05-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "证券期货服务师",
+   "code": "4-05-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "保险代理人",
+   "code": "4-05-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "保险保全员",
+   "code": "4-05-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "保险公估人",
+   "code": "4-05-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "保险经纪人",
+   "code": "4-05-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "典当业务员",
+   "code": "4-05-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "鉴定估价师",
+   "code": "4-05-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信托业务员",
+   "code": "4-05-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "资产管理师",
+   "code": "4-05-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "鉴定估价师（机动车鉴定评估师）",
+   "code": "4-05-05-02",
+   "source": "standard"
+  },
+  {
+   "name": "物业管理师",
+   "code": "4-06-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "中央空调系统运行操作员",
+   "code": "4-06-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "停车管理员",
+   "code": "4-06-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "智能楼宇管理员",
+   "code": "4-06-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "房地产经纪人",
+   "code": "4-06-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "房地产策划师",
+   "code": "4-06-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "验房师",
+   "code": "4-06-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "租赁业务员",
+   "code": "4-07-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "拍卖服务师",
+   "code": "4-07-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "物业管理员",
+   "code": "4-07-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "风险管理师",
+   "code": "4-07-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "风险管理师（公共风险管理师）",
+   "code": "4-07-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "科技咨询师",
+   "code": "4-07-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "客户服务管理员",
+   "code": "4-07-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "信用管理师",
+   "code": "4-07-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "商务数据分析师",
+   "code": "4-07-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "商务数据分析师S",
+   "code": "4-07-02-05",
+   "source": "standard"
+  },
+  {
+   "name": "用户增长运营师S",
+   "code": "4-07-02-06",
+   "source": "standard"
+  },
+  {
+   "name": "职业指导师",
+   "code": "4-07-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "职业指导师（职业生涯规划师）",
+   "code": "4-07-03-01",
+   "source": "standard"
+  },
+  {
+   "name": "劳动关系协调员",
+   "code": "4-07-03-02",
+   "source": "standard"
+  },
+  {
+   "name": "劳动关系协调师",
+   "code": "4-07-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "创业指导师",
+   "code": "4-07-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "企业人力资源管理师",
+   "code": "4-07-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "企业人力资源管理师（人才测评师）",
+   "code": "4-07-03-04",
+   "source": "standard"
+  },
+  {
+   "name": "企业人力资源管理师（劳务派遣管理员）",
+   "code": "4-07-03-04",
+   "source": "standard"
+  },
+  {
+   "name": "企业人力资源管理师（劳动定员定额师）",
+   "code": "4-07-03-04",
+   "source": "standard"
+  },
+  {
+   "name": "企业人力资源管理师（薪税师）",
+   "code": "4-07-03-04",
+   "source": "standard"
+  },
+  {
+   "name": "职业培训师",
+   "code": "4-07-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "劳务外包管理员",
+   "code": "4-07-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "招聘师",
+   "code": "4-07-03-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "导游",
+   "code": "4-07-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "旅游团队领队",
+   "code": "4-07-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "旅行社计调",
+   "code": "4-07-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "旅游咨询员",
+   "code": "4-07-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公共游览场所服务员",
+   "code": "4-07-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "休闲农业服务员",
+   "code": "4-07-04-06",
+   "source": "codex"
+  },
+  {
+   "name": "景区运营管理师",
+   "code": "4-07-04-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "保安员",
+   "code": "4-07-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "摄影师",
+   "code": "4-07-05-01（1999年版）",
+   "source": "standard"
+  },
+  {
+   "name": "安检员",
+   "code": "4-07-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "安检员（民航安全检查员）",
+   "code": "4-07-05-02",
+   "source": "standard"
+  },
+  {
+   "name": "安检员（邮件快件安检员）",
+   "code": "4-07-05-02",
+   "source": "standard"
+  },
+  {
+   "name": "消防设施操作员",
+   "code": "4-07-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "安全防范系统安装维护员",
+   "code": "4-07-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "商品监督员",
+   "code": "4-07-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "商品防损员",
+   "code": "4-07-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "市场管理员",
+   "code": "4-07-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "会展服务师",
+   "code": "4-07-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "装饰美工",
+   "code": "4-07-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "模特",
+   "code": "4-07-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "航空气象员",
+   "code": "4-08-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "人工影响天气特种作业操作员",
+   "code": "4-08-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "海洋水文气象观测员",
+   "code": "4-08-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "海洋浮标工",
+   "code": "4-08-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "海洋水文调查员",
+   "code": "4-08-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "海洋生物调查员",
+   "code": "4-08-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "大地测量员",
+   "code": "4-08-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "摄影测量员",
+   "code": "4-08-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "地图绘制员",
+   "code": "4-08-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工程测量员",
+   "code": "4-08-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "不动产测绘员",
+   "code": "4-08-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "海洋测绘员",
+   "code": "4-08-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "无人机测绘操控员",
+   "code": "4-08-03-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "地理信息采集员",
+   "code": "4-08-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "地理信息处理员",
+   "code": "4-08-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "地理信息应用作业员",
+   "code": "4-08-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "农产品食品检验员",
+   "code": "4-08-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纤维检验员",
+   "code": "4-08-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "贵金属首饰与宝玉石检测员",
+   "code": "4-08-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "药物检验员",
+   "code": "4-08-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机动车检测工",
+   "code": "4-08-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "计量员",
+   "code": "4-08-05-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子电气产品检验员",
+   "code": "4-08-05-07",
+   "source": "codex"
+  },
+  {
+   "name": "电气电子产品环保检测员",
+   "code": "4-08-05-07",
+   "source": "standard"
+  },
+  {
+   "name": "公路水运工程试验检测员",
+   "code": "4-08-05-08",
+   "source": "codex"
+  },
+  {
+   "name": "建设工程质量检测员",
+   "code": "4-08-05-09",
+   "source": "codex"
+  },
+  {
+   "name": "环境监测员",
+   "code": "4-08-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "环境监测员L",
+   "code": "4-08-06-00",
+   "source": "standard"
+  },
+  {
+   "name": "地勘钻探工",
+   "code": "4-08-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "地勘掘进工",
+   "code": "4-08-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "物探工",
+   "code": "4-08-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "地质调查员",
+   "code": "4-08-07-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "地质实验员",
+   "code": "4-08-07-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "花艺环境设计师",
+   "code": "4-08-08-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纺织面料设计师",
+   "code": "4-08-08-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家用纺织品设计师",
+   "code": "4-08-08-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "色彩搭配师",
+   "code": "4-08-08-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工艺美术品设计师",
+   "code": "4-08-08-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "装潢美术设计师",
+   "code": "4-08-08-06",
+   "source": "codex"
+  },
+  {
+   "name": "室内装饰设计师",
+   "code": "4-08-08-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "广告设计师",
+   "code": "4-08-08-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "包装设计师",
+   "code": "4-08-08-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "玩具设计师",
+   "code": "4-08-08-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "首饰设计师",
+   "code": "4-08-08-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家具设计师",
+   "code": "4-08-08-12",
+   "source": "codex"
+  },
+  {
+   "name": "陶瓷产品设计师",
+   "code": "4-08-08-13",
+   "source": "codex"
+  },
+  {
+   "name": "彩灯艺术设计师",
+   "code": "4-08-08-14",
+   "source": "codex"
+  },
+  {
+   "name": "地毯设计师",
+   "code": "4-08-08-15",
+   "source": "codex"
+  },
+  {
+   "name": "皮具设计师",
+   "code": "4-08-08-16",
+   "source": "codex"
+  },
+  {
+   "name": "鞋类设计师",
+   "code": "4-08-08-17",
+   "source": "codex"
+  },
+  {
+   "name": "灯具设计师",
+   "code": "4-08-08-18",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "照明设计师",
+   "code": "4-08-08-19",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "形象设计师",
+   "code": "4-08-08-20",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "会展设计师",
+   "code": "4-08-08-21",
+   "source": "codex"
+  },
+  {
+   "name": "建筑幕墙设计师",
+   "code": "4-08-08-22",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "建筑信息模型技术员",
+   "code": "4-08-08-23",
+   "source": "codex"
+  },
+  {
+   "name": "乐器设计师",
+   "code": "4-08-08-24",
+   "source": "codex"
+  },
+  {
+   "name": "斫琴师",
+   "code": "4-08-08-25",
+   "source": "codex"
+  },
+  {
+   "name": "工业设计工艺师",
+   "code": "4-08-08-26",
+   "source": "codex"
+  },
+  {
+   "name": "钟表设计师",
+   "code": "4-08-08-27",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "漆艺师",
+   "code": "4-08-08-28",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "桌面游戏设计师",
+   "code": "4-08-08-29",
+   "source": "codex"
+  },
+  {
+   "name": "商业摄影师",
+   "code": "4-08-09-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "冲印师",
+   "code": "4-08-09-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "陶瓷工艺师",
+   "code": "4-08-10-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "化工生产现场技术员",
+   "code": "4-08-10-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "河道修防工",
+   "code": "4-09-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水工混凝土维修工",
+   "code": "4-09-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "水工土石维修工",
+   "code": "4-09-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "水工监测工",
+   "code": "4-09-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水工闸门运行工",
+   "code": "4-09-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水文勘测工",
+   "code": "4-09-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水文勘测船工",
+   "code": "4-09-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "水土保持员",
+   "code": "4-09-03-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "灌区管理工",
+   "code": "4-09-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "灌区管理工（渠道维护工灌排工程工）",
+   "code": "4-09-04-00",
+   "source": "standard"
+  },
+  {
+   "name": "灌区管理工（灌区供水工）",
+   "code": "4-09-04-00",
+   "source": "standard"
+  },
+  {
+   "name": "灌区管理工（灌排泵站运行工）",
+   "code": "4-09-04-00",
+   "source": "standard"
+  },
+  {
+   "name": "自然保护区巡护监测员",
+   "code": "4-09-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "草地监护员",
+   "code": "4-09-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "野生动物保护员",
+   "code": "4-09-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "野生植物保护员",
+   "code": "4-09-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "标本员",
+   "code": "4-09-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "展出动物保育员",
+   "code": "4-09-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "污水处理工",
+   "code": "4-09-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "工业固体废物处理处置工",
+   "code": "4-09-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "危险废物处理工",
+   "code": "4-09-07-03",
+   "source": "codex"
+  },
+  {
+   "name": "危险废物处理工L",
+   "code": "4-09-07-03",
+   "source": "standard"
+  },
+  {
+   "name": "碳排放管理员",
+   "code": "4-09-07-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "碳汇计量评估师",
+   "code": "4-09-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "碳汇计量评估师L/S",
+   "code": "4-09-07-05",
+   "source": "standard"
+  },
+  {
+   "name": "建筑节能减排咨询师",
+   "code": "4-09-07-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "保洁员",
+   "code": "4-09-08-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "生活垃圾清运工",
+   "code": "4-09-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "生活垃圾清运工L",
+   "code": "4-09-08-02",
+   "source": "standard"
+  },
+  {
+   "name": "生活垃圾处理工",
+   "code": "4-09-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "生活垃圾处理工L",
+   "code": "4-09-08-03",
+   "source": "standard"
+  },
+  {
+   "name": "有害生物防制员",
+   "code": "4-09-09-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "园林绿化工",
+   "code": "4-09-10-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "草坪园艺师",
+   "code": "4-09-10-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "盆景师",
+   "code": "4-09-10-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "假山工",
+   "code": "4-09-10-04",
+   "source": "codex"
+  },
+  {
+   "name": "插花花艺师",
+   "code": "4-09-10-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "婴幼儿发展引导员",
+   "code": "4-10-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "育婴员",
+   "code": "4-10-01-02",
+   "source": "standard"
+  },
+  {
+   "name": "保育师",
+   "code": "4-10-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "孤残儿童护理员",
+   "code": "4-10-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "养老护理员",
+   "code": "4-10-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家政服务员",
+   "code": "4-10-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家政服务员（整理收纳师）",
+   "code": "4-10-01-06",
+   "source": "standard"
+  },
+  {
+   "name": "裁缝",
+   "code": "4-10-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "洗衣师",
+   "code": "4-10-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "染色师",
+   "code": "4-10-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "皮革护理员",
+   "code": "4-10-02-04",
+   "source": "standard"
+  },
+  {
+   "name": "皮革护理师",
+   "code": "4-10-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "织补师",
+   "code": "4-10-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "美容师",
+   "code": "4-10-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "美容师（皮肤管理师）",
+   "code": "4-10-03-01",
+   "source": "standard"
+  },
+  {
+   "name": "美发师",
+   "code": "4-10-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "美甲师",
+   "code": "4-10-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "浴池服务员",
+   "code": "4-10-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "修脚师",
+   "code": "4-10-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "保健调理师",
+   "code": "4-10-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "保健调理师（保健艾灸师）",
+   "code": "4-10-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "保健按摩师",
+   "code": "4-10-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "芳香保健师",
+   "code": "4-10-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "婚介师",
+   "code": "4-10-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "婚礼策划师",
+   "code": "4-10-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "婚姻家庭咨询师",
+   "code": "4-10-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "殡仪服务员",
+   "code": "4-10-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "遗体防腐整容师",
+   "code": "4-10-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "遗体火化师",
+   "code": "4-10-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公墓管理员",
+   "code": "4-10-06-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "宠物健康护理员",
+   "code": "4-10-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "宠物驯导师",
+   "code": "4-10-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "宠物美容师",
+   "code": "4-10-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "网约配送员",
+   "code": "4-10-08-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽车代驾员",
+   "code": "4-10-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "供电服务员",
+   "code": "4-11-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电力交易员",
+   "code": "4-11-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "综合能源服务员",
+   "code": "4-11-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "综合能源服务员L",
+   "code": "4-11-01-03",
+   "source": "standard"
+  },
+  {
+   "name": "燃气供应服务员",
+   "code": "4-11-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水供应服务员",
+   "code": "4-11-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "村镇供水员",
+   "code": "4-11-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽车维修工",
+   "code": "4-12-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "摩托车修理工",
+   "code": "4-12-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电池及电池系统维修保养师",
+   "code": "4-12-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "电池及电池系统维修保养师L",
+   "code": "4-12-01-03",
+   "source": "standard"
+  },
+  {
+   "name": "计算机维修工",
+   "code": "4-12-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "办公设备维修工",
+   "code": "4-12-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "信息通信网络终端维修员",
+   "code": "4-12-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家用电器产品维修工",
+   "code": "4-12-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家用电子产品维修工",
+   "code": "4-12-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "自行车与电动自行车维修工",
+   "code": "4-12-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "修鞋工",
+   "code": "4-12-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "钟表维修工",
+   "code": "4-12-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "锁具修理工",
+   "code": "4-12-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "燃气具安装维修工",
+   "code": "4-12-04-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "照相器材维修工",
+   "code": "4-12-04-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "乐器维修工",
+   "code": "4-12-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "钢琴调律师",
+   "code": "4-12-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印章制作工",
+   "code": "4-12-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "群众文化指导员",
+   "code": "4-13-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "礼仪主持人",
+   "code": "4-13-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "讲解员",
+   "code": "4-13-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "文化经纪人",
+   "code": "4-13-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "全媒体运营师",
+   "code": "4-13-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "档案数字化管理师S",
+   "code": "4-13-01-06",
+   "source": "standard"
+  },
+  {
+   "name": "版权服务师",
+   "code": "4-13-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "档案数字化管理师",
+   "code": "4-13-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "图书馆服务员",
+   "code": "4-13-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "影视置景制作员",
+   "code": "4-13-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "动画制作员",
+   "code": "4-13-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "影视烟火特效员",
+   "code": "4-13-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "电影洗印员",
+   "code": "4-13-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "电影放映员",
+   "code": "4-13-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "音响调音员",
+   "code": "4-13-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "照明工",
+   "code": "4-13-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "影视服装员",
+   "code": "4-13-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "电视摄像员",
+   "code": "4-13-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "考古探掘工",
+   "code": "4-13-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "文物修复师",
+   "code": "4-13-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "在线学习服务师",
+   "code": "4-13-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "国防教育辅导员",
+   "code": "4-13-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家庭教育指导师",
+   "code": "4-13-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "研学旅游指导师",
+   "code": "4-13-04-04",
+   "source": "standard"
+  },
+  {
+   "name": "研学旅行指导师",
+   "code": "4-13-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "医疗临床辅助服务员",
+   "code": "4-14-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "医疗护理员",
+   "code": "4-14-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "健康照护师",
+   "code": "4-14-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "健康照护师（长期照护师）",
+   "code": "4-14-01-03",
+   "source": "standard"
+  },
+  {
+   "name": "呼吸治疗师",
+   "code": "4-14-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公共营养师",
+   "code": "4-14-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "营养师",
+   "code": "4-14-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "健康管理师",
+   "code": "4-14-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "生殖健康咨询师",
+   "code": "4-14-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "出生缺陷防控咨询师",
+   "code": "4-14-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "老年人能力评估师",
+   "code": "4-14-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "助听器验配师",
+   "code": "4-14-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "口腔修复体制作工",
+   "code": "4-14-03-02",
+   "source": "standard"
+  },
+  {
+   "name": "口腔修复体制作师",
+   "code": "4-14-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "眼镜验光员",
+   "code": "4-14-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "眼镜验光师",
+   "code": "4-14-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "眼镜定配工",
+   "code": "4-14-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "听觉口语师",
+   "code": "4-14-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "康复辅助技术咨询师",
+   "code": "4-14-03-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "康复治疗师",
+   "code": "4-14-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "防疫员",
+   "code": "4-14-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "消毒员",
+   "code": "4-14-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公共场所卫生管理员",
+   "code": "4-14-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "社群健康助理员",
+   "code": "4-14-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "社会体育指导员",
+   "code": "4-14-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "体育场馆管理员",
+   "code": "4-14-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "游泳救生员",
+   "code": "4-14-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "康乐服务员",
+   "code": "4-14-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "体育经纪人",
+   "code": "4-14-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子竞技运营师",
+   "code": "4-14-05-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子竞技员",
+   "code": "4-14-05-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "滑雪巡救员",
+   "code": "4-14-05-08",
+   "source": "standard"
+  },
+  {
+   "name": "森林园林康养师",
+   "code": "4-14-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "民宿管家",
+   "code": "4-14-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "种子繁育员",
+   "code": "5-01-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "种苗繁育员",
+   "code": "5-01-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "农艺工",
+   "code": "5-01-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "园艺工",
+   "code": "5-01-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "食用菌生产工",
+   "code": "5-01-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "热带作物栽培工",
+   "code": "5-01-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "中药材种植员",
+   "code": "5-01-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "林草种苗工",
+   "code": "5-02-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "林草种苗工L（植物组织培养工）",
+   "code": "5-02-01-00",
+   "source": "standard"
+  },
+  {
+   "name": "林木种苗工",
+   "code": "5-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "造林更新工",
+   "code": "5-02-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "护林员",
+   "code": "5-02-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "森林抚育工",
+   "code": "5-02-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "林木采伐工",
+   "code": "5-02-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "集材作业工",
+   "code": "5-02-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "木材水运工",
+   "code": "5-02-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "家畜繁殖员",
+   "code": "5-03-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家禽繁殖员",
+   "code": "5-03-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "家禽繁殖工",
+   "code": "5-03-01-02",
+   "source": "standard"
+  },
+  {
+   "name": "家畜饲养员",
+   "code": "5-03-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "家禽饲养员",
+   "code": "5-03-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "经济昆虫养殖员",
+   "code": "5-03-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "实验动物养殖员",
+   "code": "5-03-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "特种动物养殖员",
+   "code": "5-03-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "兽医化验员",
+   "code": "5-03-05-02",
+   "source": "standard"
+  },
+  {
+   "name": "水生动物苗种繁育工",
+   "code": "5-04-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "淡水水生动物苗种繁育工",
+   "code": "5-04-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "水生植物苗种培育工",
+   "code": "5-04-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "水生动物饲养工",
+   "code": "5-04-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水生植物栽培工",
+   "code": "5-04-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "水产养殖潜水工",
+   "code": "5-04-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "水产捕捞工",
+   "code": "5-04-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "渔业船员",
+   "code": "5-04-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "渔网具工",
+   "code": "5-04-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "农业技术员",
+   "code": "5-05-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农业技术员（农药使用指导员）",
+   "code": "5-05-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "农业技术员（茶园管理员）",
+   "code": "5-05-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "农业经理人",
+   "code": "5-05-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农业数字化技术员",
+   "code": "5-05-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "农作物植保员",
+   "code": "5-05-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "林业有害生物防治员",
+   "code": "5-05-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "动物疫病防治员",
+   "code": "5-05-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "动物检疫检验员",
+   "code": "5-05-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水生物病害防治员",
+   "code": "5-05-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水生物检疫检验员",
+   "code": "5-05-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "沼气工",
+   "code": "5-05-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农村节能员",
+   "code": "5-05-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农村节能员L",
+   "code": "5-05-03-02",
+   "source": "standard"
+  },
+  {
+   "name": "太阳能利用工",
+   "code": "5-05-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "微水电利用工",
+   "code": "5-05-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "小风电利用工",
+   "code": "5-05-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "农村环境保护工",
+   "code": "5-05-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "农机驾驶操作员",
+   "code": "5-05-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农机修理工",
+   "code": "5-05-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "农机服务经纪人",
+   "code": "5-05-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "园艺产品加工工",
+   "code": "5-05-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "棉花加工工",
+   "code": "5-05-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "热带作物初制工",
+   "code": "5-05-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "植物原料制取工",
+   "code": "5-05-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "竹藤师",
+   "code": "5-05-06-05",
+   "source": "codex"
+  },
+  {
+   "name": "经济昆虫产品加工工",
+   "code": "5-05-06-06",
+   "source": "codex"
+  },
+  {
+   "name": "水产品原料处理工",
+   "code": "5-05-06-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制米工",
+   "code": "6-01-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制粉工",
+   "code": "6-01-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制油工",
+   "code": "6-01-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "饲料加工工",
+   "code": "6-01-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "食糖制造工",
+   "code": "6-01-03-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "畜禽屠宰加工工",
+   "code": "6-01-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "畜禽屠宰加工工（家禽屠宰加工工）",
+   "code": "6-01-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "畜禽屠宰加工工（牛羊屠宰加工工）",
+   "code": "6-01-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "畜禽屠宰加工工（生猪屠宰加工工）",
+   "code": "6-01-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "畜禽副产品加工工",
+   "code": "6-01-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "肉制品加工工",
+   "code": "6-01-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "蛋类制品加工工",
+   "code": "6-01-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "水产品加工工",
+   "code": "6-01-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "水产制品精制工",
+   "code": "6-01-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "果蔬坚果加工工",
+   "code": "6-01-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "淀粉及淀粉糖制造工",
+   "code": "6-01-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "植物蛋白制作工",
+   "code": "6-01-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "豆制品制作工",
+   "code": "6-01-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "糕点面包烘焙工",
+   "code": "6-02-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "糕点面包烘焙师",
+   "code": "6-02-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "糕点装饰师",
+   "code": "6-02-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "糖果巧克力制造工",
+   "code": "6-02-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "果脯蜜饯加工工",
+   "code": "6-02-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "米面主食制作工",
+   "code": "6-02-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "冷冻食品制作工",
+   "code": "6-02-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "罐头食品加工工",
+   "code": "6-02-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "乳品加工工",
+   "code": "6-02-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "乳品评鉴师",
+   "code": "6-02-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "味精制造工",
+   "code": "6-02-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "酱油酱类制作工",
+   "code": "6-02-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "食醋制作工",
+   "code": "6-02-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "精制制盐工",
+   "code": "6-02-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "酶制剂制造工",
+   "code": "6-02-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "柠檬酸制造工",
+   "code": "6-02-05-06",
+   "source": "codex"
+  },
+  {
+   "name": "调味品品评师",
+   "code": "6-02-05-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "酿酒师",
+   "code": "6-02-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "酒精酿造工",
+   "code": "6-02-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "白酒酿造工",
+   "code": "6-02-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "啤酒酿造工",
+   "code": "6-02-06-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "黄酒酿造工",
+   "code": "6-02-06-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "果露酒酿造工",
+   "code": "6-02-06-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "品酒师",
+   "code": "6-02-06-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "麦芽制麦工",
+   "code": "6-02-06-08",
+   "source": "codex"
+  },
+  {
+   "name": "饮料制作工",
+   "code": "6-02-06-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "茶叶加工工",
+   "code": "6-02-06-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "评茶员",
+   "code": "6-02-06-11",
+   "source": "standard"
+  },
+  {
+   "name": "评茶师",
+   "code": "6-02-06-11",
+   "source": "codex"
+  },
+  {
+   "name": "酒体设计师",
+   "code": "6-02-06-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "烟叶调制员",
+   "code": "6-03-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "烟叶评级员",
+   "code": "6-03-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "烟用二醋片制造工",
+   "code": "6-03-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "烟用丝束制造工",
+   "code": "6-03-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "烟机设备操作工",
+   "code": "6-03-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "烟草评吸师",
+   "code": "6-03-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "烟机设备机械修理工",
+   "code": "6-03-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "开清棉工",
+   "code": "6-04-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "丝麻毛纤维预处理工",
+   "code": "6-04-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "纺织纤维梳理工",
+   "code": "6-04-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "并条工",
+   "code": "6-04-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "粗纱工",
+   "code": "6-04-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "加工中心操作工",
+   "code": "6-04-01-08",
+   "source": "standard"
+  },
+  {
+   "name": "纺纱工",
+   "code": "6-04-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "缫丝工",
+   "code": "6-04-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "整经工",
+   "code": "6-04-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "浆纱浆染工",
+   "code": "6-04-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "织布工",
+   "code": "6-04-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "意匠纹版工",
+   "code": "6-04-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纬编工",
+   "code": "6-04-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "经编工",
+   "code": "6-04-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "横机工",
+   "code": "6-04-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "非织造布制造工",
+   "code": "6-04-05-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印染前处理工",
+   "code": "6-04-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纺织染色工",
+   "code": "6-04-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印花工",
+   "code": "6-04-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纺织印花制版工",
+   "code": "6-04-06-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印染后整理工",
+   "code": "6-04-06-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印染染化料配制工",
+   "code": "6-04-06-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工艺染织品制作工",
+   "code": "6-04-06-07",
+   "source": "codex"
+  },
+  {
+   "name": "服装制版师",
+   "code": "6-05-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "裁剪工",
+   "code": "6-05-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "缝纫工",
+   "code": "6-05-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "缝纫品整型工",
+   "code": "6-05-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "服装水洗工",
+   "code": "6-05-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "绒线编织拼布工",
+   "code": "6-05-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "皮革及皮革制品加工工",
+   "code": "6-05-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "毛皮及毛皮制品加工工",
+   "code": "6-05-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "羽绒加工及制品充填工",
+   "code": "6-05-03-00",
+   "source": "codex"
+  },
+  {
+   "name": "制鞋工",
+   "code": "6-05-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制帽工",
+   "code": "6-05-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制材工",
+   "code": "6-06-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "木竹藤材处理工",
+   "code": "6-06-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "胶合板工",
+   "code": "6-06-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "纤维板工",
+   "code": "6-06-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "刨花板工",
+   "code": "6-06-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "浸渍纸层压板工",
+   "code": "6-06-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "人造板饰面工",
+   "code": "6-06-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "手工木工",
+   "code": "6-06-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机械木工",
+   "code": "6-06-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "木地板制造工",
+   "code": "6-06-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家具制作工",
+   "code": "6-06-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "家具制作工（木质家具制作工）",
+   "code": "6-06-04-00",
+   "source": "standard"
+  },
+  {
+   "name": "制浆工",
+   "code": "6-07-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制浆废液回收利用工",
+   "code": "6-07-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "造纸工",
+   "code": "6-07-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纸张整饰工",
+   "code": "6-07-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "宣纸书画纸制作工",
+   "code": "6-07-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "纸箱纸盒制作工",
+   "code": "6-07-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "维修电工",
+   "code": "6-07-06-05",
+   "source": "standard"
+  },
+  {
+   "name": "印前处理和制作员",
+   "code": "6-08-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印前处理和制作员（珂罗版制版员）",
+   "code": "6-08-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "印刷操作员",
+   "code": "6-08-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印刷操作员（珂罗版印刷员）",
+   "code": "6-08-01-02",
+   "source": "standard"
+  },
+  {
+   "name": "印后制作员",
+   "code": "6-08-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "音像制品和电子出版物复制员",
+   "code": "6-08-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "自来水笔制造工",
+   "code": "6-09-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "圆珠笔制造工",
+   "code": "6-09-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "铅笔制造工",
+   "code": "6-09-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "毛笔制作工",
+   "code": "6-09-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "记号笔制造工",
+   "code": "6-09-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "墨制作工",
+   "code": "6-09-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "墨水墨汁制造工",
+   "code": "6-09-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "绘图仪器制作工",
+   "code": "6-09-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "印泥制作工",
+   "code": "6-09-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "钢琴及键盘乐器制作工",
+   "code": "6-09-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "提琴吉他制作工",
+   "code": "6-09-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "管乐器制作工",
+   "code": "6-09-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "民族拉弦弹拨乐器制作工",
+   "code": "6-09-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "吹奏乐器制作工",
+   "code": "6-09-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "打击乐器制作工",
+   "code": "6-09-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "电鸣乐器制作工",
+   "code": "6-09-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "工艺品雕刻工",
+   "code": "6-09-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "雕塑翻制工",
+   "code": "6-09-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "陶瓷工艺品制作师",
+   "code": "6-09-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "景泰蓝制作工",
+   "code": "6-09-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属摆件制作工",
+   "code": "6-09-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "漆器制作工",
+   "code": "6-09-03-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "壁画制作工",
+   "code": "6-09-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "版画制作工",
+   "code": "6-09-03-08",
+   "source": "codex"
+  },
+  {
+   "name": "人造花制作工",
+   "code": "6-09-03-09",
+   "source": "codex"
+  },
+  {
+   "name": "工艺画制作工",
+   "code": "6-09-03-10",
+   "source": "codex"
+  },
+  {
+   "name": "抽纱刺绣工",
+   "code": "6-09-03-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "手工地毯制作工",
+   "code": "6-09-03-12",
+   "source": "codex"
+  },
+  {
+   "name": "机制地毯制作工",
+   "code": "6-09-03-13",
+   "source": "codex"
+  },
+  {
+   "name": "宝石琢磨工",
+   "code": "6-09-03-14",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "贵金属首饰制作工",
+   "code": "6-09-03-15",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "装裱师",
+   "code": "6-09-03-16",
+   "source": "codex"
+  },
+  {
+   "name": "民间工艺品制作工",
+   "code": "6-09-03-17",
+   "source": "codex"
+  },
+  {
+   "name": "民间工艺品制作工（刀剑制作工）",
+   "code": "6-09-03-17",
+   "source": "standard"
+  },
+  {
+   "name": "剧装工",
+   "code": "6-09-03-18",
+   "source": "codex"
+  },
+  {
+   "name": "民间工艺品艺人",
+   "code": "6-09-03-19",
+   "source": "codex"
+  },
+  {
+   "name": "制球工",
+   "code": "6-09-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "球拍球网制作工",
+   "code": "6-09-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "健身器材制作工",
+   "code": "6-09-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "布绒玩具制作工",
+   "code": "6-09-05-00",
+   "source": "standard"
+  },
+  {
+   "name": "玩具制作工",
+   "code": "6-09-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "原油蒸馏工",
+   "code": "6-10-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "催化裂化工",
+   "code": "6-10-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "蜡油渣油加氢工",
+   "code": "6-10-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "渣油热加工工",
+   "code": "6-10-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "石脑油加工工",
+   "code": "6-10-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "炼厂气加工工",
+   "code": "6-10-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "润滑油脂生产工",
+   "code": "6-10-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "石油产品精制工",
+   "code": "6-10-01-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "油制气工",
+   "code": "6-10-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "油品储运工",
+   "code": "6-10-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "油母页岩提炼工",
+   "code": "6-10-01-11",
+   "source": "codex"
+  },
+  {
+   "name": "炼焦煤制备工",
+   "code": "6-10-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炼焦工",
+   "code": "6-10-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "煤制烯烃生产工",
+   "code": "6-10-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "煤制油生产工",
+   "code": "6-10-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "煤制气工",
+   "code": "6-10-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水煤浆制备工",
+   "code": "6-10-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业型煤工",
+   "code": "6-10-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "煤提质工",
+   "code": "6-10-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "煤提质工L",
+   "code": "6-10-03-06",
+   "source": "standard"
+  },
+  {
+   "name": "化工原料准备工",
+   "code": "6-11-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "化工单元操作工",
+   "code": "6-11-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "化工总控工",
+   "code": "6-11-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "化工总控工S",
+   "code": "6-11-01-03",
+   "source": "standard"
+  },
+  {
+   "name": "制冷工",
+   "code": "6-11-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业清洗工",
+   "code": "6-11-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "腐蚀控制工",
+   "code": "6-11-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硫酸生产工",
+   "code": "6-11-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硝酸生产工",
+   "code": "6-11-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "盐酸生产工",
+   "code": "6-11-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "磷酸生产工",
+   "code": "6-11-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "纯碱生产工",
+   "code": "6-11-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "烧碱生产工",
+   "code": "6-11-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "无机盐生产工",
+   "code": "6-11-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "提硝工",
+   "code": "6-11-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "卤水综合利用工",
+   "code": "6-11-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "无机化学反应生产工",
+   "code": "6-11-02-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "脂肪烃生产工",
+   "code": "6-11-02-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "芳香烃生产工",
+   "code": "6-11-02-12",
+   "source": "codex"
+  },
+  {
+   "name": "脂肪烃衍生物生产工",
+   "code": "6-11-02-13",
+   "source": "codex"
+  },
+  {
+   "name": "芳香烃衍生物生产工",
+   "code": "6-11-02-14",
+   "source": "codex"
+  },
+  {
+   "name": "有机合成工",
+   "code": "6-11-02-15",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "合成氨生产工",
+   "code": "6-11-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "尿素生产工",
+   "code": "6-11-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硝酸铵生产工",
+   "code": "6-11-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硫酸铵生产工",
+   "code": "6-11-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "过磷酸钙生产工",
+   "code": "6-11-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "复混肥生产工",
+   "code": "6-11-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "钙镁磷肥生产工",
+   "code": "6-11-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "钾肥生产工",
+   "code": "6-11-03-08",
+   "source": "codex"
+  },
+  {
+   "name": "农药生产工",
+   "code": "6-11-04-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "涂料生产工",
+   "code": "6-11-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "油墨制造工",
+   "code": "6-11-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "颜料生产工",
+   "code": "6-11-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "染料生产工",
+   "code": "6-11-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "合成树脂生产工",
+   "code": "6-11-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "合成橡胶生产工",
+   "code": "6-11-07-00",
+   "source": "codex"
+  },
+  {
+   "name": "催化剂生产工",
+   "code": "6-11-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "总溶剂生产工",
+   "code": "6-11-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "化学试剂生产工",
+   "code": "6-11-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "印染助剂生产工",
+   "code": "6-11-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "表面活性剂制造工",
+   "code": "6-11-08-05",
+   "source": "codex"
+  },
+  {
+   "name": "化工添加剂生产工",
+   "code": "6-11-08-06",
+   "source": "codex"
+  },
+  {
+   "name": "油脂化工产品制造工",
+   "code": "6-11-08-07",
+   "source": "codex"
+  },
+  {
+   "name": "动物胶制造工",
+   "code": "6-11-08-08",
+   "source": "codex"
+  },
+  {
+   "name": "人造板制胶工",
+   "code": "6-11-08-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "有机硅生产工",
+   "code": "6-11-08-10",
+   "source": "codex"
+  },
+  {
+   "name": "有机氟生产工",
+   "code": "6-11-08-11",
+   "source": "codex"
+  },
+  {
+   "name": "松香工",
+   "code": "6-11-08-12",
+   "source": "codex"
+  },
+  {
+   "name": "松节油制品工",
+   "code": "6-11-08-13",
+   "source": "codex"
+  },
+  {
+   "name": "活性炭生产工",
+   "code": "6-11-08-14",
+   "source": "codex"
+  },
+  {
+   "name": "栲胶生产工",
+   "code": "6-11-08-15",
+   "source": "codex"
+  },
+  {
+   "name": "紫胶生产工",
+   "code": "6-11-08-16",
+   "source": "codex"
+  },
+  {
+   "name": "栓皮制品工",
+   "code": "6-11-08-17",
+   "source": "codex"
+  },
+  {
+   "name": "植物原料水解工",
+   "code": "6-11-08-18",
+   "source": "codex"
+  },
+  {
+   "name": "感光材料生产工",
+   "code": "6-11-08-19",
+   "source": "codex"
+  },
+  {
+   "name": "胶印版材生产工",
+   "code": "6-11-08-20",
+   "source": "codex"
+  },
+  {
+   "name": "柔性版材生产工",
+   "code": "6-11-08-21",
+   "source": "codex"
+  },
+  {
+   "name": "磁记录材料生产工",
+   "code": "6-11-08-22",
+   "source": "codex"
+  },
+  {
+   "name": "热转移防护膜涂布工",
+   "code": "6-11-08-23",
+   "source": "codex"
+  },
+  {
+   "name": "平板显示膜生产工",
+   "code": "6-11-08-24",
+   "source": "codex"
+  },
+  {
+   "name": "甘油制造工",
+   "code": "6-11-08-25",
+   "source": "codex"
+  },
+  {
+   "name": "生物质化工产品生产工",
+   "code": "6-11-08-26",
+   "source": "codex"
+  },
+  {
+   "name": "雷管制造工",
+   "code": "6-11-09-01",
+   "source": "codex"
+  },
+  {
+   "name": "索状爆破器材制造工",
+   "code": "6-11-09-02",
+   "source": "codex"
+  },
+  {
+   "name": "火工品装配工",
+   "code": "6-11-09-03",
+   "source": "codex"
+  },
+  {
+   "name": "火工品管理工",
+   "code": "6-11-09-04",
+   "source": "codex"
+  },
+  {
+   "name": "烟花爆竹工",
+   "code": "6-11-09-05",
+   "source": "codex"
+  },
+  {
+   "name": "合成洗涤剂制造工",
+   "code": "6-11-10-01",
+   "source": "codex"
+  },
+  {
+   "name": "肥皂制造工",
+   "code": "6-11-10-02",
+   "source": "codex"
+  },
+  {
+   "name": "化妆品配方师",
+   "code": "6-11-10-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "化妆品制造工",
+   "code": "6-11-10-04",
+   "source": "codex"
+  },
+  {
+   "name": "口腔清洁剂制造工",
+   "code": "6-11-10-05",
+   "source": "codex"
+  },
+  {
+   "name": "香料制造工",
+   "code": "6-11-10-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "调香师",
+   "code": "6-11-10-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "香精配制工",
+   "code": "6-11-10-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "火柴制造工",
+   "code": "6-11-10-09",
+   "source": "codex"
+  },
+  {
+   "name": "日用化学用品配方师",
+   "code": "6-11-10-10",
+   "source": "codex"
+  },
+  {
+   "name": "化学合成制药工",
+   "code": "6-12-01-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "中药炮制工",
+   "code": "6-12-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "药物制剂工",
+   "code": "6-12-03-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "兽药制造工",
+   "code": "6-12-04-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "生化药品制造工",
+   "code": "6-12-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "发酵工程制药工",
+   "code": "6-12-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "疫苗制品工",
+   "code": "6-12-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "血液制品工",
+   "code": "6-12-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "基因工程药品生产工",
+   "code": "6-12-05-05",
+   "source": "codex"
+  },
+  {
+   "name": "化纤聚合工",
+   "code": "6-13-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "纺丝原液制造工",
+   "code": "6-13-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "纺丝工",
+   "code": "6-13-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "化纤后处理工",
+   "code": "6-13-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "橡胶制品生产工",
+   "code": "6-14-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "轮胎翻修工",
+   "code": "6-14-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "塑料制品成型制作工",
+   "code": "6-14-02-00",
+   "source": "codex"
+  },
+  {
+   "name": "水泥生产工",
+   "code": "6-15-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水泥混凝土制品工",
+   "code": "6-15-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "石灰煅烧工",
+   "code": "6-15-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "石膏粉生产工",
+   "code": "6-15-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "石膏制品生产工",
+   "code": "6-15-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "预拌混凝土生产工",
+   "code": "6-15-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "砖瓦生产工",
+   "code": "6-15-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "加气混凝土制品工",
+   "code": "6-15-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "石材生产工",
+   "code": "6-15-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "人造石生产加工工",
+   "code": "6-15-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "防水卷材制造工",
+   "code": "6-15-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "保温材料制造工",
+   "code": "6-15-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "吸音材料制造工",
+   "code": "6-15-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "砂石骨料生产工",
+   "code": "6-15-02-08",
+   "source": "codex"
+  },
+  {
+   "name": "玻璃配料熔化工",
+   "code": "6-15-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "玻璃及玻璃制品成型工",
+   "code": "6-15-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "木雕工",
+   "code": "6-15-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "玻璃加工工",
+   "code": "6-15-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "玻璃制品加工工",
+   "code": "6-15-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子玻璃制品加工工",
+   "code": "6-15-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "石英玻璃制品加工工",
+   "code": "6-15-03-06",
+   "source": "codex"
+  },
+  {
+   "name": "玻璃纤维及制品工",
+   "code": "6-15-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "玻璃钢制品工",
+   "code": "6-15-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "陶瓷原料准备工",
+   "code": "6-15-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "陶瓷成型施釉工",
+   "code": "6-15-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "陶瓷烧成工",
+   "code": "6-15-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "陶瓷装饰工",
+   "code": "6-15-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "古建琉璃工",
+   "code": "6-15-05-05",
+   "source": "codex"
+  },
+  {
+   "name": "耐火原料加工成型工",
+   "code": "6-15-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "耐火材料烧成工",
+   "code": "6-15-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "耐火制品加工工",
+   "code": "6-15-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "耐火纤维制品工",
+   "code": "6-15-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "炭素煅烧工",
+   "code": "6-15-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炭素成型工",
+   "code": "6-15-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炭素焙烧工",
+   "code": "6-15-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炭素浸渍工",
+   "code": "6-15-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "石墨化工",
+   "code": "6-15-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "炭素制品工",
+   "code": "6-15-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "炭素特种材料工",
+   "code": "6-15-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "人工合成晶体工",
+   "code": "6-15-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "高岭土加工工",
+   "code": "6-15-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "珍珠岩加工工",
+   "code": "6-15-08-03",
+   "source": "codex"
+  },
+  {
+   "name": "石棉制品工",
+   "code": "6-15-08-04",
+   "source": "codex"
+  },
+  {
+   "name": "云母制品工",
+   "code": "6-15-08-05",
+   "source": "codex"
+  },
+  {
+   "name": "露天采矿工",
+   "code": "6-16-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "露天矿物开采辅助工",
+   "code": "6-16-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "运矿排土工",
+   "code": "6-16-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "矿井开掘工",
+   "code": "6-16-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "井下采矿工",
+   "code": "6-16-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "井下支护工",
+   "code": "6-16-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "井下机车运输工",
+   "code": "6-16-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "矿山提升设备操作工",
+   "code": "6-16-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "矿井通风工",
+   "code": "6-16-01-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "矿山安全防护工",
+   "code": "6-16-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "矿山安全设备监测检修工",
+   "code": "6-16-01-11",
+   "source": "codex"
+  },
+  {
+   "name": "矿山救护工",
+   "code": "6-16-01-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "矿山生产集控员",
+   "code": "6-16-01-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "矿石处理工",
+   "code": "6-16-01-14",
+   "source": "codex"
+  },
+  {
+   "name": "选矿工",
+   "code": "6-16-01-15",
+   "source": "codex"
+  },
+  {
+   "name": "选矿脱水工",
+   "code": "6-16-01-16",
+   "source": "codex"
+  },
+  {
+   "name": "尾矿工",
+   "code": "6-16-01-17",
+   "source": "codex"
+  },
+  {
+   "name": "石油勘探工",
+   "code": "6-16-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钻井工",
+   "code": "6-16-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钻井协作工",
+   "code": "6-16-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "井下作业设备操作维修工",
+   "code": "6-16-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水下钻井设备操作工",
+   "code": "6-16-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "油气水井测试工",
+   "code": "6-16-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "石油开采工",
+   "code": "6-16-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "天然气开采工",
+   "code": "6-16-02-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "煤层气排采集输工",
+   "code": "6-16-02-09",
+   "source": "codex"
+  },
+  {
+   "name": "天然气处理工",
+   "code": "6-16-02-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "油气输送工",
+   "code": "6-16-02-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "油气管道维护工",
+   "code": "6-16-02-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "海上平台水手",
+   "code": "6-16-02-13",
+   "source": "codex"
+  },
+  {
+   "name": "海盐制盐工",
+   "code": "6-16-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "湖盐制盐工",
+   "code": "6-16-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "井矿盐制盐工",
+   "code": "6-16-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "烧结球团原料工",
+   "code": "6-17-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "粉矿烧结工",
+   "code": "6-17-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "球团焙烧工",
+   "code": "6-17-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "烧结成品工",
+   "code": "6-17-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "高炉原料工",
+   "code": "6-17-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "高炉炼铁工",
+   "code": "6-17-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "高炉运转工",
+   "code": "6-17-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炼钢原料工",
+   "code": "6-17-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炼钢工",
+   "code": "6-17-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "炼钢浇铸工",
+   "code": "6-17-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "炼钢准备工",
+   "code": "6-17-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "整模脱模工",
+   "code": "6-17-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "铸管备品工",
+   "code": "6-17-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铸管工",
+   "code": "6-17-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铸管精整工",
+   "code": "6-17-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铁合金原料工",
+   "code": "6-17-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "铁合金火法冶炼工",
+   "code": "6-17-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "铁合金焙烧工",
+   "code": "6-17-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "铁合金湿法冶炼工",
+   "code": "6-17-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "钒氮合金工",
+   "code": "6-17-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "重冶备料工",
+   "code": "6-17-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "重金属物料焙烧工",
+   "code": "6-17-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "重冶火法冶炼工",
+   "code": "6-17-05-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "重冶湿法冶炼工",
+   "code": "6-17-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电解精炼工",
+   "code": "6-17-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "氧化铝制取工",
+   "code": "6-17-06-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铝电解工",
+   "code": "6-17-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "镁冶炼工",
+   "code": "6-17-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "硅冶炼工",
+   "code": "6-17-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "钨钼冶炼工",
+   "code": "6-17-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "钽铌冶炼工",
+   "code": "6-17-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "钛冶炼工",
+   "code": "6-17-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "稀土冶炼工",
+   "code": "6-17-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "稀土材料生产工",
+   "code": "6-17-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "贵金属冶炼工",
+   "code": "6-17-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "锂冶炼工",
+   "code": "6-17-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "半导体辅料制备工",
+   "code": "6-17-08-01",
+   "source": "codex"
+  },
+  {
+   "name": "多晶硅制取工",
+   "code": "6-17-08-02",
+   "source": "codex"
+  },
+  {
+   "name": "轧制原料工",
+   "code": "6-17-09-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属轧制工",
+   "code": "6-17-09-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属轧制工(热压延工、冷压延工)",
+   "code": "6-17-09-02",
+   "source": "standard"
+  },
+  {
+   "name": "金属材酸碱洗工",
+   "code": "6-17-09-03",
+   "source": "codex"
+  },
+  {
+   "name": "金属材涂层机组操作工",
+   "code": "6-17-09-04",
+   "source": "codex"
+  },
+  {
+   "name": "金属材热处理工",
+   "code": "6-17-09-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "焊管机组操作工",
+   "code": "6-17-09-06",
+   "source": "codex"
+  },
+  {
+   "name": "金属材精整工",
+   "code": "6-17-09-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属材精整工（板带箔材精整工、管棒型材精整工）",
+   "code": "6-17-09-07",
+   "source": "standard"
+  },
+  {
+   "name": "金属材丝拉拔工",
+   "code": "6-17-09-08",
+   "source": "codex"
+  },
+  {
+   "name": "金属挤压工",
+   "code": "6-17-09-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铸轧工",
+   "code": "6-17-09-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钢丝绳制造工",
+   "code": "6-17-09-11",
+   "source": "codex"
+  },
+  {
+   "name": "硬质合金混合料工",
+   "code": "6-17-10-01",
+   "source": "codex"
+  },
+  {
+   "name": "硬质合金成型工",
+   "code": "6-17-10-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硬质合金烧结工",
+   "code": "6-17-10-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "硬质合金精加工工",
+   "code": "6-17-10-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "车工",
+   "code": "6-18-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铣工",
+   "code": "6-18-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "刨插工",
+   "code": "6-18-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "磨工",
+   "code": "6-18-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "镗工",
+   "code": "6-18-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钻床工",
+   "code": "6-18-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "多工序数控机床操作调整工",
+   "code": "6-18-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电切削工",
+   "code": "6-18-01-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "拉床工",
+   "code": "6-18-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "下料工",
+   "code": "6-18-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "铆工",
+   "code": "6-18-01-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "冲压工",
+   "code": "6-18-01-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "增材制造设备操作员",
+   "code": "6-18-01-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铸造工",
+   "code": "6-18-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "锻造工",
+   "code": "6-18-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属热处理工",
+   "code": "6-18-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "焊工",
+   "code": "6-18-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机械加工材料切割工",
+   "code": "6-18-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "粉末冶金制品制造工",
+   "code": "6-18-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "镀层工",
+   "code": "6-18-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "镀膜工",
+   "code": "6-18-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "涂装工",
+   "code": "6-18-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "喷涂喷焊工",
+   "code": "6-18-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "模具工",
+   "code": "6-18-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "模型制作工",
+   "code": "6-18-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "磨料制造工",
+   "code": "6-18-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "磨具制造工",
+   "code": "6-18-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "量具和刃具制造工",
+   "code": "6-18-04-05",
+   "source": "codex"
+  },
+  {
+   "name": "工具钳工",
+   "code": "6-18-04-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工具五金制作工",
+   "code": "6-19-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "建筑五金制品制作工",
+   "code": "6-19-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "锁具制作工",
+   "code": "6-19-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金属炊具及器皿制作工",
+   "code": "6-19-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "日用五金制品制作工",
+   "code": "6-19-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "搪瓷制品制造工",
+   "code": "6-19-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "眼镜架制作工",
+   "code": "6-19-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "金箔制作工",
+   "code": "6-19-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "装配钳工",
+   "code": "6-20-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钳工",
+   "code": "6-20-01-01",
+   "source": "standard"
+  },
+  {
+   "name": "轴承制造工",
+   "code": "6-20-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "齿轮制造工",
+   "code": "6-20-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "减变速机装配调试工",
+   "code": "6-20-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "链传动部件制造工",
+   "code": "6-20-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "紧固件制造工",
+   "code": "6-20-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "弹簧工",
+   "code": "6-20-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "锅炉设备制造工",
+   "code": "6-20-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "内燃机装配调试工",
+   "code": "6-20-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽轮机装配调试工",
+   "code": "6-20-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "风电机组制造工",
+   "code": "6-20-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "风电机组制造工L",
+   "code": "6-20-02-04",
+   "source": "standard"
+  },
+  {
+   "name": "机床装调维修工",
+   "code": "6-20-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "焊接设备装配调试工",
+   "code": "6-20-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "焊接材料制造工",
+   "code": "6-20-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电梯装配调试工",
+   "code": "6-20-04-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "泵装配调试工",
+   "code": "6-20-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "真空设备装配调试工",
+   "code": "6-20-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "压缩机装配调试工",
+   "code": "6-20-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "风机装配调试工",
+   "code": "6-20-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "过滤与分离机械装配调试工",
+   "code": "6-20-05-05",
+   "source": "codex"
+  },
+  {
+   "name": "气体分离设备装配调试工",
+   "code": "6-20-05-06",
+   "source": "codex"
+  },
+  {
+   "name": "制冷空调设备装配工",
+   "code": "6-20-05-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "阀门装配调试工",
+   "code": "6-20-05-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "液压液力气动密封件制造工",
+   "code": "6-20-05-09",
+   "source": "codex"
+  },
+  {
+   "name": "工业炉及电炉装配工",
+   "code": "6-20-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "膜法水处理材料和设备制造工",
+   "code": "6-20-06-02",
+   "source": "codex"
+  },
+  {
+   "name": "电渗析器制造工",
+   "code": "6-20-06-03",
+   "source": "codex"
+  },
+  {
+   "name": "电动工具制造工",
+   "code": "6-20-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "衡器装配调试工",
+   "code": "6-20-06-05",
+   "source": "codex"
+  },
+  {
+   "name": "电影电教设备制造工",
+   "code": "6-20-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "照相机及器材制造工",
+   "code": "6-20-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "复印设备制造工",
+   "code": "6-20-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "办公小机械制造工",
+   "code": "6-20-07-04",
+   "source": "codex"
+  },
+  {
+   "name": "光学镜头制造工",
+   "code": "6-20-07-05",
+   "source": "codex"
+  },
+  {
+   "name": "静电成像设备耗材制造工",
+   "code": "6-20-07-06",
+   "source": "codex"
+  },
+  {
+   "name": "办公设备与耗材再制造工",
+   "code": "6-20-07-07",
+   "source": "codex"
+  },
+  {
+   "name": "矿用电机车装配工",
+   "code": "6-21-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "工程机械装配调试工",
+   "code": "6-21-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "贵金属首饰手工制作工",
+   "code": "6-21-01-02",
+   "source": "standard"
+  },
+  {
+   "name": "印刷设备装配调试工",
+   "code": "6-21-02-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "缝制机械装配调试工",
+   "code": "6-21-03-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子专用设备装调工",
+   "code": "6-21-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "真空测试工",
+   "code": "6-21-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "拖拉机制造工",
+   "code": "6-21-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "耕种机械制造工",
+   "code": "6-21-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "灌溉机械制造工",
+   "code": "6-21-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "收获机械制造工",
+   "code": "6-21-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "医疗器械装配工",
+   "code": "6-21-06-01",
+   "source": "codex"
+  },
+  {
+   "name": "矫形器装配工",
+   "code": "6-21-06-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "假肢装配工",
+   "code": "6-21-06-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "医用材料产品生产工",
+   "code": "6-21-06-04",
+   "source": "codex"
+  },
+  {
+   "name": "汽车生产线操作工",
+   "code": "6-22-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽车饰件制造工",
+   "code": "6-22-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽车零部件再制造工",
+   "code": "6-22-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "汽车装调工",
+   "code": "6-22-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽车回收拆解工",
+   "code": "6-22-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "铁路机车制修工",
+   "code": "6-23-01-01",
+   "source": "codex"
+  },
+  {
+   "name": "铁路车辆制修工",
+   "code": "6-23-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "动车组制修师",
+   "code": "6-23-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "铁路机车车辆制动钳工",
+   "code": "6-23-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "道岔钳工",
+   "code": "6-23-01-05",
+   "source": "codex"
+  },
+  {
+   "name": "船体装配工",
+   "code": "6-23-02-01",
+   "source": "standard"
+  },
+  {
+   "name": "金属船体制造工",
+   "code": "6-23-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "船舶机械装配工",
+   "code": "6-23-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "船舶钳工",
+   "code": "6-23-02-02",
+   "source": "standard"
+  },
+  {
+   "name": "船舶电气装配工",
+   "code": "6-23-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "船舶附件制造工",
+   "code": "6-23-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "船舶木塑帆缆制造工",
+   "code": "6-23-02-05",
+   "source": "codex"
+  },
+  {
+   "name": "拆船工",
+   "code": "6-23-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "飞机装配工",
+   "code": "6-23-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "飞机系统安装调试工",
+   "code": "6-23-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航空发动机装配工",
+   "code": "6-23-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航空螺旋桨装配工",
+   "code": "6-23-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "航空电气安装调试工",
+   "code": "6-23-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "航空附件装配工",
+   "code": "6-23-03-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "航空仪表装配工",
+   "code": "6-23-03-07",
+   "source": "codex"
+  },
+  {
+   "name": "航空装配平衡工",
+   "code": "6-23-03-08",
+   "source": "codex"
+  },
+  {
+   "name": "飞机无线电设备安装调试工",
+   "code": "6-23-03-09",
+   "source": "codex"
+  },
+  {
+   "name": "飞机雷达安装调试工",
+   "code": "6-23-03-10",
+   "source": "codex"
+  },
+  {
+   "name": "飞机特种设备检测与修理工",
+   "code": "6-23-03-11",
+   "source": "codex"
+  },
+  {
+   "name": "飞机透明件制造胶接装配工",
+   "code": "6-23-03-12",
+   "source": "codex"
+  },
+  {
+   "name": "飞机外场调试与维护工",
+   "code": "6-23-03-13",
+   "source": "codex"
+  },
+  {
+   "name": "航空环控救生装备工",
+   "code": "6-23-03-14",
+   "source": "codex"
+  },
+  {
+   "name": "无人机装调检修工",
+   "code": "6-23-03-15",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "摩托车装调工",
+   "code": "6-23-04-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "自行车与电动自行车装配工",
+   "code": "6-23-04-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铁路线路工",
+   "code": "6-23-09-04",
+   "source": "standard"
+  },
+  {
+   "name": "道岔钳工修订",
+   "code": "6-23-09-08",
+   "source": "standard"
+  },
+  {
+   "name": "电机制造工",
+   "code": "6-24-01-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "变压器互感器制造工",
+   "code": "6-24-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "高低压电器及成套设备装配工",
+   "code": "6-24-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电力电容器及其装置制造工",
+   "code": "6-24-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "光伏组件制造工",
+   "code": "6-24-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "光伏组件制造工L（光伏晶硅组件制造工）",
+   "code": "6-24-02-04",
+   "source": "standard"
+  },
+  {
+   "name": "电线电缆制造工",
+   "code": "6-24-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "光纤光缆制造工",
+   "code": "6-24-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "绝缘制品制造工",
+   "code": "6-24-03-03",
+   "source": "codex"
+  },
+  {
+   "name": "电工合金电触头制造工",
+   "code": "6-24-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "电器附件制造工",
+   "code": "6-24-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "电池制造工",
+   "code": "6-24-04-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "家用电冰箱制造工",
+   "code": "6-24-05-01",
+   "source": "codex"
+  },
+  {
+   "name": "空调器制造工",
+   "code": "6-24-05-02",
+   "source": "codex"
+  },
+  {
+   "name": "洗衣机制造工",
+   "code": "6-24-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "小型家用电器制造工",
+   "code": "6-24-05-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "燃气具制造工",
+   "code": "6-24-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "电光源制造工",
+   "code": "6-24-07-01",
+   "source": "codex"
+  },
+  {
+   "name": "灯具制造工",
+   "code": "6-24-07-02",
+   "source": "codex"
+  },
+  {
+   "name": "轨道交通通信信号设备制造工",
+   "code": "6-24-08-00",
+   "source": "codex"
+  },
+  {
+   "name": "电容器制造工",
+   "code": "6-25-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电阻器制造工",
+   "code": "6-25-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "微波铁氧体元器件制造工",
+   "code": "6-25-01-03",
+   "source": "codex"
+  },
+  {
+   "name": "石英晶体生长设备操作工",
+   "code": "6-25-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "压电石英晶片加工工",
+   "code": "6-25-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "石英晶体元器件制造工",
+   "code": "6-25-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电声器件制造工",
+   "code": "6-25-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "水声换能器制造工",
+   "code": "6-25-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "继电器制造工",
+   "code": "6-25-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "高频电感器制造工",
+   "code": "6-25-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "电器接插件制造工",
+   "code": "6-25-01-11",
+   "source": "codex"
+  },
+  {
+   "name": "电子产品制版工",
+   "code": "6-25-01-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "印制电路制作工",
+   "code": "6-25-01-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "薄膜加热器件制造工",
+   "code": "6-25-01-14",
+   "source": "codex"
+  },
+  {
+   "name": "温差电器件制造工",
+   "code": "6-25-01-15",
+   "source": "codex"
+  },
+  {
+   "name": "电子绝缘与介质材料制造工",
+   "code": "6-25-01-16",
+   "source": "codex"
+  },
+  {
+   "name": "真空电子器件零件制造及装调工",
+   "code": "6-25-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "电极丝制造工",
+   "code": "6-25-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "液晶显示器件制造工",
+   "code": "6-25-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "晶片加工工",
+   "code": "6-25-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "半导体芯片制造工",
+   "code": "6-25-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "半导体分立器件和集成电路装",
+   "code": "6-25-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "半导体分立器件和集成电路装调工",
+   "code": "6-25-02-06",
+   "source": "standard"
+  },
+  {
+   "name": "磁头制造工",
+   "code": "6-25-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "计算机及外部设备装配调试员",
+   "code": "6-25-03-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "通信系统设备制造工",
+   "code": "6-25-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "通信终端设备制造工",
+   "code": "6-25-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "雷达装调工",
+   "code": "6-25-04-03",
+   "source": "codex"
+  },
+  {
+   "name": "激光设备安装调试员",
+   "code": "6-25-04-04",
+   "source": "codex"
+  },
+  {
+   "name": "智能硬件装调员",
+   "code": "6-25-04-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电子设备机械装校工",
+   "code": "6-25-04-06",
+   "source": "codex"
+  },
+  {
+   "name": "广电和通信设备电子装接工",
+   "code": "6-25-04-07",
+   "source": "standard"
+  },
+  {
+   "name": "电子设备装接工",
+   "code": "6-25-04-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "广电和通信设备调试工",
+   "code": "6-25-04-08",
+   "source": "standard"
+  },
+  {
+   "name": "电子设备调试工",
+   "code": "6-25-04-08",
+   "source": "codex"
+  },
+  {
+   "name": "物联网安装调试员",
+   "code": "6-25-04-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "仪器仪表制造工",
+   "code": "6-26-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钟表及计时仪器制造工",
+   "code": "6-26-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "饲料检验化验员",
+   "code": "6-26-01-09",
+   "source": "standard"
+  },
+  {
+   "name": "再生物资加工处理工",
+   "code": "6-27-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "锅炉运行值班员",
+   "code": "6-28-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "燃料值班员",
+   "code": "6-28-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "汽轮机运行值班员",
+   "code": "6-28-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "燃气轮机值班员",
+   "code": "6-28-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "发电集控值班员",
+   "code": "6-28-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电气值班员",
+   "code": "6-28-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "火电厂氢冷值班员",
+   "code": "6-28-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "余热余压利用系统操作工",
+   "code": "6-28-01-08",
+   "source": "codex"
+  },
+  {
+   "name": "水力发电运行值班员",
+   "code": "6-28-01-09",
+   "source": "codex"
+  },
+  {
+   "name": "水力发电运行值班员L",
+   "code": "6-28-01-09",
+   "source": "standard"
+  },
+  {
+   "name": "光伏发电运维值班员",
+   "code": "6-28-01-10",
+   "source": "codex"
+  },
+  {
+   "name": "光伏发电运维值班员L",
+   "code": "6-28-01-10",
+   "source": "standard"
+  },
+  {
+   "name": "锅炉操作工",
+   "code": "6-28-01-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "风力发电运维值班员",
+   "code": "6-28-01-12",
+   "source": "codex"
+  },
+  {
+   "name": "风力发电运维值班员L",
+   "code": "6-28-01-12",
+   "source": "standard"
+  },
+  {
+   "name": "供热管网系统运行工",
+   "code": "6-28-01-13",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "变配电运行值班员",
+   "code": "6-28-01-14",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "继电保护员",
+   "code": "6-28-01-15",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "燃气储运工",
+   "code": "6-28-02-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "气体深冷分离工",
+   "code": "6-28-02-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业气体生产工",
+   "code": "6-28-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业气体液化工",
+   "code": "6-28-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "工业废气治理工",
+   "code": "6-28-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "压缩机操作工",
+   "code": "6-28-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "风机操作工",
+   "code": "6-28-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "水生产处理工",
+   "code": "6-28-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水供应输排工",
+   "code": "6-28-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "工业废水处理工",
+   "code": "6-28-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "司泵工",
+   "code": "6-28-03-04",
+   "source": "codex"
+  },
+  {
+   "name": "管廊运维员",
+   "code": "6-28-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "砌筑工",
+   "code": "6-29-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "石工",
+   "code": "6-29-01-02",
+   "source": "codex"
+  },
+  {
+   "name": "混凝土工",
+   "code": "6-29-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "钢筋工",
+   "code": "6-29-01-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "架子工",
+   "code": "6-29-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "装配式建筑施工员",
+   "code": "6-29-01-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "乡村建设工匠",
+   "code": "6-29-01-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铁路自轮运转设备工",
+   "code": "6-29-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "铁路线桥工",
+   "code": "6-29-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "筑路工",
+   "code": "6-29-02-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "公路养护工",
+   "code": "6-29-02-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "桥隧工",
+   "code": "6-29-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "凿岩工",
+   "code": "6-29-02-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "爆破工",
+   "code": "6-29-02-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "防水工",
+   "code": "6-29-02-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水运工程施工工",
+   "code": "6-29-02-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "水工建构筑物维护检修工",
+   "code": "6-29-02-10",
+   "source": "codex"
+  },
+  {
+   "name": "电力电缆安装运维工",
+   "code": "6-29-02-11",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "送配电线路工",
+   "code": "6-29-02-12",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "接触网工",
+   "code": "6-29-02-13",
+   "source": "standard"
+  },
+  {
+   "name": "牵引电力线路安装维护工",
+   "code": "6-29-02-13",
+   "source": "codex"
+  },
+  {
+   "name": "舟桥工",
+   "code": "6-29-02-14",
+   "source": "codex"
+  },
+  {
+   "name": "管道工",
+   "code": "6-29-02-15",
+   "source": "codex"
+  },
+  {
+   "name": "铁路综合维修工",
+   "code": "6-29-02-16",
+   "source": "codex"
+  },
+  {
+   "name": "城市轨道交通检修工",
+   "code": "6-29-02-17",
+   "source": "codex"
+  },
+  {
+   "name": "机械设备安装工",
+   "code": "6-29-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电气设备安装工",
+   "code": "6-29-03-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电梯安装维修工",
+   "code": "6-29-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "管工",
+   "code": "6-29-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "制冷空调系统安装维修工",
+   "code": "6-29-03-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "锅炉设备安装工",
+   "code": "6-29-03-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "发电设备安装工",
+   "code": "6-29-03-07",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电力电气设备安装工",
+   "code": "6-29-03-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "轨道交通通信工",
+   "code": "6-29-03-09",
+   "source": "codex"
+  },
+  {
+   "name": "铁路通信工",
+   "code": "6-29-03-09",
+   "source": "standard"
+  },
+  {
+   "name": "轨道交通信号工",
+   "code": "6-29-03-10",
+   "source": "codex"
+  },
+  {
+   "name": "轨道交通信号工（城市轨道交通信号工）",
+   "code": "6-29-03-10",
+   "source": "standard"
+  },
+  {
+   "name": "装饰装修工",
+   "code": "6-29-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "装饰装修工（艺术涂装师）",
+   "code": "6-29-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "装饰镶贴工",
+   "code": "6-29-04-01",
+   "source": "standard"
+  },
+  {
+   "name": "建筑门窗幕墙安装工",
+   "code": "6-29-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "照明工程施工员",
+   "code": "6-29-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "古建筑工",
+   "code": "6-29-05-00",
+   "source": "codex"
+  },
+  {
+   "name": "专用车辆驾驶员",
+   "code": "6-30-01-00",
+   "source": "codex"
+  },
+  {
+   "name": "铁路车站行车作业员",
+   "code": "6-30-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "铁路车站调车作业员",
+   "code": "6-30-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "机车调度值班员",
+   "code": "6-30-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "机车整备员",
+   "code": "6-30-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "救援机械操作员",
+   "code": "6-30-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "铁路试验检测设备维修工",
+   "code": "6-30-02-06",
+   "source": "codex"
+  },
+  {
+   "name": "铁路电源工",
+   "code": "6-30-02-07",
+   "source": "codex"
+  },
+  {
+   "name": "航空通信导航监视员",
+   "code": "6-30-03-01",
+   "source": "codex"
+  },
+  {
+   "name": "民航机场专用设备机务员",
+   "code": "6-30-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "航空油料员",
+   "code": "6-30-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "船舶甲板设备操作工",
+   "code": "6-30-04-01",
+   "source": "codex"
+  },
+  {
+   "name": "船舶机舱设备操作工",
+   "code": "6-30-04-02",
+   "source": "codex"
+  },
+  {
+   "name": "船闸及升船机运管员",
+   "code": "6-30-04-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "潜水员",
+   "code": "6-30-04-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "起重装卸机械操作工",
+   "code": "6-30-05-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "起重装卸机械操作工（汽车吊司机）",
+   "code": "6-30-05-01",
+   "source": "standard"
+  },
+  {
+   "name": "起重装卸机械操作工（高空作业机械操作工）",
+   "code": "6-30-05-01",
+   "source": "standard"
+  },
+  {
+   "name": "起重工",
+   "code": "6-30-05-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "输送机操作工",
+   "code": "6-30-05-03",
+   "source": "codex"
+  },
+  {
+   "name": "索道运输机械操作工",
+   "code": "6-30-05-04",
+   "source": "codex"
+  },
+  {
+   "name": "挖掘铲运和桩工机械司机",
+   "code": "6-30-05-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "设备点检员",
+   "code": "6-31-01-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "机修钳工",
+   "code": "6-31-01-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电工",
+   "code": "6-31-01-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "电工（烟机电工）",
+   "code": "6-31-01-03",
+   "source": "standard"
+  },
+  {
+   "name": "仪器仪表维修工",
+   "code": "6-31-01-04",
+   "source": "codex"
+  },
+  {
+   "name": "仪器仪表维修工（化工仪表维修工）",
+   "code": "6-31-01-04",
+   "source": "standard"
+  },
+  {
+   "name": "锅炉设备检修工",
+   "code": "6-31-01-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "汽轮机和水轮机检修工",
+   "code": "6-31-01-06",
+   "source": "codex"
+  },
+  {
+   "name": "电机检修工",
+   "code": "6-31-01-07",
+   "source": "codex"
+  },
+  {
+   "name": "电机检修工（风力发电机检修工）",
+   "code": "6-31-01-07",
+   "source": "standard"
+  },
+  {
+   "name": "变电设备检修工",
+   "code": "6-31-01-08",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工程机械维修工",
+   "code": "6-31-01-09",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工程机械维修工（堆场作业机械维修工）",
+   "code": "6-31-01-09",
+   "source": "standard"
+  },
+  {
+   "name": "机电设备维修工",
+   "code": "6-31-01-10",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "船舶修理工",
+   "code": "6-31-02-01",
+   "source": "codex"
+  },
+  {
+   "name": "航空器机械维护员",
+   "code": "6-31-02-02",
+   "source": "codex"
+  },
+  {
+   "name": "航空器部件修理工",
+   "code": "6-31-02-03",
+   "source": "codex"
+  },
+  {
+   "name": "航空发动机修理工",
+   "code": "6-31-02-04",
+   "source": "codex"
+  },
+  {
+   "name": "航空器外场维护员",
+   "code": "6-31-02-05",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "化学检验员",
+   "code": "6-31-03-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "物理性能检验员",
+   "code": "6-31-03-02",
+   "source": "codex"
+  },
+  {
+   "name": "物理性能检验员（建筑材料试验工）",
+   "code": "6-31-03-02",
+   "source": "standard"
+  },
+  {
+   "name": "生化检验员",
+   "code": "6-31-03-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "无损检测员",
+   "code": "6-31-03-04",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "质检员",
+   "code": "6-31-03-05",
+   "source": "codex"
+  },
+  {
+   "name": "质检员（木材检验员）",
+   "code": "6-31-03-05",
+   "source": "standard"
+  },
+  {
+   "name": "试验员",
+   "code": "6-31-03-06",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "称重计量工",
+   "code": "6-31-04-00",
+   "source": "codex"
+  },
+  {
+   "name": "包装工",
+   "code": "6-31-05-00",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "安全员",
+   "code": "6-31-06-00",
+   "source": "codex"
+  },
+  {
+   "name": "安全员（化工安全员）",
+   "code": "6-31-06-00",
+   "source": "standard"
+  },
+  {
+   "name": "工业机器人系统运维员",
+   "code": "6-31-07-01",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业视觉系统运维员",
+   "code": "6-31-07-02",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "工业机器人系统操作员",
+   "code": "6-31-07-03",
+   "source": "codex",
+   "standard": true
+  },
+  {
+   "name": "智能网联汽车装调运维员S",
+   "code": "6-31-07-05",
+   "source": "standard"
+  },
+  {
+   "name": "军官（警官）",
+   "code": "7-01-00-00",
+   "source": "codex"
+  },
+  {
+   "name": "军士（警士）",
+   "code": "7-02-00-00",
+   "source": "codex"
+  },
+  {
+   "name": "义务兵",
+   "code": "7-03-00-00",
+   "source": "codex"
+  },
+  {
+   "name": "文职人员",
+   "code": "7-04-00-00",
+   "source": "codex"
+  },
+  {
+   "name": "不便分类的其他从业人员",
+   "code": "8-00-00-00",
+   "source": "codex"
+  },
+  {
+   "name": "调香师（试行）",
+   "code": "X2-02-06-04",
+   "source": "standard"
+  },
+  {
+   "name": "化妆品配方师（已修订）",
+   "code": "X2-02-06-05",
+   "source": "standard"
+  },
+  {
+   "name": "计算机网络管理员",
+   "code": "X2-02-13-05",
+   "source": "standard"
+  },
+  {
+   "name": "照明设计师（试行）",
+   "code": "X2-02-14-04",
+   "source": "standard"
+  },
+  {
+   "name": "花艺环境设计师（试行）",
+   "code": "X2-02-23-11",
+   "source": "standard"
+  },
+  {
+   "name": "企业培训师",
+   "code": "X2-02-34-08",
+   "source": "standard"
+  },
+  {
+   "name": "健康管理师（试行）",
+   "code": "X2-05-05-09",
+   "source": "standard"
+  },
+  {
+   "name": "首饰设计师（试行）",
+   "code": "X2-10-07-11",
+   "source": "standard"
+  },
+  {
+   "name": "家具设计师（试行）",
+   "code": "X2-10-07-14",
+   "source": "standard"
+  },
+  {
+   "name": "陶瓷产品设计师（试行）",
+   "code": "X2-10-07-17",
+   "source": "standard"
+  },
+  {
+   "name": "陶瓷工艺师（试行）",
+   "code": "X2-10-07-18",
+   "source": "standard"
+  },
+  {
+   "name": "地毯设计师（试行）",
+   "code": "X2-10-07-19",
+   "source": "standard"
+  },
+  {
+   "name": "皮具设计师（试行）",
+   "code": "X2-10-07-20",
+   "source": "standard"
+  },
+  {
+   "name": "鞋类设计师（试行）",
+   "code": "X2-10-07-21",
+   "source": "standard"
+  },
+  {
+   "name": "会展设计师（试行）",
+   "code": "X2-10-07-22",
+   "source": "standard"
+  },
+  {
+   "name": "轮胎翻修工（试行）",
+   "code": "X4-01-05-04",
+   "source": "standard"
+  },
+  {
+   "name": "咖啡师（试行）",
+   "code": "X4-03-03-03",
+   "source": "standard"
+  },
+  {
+   "name": "形象设计师（试行）",
+   "code": "X4-07-04-04",
+   "source": "standard"
+  },
+  {
+   "name": "宠物健康护理员（试行）",
+   "code": "X4-07-99-08",
+   "source": "standard"
+  },
+  {
+   "name": "紧急救助员",
+   "code": "X4-07-99-09",
+   "source": "standard"
+  },
+  {
+   "name": "礼仪主持人（试行）",
+   "code": "X4-07-99-10",
+   "source": "standard"
+  },
+  {
+   "name": "宠物驯导师（试行）",
+   "code": "X4-07-99-11",
+   "source": "standard"
+  },
+  {
+   "name": "生殖健康咨询师（试行）",
+   "code": "X4-07-99-14",
+   "source": "standard"
+  },
+  {
+   "name": "婚姻家庭咨询师（试行）",
+   "code": "X4-07-99-15",
+   "source": "standard"
+  },
+  {
+   "name": "海水水生动物养殖工",
+   "code": "X5-04-01-08",
+   "source": "standard"
+  },
+  {
+   "name": "衡器装配调试工（试行）",
+   "code": "X6-05-10-07",
+   "source": "standard"
+  }
+ ]
+}

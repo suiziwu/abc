@@ -1,0 +1,2021 @@
+{
+  "schema_version": "3.0.0",
+  "meta": {
+    "generated_at": "2026-10-28T09:19:32",
+    "mode": "kb",
+    "engine": "python-kb",
+    "engine_version": "3.0.0",
+    "kb_version": "3.0.0",
+    "graph_id": "KB-4-04-05-02",
+    "workflow_file": "gangwei-nengli-tupu-20261027.langgraph.json",
+    "workflow_steps": 7,
+    "workflow_sha256": "a6d660dc039e05b03b46071645d76eac3cd450b756872b87ec14f935289ed43d",
+    "workflow_nodes": [
+      "start",
+      "industry_chain_mapper",
+      "task_analyzer",
+      "competency_decomposer",
+      "element_mapper",
+      "graph_assembler",
+      "end"
+    ],
+    "model": "offline"
+  },
+  "job": {
+    "id": "JOB-4-04-05-02",
+    "name": "计算机软件测试员",
+    "code": "4-04-05-02",
+    "level": "四级/中级工",
+    "level_note": "能力条目取自 2024 年征求意见稿「四级/中级工」工作要求；权重取自同一文件的技能要求权重表。",
+    "digital_occupation": true,
+    "aliases": [
+      "软件测试员",
+      "测试工程师",
+      "软件测试工程师",
+      "QA工程师"
+    ],
+    "aliases_note": "后三个为行业常见称谓，用于检索，不代表职业标准中的职业名称。",
+    "summary": "使用计算机及附属设备、测试工具、测试用例，验证计算机软件产品功能、性能及参数的人员。",
+    "confidence": 0.85,
+    "matched_by": "exact"
+  },
+  "industry_path": [
+    {
+      "level": "产业链",
+      "id": "IND-SW",
+      "name": "软件和信息技术服务业",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "产业链环节",
+      "id": "IND-SW-QA",
+      "name": "软件质量保障",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位群",
+      "id": "CLU-SW-QA",
+      "name": "软件测试与质量保障岗位群",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位",
+      "id": "JOB-4-04-05-02",
+      "name": "计算机软件测试员",
+      "mapping_type": "standard",
+      "source_id": "4-04-05-02"
+    }
+  ],
+  "classification_path": [
+    {
+      "level": "职业大类",
+      "name": "4 社会生产服务和生活服务人员"
+    },
+    {
+      "level": "职业中类",
+      "name": "4-04 信息传输、软件和信息技术服务人员"
+    },
+    {
+      "level": "职业小类",
+      "name": "4-04-05 软件和信息技术服务人员"
+    },
+    {
+      "level": "职业细类",
+      "name": "4-04-05-02 计算机软件测试员S"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T11",
+      "name": "使用功能测试用例等工具，测试计算机软件功能",
+      "description": "使用功能测试用例等工具，测试计算机软件功能",
+      "source": "SRC-CODEX 4-04-05-02 主要工作任务 1",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 30.0,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 3,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T12",
+      "name": "使用性能测试用例等工具，进行计算机软件负载测试和压力测试",
+      "description": "使用性能测试用例等工具，进行计算机软件负载测试和压力测试",
+      "source": "SRC-CODEX 4-04-05-02 主要工作任务 2",
+      "competency_ids": [
+        "C2"
+      ],
+      "weight": 20.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 3,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T13",
+      "name": "使用计算机及附属设备，测试计算机软件的稳定性、兼容性等参数",
+      "description": "使用计算机及附属设备，测试计算机软件的稳定性、兼容性等参数",
+      "source": "SRC-CODEX 4-04-05-02 主要工作任务 3",
+      "competency_ids": [
+        "C3"
+      ],
+      "weight": 30.0,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 3,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T14",
+      "name": "记录测试数据和案例",
+      "description": "记录测试数据和案例",
+      "source": "SRC-CODEX 4-04-05-02 主要工作任务 4",
+      "competency_ids": [
+        "C4"
+      ],
+      "weight": 10.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 3,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T15",
+      "name": "编写、制作测试报告",
+      "description": "编写、制作测试报告",
+      "source": "SRC-CODEX 4-04-05-02 主要工作任务 5",
+      "competency_ids": [
+        "C4"
+      ],
+      "weight": 10.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 3,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "D1",
+      "name": "功能测试",
+      "weight": 30
+    },
+    {
+      "id": "D2",
+      "name": "性能测试",
+      "weight": 20
+    },
+    {
+      "id": "D3",
+      "name": "其他测试",
+      "weight": 30
+    },
+    {
+      "id": "D4",
+      "name": "测试文档编写",
+      "weight": 20
+    }
+  ],
+  "competencies": [
+    {
+      "id": "C1",
+      "name": "功能测试",
+      "domain_id": "D1",
+      "weight": 30,
+      "task_ids": [
+        "T11"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U11",
+          "statement": "编写测试用例",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 1.1",
+          "skills": [
+            {
+              "id": "SK01",
+              "name": "能根据需求文档编写测试用例"
+            },
+            {
+              "id": "SK02",
+              "name": "能识别测试用例优先级"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP01",
+              "name": "需求文档识读方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.143,
+              "covered": false
+            },
+            {
+              "id": "KP02",
+              "name": "测试用例编写方法",
+              "subject": "软件测试",
+              "matched_point": "测试用例设计方法",
+              "match_score": 0.667,
+              "covered": true
+            },
+            {
+              "id": "KP03",
+              "name": "测试用例优先级定义方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.533,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U12",
+          "statement": "执行测试用例",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 1.2",
+          "skills": [
+            {
+              "id": "SK03",
+              "name": "能配置管理测试环境"
+            },
+            {
+              "id": "SK04",
+              "name": "能执行测试用例"
+            },
+            {
+              "id": "SK05",
+              "name": "能完成回归测试"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP04",
+              "name": "测试环境配置管理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.571,
+              "covered": false
+            },
+            {
+              "id": "KP05",
+              "name": "测试任务单创建方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.364,
+              "covered": false
+            },
+            {
+              "id": "KP06",
+              "name": "测试用例执行方法",
+              "subject": "软件测试",
+              "matched_point": "测试用例设计方法",
+              "match_score": 0.667,
+              "covered": true
+            },
+            {
+              "id": "KP07",
+              "name": "回归测试策略",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U13",
+          "statement": "功能测试记录",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 1.3",
+          "skills": [
+            {
+              "id": "SK06",
+              "name": "能记录用例执行结果"
+            },
+            {
+              "id": "SK07",
+              "name": "能根据用例执行结果编写缺陷报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP08",
+              "name": "用例结果记录方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP09",
+              "name": "编写缺陷报告方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            },
+            {
+              "id": "KP10",
+              "name": "缺陷跟踪流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "性能测试",
+      "domain_id": "D2",
+      "weight": 20,
+      "task_ids": [
+        "T12"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U21",
+          "statement": "性能测试指标识别",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 2.1",
+          "skills": [
+            {
+              "id": "SK08",
+              "name": "能识别软件需求说明书、产品需求文档中的性能指标"
+            },
+            {
+              "id": "SK09",
+              "name": "能识别客户端、服务器端的性能指标"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP11",
+              "name": "阅读、分析软件需求说明书、产品需求文档中的性能指标的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.154,
+              "covered": false
+            },
+            {
+              "id": "KP12",
+              "name": "客户端、服务器端的性能指标的定义",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.235,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U22",
+          "statement": "性能测试工具选型",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 2.2",
+          "skills": [
+            {
+              "id": "SK10",
+              "name": "能识别性能测试工具"
+            },
+            {
+              "id": "SK11",
+              "name": "能根据场景选择性能测试工具"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP13",
+              "name": "性能测试场景分类方法",
+              "subject": "软件测试",
+              "matched_point": "性能测试",
+              "match_score": 0.75,
+              "covered": true
+            },
+            {
+              "id": "KP14",
+              "name": "性能测试工具分类方法",
+              "subject": "软件测试",
+              "matched_point": "性能测试",
+              "match_score": 0.75,
+              "covered": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "其他测试",
+      "domain_id": "D3",
+      "weight": 30,
+      "task_ids": [
+        "T13"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U31",
+          "statement": "兼容性测试",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 3.1",
+          "skills": [
+            {
+              "id": "SK12",
+              "name": "能针对不同浏览器设计兼容性测试用例"
+            },
+            {
+              "id": "SK13",
+              "name": "能针对不同浏览器手工完成兼容性测试执行"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP15",
+              "name": "浏览器兼容性测试用例设计方法",
+              "subject": "软件测试",
+              "matched_point": "测试用例设计方法",
+              "match_score": 0.75,
+              "covered": true
+            },
+            {
+              "id": "KP16",
+              "name": "兼容性测试执行结果记录与处理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.353,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U32",
+          "statement": "易用性测试",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 3.2",
+          "skills": [
+            {
+              "id": "SK14",
+              "name": "能制定针对产品特性的软件易用性检查表"
+            },
+            {
+              "id": "SK15",
+              "name": "能评审软件测试易用性检查表"
+            },
+            {
+              "id": "SK16",
+              "name": "能针对产品特性执行易用性测试"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP17",
+              "name": "软件易用性检查表设计原理",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP18",
+              "name": "软件易用性检查表评审方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            },
+            {
+              "id": "KP19",
+              "name": "易用性测试执行与记录方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.462,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "测试文档编写",
+      "domain_id": "D4",
+      "weight": 20,
+      "task_ids": [
+        "T14",
+        "T15"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U41",
+          "statement": "测试结果记录",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 4.1",
+          "skills": [
+            {
+              "id": "SK17",
+              "name": "能识读测试方案"
+            },
+            {
+              "id": "SK18",
+              "name": "能执行测试并记录测试结果"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP20",
+              "name": "测试方案中测试方法的定义",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.308,
+              "covered": false
+            },
+            {
+              "id": "KP21",
+              "name": "记录测试结果的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U42",
+          "statement": "测试报告模板使用",
+          "level": 2,
+          "source": "SRC-STD-02 3.1 4.2",
+          "skills": [
+            {
+              "id": "SK19",
+              "name": "能根据测试报告模板整理测试数据"
+            },
+            {
+              "id": "SK20",
+              "name": "能根据测试报告模板编写测试报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP22",
+              "name": "测试数据整理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.5,
+              "covered": false
+            },
+            {
+              "id": "KP23",
+              "name": "测试报告模板填写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": {
+    "skills": [
+      {
+        "id": "SK01",
+        "name": "能根据需求文档编写测试用例",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK02",
+        "name": "能识别测试用例优先级",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK03",
+        "name": "能配置管理测试环境",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK04",
+        "name": "能执行测试用例",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK05",
+        "name": "能完成回归测试",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK06",
+        "name": "能记录用例执行结果",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK07",
+        "name": "能根据用例执行结果编写缺陷报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK08",
+        "name": "能识别软件需求说明书、产品需求文档中的性能指标",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK09",
+        "name": "能识别客户端、服务器端的性能指标",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK10",
+        "name": "能识别性能测试工具",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK11",
+        "name": "能根据场景选择性能测试工具",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK12",
+        "name": "能针对不同浏览器设计兼容性测试用例",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK13",
+        "name": "能针对不同浏览器手工完成兼容性测试执行",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK14",
+        "name": "能制定针对产品特性的软件易用性检查表",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK15",
+        "name": "能评审软件测试易用性检查表",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK16",
+        "name": "能针对产品特性执行易用性测试",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK17",
+        "name": "能识读测试方案",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK18",
+        "name": "能执行测试并记录测试结果",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK19",
+        "name": "能根据测试报告模板整理测试数据",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK20",
+        "name": "能根据测试报告模板编写测试报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "id": "KP01",
+        "name": "需求文档识读方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.143,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP02",
+        "name": "测试用例编写方法",
+        "subject": "软件测试",
+        "matched_point": "测试用例设计方法",
+        "match_score": 0.667,
+        "covered": true,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP03",
+        "name": "测试用例优先级定义方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.533,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP04",
+        "name": "测试环境配置管理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.571,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP05",
+        "name": "测试任务单创建方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.364,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP06",
+        "name": "测试用例执行方法",
+        "subject": "软件测试",
+        "matched_point": "测试用例设计方法",
+        "match_score": 0.667,
+        "covered": true,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP07",
+        "name": "回归测试策略",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP08",
+        "name": "用例结果记录方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP09",
+        "name": "编写缺陷报告方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP10",
+        "name": "缺陷跟踪流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP11",
+        "name": "阅读、分析软件需求说明书、产品需求文档中的性能指标的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.154,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP12",
+        "name": "客户端、服务器端的性能指标的定义",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.235,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP13",
+        "name": "性能测试场景分类方法",
+        "subject": "软件测试",
+        "matched_point": "性能测试",
+        "match_score": 0.75,
+        "covered": true,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP14",
+        "name": "性能测试工具分类方法",
+        "subject": "软件测试",
+        "matched_point": "性能测试",
+        "match_score": 0.75,
+        "covered": true,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP15",
+        "name": "浏览器兼容性测试用例设计方法",
+        "subject": "软件测试",
+        "matched_point": "测试用例设计方法",
+        "match_score": 0.75,
+        "covered": true,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP16",
+        "name": "兼容性测试执行结果记录与处理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.353,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP17",
+        "name": "软件易用性检查表设计原理",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP18",
+        "name": "软件易用性检查表评审方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP19",
+        "name": "易用性测试执行与记录方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.462,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP20",
+        "name": "测试方案中测试方法的定义",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.308,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP21",
+        "name": "记录测试结果的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP22",
+        "name": "测试数据整理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.5,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP23",
+        "name": "测试报告模板填写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      }
+    ]
+  },
+  "views": {
+    "mindmap": {
+      "name": "岗位：计算机软件测试员",
+      "children": [
+        {
+          "name": "产业链：软件和信息技术服务业",
+          "children": [
+            {
+              "name": "岗位群：软件测试与质量保障岗位群",
+              "children": [
+                {
+                  "name": "功能测试（权重30%）",
+                  "value": 30,
+                  "children": [
+                    {
+                      "name": "编写测试用例（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能根据需求文档编写测试用例",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能识别测试用例优先级",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：需求文档识读方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试用例编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试用例优先级定义方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "执行测试用例（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能配置管理测试环境",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能执行测试用例",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能完成回归测试",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试环境配置管理方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试任务单创建方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试用例执行方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：回归测试策略",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "功能测试记录（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能记录用例执行结果",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据用例执行结果编写缺陷报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：用例结果记录方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：编写缺陷报告方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：缺陷跟踪流程",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "性能测试（权重20%）",
+                  "value": 20,
+                  "children": [
+                    {
+                      "name": "性能测试指标识别（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能识别软件需求说明书、产品需求文档中的性能指标",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能识别客户端、服务器端的性能指标",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：阅读、分析软件需求说明书、产品需求文档中的性能指标的方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：客户端、服务器端的性能指标的定义",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "性能测试工具选型（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能识别性能测试工具",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据场景选择性能测试工具",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：性能测试场景分类方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：性能测试工具分类方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "其他测试（权重30%）",
+                  "value": 30,
+                  "children": [
+                    {
+                      "name": "兼容性测试（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能针对不同浏览器设计兼容性测试用例",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能针对不同浏览器手工完成兼容性测试执行",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：浏览器兼容性测试用例设计方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：兼容性测试执行结果记录与处理方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "易用性测试（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能制定针对产品特性的软件易用性检查表",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能评审软件测试易用性检查表",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能针对产品特性执行易用性测试",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：软件易用性检查表设计原理",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：软件易用性检查表评审方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：易用性测试执行与记录方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "测试文档编写（权重20%）",
+                  "value": 20,
+                  "children": [
+                    {
+                      "name": "测试结果记录（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能识读测试方案",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能执行测试并记录测试结果",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试方案中测试方法的定义",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：记录测试结果的方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "测试报告模板使用（L2）",
+                      "value": 2,
+                      "children": [
+                        {
+                          "name": "技能：能根据测试报告模板整理测试数据",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据测试报告模板编写测试报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试数据整理方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：测试报告模板填写方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "radar": {
+      "indicators": [
+        {
+          "name": "功能测试",
+          "max": 100
+        },
+        {
+          "name": "性能测试",
+          "max": 100
+        },
+        {
+          "name": "其他测试",
+          "max": 100
+        },
+        {
+          "name": "测试文档编写",
+          "max": 100
+        }
+      ],
+      "series": [
+        {
+          "name": "岗位要求权重",
+          "values": [
+            30,
+            20,
+            30,
+            20
+          ]
+        },
+        {
+          "name": "课程库匹配度",
+          "values": [
+            20.0,
+            50.0,
+            20.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "graph": {
+      "nodes": [
+        {
+          "id": "IND1",
+          "name": "产业链：软件和信息技术服务业",
+          "category": "INDUSTRY_CHAIN",
+          "value": 100
+        },
+        {
+          "id": "CLU1",
+          "name": "岗位群：软件测试与质量保障岗位群",
+          "category": "JOB_CLUSTER",
+          "value": 80
+        },
+        {
+          "id": "JOB1",
+          "name": "计算机软件测试员",
+          "category": "JOB",
+          "value": 60
+        },
+        {
+          "id": "C1",
+          "name": "功能测试",
+          "category": "COMPETENCY",
+          "value": 30
+        },
+        {
+          "id": "U11",
+          "name": "编写测试用例",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "U12",
+          "name": "执行测试用例",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "U13",
+          "name": "功能测试记录",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "C2",
+          "name": "性能测试",
+          "category": "COMPETENCY",
+          "value": 20
+        },
+        {
+          "id": "U21",
+          "name": "性能测试指标识别",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "U22",
+          "name": "性能测试工具选型",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "C3",
+          "name": "其他测试",
+          "category": "COMPETENCY",
+          "value": 30
+        },
+        {
+          "id": "U31",
+          "name": "兼容性测试",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "U32",
+          "name": "易用性测试",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "C4",
+          "name": "测试文档编写",
+          "category": "COMPETENCY",
+          "value": 20
+        },
+        {
+          "id": "U41",
+          "name": "测试结果记录",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "U42",
+          "name": "测试报告模板使用",
+          "category": "COMPETENCY_UNIT",
+          "value": 2
+        },
+        {
+          "id": "SK01",
+          "name": "能根据需求文档编写测试用例",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK02",
+          "name": "能识别测试用例优先级",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK03",
+          "name": "能配置管理测试环境",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK04",
+          "name": "能执行测试用例",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK05",
+          "name": "能完成回归测试",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK06",
+          "name": "能记录用例执行结果",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK07",
+          "name": "能根据用例执行结果编写缺陷报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK08",
+          "name": "能识别软件需求说明书、产品需求文档中的性能指标",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK09",
+          "name": "能识别客户端、服务器端的性能指标",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK10",
+          "name": "能识别性能测试工具",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK11",
+          "name": "能根据场景选择性能测试工具",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK12",
+          "name": "能针对不同浏览器设计兼容性测试用例",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK13",
+          "name": "能针对不同浏览器手工完成兼容性测试执行",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK14",
+          "name": "能制定针对产品特性的软件易用性检查表",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK15",
+          "name": "能评审软件测试易用性检查表",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK16",
+          "name": "能针对产品特性执行易用性测试",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK17",
+          "name": "能识读测试方案",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK18",
+          "name": "能执行测试并记录测试结果",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK19",
+          "name": "能根据测试报告模板整理测试数据",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK20",
+          "name": "能根据测试报告模板编写测试报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP01",
+          "name": "需求文档识读方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP02",
+          "name": "测试用例编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP03",
+          "name": "测试用例优先级定义方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP04",
+          "name": "测试环境配置管理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP05",
+          "name": "测试任务单创建方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP06",
+          "name": "测试用例执行方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP07",
+          "name": "回归测试策略",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP08",
+          "name": "用例结果记录方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP09",
+          "name": "编写缺陷报告方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP10",
+          "name": "缺陷跟踪流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP11",
+          "name": "阅读、分析软件需求说明书、产品需求文档中的性能指标的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP12",
+          "name": "客户端、服务器端的性能指标的定义",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP13",
+          "name": "性能测试场景分类方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP14",
+          "name": "性能测试工具分类方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP15",
+          "name": "浏览器兼容性测试用例设计方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP16",
+          "name": "兼容性测试执行结果记录与处理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP17",
+          "name": "软件易用性检查表设计原理",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP18",
+          "name": "软件易用性检查表评审方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP19",
+          "name": "易用性测试执行与记录方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP20",
+          "name": "测试方案中测试方法的定义",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP21",
+          "name": "记录测试结果的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP22",
+          "name": "测试数据整理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP23",
+          "name": "测试报告模板填写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "IND1",
+          "target": "CLU1",
+          "relation": "IN_CLUSTER"
+        },
+        {
+          "source": "CLU1",
+          "target": "JOB1",
+          "relation": "BELONGS_TO"
+        },
+        {
+          "source": "JOB1",
+          "target": "C1",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C1",
+          "target": "U11",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U11",
+          "target": "SK01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "SK02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U12",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U12",
+          "target": "SK03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U13",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U13",
+          "target": "SK06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "SK07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "KP08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "KP09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "KP10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C2",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C2",
+          "target": "U21",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U21",
+          "target": "SK08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U22",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U22",
+          "target": "SK10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C3",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C3",
+          "target": "U31",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U31",
+          "target": "SK12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "SK13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C3",
+          "target": "U32",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U32",
+          "target": "SK14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "SK15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "SK16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C4",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C4",
+          "target": "U41",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U41",
+          "target": "SK17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "SK18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C4",
+          "target": "U42",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U42",
+          "target": "SK19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "SK20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP23",
+          "relation": "SUPPORTED_BY"
+        }
+      ]
+    },
+    "sankey": {
+      "nodes": [],
+      "links": []
+    }
+  },
+  "coverage": {
+    "tasks": 5,
+    "competencies": 4,
+    "units": 9,
+    "skills": 20,
+    "knowledge": 23,
+    "knowledge_coverage": 21.7,
+    "weighted_coverage": null,
+    "domains": 4,
+    "domains_supported": 3
+  },
+  "sources": [
+    {
+      "name": "中华人民共和国职业分类大典（2022年版）",
+      "version": "2022年版",
+      "url": "https://www.bdagh.com/upload/1/cms/content/editor/1712798188409.pdf",
+      "retrieved_at": "2026-10-27"
+    },
+    {
+      "name": "计算机软件测试员 国家职业标准（征求意见稿，2024-03-25）",
+      "version": "4-04-05-02",
+      "url": "https://www.osta.org.cn/zcwj/attachment/20240325_12.pdf",
+      "retrieved_at": "2026-10-27"
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "reviewer": "standard-transcription",
+    "reviewed_at": "2026-10-27",
+    "notes": "能力条目逐条对应国家职业标准原文；产业链为教学映射。"
+  },
+  "data_note": "能力条目逐条对应国家职业标准条款；产业链为教学映射，课程库匹配度为名称相似度自动计算结果。"
+}

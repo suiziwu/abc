@@ -42,3 +42,23 @@ export function delPoint(id) {
     method: 'delete'
   })
 }
+
+// AI 按章生成知识点（生成并落库，耗时较长）
+export function aiGeneratePoint(data) {
+  return request({
+    url: '/project/point/ai-generate',
+    method: 'post',
+    data: data,
+    timeout: 180000
+  })
+}
+
+// 依据课程逐字稿生成知识点草稿（不落库，耗时较长）
+export function aiGeneratePointFromCourse(data) {
+  return request({
+    url: '/project/point/ai-generate-from-course',
+    method: 'post',
+    data: data,
+    timeout: 180000
+  })
+}

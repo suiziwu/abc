@@ -1,0 +1,3365 @@
+{
+  "schema_version": "3.0.0",
+  "meta": {
+    "generated_at": "2026-10-28T09:19:36",
+    "mode": "kb",
+    "engine": "python-kb",
+    "engine_version": "3.0.0",
+    "kb_version": "3.0.0",
+    "graph_id": "KB-4-04-05-04",
+    "workflow_file": "gangwei-nengli-tupu-20261027.langgraph.json",
+    "workflow_steps": 7,
+    "workflow_sha256": "a6d660dc039e05b03b46071645d76eac3cd450b756872b87ec14f935289ed43d",
+    "workflow_nodes": [
+      "start",
+      "industry_chain_mapper",
+      "task_analyzer",
+      "competency_decomposer",
+      "element_mapper",
+      "graph_assembler",
+      "end"
+    ],
+    "model": "offline"
+  },
+  "job": {
+    "id": "JOB-4-04-05-04",
+    "name": "数据库运行管理员",
+    "code": "4-04-05-04",
+    "level": "三级/高级工",
+    "level_note": "能力条目取自 2025 年版标准「三级/高级工」工作要求；权重取自同一标准技能要求权重表。",
+    "digital_occupation": true,
+    "aliases": [
+      "数据库管理员",
+      "DBA",
+      "数据库运维工程师"
+    ],
+    "aliases_note": "均为行业常见称谓，用于检索，不代表职业标准中的职业名称。",
+    "summary": "对系统所使用的数据库进行维护及管理等工作的人员。",
+    "confidence": 0.95,
+    "matched_by": "exact"
+  },
+  "industry_path": [
+    {
+      "level": "产业链",
+      "id": "IND-SW",
+      "name": "软件和信息技术服务业",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "产业链环节",
+      "id": "IND-SW-DATA",
+      "name": "数据服务与运维",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位群",
+      "id": "CLU-SW-DBA",
+      "name": "数据库运维岗位群",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位",
+      "id": "JOB-4-04-05-04",
+      "name": "数据库运行管理员",
+      "mapping_type": "standard",
+      "source_id": "4-04-05-04"
+    }
+  ],
+  "classification_path": [
+    {
+      "level": "职业大类",
+      "name": "4 社会生产服务和生活服务人员"
+    },
+    {
+      "level": "职业中类",
+      "name": "4-04 信息传输、软件和信息技术服务人员"
+    },
+    {
+      "level": "职业小类",
+      "name": "4-04-05 软件和信息技术服务人员"
+    },
+    {
+      "level": "职业细类",
+      "name": "4-04-05-04 数据库运行管理员S"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "name": "安装配置数据库，并进行性能监控、故障诊断、排除等日常维护",
+      "description": "安装配置数据库，并进行性能监控、故障诊断、排除等日常维护",
+      "source": "SRC-CODEX 4-04-05-04 主要工作任务 1",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 30.0,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T02",
+      "name": "制订、实施与完善数据库的备份还原、复制、镜像等容灾方案",
+      "description": "制订、实施与完善数据库的备份还原、复制、镜像等容灾方案",
+      "source": "SRC-CODEX 4-04-05-04 主要工作任务 2",
+      "competency_ids": [
+        "C5"
+      ],
+      "weight": 5.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T03",
+      "name": "提出并实施优化数据库性能及数据库集群方案",
+      "description": "提出并实施优化数据库性能及数据库集群方案",
+      "source": "SRC-CODEX 4-04-05-04 主要工作任务 3",
+      "competency_ids": [
+        "C2"
+      ],
+      "weight": 30.0,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T04",
+      "name": "研究和实施可靠的监控手段，分配权限、信息脱敏保护等",
+      "description": "研究和实施可靠的监控手段，分配权限、信息脱敏保护等",
+      "source": "SRC-CODEX 4-04-05-04 主要工作任务 4",
+      "competency_ids": [
+        "C5"
+      ],
+      "weight": 5.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T05",
+      "name": "制订和改进应急预案、策略和相关流程",
+      "description": "制订和改进应急预案、策略和相关流程",
+      "source": "SRC-CODEX 4-04-05-04 主要工作任务 5",
+      "competency_ids": [
+        "C5"
+      ],
+      "weight": 5.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "D1",
+      "name": "数据库部署",
+      "weight": 30
+    },
+    {
+      "id": "D2",
+      "name": "数据库配置与管理",
+      "weight": 30
+    },
+    {
+      "id": "D3",
+      "name": "数据库应用开发",
+      "weight": 10
+    },
+    {
+      "id": "D4",
+      "name": "数据库测试",
+      "weight": 15
+    },
+    {
+      "id": "D5",
+      "name": "数据库运维",
+      "weight": 15
+    }
+  ],
+  "competencies": [
+    {
+      "id": "C1",
+      "name": "数据库部署",
+      "domain_id": "D1",
+      "weight": 30,
+      "task_ids": [
+        "T01"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U11",
+          "statement": "安装环境的规划与设置",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 1.1",
+          "skills": [
+            {
+              "id": "SK01",
+              "name": "能根据业务需求规划操作系统"
+            },
+            {
+              "id": "SK02",
+              "name": "能根据数据量、IOPS 要求、高可用要求等规划存储"
+            },
+            {
+              "id": "SK03",
+              "name": "能根据数据量、时延等要求规划网络"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP01",
+              "name": "操作系统的规划方式",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            },
+            {
+              "id": "KP02",
+              "name": "存储调优的规划方式",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.143,
+              "covered": false
+            },
+            {
+              "id": "KP03",
+              "name": "网络规划的主要方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U12",
+          "statement": "数据库软件的安装",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 1.2",
+          "skills": [
+            {
+              "id": "SK04",
+              "name": "能确定数据库和周边产品的使用版本，并确保版本兼容性"
+            },
+            {
+              "id": "SK05",
+              "name": "能安装部署数据库集群架构"
+            },
+            {
+              "id": "SK06",
+              "name": "能编制数据库集群的部署手册"
+            },
+            {
+              "id": "SK07",
+              "name": "能调整数据库集群的参数"
+            },
+            {
+              "id": "SK08",
+              "name": "能利用运维平台升级数据库或打补丁"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP04",
+              "name": "数据库版本兼容性检查技巧",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            },
+            {
+              "id": "KP05",
+              "name": "数据库主备集群搭建方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP06",
+              "name": "分布式数据库集群部署手册编制方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.261,
+              "covered": false
+            },
+            {
+              "id": "KP07",
+              "name": "常用数据库集群参数",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.462,
+              "covered": false
+            },
+            {
+              "id": "KP08",
+              "name": "数据库升级工具使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "数据库配置与管理",
+      "domain_id": "D2",
+      "weight": 30,
+      "task_ids": [
+        "T03"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U21",
+          "statement": "数据库资源配置管理",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 2.1",
+          "skills": [
+            {
+              "id": "SK09",
+              "name": "能查看系统资源使用情况"
+            },
+            {
+              "id": "SK10",
+              "name": "能根据业务量执行数据库扩容"
+            },
+            {
+              "id": "SK11",
+              "name": "能根据业务量执行数据库缩容"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP09",
+              "name": "数据库资源使用情况查看方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            },
+            {
+              "id": "KP10",
+              "name": "数据库扩容操作流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.556,
+              "covered": false
+            },
+            {
+              "id": "KP11",
+              "name": "数据库缩容操作流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.556,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U22",
+          "statement": "数据迁移",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 2.2",
+          "skills": [
+            {
+              "id": "SK12",
+              "name": "能发现迁移评估报告中的不兼容问题"
+            },
+            {
+              "id": "SK13",
+              "name": "能利用迁移平台迁移数据库对象和数据"
+            },
+            {
+              "id": "SK14",
+              "name": "能监控迁移过程并处理错误"
+            },
+            {
+              "id": "SK15",
+              "name": "能处理迁移过程中遇到的数据不一致问题"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP12",
+              "name": "迁移评估的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.0,
+              "covered": false
+            },
+            {
+              "id": "KP13",
+              "name": "对象迁移的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.444,
+              "covered": false
+            },
+            {
+              "id": "KP14",
+              "name": "数据迁移过程并处理错误的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.222,
+              "covered": false
+            },
+            {
+              "id": "KP15",
+              "name": "数据验证的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "数据库应用开发",
+      "domain_id": "D3",
+      "weight": 10,
+      "task_ids": [],
+      "source": "",
+      "units": [
+        {
+          "id": "U31",
+          "statement": "业务数据库对象结构设计",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 3.1",
+          "skills": [
+            {
+              "id": "SK16",
+              "name": "能使用数据库建模工具创建库表"
+            },
+            {
+              "id": "SK17",
+              "name": "能创建数据库中的基本数据对象（如库、表、视图等）"
+            },
+            {
+              "id": "SK18",
+              "name": "能创建各种约束、索引等"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP16",
+              "name": "数据库建模基础知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.429,
+              "covered": false
+            },
+            {
+              "id": "KP17",
+              "name": "数据库对象的创建规范",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP18",
+              "name": "数据库约束、索引的创建方式",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U32",
+          "statement": "数据库语句编写",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 3.2",
+          "skills": [
+            {
+              "id": "SK19",
+              "name": "能编写数据库语句或存储过程以实现业务对数据库的操作"
+            },
+            {
+              "id": "SK20",
+              "name": "能评估数据库语句的运行效率"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP19",
+              "name": "数据库语句编写规范",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP20",
+              "name": "数据库语句运行效率的评估方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "数据库测试",
+      "domain_id": "D4",
+      "weight": 15,
+      "task_ids": [],
+      "source": "",
+      "units": [
+        {
+          "id": "U41",
+          "statement": "功能与性能测试",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 4.1",
+          "skills": [
+            {
+              "id": "SK21",
+              "name": "能根据测试用例编写测试脚本并生成测试报告"
+            },
+            {
+              "id": "SK22",
+              "name": "能运行数据库基准测试并生成测试报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP21",
+              "name": "常用自动化脚本的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.375,
+              "covered": false
+            },
+            {
+              "id": "KP22",
+              "name": "压力测试工具的使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.429,
+              "covered": false
+            },
+            {
+              "id": "KP23",
+              "name": "压力测试原理",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.5,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U42",
+          "statement": "数据库高可用测试",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 4.2",
+          "skills": [
+            {
+              "id": "SK23",
+              "name": "能编写脚本模拟数据库故障"
+            },
+            {
+              "id": "SK24",
+              "name": "能编写脚本模拟系统故障，如网络故障、存储故障、机器故障等"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP24",
+              "name": "数据库故障模拟的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP25",
+              "name": "系统故障模拟的技术方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.143,
+              "covered": false
+            },
+            {
+              "id": "KP26",
+              "name": "常见故障自动化脚本编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U43",
+          "statement": "业务上线测试",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 4.3",
+          "skills": [
+            {
+              "id": "SK25",
+              "name": "能对预上线业务编写功能测试脚本，执行并生成测试报告"
+            },
+            {
+              "id": "SK26",
+              "name": "能利用压力测试工具模拟业务压力，执行业务压力测试并生成测试报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP27",
+              "name": "功能测试的技术方法",
+              "subject": "软件测试",
+              "matched_point": "性能测试",
+              "match_score": 0.6,
+              "covered": true
+            },
+            {
+              "id": "KP28",
+              "name": "压力测试脚本编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "数据库运维",
+      "domain_id": "D5",
+      "weight": 15,
+      "task_ids": [
+        "T02",
+        "T04",
+        "T05"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U51",
+          "statement": "数据库监控及优化",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 5.1",
+          "skills": [
+            {
+              "id": "SK27",
+              "name": "能运行脚本或操作监控平台获得系统运行数据"
+            },
+            {
+              "id": "SK28",
+              "name": "能根据运行数据监控数据库运行情况、资源使用情况"
+            },
+            {
+              "id": "SK29",
+              "name": "能编写脚本收集数据库性能相关数据"
+            },
+            {
+              "id": "SK30",
+              "name": "能使用常用数据库优化方法进行性能优化"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP29",
+              "name": "数据库监控平台操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.556,
+              "covered": false
+            },
+            {
+              "id": "KP30",
+              "name": "数据库运行数据的获取方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP31",
+              "name": "数据库资源情况的收集流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            },
+            {
+              "id": "KP32",
+              "name": "数据库运行状况的收集流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            },
+            {
+              "id": "KP33",
+              "name": "性能视图的设计方案",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP34",
+              "name": "分区、表组、索引、hint、outline 等数据库性能优化方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.176,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U52",
+          "statement": "备份恢复管理",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 5.2",
+          "skills": [
+            {
+              "id": "SK31",
+              "name": "能编写备份脚本，对数据库按需完成物理备份和逻辑备份"
+            },
+            {
+              "id": "SK32",
+              "name": "能解决备份过程中常见的失败问题"
+            },
+            {
+              "id": "SK33",
+              "name": "能按需恢复数据库"
+            },
+            {
+              "id": "SK34",
+              "name": "能解决恢复过程中常见的失败问题"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP35",
+              "name": "数据库逻辑备份的操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.556,
+              "covered": false
+            },
+            {
+              "id": "KP36",
+              "name": "数据库物理备份的操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.556,
+              "covered": false
+            },
+            {
+              "id": "KP37",
+              "name": "备份失败的处理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP38",
+              "name": "恢复失败的处理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP39",
+              "name": "常用备份脚本的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U53",
+          "statement": "数据库安全与应急保障",
+          "level": 3,
+          "source": "SRC-STD-04 3.2 5.3",
+          "skills": [
+            {
+              "id": "SK35",
+              "name": "能设计数据库不同等级的用户、角色、权限体系"
+            },
+            {
+              "id": "SK36",
+              "name": "能分析数据库日志，并发现不同级别的报错"
+            },
+            {
+              "id": "SK37",
+              "name": "能应对常见的突发状况，并执行应急处理"
+            },
+            {
+              "id": "SK38",
+              "name": "能根据安全加固方案执行安全加固"
+            },
+            {
+              "id": "SK39",
+              "name": "能编写问题处理报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP40",
+              "name": "数据库管理员等级的设计方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.316,
+              "covered": false
+            },
+            {
+              "id": "KP41",
+              "name": "数据库日志的分类及处理方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.353,
+              "covered": false
+            },
+            {
+              "id": "KP42",
+              "name": "数据库常见突发状况的处理流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.316,
+              "covered": false
+            },
+            {
+              "id": "KP43",
+              "name": "数据库安全加固方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.375,
+              "covered": false
+            },
+            {
+              "id": "KP44",
+              "name": "编写问题报告的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.2,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": {
+    "skills": [
+      {
+        "id": "SK01",
+        "name": "能根据业务需求规划操作系统",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK02",
+        "name": "能根据数据量、IOPS 要求、高可用要求等规划存储",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK03",
+        "name": "能根据数据量、时延等要求规划网络",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK04",
+        "name": "能确定数据库和周边产品的使用版本，并确保版本兼容性",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK05",
+        "name": "能安装部署数据库集群架构",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK06",
+        "name": "能编制数据库集群的部署手册",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK07",
+        "name": "能调整数据库集群的参数",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK08",
+        "name": "能利用运维平台升级数据库或打补丁",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK09",
+        "name": "能查看系统资源使用情况",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK10",
+        "name": "能根据业务量执行数据库扩容",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK11",
+        "name": "能根据业务量执行数据库缩容",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK12",
+        "name": "能发现迁移评估报告中的不兼容问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK13",
+        "name": "能利用迁移平台迁移数据库对象和数据",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK14",
+        "name": "能监控迁移过程并处理错误",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK15",
+        "name": "能处理迁移过程中遇到的数据不一致问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK16",
+        "name": "能使用数据库建模工具创建库表",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK17",
+        "name": "能创建数据库中的基本数据对象（如库、表、视图等）",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK18",
+        "name": "能创建各种约束、索引等",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK19",
+        "name": "能编写数据库语句或存储过程以实现业务对数据库的操作",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK20",
+        "name": "能评估数据库语句的运行效率",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK21",
+        "name": "能根据测试用例编写测试脚本并生成测试报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK22",
+        "name": "能运行数据库基准测试并生成测试报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK23",
+        "name": "能编写脚本模拟数据库故障",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK24",
+        "name": "能编写脚本模拟系统故障，如网络故障、存储故障、机器故障等",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK25",
+        "name": "能对预上线业务编写功能测试脚本，执行并生成测试报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK26",
+        "name": "能利用压力测试工具模拟业务压力，执行业务压力测试并生成测试报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK27",
+        "name": "能运行脚本或操作监控平台获得系统运行数据",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK28",
+        "name": "能根据运行数据监控数据库运行情况、资源使用情况",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK29",
+        "name": "能编写脚本收集数据库性能相关数据",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK30",
+        "name": "能使用常用数据库优化方法进行性能优化",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK31",
+        "name": "能编写备份脚本，对数据库按需完成物理备份和逻辑备份",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK32",
+        "name": "能解决备份过程中常见的失败问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK33",
+        "name": "能按需恢复数据库",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK34",
+        "name": "能解决恢复过程中常见的失败问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK35",
+        "name": "能设计数据库不同等级的用户、角色、权限体系",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK36",
+        "name": "能分析数据库日志，并发现不同级别的报错",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK37",
+        "name": "能应对常见的突发状况，并执行应急处理",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK38",
+        "name": "能根据安全加固方案执行安全加固",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "SK39",
+        "name": "能编写问题处理报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C5"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "id": "KP01",
+        "name": "操作系统的规划方式",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP02",
+        "name": "存储调优的规划方式",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.143,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP03",
+        "name": "网络规划的主要方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP04",
+        "name": "数据库版本兼容性检查技巧",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP05",
+        "name": "数据库主备集群搭建方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP06",
+        "name": "分布式数据库集群部署手册编制方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.261,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP07",
+        "name": "常用数据库集群参数",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.462,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP08",
+        "name": "数据库升级工具使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP09",
+        "name": "数据库资源使用情况查看方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP10",
+        "name": "数据库扩容操作流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.556,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP11",
+        "name": "数据库缩容操作流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.556,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP12",
+        "name": "迁移评估的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.0,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP13",
+        "name": "对象迁移的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.444,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP14",
+        "name": "数据迁移过程并处理错误的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.222,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP15",
+        "name": "数据验证的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP16",
+        "name": "数据库建模基础知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.429,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP17",
+        "name": "数据库对象的创建规范",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP18",
+        "name": "数据库约束、索引的创建方式",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP19",
+        "name": "数据库语句编写规范",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP20",
+        "name": "数据库语句运行效率的评估方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP21",
+        "name": "常用自动化脚本的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.375,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP22",
+        "name": "压力测试工具的使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.429,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP23",
+        "name": "压力测试原理",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.5,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP24",
+        "name": "数据库故障模拟的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP25",
+        "name": "系统故障模拟的技术方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.143,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP26",
+        "name": "常见故障自动化脚本编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP27",
+        "name": "功能测试的技术方法",
+        "subject": "软件测试",
+        "matched_point": "性能测试",
+        "match_score": 0.6,
+        "covered": true,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP28",
+        "name": "压力测试脚本编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP29",
+        "name": "数据库监控平台操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.556,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP30",
+        "name": "数据库运行数据的获取方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP31",
+        "name": "数据库资源情况的收集流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP32",
+        "name": "数据库运行状况的收集流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP33",
+        "name": "性能视图的设计方案",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP34",
+        "name": "分区、表组、索引、hint、outline 等数据库性能优化方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.176,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP35",
+        "name": "数据库逻辑备份的操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.556,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP36",
+        "name": "数据库物理备份的操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.556,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP37",
+        "name": "备份失败的处理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP38",
+        "name": "恢复失败的处理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP39",
+        "name": "常用备份脚本的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP40",
+        "name": "数据库管理员等级的设计方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.316,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP41",
+        "name": "数据库日志的分类及处理方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.353,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP42",
+        "name": "数据库常见突发状况的处理流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.316,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP43",
+        "name": "数据库安全加固方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.375,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      },
+      {
+        "id": "KP44",
+        "name": "编写问题报告的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.2,
+        "covered": false,
+        "competency_ids": [
+          "C5"
+        ]
+      }
+    ]
+  },
+  "views": {
+    "mindmap": {
+      "name": "岗位：数据库运行管理员",
+      "children": [
+        {
+          "name": "产业链：软件和信息技术服务业",
+          "children": [
+            {
+              "name": "岗位群：数据库运维岗位群",
+              "children": [
+                {
+                  "name": "数据库部署（权重30%）",
+                  "value": 30,
+                  "children": [
+                    {
+                      "name": "安装环境的规划与设置（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能根据业务需求规划操作系统",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据数据量、IOPS 要求、高可用要求等规划存储",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据数据量、时延等要求规划网络",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：操作系统的规划方式",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：存储调优的规划方式",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络规划的主要方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据库软件的安装（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能确定数据库和周边产品的使用版本，并确保版本兼容性",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能安装部署数据库集群架构",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编制数据库集群的部署手册",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能调整数据库集群的参数",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能利用运维平台升级数据库或打补丁",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库版本兼容性检查技巧",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库主备集群搭建方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：分布式数据库集群部署手册编制方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：常用数据库集群参数",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库升级工具使用方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "数据库配置与管理（权重30%）",
+                  "value": 30,
+                  "children": [
+                    {
+                      "name": "数据库资源配置管理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能查看系统资源使用情况",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据业务量执行数据库扩容",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据业务量执行数据库缩容",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库资源使用情况查看方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库扩容操作流程",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库缩容操作流程",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据迁移（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能发现迁移评估报告中的不兼容问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能利用迁移平台迁移数据库对象和数据",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能监控迁移过程并处理错误",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能处理迁移过程中遇到的数据不一致问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：迁移评估的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：对象迁移的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据迁移过程并处理错误的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据验证的技术方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "数据库应用开发（权重10%）",
+                  "value": 10,
+                  "children": [
+                    {
+                      "name": "业务数据库对象结构设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用数据库建模工具创建库表",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能创建数据库中的基本数据对象（如库、表、视图等）",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能创建各种约束、索引等",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库建模基础知识",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库对象的创建规范",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库约束、索引的创建方式",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据库语句编写（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能编写数据库语句或存储过程以实现业务对数据库的操作",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能评估数据库语句的运行效率",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库语句编写规范",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库语句运行效率的评估方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "数据库测试（权重15%）",
+                  "value": 15,
+                  "children": [
+                    {
+                      "name": "功能与性能测试（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能根据测试用例编写测试脚本并生成测试报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能运行数据库基准测试并生成测试报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：常用自动化脚本的编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：压力测试工具的使用方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：压力测试原理",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据库高可用测试（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能编写脚本模拟数据库故障",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写脚本模拟系统故障，如网络故障、存储故障、机器故障等",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库故障模拟的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：系统故障模拟的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：常见故障自动化脚本编写方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "业务上线测试（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能对预上线业务编写功能测试脚本，执行并生成测试报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能利用压力测试工具模拟业务压力，执行业务压力测试并生成测试报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：功能测试的技术方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：压力测试脚本编写方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "数据库运维（权重15%）",
+                  "value": 15,
+                  "children": [
+                    {
+                      "name": "数据库监控及优化（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能运行脚本或操作监控平台获得系统运行数据",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据运行数据监控数据库运行情况、资源使用情况",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写脚本收集数据库性能相关数据",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能使用常用数据库优化方法进行性能优化",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库监控平台操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库运行数据的获取方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库资源情况的收集流程",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库运行状况的收集流程",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：性能视图的设计方案",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：分区、表组、索引、hint、outline 等数据库性能优化方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "备份恢复管理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能编写备份脚本，对数据库按需完成物理备份和逻辑备份",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能解决备份过程中常见的失败问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能按需恢复数据库",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能解决恢复过程中常见的失败问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库逻辑备份的操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库物理备份的操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：备份失败的处理方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：恢复失败的处理方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：常用备份脚本的编写方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据库安全与应急保障（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能设计数据库不同等级的用户、角色、权限体系",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能分析数据库日志，并发现不同级别的报错",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能应对常见的突发状况，并执行应急处理",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据安全加固方案执行安全加固",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写问题处理报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库管理员等级的设计方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库日志的分类及处理方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库常见突发状况的处理流程",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库安全加固方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：编写问题报告的方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "radar": {
+      "indicators": [
+        {
+          "name": "数据库部署",
+          "max": 100
+        },
+        {
+          "name": "数据库配置与管理",
+          "max": 100
+        },
+        {
+          "name": "数据库应用开发",
+          "max": 100
+        },
+        {
+          "name": "数据库测试",
+          "max": 100
+        },
+        {
+          "name": "数据库运维",
+          "max": 100
+        }
+      ],
+      "series": [
+        {
+          "name": "岗位要求权重",
+          "values": [
+            30,
+            30,
+            10,
+            15,
+            15
+          ]
+        },
+        {
+          "name": "课程库匹配度",
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            12.5,
+            0.0
+          ]
+        }
+      ]
+    },
+    "graph": {
+      "nodes": [
+        {
+          "id": "IND1",
+          "name": "产业链：软件和信息技术服务业",
+          "category": "INDUSTRY_CHAIN",
+          "value": 100
+        },
+        {
+          "id": "CLU1",
+          "name": "岗位群：数据库运维岗位群",
+          "category": "JOB_CLUSTER",
+          "value": 80
+        },
+        {
+          "id": "JOB1",
+          "name": "数据库运行管理员",
+          "category": "JOB",
+          "value": 60
+        },
+        {
+          "id": "C1",
+          "name": "数据库部署",
+          "category": "COMPETENCY",
+          "value": 30
+        },
+        {
+          "id": "U11",
+          "name": "安装环境的规划与设置",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U12",
+          "name": "数据库软件的安装",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C2",
+          "name": "数据库配置与管理",
+          "category": "COMPETENCY",
+          "value": 30
+        },
+        {
+          "id": "U21",
+          "name": "数据库资源配置管理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U22",
+          "name": "数据迁移",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C3",
+          "name": "数据库应用开发",
+          "category": "COMPETENCY",
+          "value": 10
+        },
+        {
+          "id": "U31",
+          "name": "业务数据库对象结构设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U32",
+          "name": "数据库语句编写",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C4",
+          "name": "数据库测试",
+          "category": "COMPETENCY",
+          "value": 15
+        },
+        {
+          "id": "U41",
+          "name": "功能与性能测试",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U42",
+          "name": "数据库高可用测试",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U43",
+          "name": "业务上线测试",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C5",
+          "name": "数据库运维",
+          "category": "COMPETENCY",
+          "value": 15
+        },
+        {
+          "id": "U51",
+          "name": "数据库监控及优化",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U52",
+          "name": "备份恢复管理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U53",
+          "name": "数据库安全与应急保障",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "SK01",
+          "name": "能根据业务需求规划操作系统",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK02",
+          "name": "能根据数据量、IOPS 要求、高可用要求等规划存储",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK03",
+          "name": "能根据数据量、时延等要求规划网络",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK04",
+          "name": "能确定数据库和周边产品的使用版本，并确保版本兼容性",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK05",
+          "name": "能安装部署数据库集群架构",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK06",
+          "name": "能编制数据库集群的部署手册",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK07",
+          "name": "能调整数据库集群的参数",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK08",
+          "name": "能利用运维平台升级数据库或打补丁",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK09",
+          "name": "能查看系统资源使用情况",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK10",
+          "name": "能根据业务量执行数据库扩容",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK11",
+          "name": "能根据业务量执行数据库缩容",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK12",
+          "name": "能发现迁移评估报告中的不兼容问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK13",
+          "name": "能利用迁移平台迁移数据库对象和数据",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK14",
+          "name": "能监控迁移过程并处理错误",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK15",
+          "name": "能处理迁移过程中遇到的数据不一致问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK16",
+          "name": "能使用数据库建模工具创建库表",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK17",
+          "name": "能创建数据库中的基本数据对象（如库、表、视图等）",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK18",
+          "name": "能创建各种约束、索引等",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK19",
+          "name": "能编写数据库语句或存储过程以实现业务对数据库的操作",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK20",
+          "name": "能评估数据库语句的运行效率",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK21",
+          "name": "能根据测试用例编写测试脚本并生成测试报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK22",
+          "name": "能运行数据库基准测试并生成测试报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK23",
+          "name": "能编写脚本模拟数据库故障",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK24",
+          "name": "能编写脚本模拟系统故障，如网络故障、存储故障、机器故障等",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK25",
+          "name": "能对预上线业务编写功能测试脚本，执行并生成测试报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK26",
+          "name": "能利用压力测试工具模拟业务压力，执行业务压力测试并生成测试报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK27",
+          "name": "能运行脚本或操作监控平台获得系统运行数据",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK28",
+          "name": "能根据运行数据监控数据库运行情况、资源使用情况",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK29",
+          "name": "能编写脚本收集数据库性能相关数据",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK30",
+          "name": "能使用常用数据库优化方法进行性能优化",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK31",
+          "name": "能编写备份脚本，对数据库按需完成物理备份和逻辑备份",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK32",
+          "name": "能解决备份过程中常见的失败问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK33",
+          "name": "能按需恢复数据库",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK34",
+          "name": "能解决恢复过程中常见的失败问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK35",
+          "name": "能设计数据库不同等级的用户、角色、权限体系",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK36",
+          "name": "能分析数据库日志，并发现不同级别的报错",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK37",
+          "name": "能应对常见的突发状况，并执行应急处理",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK38",
+          "name": "能根据安全加固方案执行安全加固",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK39",
+          "name": "能编写问题处理报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP01",
+          "name": "操作系统的规划方式",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP02",
+          "name": "存储调优的规划方式",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP03",
+          "name": "网络规划的主要方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP04",
+          "name": "数据库版本兼容性检查技巧",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP05",
+          "name": "数据库主备集群搭建方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP06",
+          "name": "分布式数据库集群部署手册编制方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP07",
+          "name": "常用数据库集群参数",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP08",
+          "name": "数据库升级工具使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP09",
+          "name": "数据库资源使用情况查看方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP10",
+          "name": "数据库扩容操作流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP11",
+          "name": "数据库缩容操作流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP12",
+          "name": "迁移评估的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP13",
+          "name": "对象迁移的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP14",
+          "name": "数据迁移过程并处理错误的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP15",
+          "name": "数据验证的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP16",
+          "name": "数据库建模基础知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP17",
+          "name": "数据库对象的创建规范",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP18",
+          "name": "数据库约束、索引的创建方式",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP19",
+          "name": "数据库语句编写规范",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP20",
+          "name": "数据库语句运行效率的评估方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP21",
+          "name": "常用自动化脚本的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP22",
+          "name": "压力测试工具的使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP23",
+          "name": "压力测试原理",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP24",
+          "name": "数据库故障模拟的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP25",
+          "name": "系统故障模拟的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP26",
+          "name": "常见故障自动化脚本编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP27",
+          "name": "功能测试的技术方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP28",
+          "name": "压力测试脚本编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP29",
+          "name": "数据库监控平台操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP30",
+          "name": "数据库运行数据的获取方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP31",
+          "name": "数据库资源情况的收集流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP32",
+          "name": "数据库运行状况的收集流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP33",
+          "name": "性能视图的设计方案",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP34",
+          "name": "分区、表组、索引、hint、outline 等数据库性能优化方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP35",
+          "name": "数据库逻辑备份的操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP36",
+          "name": "数据库物理备份的操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP37",
+          "name": "备份失败的处理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP38",
+          "name": "恢复失败的处理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP39",
+          "name": "常用备份脚本的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP40",
+          "name": "数据库管理员等级的设计方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP41",
+          "name": "数据库日志的分类及处理方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP42",
+          "name": "数据库常见突发状况的处理流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP43",
+          "name": "数据库安全加固方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP44",
+          "name": "编写问题报告的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "IND1",
+          "target": "CLU1",
+          "relation": "IN_CLUSTER"
+        },
+        {
+          "source": "CLU1",
+          "target": "JOB1",
+          "relation": "BELONGS_TO"
+        },
+        {
+          "source": "JOB1",
+          "target": "C1",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C1",
+          "target": "U11",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U11",
+          "target": "SK01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "SK02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "SK03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U12",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U12",
+          "target": "SK04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C2",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C2",
+          "target": "U21",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U21",
+          "target": "SK09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U22",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U22",
+          "target": "SK12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C3",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C3",
+          "target": "U31",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U31",
+          "target": "SK16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "SK17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "SK18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C3",
+          "target": "U32",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U32",
+          "target": "SK19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "SK20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C4",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C4",
+          "target": "U41",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U41",
+          "target": "SK21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "SK22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C4",
+          "target": "U42",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U42",
+          "target": "SK23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "SK24",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP24",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP25",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP26",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C4",
+          "target": "U43",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U43",
+          "target": "SK25",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U43",
+          "target": "SK26",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U43",
+          "target": "KP27",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U43",
+          "target": "KP28",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C5",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C5",
+          "target": "U51",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U51",
+          "target": "SK27",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "SK28",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "SK29",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "SK30",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP29",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP30",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP31",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP32",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP33",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U51",
+          "target": "KP34",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C5",
+          "target": "U52",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U52",
+          "target": "SK31",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "SK32",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "SK33",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "SK34",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "KP35",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "KP36",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "KP37",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "KP38",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U52",
+          "target": "KP39",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C5",
+          "target": "U53",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U53",
+          "target": "SK35",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "SK36",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "SK37",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "SK38",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "SK39",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "KP40",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "KP41",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "KP42",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "KP43",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U53",
+          "target": "KP44",
+          "relation": "SUPPORTED_BY"
+        }
+      ]
+    },
+    "sankey": {
+      "nodes": [],
+      "links": []
+    }
+  },
+  "coverage": {
+    "tasks": 5,
+    "competencies": 5,
+    "units": 12,
+    "skills": 39,
+    "knowledge": 44,
+    "knowledge_coverage": 2.3,
+    "weighted_coverage": null,
+    "domains": 5,
+    "domains_supported": 1
+  },
+  "sources": [
+    {
+      "name": "中华人民共和国职业分类大典（2022年版）",
+      "version": "2022年版",
+      "url": "https://www.bdagh.com/upload/1/cms/content/editor/1712798188409.pdf",
+      "retrieved_at": "2026-10-27"
+    },
+    {
+      "name": "数据库运行管理员 国家职业标准（2025年版）",
+      "version": "4-04-05-04",
+      "url": "https://www.osta.org.cn/api/sys/downloadFile/decrypt?fileName=4eNsZIOv3WFNDfbnldJHeA%2F2025%2F3%2F2%2F289d19d1c4d34aa296dad4a3a3e5020e.pdf",
+      "retrieved_at": "2026-10-27"
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "reviewer": "standard-transcription",
+    "reviewed_at": "2026-10-27",
+    "notes": "能力条目逐条对应国家职业标准原文；产业链为教学映射。"
+  },
+  "data_note": "能力条目逐条对应国家职业标准条款；产业链为教学映射，课程库匹配度为名称相似度自动计算结果。"
+}

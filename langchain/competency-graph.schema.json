@@ -1,0 +1,354 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ruoyi.local/schema/competency-graph-3.0.0.json",
+  "title": "岗位能力图谱统一契约 v3",
+  "type": "object",
+  "required": [
+    "schema_version", "meta", "job", "industry_path", "classification_path",
+    "tasks", "domains", "competencies", "elements", "views", "coverage", "sources", "review"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "3.0.0" },
+    "meta": {
+      "type": "object",
+      "required": ["generated_at", "mode", "engine", "engine_version"],
+      "additionalProperties": true,
+      "properties": {
+        "generated_at": { "type": "string" },
+        "mode": { "enum": ["kb", "llm"] },
+        "engine": { "type": "string" },
+        "engine_version": { "type": "string" },
+        "kb_version": { "type": ["string", "null"] },
+        "graph_id": { "type": ["string", "null"] }
+      }
+    },
+    "job": {
+      "type": "object",
+      "required": ["id", "name", "code", "summary"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "level": { "type": "string" },
+        "digital_occupation": { "type": "boolean" },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "summary": { "type": "string" }
+      }
+    },
+    "industry_path": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["level", "id", "name", "mapping_type", "source_id"],
+        "additionalProperties": false,
+        "properties": {
+          "level": { "enum": ["产业链", "产业链环节", "职业岗位群", "职业岗位"] },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "mapping_type": { "enum": ["teaching", "standard"] },
+          "source_id": { "type": "string" }
+        }
+      }
+    },
+    "classification_path": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["level", "name"],
+        "additionalProperties": false,
+        "properties": {
+          "level": { "enum": ["职业大类", "职业中类", "职业小类", "职业细类"] },
+          "name": { "type": "string" },
+          "code": { "type": "string" }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description", "competency_ids", "weight", "source", "data_basis"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "competency_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "weight": { "type": "number", "minimum": 0 },
+          "importance": { "type": ["integer", "null"], "minimum": 1, "maximum": 5 },
+          "frequency": { "type": ["integer", "null"], "minimum": 1, "maximum": 5 },
+          "difficulty": { "type": ["integer", "null"], "minimum": 1, "maximum": 5 },
+          "source": { "type": "string" },
+          "data_basis": { "type": "object" }
+        }
+      }
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "weight"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "maximum": 100 }
+        }
+      }
+    },
+    "competencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "domain_id", "name", "weight", "task_ids", "units", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "domain_id": { "type": "string" },
+          "name": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "maximum": 100 },
+          "task_ids": { "type": "array", "items": { "type": "string" } },
+          "source": { "type": "string" },
+          "units": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/definitions/unit" }
+          }
+        }
+      }
+    },
+    "elements": {
+      "type": "object",
+      "required": ["skills", "knowledge"],
+      "additionalProperties": false,
+      "properties": {
+        "skills": { "type": "array", "items": { "$ref": "#/definitions/skill" } },
+        "knowledge": { "type": "array", "items": { "$ref": "#/definitions/knowledge" } }
+      }
+    },
+    "views": {
+      "type": "object",
+      "required": ["mindmap", "radar", "graph", "sankey"],
+      "additionalProperties": false,
+      "properties": {
+        "mindmap": { "$ref": "#/definitions/mindmap" },
+        "radar": {
+          "type": "object",
+          "required": ["indicators", "series"],
+          "additionalProperties": false,
+          "properties": {
+            "indicators": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["name", "max"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": { "type": "string" },
+                  "max": { "type": "number", "exclusiveMinimum": 0 }
+                }
+              }
+            },
+            "series": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["name", "values"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": { "type": "string" },
+                  "values": { "type": "array", "items": { "type": "number" } }
+                }
+              }
+            }
+          }
+        },
+        "graph": {
+          "type": "object",
+          "required": ["nodes", "edges"],
+          "additionalProperties": false,
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["id", "name", "category", "value"],
+                "additionalProperties": false,
+                "properties": {
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "category": {
+                    "enum": [
+                      "INDUSTRY_CHAIN", "INDUSTRY_SEGMENT", "JOB_CLUSTER", "JOB",
+                      "CLASS_MAJOR", "CLASS_MIDDLE", "CLASS_MINOR", "CLASS_OCCUPATION",
+                      "WORK_TASK", "DOMAIN", "COMPETENCY", "COMPETENCY_UNIT",
+                      "SKILL_POINT", "KNOWLEDGE_POINT"
+                    ]
+                  },
+                  "value": { "type": "number" }
+                }
+              }
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["source", "target", "relation"],
+                "additionalProperties": false,
+                "properties": {
+                  "source": { "type": "string" },
+                  "target": { "type": "string" },
+                  "relation": {
+                    "enum": ["BELONGS_TO", "IN_SEGMENT", "IN_CLUSTER", "PERFORMS", "REQUIRES",
+                             "CONTAINS", "SUPPORTED_BY", "MAPS_TO"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sankey": {
+          "type": "object",
+          "required": ["nodes", "links"],
+          "additionalProperties": false,
+          "properties": {
+            "nodes": { "type": "array", "items": { "type": "object", "required": ["name"] } },
+            "links": { "type": "array", "items": { "type": "object", "required": ["source", "target", "value"] } }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["tasks", "competencies", "units", "skills", "knowledge", "knowledge_coverage"],
+      "additionalProperties": true,
+      "properties": {
+        "tasks": { "type": "integer", "minimum": 0 },
+        "competencies": { "type": "integer", "minimum": 0 },
+        "units": { "type": "integer", "minimum": 0 },
+        "skills": { "type": "integer", "minimum": 0 },
+        "knowledge": { "type": "integer", "minimum": 0 },
+        "knowledge_coverage": { "type": "number", "minimum": 0, "maximum": 100 },
+        "weighted_coverage": { "type": ["number", "null"] }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "version", "url", "retrieved_at"],
+        "additionalProperties": true,
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "url": { "type": "string" },
+          "retrieved_at": { "type": "string" }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["approved", "pending", "rejected"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "data_note": { "type": "string" }
+  },
+  "definitions": {
+    "skill": {
+      "type": "object",
+      "required": ["id", "name", "category", "competency_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "competency_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "knowledge": {
+      "type": "object",
+      "required": ["id", "name", "subject", "competency_ids", "covered"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "subject": { "type": "string" },
+        "matched_point": { "type": "string" },
+        "match_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "covered": { "type": "boolean" },
+        "competency_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "required": ["id", "statement", "level", "skills", "knowledge", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "statement": { "type": "string" },
+        "level": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "skills": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "name"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" }
+            }
+          }
+        },
+        "knowledge": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "subject", "covered"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "subject": { "type": "string" },
+              "matched_point": { "type": "string" },
+              "match_score": { "type": "number", "minimum": 0, "maximum": 1 },
+              "covered": { "type": "boolean" }
+            }
+          }
+        },
+        "source": { "type": "string" }
+      }
+    },
+    "mindmap": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "type": "number" },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/mindmap" }
+        }
+      }
+    }
+  }
+}

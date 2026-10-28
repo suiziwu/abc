@@ -22,6 +22,9 @@ public class AiChatHistory extends BaseEntity
     @Excel(name = "用户ID")
     private Long userId;
 
+    /** 关联岗位ID */
+    private Long positionId;
+
     /** 用户输入的目标岗位及描述 */
     @Excel(name = "用户输入的目标岗位及描述")
     private String userInput;
@@ -67,6 +70,16 @@ public class AiChatHistory extends BaseEntity
     public Long getUserId() 
     {
         return userId;
+    }
+
+    public void setPositionId(Long positionId) 
+    {
+        this.positionId = positionId;
+    }
+
+    public Long getPositionId() 
+    {
+        return positionId;
     }
 
     public void setUserInput(String userInput) 

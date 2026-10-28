@@ -1,0 +1,2256 @@
+{
+  "schema_version": "3.0.0",
+  "meta": {
+    "generated_at": "2026-10-28T09:19:34",
+    "mode": "kb",
+    "engine": "python-kb",
+    "engine_version": "3.0.0",
+    "kb_version": "3.0.0",
+    "graph_id": "KB-4-04-04-01",
+    "workflow_file": "gangwei-nengli-tupu-20261027.langgraph.json",
+    "workflow_steps": 7,
+    "workflow_sha256": "a6d660dc039e05b03b46071645d76eac3cd450b756872b87ec14f935289ed43d",
+    "workflow_nodes": [
+      "start",
+      "industry_chain_mapper",
+      "task_analyzer",
+      "competency_decomposer",
+      "element_mapper",
+      "graph_assembler",
+      "end"
+    ],
+    "model": "offline"
+  },
+  "job": {
+    "id": "JOB-4-04-04-01",
+    "name": "信息通信网络运行管理员",
+    "code": "4-04-04-01",
+    "level": "三级/高级工",
+    "level_note": "能力条目取自 2019 年版标准「三级/高级工」工作要求；权重取自同一标准技能要求权重表。该标准依据 2015 年版大典编制，2022 年版大典仍列同一职业编码。",
+    "digital_occupation": true,
+    "aliases": [
+      "计算机网络管理员",
+      "网络管理员",
+      "通信网络管理员",
+      "互联网网络管理员",
+      "网络运维工程师"
+    ],
+    "aliases_note": "计算机网络管理员为旧版职业名称，本项目按 2022 年版大典映射到 4-04-04-01；通信网络管理员、互联网网络管理员是该职业在大典中列出的工种；网络运维工程师为行业常见称谓。",
+    "summary": "从事信息通信网络运行配置管理、性能管理、优化管理和故障排除等工作的人员。",
+    "confidence": 0.9,
+    "matched_by": "alias"
+  },
+  "industry_path": [
+    {
+      "level": "产业链",
+      "id": "IND-ICT",
+      "name": "信息通信业",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "产业链环节",
+      "id": "IND-ICT-OPS",
+      "name": "网络运行维护",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位群",
+      "id": "CLU-ICT-OPS",
+      "name": "信息通信网络运行维护岗位群",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位",
+      "id": "JOB-4-04-04-01",
+      "name": "信息通信网络运行管理员",
+      "mapping_type": "standard",
+      "source_id": "4-04-04-01"
+    }
+  ],
+  "classification_path": [
+    {
+      "level": "职业大类",
+      "name": "4 社会生产服务和生活服务人员"
+    },
+    {
+      "level": "职业中类",
+      "name": "4-04 信息传输、软件和信息技术服务人员"
+    },
+    {
+      "level": "职业小类",
+      "name": "4-04-04 信息通信网络运行管理人员"
+    },
+    {
+      "level": "职业细类",
+      "name": "4-04-04-01 信息通信网络运行管理员S"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "name": "监控、优化和管理信息通信网络及设备",
+      "description": "监控、优化和管理信息通信网络及设备",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 1",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 11.7,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T02",
+      "name": "监控、分析和优化信息通信网络的性能及承载能力",
+      "description": "监控、分析和优化信息通信网络的性能及承载能力",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 2",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 11.7,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T03",
+      "name": "分析、评估信息通信网络性能和质量，采集、汇总、处理数据，并形成数据库",
+      "description": "分析、评估信息通信网络性能和质量，采集、汇总、处理数据，并形成数据库",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 3",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 11.7,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T04",
+      "name": "测试信息通信网络及设备，查找、判断和排除故障",
+      "description": "测试信息通信网络及设备，查找、判断和排除故障",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 4",
+      "competency_ids": [
+        "C2"
+      ],
+      "weight": 17.5,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T05",
+      "name": "使用网管系统，进行数据查询、统计",
+      "description": "使用网管系统，进行数据查询、统计",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 5",
+      "competency_ids": [
+        "C4"
+      ],
+      "weight": 10.0,
+      "importance": 2,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T06",
+      "name": "管理、调度、整合和优化信息通信网络资源",
+      "description": "管理、调度、整合和优化信息通信网络资源",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 6",
+      "competency_ids": [
+        "C3"
+      ],
+      "weight": 20.0,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T07",
+      "name": "演练、实施通信网络的应急通信保障预案",
+      "description": "演练、实施通信网络的应急通信保障预案",
+      "source": "SRC-CODEX 4-04-04-01 主要工作任务 7",
+      "competency_ids": [
+        "C2"
+      ],
+      "weight": 17.5,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "D1",
+      "name": "信息通信网络性能管理",
+      "weight": 35
+    },
+    {
+      "id": "D2",
+      "name": "信息通信网络故障管理",
+      "weight": 35
+    },
+    {
+      "id": "D3",
+      "name": "信息通信网络配置管理",
+      "weight": 20
+    },
+    {
+      "id": "D4",
+      "name": "网管系统管理",
+      "weight": 10
+    }
+  ],
+  "competencies": [
+    {
+      "id": "C1",
+      "name": "信息通信网络性能管理",
+      "domain_id": "D1",
+      "weight": 35,
+      "task_ids": [
+        "T01",
+        "T02",
+        "T03"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U11",
+          "statement": "性能监视",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 1.1",
+          "skills": [
+            {
+              "id": "SK01",
+              "name": "能使用网管系统设置性能数据的告警门限"
+            },
+            {
+              "id": "SK02",
+              "name": "能判定导致网络故障的性能数据异常问题"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP01",
+              "name": "网管系统性能数据告警设置方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            },
+            {
+              "id": "KP02",
+              "name": "网络性能数据对业务的影响",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.267,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U12",
+          "statement": "数据处理",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 1.2",
+          "skills": [
+            {
+              "id": "SK03",
+              "name": "能使用网管系统对采集的网络性能数据进行汇总"
+            },
+            {
+              "id": "SK04",
+              "name": "能对性能数据报表的准确性、完整性、及时性等指标进行检查，并给出结论"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP03",
+              "name": "网络性能数据汇总方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP04",
+              "name": "网络性能数据合规性检查方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.267,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U13",
+          "statement": "性能分析",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 1.3",
+          "skills": [
+            {
+              "id": "SK05",
+              "name": "能根据需要制定各项性能数据统计模版"
+            },
+            {
+              "id": "SK06",
+              "name": "能按照模板对网络运行的性能数据进行分析，发现网络运行中存在的问题"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP05",
+              "name": "网管性能统计模版使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            },
+            {
+              "id": "KP06",
+              "name": "网络性能数据分析方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U14",
+          "statement": "质量评估",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 1.4",
+          "skills": [
+            {
+              "id": "SK07",
+              "name": "能根据质量评估要求的内容，对报表数据进行质量评估"
+            },
+            {
+              "id": "SK08",
+              "name": "能依据报表数据判定网络的运行状态"
+            },
+            {
+              "id": "SK09",
+              "name": "能编写网络质量评估报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP07",
+              "name": "网络正常运行性能指标",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            },
+            {
+              "id": "KP08",
+              "name": "网络质量指标统计方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP09",
+              "name": "网络质量评估报告编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.429,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "信息通信网络故障管理",
+      "domain_id": "D2",
+      "weight": 35,
+      "task_ids": [
+        "T04",
+        "T07"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U21",
+          "statement": "故障监视",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 2.1",
+          "skills": [
+            {
+              "id": "SK10",
+              "name": "能使用网管系统设置故障的告警门限"
+            },
+            {
+              "id": "SK11",
+              "name": "能通过日常巡视检查发现网络设备存在的故障和隐患"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP10",
+              "name": "网管系统告警门限设置操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.2,
+              "covered": false
+            },
+            {
+              "id": "KP11",
+              "name": "网络设备巡检方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U22",
+          "statement": "数据处理",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 2.2",
+          "skills": [
+            {
+              "id": "SK12",
+              "name": "能对告警统计报表进行分析并提出减少告警的建议"
+            },
+            {
+              "id": "SK13",
+              "name": "能根据归类统计的故障原因，编写网络运行报告"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP12",
+              "name": "网管告警关联性知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.182,
+              "covered": false
+            },
+            {
+              "id": "KP13",
+              "name": "网络故障原因分类知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U23",
+          "statement": "故障处理",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 2.3",
+          "skills": [
+            {
+              "id": "SK14",
+              "name": "能对监控界面的告警信息进行告警确认、删除、重定义等各项操作"
+            },
+            {
+              "id": "SK15",
+              "name": "能对网络故障进行分析判断，定位故障设备"
+            },
+            {
+              "id": "SK16",
+              "name": "能在故障消除后进行业务恢复及验证测试"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP14",
+              "name": "网管系统告警操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            },
+            {
+              "id": "KP15",
+              "name": "网络故障定位方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            },
+            {
+              "id": "KP16",
+              "name": "业务验证测试方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "信息通信网络配置管理",
+      "domain_id": "D3",
+      "weight": 20,
+      "task_ids": [
+        "T06"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U31",
+          "statement": "网络配置",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 3.1",
+          "skills": [
+            {
+              "id": "SK17",
+              "name": "能对网络配置数据测试的准确性进行判定"
+            },
+            {
+              "id": "SK18",
+              "name": "能对配置数据的测试结果进行汇总上报"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP17",
+              "name": "专业网络配置参数知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            },
+            {
+              "id": "KP18",
+              "name": "专业测试终端使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.429,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U32",
+          "statement": "资源调度",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 3.2",
+          "skills": [
+            {
+              "id": "SK19",
+              "name": "能依据网络变动情况更新网管系统资源配置"
+            },
+            {
+              "id": "SK20",
+              "name": "能对网络资源的调度方案提出建议"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP19",
+              "name": "网管系统资源配置操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.222,
+              "covered": false
+            },
+            {
+              "id": "KP20",
+              "name": "网络资源调度流程",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.5,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "网管系统管理",
+      "domain_id": "D4",
+      "weight": 10,
+      "task_ids": [
+        "T05"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U41",
+          "statement": "系统管理",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 4.1",
+          "skills": [
+            {
+              "id": "SK21",
+              "name": "能执行网管系统的维护作业计划"
+            },
+            {
+              "id": "SK22",
+              "name": "能按照网管系统的安全管理要求进行操作"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP21",
+              "name": "网管系统维护操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            },
+            {
+              "id": "KP22",
+              "name": "网管系统安全知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.333,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U42",
+          "statement": "应用管理",
+          "level": 3,
+          "source": "SRC-STD-03 3.2 4.2",
+          "skills": [
+            {
+              "id": "SK23",
+              "name": "能进行网管系统应用操作"
+            },
+            {
+              "id": "SK24",
+              "name": "能实施网管系统和网元的对接，并验证数据同步"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP23",
+              "name": "网管系统结构和各功能模块操作方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.182,
+              "covered": false
+            },
+            {
+              "id": "KP24",
+              "name": "网络管理协议基础知识",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": {
+    "skills": [
+      {
+        "id": "SK01",
+        "name": "能使用网管系统设置性能数据的告警门限",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK02",
+        "name": "能判定导致网络故障的性能数据异常问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK03",
+        "name": "能使用网管系统对采集的网络性能数据进行汇总",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK04",
+        "name": "能对性能数据报表的准确性、完整性、及时性等指标进行检查，并给出结论",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK05",
+        "name": "能根据需要制定各项性能数据统计模版",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK06",
+        "name": "能按照模板对网络运行的性能数据进行分析，发现网络运行中存在的问题",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK07",
+        "name": "能根据质量评估要求的内容，对报表数据进行质量评估",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK08",
+        "name": "能依据报表数据判定网络的运行状态",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK09",
+        "name": "能编写网络质量评估报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK10",
+        "name": "能使用网管系统设置故障的告警门限",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK11",
+        "name": "能通过日常巡视检查发现网络设备存在的故障和隐患",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK12",
+        "name": "能对告警统计报表进行分析并提出减少告警的建议",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK13",
+        "name": "能根据归类统计的故障原因，编写网络运行报告",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK14",
+        "name": "能对监控界面的告警信息进行告警确认、删除、重定义等各项操作",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK15",
+        "name": "能对网络故障进行分析判断，定位故障设备",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK16",
+        "name": "能在故障消除后进行业务恢复及验证测试",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK17",
+        "name": "能对网络配置数据测试的准确性进行判定",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK18",
+        "name": "能对配置数据的测试结果进行汇总上报",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK19",
+        "name": "能依据网络变动情况更新网管系统资源配置",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK20",
+        "name": "能对网络资源的调度方案提出建议",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK21",
+        "name": "能执行网管系统的维护作业计划",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK22",
+        "name": "能按照网管系统的安全管理要求进行操作",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK23",
+        "name": "能进行网管系统应用操作",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "SK24",
+        "name": "能实施网管系统和网元的对接，并验证数据同步",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C4"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "id": "KP01",
+        "name": "网管系统性能数据告警设置方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP02",
+        "name": "网络性能数据对业务的影响",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.267,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP03",
+        "name": "网络性能数据汇总方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP04",
+        "name": "网络性能数据合规性检查方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.267,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP05",
+        "name": "网管性能统计模版使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP06",
+        "name": "网络性能数据分析方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP07",
+        "name": "网络正常运行性能指标",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP08",
+        "name": "网络质量指标统计方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP09",
+        "name": "网络质量评估报告编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.429,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP10",
+        "name": "网管系统告警门限设置操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.2,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP11",
+        "name": "网络设备巡检方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP12",
+        "name": "网管告警关联性知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.182,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP13",
+        "name": "网络故障原因分类知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP14",
+        "name": "网管系统告警操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP15",
+        "name": "网络故障定位方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP16",
+        "name": "业务验证测试方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP17",
+        "name": "专业网络配置参数知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP18",
+        "name": "专业测试终端使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.429,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP19",
+        "name": "网管系统资源配置操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.222,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP20",
+        "name": "网络资源调度流程",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.5,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP21",
+        "name": "网管系统维护操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP22",
+        "name": "网管系统安全知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.333,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP23",
+        "name": "网管系统结构和各功能模块操作方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.182,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      },
+      {
+        "id": "KP24",
+        "name": "网络管理协议基础知识",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C4"
+        ]
+      }
+    ]
+  },
+  "views": {
+    "mindmap": {
+      "name": "岗位：信息通信网络运行管理员",
+      "children": [
+        {
+          "name": "产业链：信息通信业",
+          "children": [
+            {
+              "name": "岗位群：信息通信网络运行维护岗位群",
+              "children": [
+                {
+                  "name": "信息通信网络性能管理（权重35%）",
+                  "value": 35,
+                  "children": [
+                    {
+                      "name": "性能监视（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用网管系统设置性能数据的告警门限",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能判定导致网络故障的性能数据异常问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统性能数据告警设置方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络性能数据对业务的影响",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据处理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用网管系统对采集的网络性能数据进行汇总",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能对性能数据报表的准确性、完整性、及时性等指标进行检查，并给出结论",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络性能数据汇总方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络性能数据合规性检查方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "性能分析（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能根据需要制定各项性能数据统计模版",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能按照模板对网络运行的性能数据进行分析，发现网络运行中存在的问题",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管性能统计模版使用方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络性能数据分析方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "质量评估（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能根据质量评估要求的内容，对报表数据进行质量评估",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能依据报表数据判定网络的运行状态",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写网络质量评估报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络正常运行性能指标",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络质量指标统计方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络质量评估报告编写方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "信息通信网络故障管理（权重35%）",
+                  "value": 35,
+                  "children": [
+                    {
+                      "name": "故障监视（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用网管系统设置故障的告警门限",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能通过日常巡视检查发现网络设备存在的故障和隐患",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统告警门限设置操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络设备巡检方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据处理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能对告警统计报表进行分析并提出减少告警的建议",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能根据归类统计的故障原因，编写网络运行报告",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管告警关联性知识",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络故障原因分类知识",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "故障处理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能对监控界面的告警信息进行告警确认、删除、重定义等各项操作",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能对网络故障进行分析判断，定位故障设备",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能在故障消除后进行业务恢复及验证测试",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统告警操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络故障定位方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：业务验证测试方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "信息通信网络配置管理（权重20%）",
+                  "value": 20,
+                  "children": [
+                    {
+                      "name": "网络配置（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能对网络配置数据测试的准确性进行判定",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能对配置数据的测试结果进行汇总上报",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：专业网络配置参数知识",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：专业测试终端使用方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "资源调度（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能依据网络变动情况更新网管系统资源配置",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能对网络资源的调度方案提出建议",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统资源配置操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络资源调度流程",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "网管系统管理（权重10%）",
+                  "value": 10,
+                  "children": [
+                    {
+                      "name": "系统管理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能执行网管系统的维护作业计划",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能按照网管系统的安全管理要求进行操作",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统维护操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统安全知识",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "应用管理（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能进行网管系统应用操作",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能实施网管系统和网元的对接，并验证数据同步",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网管系统结构和各功能模块操作方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：网络管理协议基础知识",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "radar": {
+      "indicators": [
+        {
+          "name": "信息通信网络性能管理",
+          "max": 100
+        },
+        {
+          "name": "信息通信网络故障管理",
+          "max": 100
+        },
+        {
+          "name": "信息通信网络配置管理",
+          "max": 100
+        },
+        {
+          "name": "网管系统管理",
+          "max": 100
+        }
+      ],
+      "series": [
+        {
+          "name": "岗位要求权重",
+          "values": [
+            35,
+            35,
+            20,
+            10
+          ]
+        },
+        {
+          "name": "课程库匹配度",
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "graph": {
+      "nodes": [
+        {
+          "id": "IND1",
+          "name": "产业链：信息通信业",
+          "category": "INDUSTRY_CHAIN",
+          "value": 100
+        },
+        {
+          "id": "CLU1",
+          "name": "岗位群：信息通信网络运行维护岗位群",
+          "category": "JOB_CLUSTER",
+          "value": 80
+        },
+        {
+          "id": "JOB1",
+          "name": "信息通信网络运行管理员",
+          "category": "JOB",
+          "value": 60
+        },
+        {
+          "id": "C1",
+          "name": "信息通信网络性能管理",
+          "category": "COMPETENCY",
+          "value": 35
+        },
+        {
+          "id": "U11",
+          "name": "性能监视",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U12",
+          "name": "数据处理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U13",
+          "name": "性能分析",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U14",
+          "name": "质量评估",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C2",
+          "name": "信息通信网络故障管理",
+          "category": "COMPETENCY",
+          "value": 35
+        },
+        {
+          "id": "U21",
+          "name": "故障监视",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U22",
+          "name": "数据处理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U23",
+          "name": "故障处理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C3",
+          "name": "信息通信网络配置管理",
+          "category": "COMPETENCY",
+          "value": 20
+        },
+        {
+          "id": "U31",
+          "name": "网络配置",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U32",
+          "name": "资源调度",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C4",
+          "name": "网管系统管理",
+          "category": "COMPETENCY",
+          "value": 10
+        },
+        {
+          "id": "U41",
+          "name": "系统管理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U42",
+          "name": "应用管理",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "SK01",
+          "name": "能使用网管系统设置性能数据的告警门限",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK02",
+          "name": "能判定导致网络故障的性能数据异常问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK03",
+          "name": "能使用网管系统对采集的网络性能数据进行汇总",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK04",
+          "name": "能对性能数据报表的准确性、完整性、及时性等指标进行检查，并给出结论",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK05",
+          "name": "能根据需要制定各项性能数据统计模版",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK06",
+          "name": "能按照模板对网络运行的性能数据进行分析，发现网络运行中存在的问题",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK07",
+          "name": "能根据质量评估要求的内容，对报表数据进行质量评估",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK08",
+          "name": "能依据报表数据判定网络的运行状态",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK09",
+          "name": "能编写网络质量评估报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK10",
+          "name": "能使用网管系统设置故障的告警门限",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK11",
+          "name": "能通过日常巡视检查发现网络设备存在的故障和隐患",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK12",
+          "name": "能对告警统计报表进行分析并提出减少告警的建议",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK13",
+          "name": "能根据归类统计的故障原因，编写网络运行报告",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK14",
+          "name": "能对监控界面的告警信息进行告警确认、删除、重定义等各项操作",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK15",
+          "name": "能对网络故障进行分析判断，定位故障设备",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK16",
+          "name": "能在故障消除后进行业务恢复及验证测试",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK17",
+          "name": "能对网络配置数据测试的准确性进行判定",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK18",
+          "name": "能对配置数据的测试结果进行汇总上报",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK19",
+          "name": "能依据网络变动情况更新网管系统资源配置",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK20",
+          "name": "能对网络资源的调度方案提出建议",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK21",
+          "name": "能执行网管系统的维护作业计划",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK22",
+          "name": "能按照网管系统的安全管理要求进行操作",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK23",
+          "name": "能进行网管系统应用操作",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK24",
+          "name": "能实施网管系统和网元的对接，并验证数据同步",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP01",
+          "name": "网管系统性能数据告警设置方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP02",
+          "name": "网络性能数据对业务的影响",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP03",
+          "name": "网络性能数据汇总方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP04",
+          "name": "网络性能数据合规性检查方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP05",
+          "name": "网管性能统计模版使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP06",
+          "name": "网络性能数据分析方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP07",
+          "name": "网络正常运行性能指标",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP08",
+          "name": "网络质量指标统计方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP09",
+          "name": "网络质量评估报告编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP10",
+          "name": "网管系统告警门限设置操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP11",
+          "name": "网络设备巡检方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP12",
+          "name": "网管告警关联性知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP13",
+          "name": "网络故障原因分类知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP14",
+          "name": "网管系统告警操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP15",
+          "name": "网络故障定位方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP16",
+          "name": "业务验证测试方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP17",
+          "name": "专业网络配置参数知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP18",
+          "name": "专业测试终端使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP19",
+          "name": "网管系统资源配置操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP20",
+          "name": "网络资源调度流程",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP21",
+          "name": "网管系统维护操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP22",
+          "name": "网管系统安全知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP23",
+          "name": "网管系统结构和各功能模块操作方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP24",
+          "name": "网络管理协议基础知识",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "IND1",
+          "target": "CLU1",
+          "relation": "IN_CLUSTER"
+        },
+        {
+          "source": "CLU1",
+          "target": "JOB1",
+          "relation": "BELONGS_TO"
+        },
+        {
+          "source": "JOB1",
+          "target": "C1",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C1",
+          "target": "U11",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U11",
+          "target": "SK01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "SK02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U12",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U12",
+          "target": "SK03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U13",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U13",
+          "target": "SK05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "SK06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "KP05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U13",
+          "target": "KP06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U14",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U14",
+          "target": "SK07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U14",
+          "target": "SK08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U14",
+          "target": "SK09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U14",
+          "target": "KP07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U14",
+          "target": "KP08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U14",
+          "target": "KP09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C2",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C2",
+          "target": "U21",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U21",
+          "target": "SK10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U22",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U22",
+          "target": "SK12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U23",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U23",
+          "target": "SK14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "SK15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "SK16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C3",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C3",
+          "target": "U31",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U31",
+          "target": "SK17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "SK18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C3",
+          "target": "U32",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U32",
+          "target": "SK19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "SK20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C4",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C4",
+          "target": "U41",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U41",
+          "target": "SK21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "SK22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U41",
+          "target": "KP22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C4",
+          "target": "U42",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U42",
+          "target": "SK23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "SK24",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U42",
+          "target": "KP24",
+          "relation": "SUPPORTED_BY"
+        }
+      ]
+    },
+    "sankey": {
+      "nodes": [],
+      "links": []
+    }
+  },
+  "coverage": {
+    "tasks": 7,
+    "competencies": 4,
+    "units": 11,
+    "skills": 24,
+    "knowledge": 24,
+    "knowledge_coverage": 0.0,
+    "weighted_coverage": null,
+    "domains": 4,
+    "domains_supported": 0
+  },
+  "sources": [
+    {
+      "name": "中华人民共和国职业分类大典（2022年版）",
+      "version": "2022年版",
+      "url": "https://www.bdagh.com/upload/1/cms/content/editor/1712798188409.pdf",
+      "retrieved_at": "2026-10-27"
+    },
+    {
+      "name": "信息通信网络运行管理员 国家职业技能标准（2019年版）",
+      "version": "4-04-04-01",
+      "url": "https://chinajob.mohrss.gov.cn/upload/resources/jnbzpdf/4ccc6a76ab6420078cc004.pdf",
+      "retrieved_at": "2026-10-27"
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "reviewer": "standard-transcription",
+    "reviewed_at": "2026-10-27",
+    "notes": "能力条目逐条对应国家职业标准原文；产业链为教学映射。"
+  },
+  "data_note": "能力条目逐条对应国家职业标准条款；产业链为教学映射，课程库匹配度为名称相似度自动计算结果。"
+}

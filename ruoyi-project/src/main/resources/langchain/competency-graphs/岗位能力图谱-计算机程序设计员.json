@@ -1,0 +1,2167 @@
+{
+  "schema_version": "3.0.0",
+  "meta": {
+    "generated_at": "2026-10-28T09:19:29",
+    "mode": "kb",
+    "engine": "python-kb",
+    "engine_version": "3.0.0",
+    "kb_version": "3.0.0",
+    "graph_id": "KB-4-04-05-01",
+    "workflow_file": "gangwei-nengli-tupu-20261027.langgraph.json",
+    "workflow_steps": 7,
+    "workflow_sha256": "a6d660dc039e05b03b46071645d76eac3cd450b756872b87ec14f935289ed43d",
+    "workflow_nodes": [
+      "start",
+      "industry_chain_mapper",
+      "task_analyzer",
+      "competency_decomposer",
+      "element_mapper",
+      "graph_assembler",
+      "end"
+    ],
+    "model": "offline"
+  },
+  "job": {
+    "id": "JOB-4-04-05-01",
+    "name": "计算机程序设计员",
+    "code": "4-04-05-01",
+    "level": "三级/高级工",
+    "level_note": "能力条目取自 2022 年版标准「三级/高级工」工作要求；权重取自同一标准的技能要求权重表。",
+    "digital_occupation": true,
+    "aliases": [
+      "程序员",
+      "软件开发工程师",
+      "Java后端开发工程师",
+      "Java开发工程师",
+      "后端开发工程师"
+    ],
+    "aliases_note": "前两个为常见俗称；后三个为本项目教学岗位方向的映射，用于检索，不代表职业标准中的职业名称。",
+    "summary": "从事计算机和移动终端应用程序设计、编制工作的人员。",
+    "confidence": 0.95,
+    "matched_by": "exact"
+  },
+  "industry_path": [
+    {
+      "level": "产业链",
+      "id": "IND-SW",
+      "name": "软件和信息技术服务业",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "产业链环节",
+      "id": "IND-SW-DEV",
+      "name": "软件开发与交付",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位群",
+      "id": "CLU-SW-APP",
+      "name": "应用软件开发岗位群",
+      "mapping_type": "teaching",
+      "source_id": "TEACH-MAP-2026-01"
+    },
+    {
+      "level": "职业岗位",
+      "id": "JOB-4-04-05-01",
+      "name": "计算机程序设计员",
+      "mapping_type": "standard",
+      "source_id": "4-04-05-01"
+    }
+  ],
+  "classification_path": [
+    {
+      "level": "职业大类",
+      "name": "4 社会生产服务和生活服务人员"
+    },
+    {
+      "level": "职业中类",
+      "name": "4-04 信息传输、软件和信息技术服务人员"
+    },
+    {
+      "level": "职业小类",
+      "name": "4-04-05 软件和信息技术服务人员"
+    },
+    {
+      "level": "职业细类",
+      "name": "4-04-05-01 计算机程序设计员S"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "name": "分析开发需求的概要和细节",
+      "description": "分析开发需求的概要和细节",
+      "source": "SRC-CODEX 4-04-05-01 主要工作任务 1",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 7.5,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T02",
+      "name": "编写、提交模块设计详细文档",
+      "description": "编写、提交模块设计详细文档",
+      "source": "SRC-CODEX 4-04-05-01 主要工作任务 2",
+      "competency_ids": [
+        "C1"
+      ],
+      "weight": 7.5,
+      "importance": 3,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T03",
+      "name": "编写、修改程序代码",
+      "description": "编写、修改程序代码",
+      "source": "SRC-CODEX 4-04-05-01 主要工作任务 3",
+      "competency_ids": [
+        "C2"
+      ],
+      "weight": 55.0,
+      "importance": 5,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    },
+    {
+      "id": "T04",
+      "name": "验证程序代码的正确性和模块功能的实现程度",
+      "description": "验证程序代码的正确性和模块功能的实现程度",
+      "source": "SRC-CODEX 4-04-05-01 主要工作任务 4",
+      "competency_ids": [
+        "C3"
+      ],
+      "weight": 30.0,
+      "importance": 4,
+      "frequency": null,
+      "difficulty": 4,
+      "data_basis": {
+        "importance": "derived_from_competency_weight",
+        "difficulty": "derived_from_unit_level",
+        "frequency": "not_in_standard"
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "D1",
+      "name": "程序开发准备",
+      "weight": 15
+    },
+    {
+      "id": "D2",
+      "name": "程序编写与修改",
+      "weight": 55
+    },
+    {
+      "id": "D3",
+      "name": "程序调试与验证",
+      "weight": 30
+    }
+  ],
+  "competencies": [
+    {
+      "id": "C1",
+      "name": "程序开发准备",
+      "domain_id": "D1",
+      "weight": 15,
+      "task_ids": [
+        "T01",
+        "T02"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U11",
+          "statement": "识读、分析设计文档",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 1.1",
+          "skills": [
+            {
+              "id": "SK01",
+              "name": "能识读模块设计概要文档"
+            },
+            {
+              "id": "SK02",
+              "name": "能分析软件模块详细设计"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP01",
+              "name": "模块设计概要文档的结构及识读方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.222,
+              "covered": false
+            },
+            {
+              "id": "KP02",
+              "name": "软件模块详细设计的分析方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.375,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U12",
+          "statement": "编写、提交设计文档",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 1.2",
+          "skills": [
+            {
+              "id": "SK03",
+              "name": "能使用软件设计工具编写设计文档"
+            },
+            {
+              "id": "SK04",
+              "name": "能编写、提交模块设计文档"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP03",
+              "name": "软件设计工具的类型和使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.353,
+              "covered": false
+            },
+            {
+              "id": "KP04",
+              "name": "模块设计文档的编写和提交方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.235,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "程序编写与修改",
+      "domain_id": "D2",
+      "weight": 55,
+      "task_ids": [
+        "T03"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U21",
+          "statement": "桌面程序设计",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 2.1",
+          "skills": [
+            {
+              "id": "SK05",
+              "name": "能编写多文档模块代码"
+            },
+            {
+              "id": "SK06",
+              "name": "能编写视图与文档程序"
+            },
+            {
+              "id": "SK07",
+              "name": "能编写状态栏和工具栏程序"
+            },
+            {
+              "id": "SK08",
+              "name": "能调用组件库编译程序"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP05",
+              "name": "多文档模块代码的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.154,
+              "covered": false
+            },
+            {
+              "id": "KP06",
+              "name": "视图与文档程序编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.167,
+              "covered": false
+            },
+            {
+              "id": "KP07",
+              "name": "状态栏与工具栏程序编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.143,
+              "covered": false
+            },
+            {
+              "id": "KP08",
+              "name": "组件和组件库调用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.2,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U22",
+          "statement": "网页（WEB）程序设计",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 2.2",
+          "skills": [
+            {
+              "id": "SK09",
+              "name": "能开发动态网页代码"
+            },
+            {
+              "id": "SK10",
+              "name": "能使用 WEB 框架技术编写代码"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP09",
+              "name": "动态网页代码的开发方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.222,
+              "covered": false
+            },
+            {
+              "id": "KP10",
+              "name": "WEB 框架使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.364,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U23",
+          "statement": "数据库程序设计",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 2.3",
+          "skills": [
+            {
+              "id": "SK11",
+              "name": "能安装、创建、配置和删除数据库"
+            },
+            {
+              "id": "SK12",
+              "name": "能编写数据库表程序代码"
+            },
+            {
+              "id": "SK13",
+              "name": "能编写数据库函数及函数调用程序代码"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP11",
+              "name": "安装、创建、配置和删除数据库的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            },
+            {
+              "id": "KP12",
+              "name": "数据库表程序代码的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.316,
+              "covered": false
+            },
+            {
+              "id": "KP13",
+              "name": "数据库函数及函数调用程序代码的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.25,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U24",
+          "statement": "网络应用程序设计",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 2.4",
+          "skills": [
+            {
+              "id": "SK14",
+              "name": "能使用 Socket 编写收发数据程序"
+            },
+            {
+              "id": "SK15",
+              "name": "能编写 TCP、UDP 程序"
+            },
+            {
+              "id": "SK16",
+              "name": "能编写 TCP/IP 异步处理程序"
+            },
+            {
+              "id": "SK17",
+              "name": "能编写 TCP/IP 出错处理程序"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP14",
+              "name": "Socket 的工作原理和使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.261,
+              "covered": false
+            },
+            {
+              "id": "KP15",
+              "name": "TCP 和 UDP 程序的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.133,
+              "covered": false
+            },
+            {
+              "id": "KP16",
+              "name": "TCP/IP 异步处理程序的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.3,
+              "covered": false
+            },
+            {
+              "id": "KP17",
+              "name": "TCP/IP 出错处理程序的编写方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.2,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U25",
+          "statement": "移动终端应用程序设计",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 2.5",
+          "skills": [
+            {
+              "id": "SK18",
+              "name": "能开发移动终端应用程序"
+            },
+            {
+              "id": "SK19",
+              "name": "能开发移动终端小程序"
+            },
+            {
+              "id": "SK20",
+              "name": "能使用组件开发移动终端图形界面"
+            },
+            {
+              "id": "SK21",
+              "name": "能完成移动终端应用程序与后端接口的交互开发"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP18",
+              "name": "移动终端应用程序开发方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.267,
+              "covered": false
+            },
+            {
+              "id": "KP19",
+              "name": "移动终端小程序开发方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.286,
+              "covered": false
+            },
+            {
+              "id": "KP20",
+              "name": "使用组件开发移动终端图形界面的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.167,
+              "covered": false
+            },
+            {
+              "id": "KP21",
+              "name": "移动终端应用程序与后端接口的交互开发方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.2,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "程序调试与验证",
+      "domain_id": "D3",
+      "weight": 30,
+      "task_ids": [
+        "T04"
+      ],
+      "source": "",
+      "units": [
+        {
+          "id": "U31",
+          "statement": "程序调试",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 3.1",
+          "skills": [
+            {
+              "id": "SK22",
+              "name": "能设置远程调试环境"
+            },
+            {
+              "id": "SK23",
+              "name": "能进行远程调试"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP22",
+              "name": "远程调试环境的要素和设置方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.235,
+              "covered": false
+            },
+            {
+              "id": "KP23",
+              "name": "远程调试的类型和方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.364,
+              "covered": false
+            }
+          ]
+        },
+        {
+          "id": "U32",
+          "statement": "功能验证",
+          "level": 3,
+          "source": "SRC-STD-01 3.3 3.2",
+          "skills": [
+            {
+              "id": "SK24",
+              "name": "能使用功能测试工具进行代码自测"
+            },
+            {
+              "id": "SK25",
+              "name": "能运用边界值、等价类等技术进行功能性验证"
+            }
+          ],
+          "knowledge": [
+            {
+              "id": "KP24",
+              "name": "功能测试工具的类型和使用方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.4,
+              "covered": false
+            },
+            {
+              "id": "KP25",
+              "name": "运用边界值、等价类等技术进行功能性验证的方法",
+              "subject": "",
+              "matched_point": "",
+              "match_score": 0.182,
+              "covered": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": {
+    "skills": [
+      {
+        "id": "SK01",
+        "name": "能识读模块设计概要文档",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK02",
+        "name": "能分析软件模块详细设计",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK03",
+        "name": "能使用软件设计工具编写设计文档",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK04",
+        "name": "能编写、提交模块设计文档",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "SK05",
+        "name": "能编写多文档模块代码",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK06",
+        "name": "能编写视图与文档程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK07",
+        "name": "能编写状态栏和工具栏程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK08",
+        "name": "能调用组件库编译程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK09",
+        "name": "能开发动态网页代码",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK10",
+        "name": "能使用 WEB 框架技术编写代码",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK11",
+        "name": "能安装、创建、配置和删除数据库",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK12",
+        "name": "能编写数据库表程序代码",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK13",
+        "name": "能编写数据库函数及函数调用程序代码",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK14",
+        "name": "能使用 Socket 编写收发数据程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK15",
+        "name": "能编写 TCP、UDP 程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK16",
+        "name": "能编写 TCP/IP 异步处理程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK17",
+        "name": "能编写 TCP/IP 出错处理程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK18",
+        "name": "能开发移动终端应用程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK19",
+        "name": "能开发移动终端小程序",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK20",
+        "name": "能使用组件开发移动终端图形界面",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK21",
+        "name": "能完成移动终端应用程序与后端接口的交互开发",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "SK22",
+        "name": "能设置远程调试环境",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK23",
+        "name": "能进行远程调试",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK24",
+        "name": "能使用功能测试工具进行代码自测",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "SK25",
+        "name": "能运用边界值、等价类等技术进行功能性验证",
+        "category": "岗位技能要求",
+        "competency_ids": [
+          "C3"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "id": "KP01",
+        "name": "模块设计概要文档的结构及识读方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.222,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP02",
+        "name": "软件模块详细设计的分析方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.375,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP03",
+        "name": "软件设计工具的类型和使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.353,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP04",
+        "name": "模块设计文档的编写和提交方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.235,
+        "covered": false,
+        "competency_ids": [
+          "C1"
+        ]
+      },
+      {
+        "id": "KP05",
+        "name": "多文档模块代码的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.154,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP06",
+        "name": "视图与文档程序编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.167,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP07",
+        "name": "状态栏与工具栏程序编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.143,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP08",
+        "name": "组件和组件库调用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.2,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP09",
+        "name": "动态网页代码的开发方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.222,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP10",
+        "name": "WEB 框架使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.364,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP11",
+        "name": "安装、创建、配置和删除数据库的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP12",
+        "name": "数据库表程序代码的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.316,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP13",
+        "name": "数据库函数及函数调用程序代码的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.25,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP14",
+        "name": "Socket 的工作原理和使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.261,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP15",
+        "name": "TCP 和 UDP 程序的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.133,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP16",
+        "name": "TCP/IP 异步处理程序的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.3,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP17",
+        "name": "TCP/IP 出错处理程序的编写方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.2,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP18",
+        "name": "移动终端应用程序开发方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.267,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP19",
+        "name": "移动终端小程序开发方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.286,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP20",
+        "name": "使用组件开发移动终端图形界面的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.167,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP21",
+        "name": "移动终端应用程序与后端接口的交互开发方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.2,
+        "covered": false,
+        "competency_ids": [
+          "C2"
+        ]
+      },
+      {
+        "id": "KP22",
+        "name": "远程调试环境的要素和设置方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.235,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP23",
+        "name": "远程调试的类型和方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.364,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP24",
+        "name": "功能测试工具的类型和使用方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.4,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      },
+      {
+        "id": "KP25",
+        "name": "运用边界值、等价类等技术进行功能性验证的方法",
+        "subject": "",
+        "matched_point": "",
+        "match_score": 0.182,
+        "covered": false,
+        "competency_ids": [
+          "C3"
+        ]
+      }
+    ]
+  },
+  "views": {
+    "mindmap": {
+      "name": "岗位：计算机程序设计员",
+      "children": [
+        {
+          "name": "产业链：软件和信息技术服务业",
+          "children": [
+            {
+              "name": "岗位群：应用软件开发岗位群",
+              "children": [
+                {
+                  "name": "程序开发准备（权重15%）",
+                  "value": 15,
+                  "children": [
+                    {
+                      "name": "识读、分析设计文档（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能识读模块设计概要文档",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能分析软件模块详细设计",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：模块设计概要文档的结构及识读方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：软件模块详细设计的分析方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "编写、提交设计文档（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用软件设计工具编写设计文档",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写、提交模块设计文档",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：软件设计工具的类型和使用方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：模块设计文档的编写和提交方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "程序编写与修改（权重55%）",
+                  "value": 55,
+                  "children": [
+                    {
+                      "name": "桌面程序设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能编写多文档模块代码",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写视图与文档程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写状态栏和工具栏程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能调用组件库编译程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：多文档模块代码的编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：视图与文档程序编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：状态栏与工具栏程序编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：组件和组件库调用方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "网页（WEB）程序设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能开发动态网页代码",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能使用 WEB 框架技术编写代码",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：动态网页代码的开发方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：WEB 框架使用方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "数据库程序设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能安装、创建、配置和删除数据库",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写数据库表程序代码",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写数据库函数及函数调用程序代码",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：安装、创建、配置和删除数据库的方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库表程序代码的编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：数据库函数及函数调用程序代码的编写方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "网络应用程序设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用 Socket 编写收发数据程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写 TCP、UDP 程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写 TCP/IP 异步处理程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能编写 TCP/IP 出错处理程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：Socket 的工作原理和使用方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：TCP 和 UDP 程序的编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：TCP/IP 异步处理程序的编写方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：TCP/IP 出错处理程序的编写方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "移动终端应用程序设计（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能开发移动终端应用程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能开发移动终端小程序",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能使用组件开发移动终端图形界面",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能完成移动终端应用程序与后端接口的交互开发",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：移动终端应用程序开发方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：移动终端小程序开发方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：使用组件开发移动终端图形界面的方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：移动终端应用程序与后端接口的交互开发方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "程序调试与验证（权重30%）",
+                  "value": 30,
+                  "children": [
+                    {
+                      "name": "程序调试（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能设置远程调试环境",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能进行远程调试",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：远程调试环境的要素和设置方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：远程调试的类型和方法",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "name": "功能验证（L3）",
+                      "value": 3,
+                      "children": [
+                        {
+                          "name": "技能：能使用功能测试工具进行代码自测",
+                          "value": 1
+                        },
+                        {
+                          "name": "技能：能运用边界值、等价类等技术进行功能性验证",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：功能测试工具的类型和使用方法",
+                          "value": 1
+                        },
+                        {
+                          "name": "知识：运用边界值、等价类等技术进行功能性验证的方法",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "radar": {
+      "indicators": [
+        {
+          "name": "程序开发准备",
+          "max": 100
+        },
+        {
+          "name": "程序编写与修改",
+          "max": 100
+        },
+        {
+          "name": "程序调试与验证",
+          "max": 100
+        }
+      ],
+      "series": [
+        {
+          "name": "岗位要求权重",
+          "values": [
+            15,
+            55,
+            30
+          ]
+        },
+        {
+          "name": "课程库匹配度",
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "graph": {
+      "nodes": [
+        {
+          "id": "IND1",
+          "name": "产业链：软件和信息技术服务业",
+          "category": "INDUSTRY_CHAIN",
+          "value": 100
+        },
+        {
+          "id": "CLU1",
+          "name": "岗位群：应用软件开发岗位群",
+          "category": "JOB_CLUSTER",
+          "value": 80
+        },
+        {
+          "id": "JOB1",
+          "name": "计算机程序设计员",
+          "category": "JOB",
+          "value": 60
+        },
+        {
+          "id": "C1",
+          "name": "程序开发准备",
+          "category": "COMPETENCY",
+          "value": 15
+        },
+        {
+          "id": "U11",
+          "name": "识读、分析设计文档",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U12",
+          "name": "编写、提交设计文档",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C2",
+          "name": "程序编写与修改",
+          "category": "COMPETENCY",
+          "value": 55
+        },
+        {
+          "id": "U21",
+          "name": "桌面程序设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U22",
+          "name": "网页（WEB）程序设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U23",
+          "name": "数据库程序设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U24",
+          "name": "网络应用程序设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U25",
+          "name": "移动终端应用程序设计",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "C3",
+          "name": "程序调试与验证",
+          "category": "COMPETENCY",
+          "value": 30
+        },
+        {
+          "id": "U31",
+          "name": "程序调试",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "U32",
+          "name": "功能验证",
+          "category": "COMPETENCY_UNIT",
+          "value": 3
+        },
+        {
+          "id": "SK01",
+          "name": "能识读模块设计概要文档",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK02",
+          "name": "能分析软件模块详细设计",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK03",
+          "name": "能使用软件设计工具编写设计文档",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK04",
+          "name": "能编写、提交模块设计文档",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK05",
+          "name": "能编写多文档模块代码",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK06",
+          "name": "能编写视图与文档程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK07",
+          "name": "能编写状态栏和工具栏程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK08",
+          "name": "能调用组件库编译程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK09",
+          "name": "能开发动态网页代码",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK10",
+          "name": "能使用 WEB 框架技术编写代码",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK11",
+          "name": "能安装、创建、配置和删除数据库",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK12",
+          "name": "能编写数据库表程序代码",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK13",
+          "name": "能编写数据库函数及函数调用程序代码",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK14",
+          "name": "能使用 Socket 编写收发数据程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK15",
+          "name": "能编写 TCP、UDP 程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK16",
+          "name": "能编写 TCP/IP 异步处理程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK17",
+          "name": "能编写 TCP/IP 出错处理程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK18",
+          "name": "能开发移动终端应用程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK19",
+          "name": "能开发移动终端小程序",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK20",
+          "name": "能使用组件开发移动终端图形界面",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK21",
+          "name": "能完成移动终端应用程序与后端接口的交互开发",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK22",
+          "name": "能设置远程调试环境",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK23",
+          "name": "能进行远程调试",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK24",
+          "name": "能使用功能测试工具进行代码自测",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "SK25",
+          "name": "能运用边界值、等价类等技术进行功能性验证",
+          "category": "SKILL_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP01",
+          "name": "模块设计概要文档的结构及识读方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP02",
+          "name": "软件模块详细设计的分析方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP03",
+          "name": "软件设计工具的类型和使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP04",
+          "name": "模块设计文档的编写和提交方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP05",
+          "name": "多文档模块代码的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP06",
+          "name": "视图与文档程序编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP07",
+          "name": "状态栏与工具栏程序编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP08",
+          "name": "组件和组件库调用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP09",
+          "name": "动态网页代码的开发方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP10",
+          "name": "WEB 框架使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP11",
+          "name": "安装、创建、配置和删除数据库的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP12",
+          "name": "数据库表程序代码的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP13",
+          "name": "数据库函数及函数调用程序代码的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP14",
+          "name": "Socket 的工作原理和使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP15",
+          "name": "TCP 和 UDP 程序的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP16",
+          "name": "TCP/IP 异步处理程序的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP17",
+          "name": "TCP/IP 出错处理程序的编写方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP18",
+          "name": "移动终端应用程序开发方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP19",
+          "name": "移动终端小程序开发方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP20",
+          "name": "使用组件开发移动终端图形界面的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP21",
+          "name": "移动终端应用程序与后端接口的交互开发方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP22",
+          "name": "远程调试环境的要素和设置方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP23",
+          "name": "远程调试的类型和方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP24",
+          "name": "功能测试工具的类型和使用方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        },
+        {
+          "id": "KP25",
+          "name": "运用边界值、等价类等技术进行功能性验证的方法",
+          "category": "KNOWLEDGE_POINT",
+          "value": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "IND1",
+          "target": "CLU1",
+          "relation": "IN_CLUSTER"
+        },
+        {
+          "source": "CLU1",
+          "target": "JOB1",
+          "relation": "BELONGS_TO"
+        },
+        {
+          "source": "JOB1",
+          "target": "C1",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C1",
+          "target": "U11",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U11",
+          "target": "SK01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "SK02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP01",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U11",
+          "target": "KP02",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C1",
+          "target": "U12",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U12",
+          "target": "SK03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "SK04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP03",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U12",
+          "target": "KP04",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C2",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C2",
+          "target": "U21",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U21",
+          "target": "SK05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "SK08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP05",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP06",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP07",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U21",
+          "target": "KP08",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U22",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U22",
+          "target": "SK09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "SK10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP09",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U22",
+          "target": "KP10",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U23",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U23",
+          "target": "SK11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "SK12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "SK13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP11",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP12",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U23",
+          "target": "KP13",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U24",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U24",
+          "target": "SK14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "SK15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "SK16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "SK17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "KP14",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "KP15",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "KP16",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U24",
+          "target": "KP17",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C2",
+          "target": "U25",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U25",
+          "target": "SK18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "SK19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "SK20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "SK21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "KP18",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "KP19",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "KP20",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U25",
+          "target": "KP21",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "JOB1",
+          "target": "C3",
+          "relation": "REQUIRES"
+        },
+        {
+          "source": "C3",
+          "target": "U31",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U31",
+          "target": "SK22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "SK23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP22",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U31",
+          "target": "KP23",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "C3",
+          "target": "U32",
+          "relation": "CONTAINS"
+        },
+        {
+          "source": "U32",
+          "target": "SK24",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "SK25",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP24",
+          "relation": "SUPPORTED_BY"
+        },
+        {
+          "source": "U32",
+          "target": "KP25",
+          "relation": "SUPPORTED_BY"
+        }
+      ]
+    },
+    "sankey": {
+      "nodes": [],
+      "links": []
+    }
+  },
+  "coverage": {
+    "tasks": 4,
+    "competencies": 3,
+    "units": 9,
+    "skills": 25,
+    "knowledge": 25,
+    "knowledge_coverage": 0.0,
+    "weighted_coverage": null,
+    "domains": 3,
+    "domains_supported": 0
+  },
+  "sources": [
+    {
+      "name": "中华人民共和国职业分类大典（2022年版）",
+      "version": "2022年版",
+      "url": "https://www.bdagh.com/upload/1/cms/content/editor/1712798188409.pdf",
+      "retrieved_at": "2026-10-27"
+    },
+    {
+      "name": "计算机程序设计员 国家职业技能标准（2022年版）",
+      "version": "4-04-05-01",
+      "url": "https://www.osta.org.cn/api/sys/downloadFile/decrypt?fileName=4eNsZIOv3WFNDfbnldJHeA/2024/4/30/6ee3162cddee45459605cb3a449cb5da.pdf",
+      "retrieved_at": "2026-10-27"
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "reviewer": "standard-transcription",
+    "reviewed_at": "2026-10-27",
+    "notes": "能力条目逐条对应国家职业标准原文；产业链为教学映射。"
+  },
+  "data_note": "能力条目逐条对应国家职业标准条款；产业链为教学映射，课程库匹配度为名称相似度自动计算结果。"
+}

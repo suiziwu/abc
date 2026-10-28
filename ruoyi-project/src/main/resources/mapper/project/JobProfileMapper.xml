@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.JobProfileMapper">
+
+    <select id="selectJobCandidates" resultType="java.util.LinkedHashMap">
+        select job_code, job_name, count(*) as weight_rows
+        from job_competency_weight
+        where job_code is not null and job_code != ''
+          and (job_name = #{keyword} or job_name like concat('%', #{keyword}, '%'))
+        group by job_code, job_name
+        order by case when job_name = #{keyword} then 0 else 1 end,
+                 char_length(job_name), job_code
+        limit #{limit}
+    </select>
+
+    <select id="selectPostingSkills" resultType="java.lang.String">
+        select distinct s.skill_name
+        from talent_job_posting p
+        join talent_job_skill s on s.posting_id = p.id
+        where (p.job_title like concat('%', #{keyword}, '%')
+               or p.keyword = #{keyword}
+               or p.keyword like concat('%', #{keyword}, '%'))
+          and s.skill_name is not null and s.skill_name != ''
+        limit #{limit}
+    </select>
+
+</mapper>

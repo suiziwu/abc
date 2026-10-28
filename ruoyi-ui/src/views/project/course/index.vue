@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<template>
+﻿<template>
   <div class="course-page">
     <div class="course-topbar">
       <div class="topbar-left">
@@ -10,13 +10,14 @@
         <el-breadcrumb separator="/">
           <el-breadcrumb-item>课程学习</el-breadcrumb-item>
           <el-breadcrumb-item v-if="viewMode === 'study'">{{ course.name }}</el-breadcrumb-item>
-          <el-breadcrumb-item v-if="viewMode === 'study'">{{ course.title }}</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="viewMode === 'study' && course.title">{{ course.title }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="topbar-right">
         <template v-if="viewMode === 'study'">
           <el-button text :icon="Grid" @click="backToCatalog">课程列表</el-button>
           <el-select
+            v-if="!courseEmpty && chapterOptions.length"
             v-model="selectedChapterId"
             placeholder="选择章节"
             filterable
@@ -45,11 +46,12 @@
               :value="item.id"
             />
           </el-select>
-          <el-button text @click="openCourseChat">
+          <el-button v-if="!courseEmpty" text @click="openCourseChat">
             <el-icon><ChatDotRound /></el-icon>
             AI 对话
           </el-button>
-          <el-tag type="success" effect="plain">课程进行中</el-tag>
+          <el-tag v-if="!courseEmpty" type="success" effect="plain">课程进行中</el-tag>
+          <el-tag v-else type="info" effect="plain">暂无章节</el-tag>
         </template>
         <el-input
           v-else
@@ -118,7 +120,15 @@
     </div>
 
     <div v-else class="course-main">
-      <section class="course-left">
+      <el-empty
+        v-if="courseEmpty"
+        class="course-empty-state"
+        :description="`${course.name || '该课程'}暂无章节`"
+      >
+        <div class="course-empty-tip">请先在「知识点管理 → 视频学习 → 课程章节」中为该课程新增章节。</div>
+        <el-button type="primary" @click="backToCatalog">返回课程列表</el-button>
+      </el-empty>
+      <section v-if="!courseEmpty" class="course-left">
         <div class="video-card">
           <div class="video-shell">
             <video
@@ -286,7 +296,7 @@
         </el-card>
       </section>
 
-      <aside class="course-right">
+      <aside v-if="!courseEmpty" class="course-right">
         <div class="panel-card">
           <div class="panel-head">
             <div class="panel-title">
@@ -950,6 +960,9 @@ const currentSubjectId = computed(() => Number(route.query.subjectId) || 0)
 /** 卡片列表 / 学习界面 */
 const viewMode = ref(currentSubjectId.value > 0 ? 'study' : 'catalog')
 
+/** 当前课程没有章节时展示空态，避免误显示默认课程内容 */
+const courseEmpty = ref(false)
+
 function loadCatalog() {
   catalogLoading.value = true
   return Promise.all([
@@ -1041,20 +1054,109 @@ function enterCourse(card) {
 
 /** 返回课程卡片列表 */
 function backToCatalog() {
+  courseEmpty.value = false
   router.push({ path: route.path, query: {} })
+}
+
+/** 去掉「（完整图谱）」等后缀，用于把学习卡片里的旧学科映射到课程学科 */
+function normalizeCourseName(name) {
+  return String(name || '')
+    .replace(/[（(]完整图谱[）)]/g, '')
+    .replace(/\s+/g, '')
+    .trim()
+}
+
+/**
+ * 学习记录里的学科可能是旧数据（如「数据结构与算法」），
+ * 而课程章节挂在新学科（如「数据结构与算法（完整图谱）」）下。
+ * 找不到章节时，按名称唯一匹配一个有章节的课程学科。
+ */
+function findCourseSubject(subject) {
+  if (!subject) return null
+  const targetName = normalizeCourseName(subject.name)
+  if (!targetName) return null
+  const candidates = subjectList.value.filter(item => {
+    if (String(item.id) === String(subject.id)) return false
+    if (!allChapters.value.some(chapter => String(chapter.subjectId) === String(item.id))) return false
+    const name = normalizeCourseName(item.name)
+    if (!name) return false
+    return name === targetName || name.startsWith(targetName) || targetName.startsWith(name)
+  })
+  return candidates.length === 1 ? candidates[0] : null
+}
+
+/** 清空章节相关内容，展示「该课程暂无章节」空态 */
+function showEmptyCourse(subject) {
+  course.subjectId = subject ? subject.id : course.subjectId
+  course.name = subject ? subject.name : (String(route.query.subjectName || '') || course.name)
+  course.title = ''
+  course.subtitle = ''
+  course.description = ''
+  course.chapterNo = ''
+  course.testId = null
+  courseEmpty.value = true
+  currentChapter.value = null
+  selectedChapterId.value = null
+  lessonOptions.value = []
+  selectedLessonId.value = null
+  videoUrl.value = ''
+  videoDuration.value = 0
+  currentTime.value = 0
+  dynamicCourseActive.value = false
+  transcriptSourceLabel.value = ''
+  transcriptSegments.value = []
+  chapters.value = []
+  transcriptGroups.value = []
+  points.value = []
+  quizList.value = []
+  quizIndex.value = 0
+  quizAnswers.value = {}
+  quizCheckedMap.value = {}
+  transcriptSearch.value = ''
+  aiAnalysis.value = null
+  aiExtractionId.value = null
+  aiSyncResult.value = null
+  chatMessages.value = []
+  chatInput.value = ''
+  const query = { ...route.query, subjectId: String(course.subjectId) }
+  delete query.chapterNo
+  delete query.testId
+  router.replace({ path: route.path, query }).catch(() => {})
 }
 
 /** 打开指定课程（按学科），并定位到路由指定的章节 */
 function applySubject(subjectId) {
-  const subject = subjectList.value.find(item => String(item.id) === String(subjectId))
-  course.subjectId = subjectId
-  course.name = subject ? subject.name : course.name
-  const chapters = allChapters.value.filter(item => String(item.subjectId) === String(subjectId))
+  const requestedSubject = subjectList.value.find(item => String(item.id) === String(subjectId))
+  let subject = requestedSubject
+  let targetSubjectId = subjectId
+  let chapters = allChapters.value.filter(item => String(item.subjectId) === String(subjectId))
+
+  // 旧学科没有章节时，尝试按名称映射到有章节的新学科
+  if (chapters.length === 0 && requestedSubject) {
+    const mapped = findCourseSubject(requestedSubject)
+    if (mapped) {
+      subject = mapped
+      targetSubjectId = mapped.id
+      chapters = allChapters.value.filter(item => String(item.subjectId) === String(mapped.id))
+    }
+  }
+
+  course.subjectId = targetSubjectId
+  course.name = subject ? subject.name : (String(route.query.subjectName || '') || course.name)
+
   const wanted = String(route.query.chapterNo || '')
   const target = chapters.find(item => item.chapterNo === wanted) || chapters[0]
-  if (target) {
-    switchChapter(target)
+  if (!target) {
+    showEmptyCourse(requestedSubject || subject)
+    return
   }
+  // 映射后路由更新会再次触发 watcher，避免重复重置和重复请求
+  if (String(currentChapter.value?.id) === String(target.id)) {
+    courseEmpty.value = false
+    return
+  }
+  courseEmpty.value = false
+  switchChapter(target)
 }
 
 function onChapterChange(chapterId) {
@@ -1071,6 +1173,7 @@ function onChapterChange(chapterId) {
  */
 function switchChapter(chapter) {
   if (!chapter) return
+  courseEmpty.value = false
   const subject = subjectList.value.find(item => String(item.id) === String(chapter.subjectId))
   course.subjectId = chapter.subjectId
   course.name = subject ? subject.name : course.name
@@ -1503,6 +1606,7 @@ onMounted(() => {
 watch(currentSubjectId, subjectId => {
   if (!subjectId) {
     viewMode.value = 'catalog'
+    courseEmpty.value = false
     return
   }
   viewMode.value = 'study'
@@ -2143,6 +2247,25 @@ function nextQuiz() {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.course-empty-state {
+  flex: 1;
+  width: 100%;
+  min-height: 460px;
+  padding: 48px 24px;
+  background: #ffffff;
+  border: 1px solid #e8eef7;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.course-empty-tip {
+  margin: -6px 0 18px;
+  color: #8a919c;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .video-card,

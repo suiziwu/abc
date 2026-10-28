@@ -19,11 +19,33 @@ try:
 except ImportError:
     jsonschema = None
 
-REQUIRED_PROMPT_KEYWORDS = [
+DEFAULT_REQUIRED_PROMPT_KEYWORDS = [
     "资深的职业教育课程架构师",
     "技术面试出题专家",
     "错题知识点诊断专家",
 ]
+
+DEFAULT_CODE_NODE_COUNT = 1
+
+
+def workflow_validation(document):
+    """读取工作流自定义校验配置（extensions.validation），未配置时沿用默认值。
+
+    这样同一份校验脚本可以校验不同业务的工作流；默认值保持原「人才画像」口径不变。
+    """
+    validation = (document.get("extensions") or {}).get("validation") or {}
+    return validation
+
+
+def required_prompt_keywords(document):
+    configured = workflow_validation(document).get("prompt_keywords")
+    if configured is None:
+        return DEFAULT_REQUIRED_PROMPT_KEYWORDS
+    return configured
+
+
+def expected_code_node_count(document):
+    return workflow_validation(document).get("code_nodes", DEFAULT_CODE_NODE_COUNT)
 
 
 def fail(message):
@@ -136,26 +158,27 @@ def validate_semantics(document):
             fail("LLM 节点 %s 的输出状态键不存在" % node["id"])
         systems.append(prompt["system"])
 
-    for keyword in REQUIRED_PROMPT_KEYWORDS:
+    for keyword in required_prompt_keywords(document):
         if not any(keyword in system for system in systems):
             fail("缺少预期 Prompt 内容: %s" % keyword)
 
-    # 代码节点校验
+    # 代码节点校验（数量由 extensions.validation.code_nodes 决定，默认 1）
     code_nodes = [node for node in nodes if node["type"] == "code"]
-    if len(code_nodes) != 1:
-        fail("code 节点数量必须为 1，实际 %d" % len(code_nodes))
-    code_node = code_nodes[0]
-    operation = code_node["code"].get("operation")
-    if not operation or operation.get("type") != "split_at":
-        fail("code 节点缺少可执行的 split_at operation")
-    if operation["input_state_key"] not in document["state"]["schema"]:
-        fail("code 节点输入状态键不存在")
-    for output_name in operation["outputs"].values():
-        if output_name not in document["state"]["schema"]:
-            fail("code 节点输出状态键不存在: %s" % output_name)
-    for state_key in code_node["code"].get("state_writes") or []:
-        if state_key not in document["state"]["schema"]:
-            fail("code 节点 state_writes 未定义: %s" % state_key)
+    expected_code_nodes = expected_code_node_count(document)
+    if len(code_nodes) != expected_code_nodes:
+        fail("code 节点数量必须为 %d，实际 %d" % (expected_code_nodes, len(code_nodes)))
+    for code_node in code_nodes:
+        operation = code_node["code"].get("operation")
+        if not operation or operation.get("type") != "split_at":
+            fail("code 节点缺少可执行的 split_at operation")
+        if operation["input_state_key"] not in document["state"]["schema"]:
+            fail("code 节点输入状态键不存在")
+        for output_name in operation["outputs"].values():
+            if output_name not in document["state"]["schema"]:
+                fail("code 节点输出状态键不存在: %s" % output_name)
+        for state_key in code_node["code"].get("state_writes") or []:
+            if state_key not in document["state"]["schema"]:
+                fail("code 节点 state_writes 未定义: %s" % state_key)
 
     # 结束节点校验
     end_node = next(node for node in nodes if node["type"] == "end")

@@ -1,0 +1,5457 @@
+﻿{
+
+  "job" : {
+
+    "name" : "信息通信网络运行管理员",
+
+    "code" : "4-04-04-01",
+
+    "summary" : "从事信息通信网络运行状态监控、机房与设备巡检、故障处理、设备配置与变更、性能分析与优化、安全防护检查及运维台账报告编制，保障信息通信网络稳定、安全、高效运行。"
+
+  },
+
+  "logic_chain" : [ {
+
+    "level" : "产业链",
+
+    "name" : "信息通信产业链"
+
+  }, {
+
+    "level" : "产业链环节",
+
+    "name" : "信息通信网络运营与运维"
+
+  }, {
+
+    "level" : "职业岗位群",
+
+    "name" : "信息通信网络运行管理岗位群"
+
+  }, {
+
+    "level" : "职业岗位",
+
+    "name" : "信息通信网络运行管理员"
+
+  } ],
+
+  "tasks" : [ {
+
+    "id" : "T01",
+
+    "name" : "网络运行状态监控",
+
+    "description" : "通过网管系统实时监控信息通信网络运行状态，发现告警后按规程记录并初步定位异常。",
+
+    "importance" : 5,
+
+    "frequency" : 5,
+
+    "difficulty" : 3,
+
+    "competency_ids" : [ "C06", "C07" ]
+
+  }, {
+
+    "id" : "T02",
+
+    "name" : "机房与设备巡检",
+
+    "description" : "按巡检计划检查机房环境、传输与交换设备指示灯及连接状态，填写巡检记录并上报异常。",
+
+    "importance" : 5,
+
+    "frequency" : 4,
+
+    "difficulty" : 3,
+
+    "competency_ids" : [ "C01", "C04" ]
+
+  }, {
+
+    "id" : "T03",
+
+    "name" : "网络故障处理",
+
+    "description" : "接到故障工单后远程或现场排查信息通信网络故障，按时限恢复业务并反馈处理结果。",
+
+    "importance" : 5,
+
+    "frequency" : 4,
+
+    "difficulty" : 4,
+
+    "competency_ids" : [ "C06", "C07" ]
+
+  }, {
+
+    "id" : "T04",
+
+    "name" : "网络设备配置与变更",
+
+    "description" : "依据变更单对路由器、交换机等网络设备执行配置调整，验证业务连通性并回填变更记录。",
+
+    "importance" : 5,
+
+    "frequency" : 3,
+
+    "difficulty" : 4,
+
+    "competency_ids" : [ "C01", "C03", "C04" ]
+
+  }, {
+
+    "id" : "T05",
+
+    "name" : "网络性能分析与优化",
+
+    "description" : "采集网络流量、时延和丢包等性能数据，分析瓶颈并提出优化建议，配合实施优化措施。",
+
+    "importance" : 4,
+
+    "frequency" : 3,
+
+    "difficulty" : 4,
+
+    "competency_ids" : [ "C02", "C08" ]
+
+  }, {
+
+    "id" : "T06",
+
+    "name" : "网络安全防护检查",
+
+    "description" : "按安全策略检查网络设备访问控制与日志，处置异常流量并协助落实漏洞整改。",
+
+    "importance" : 5,
+
+    "frequency" : 3,
+
+    "difficulty" : 4,
+
+    "competency_ids" : [ "C05" ]
+
+  }, {
+
+    "id" : "T07",
+
+    "name" : "配置备份与应急演练",
+
+    "description" : "定期备份网络设备配置和关键数据，按预案开展应急演练并记录演练过程与改进项。",
+
+    "importance" : 4,
+
+    "frequency" : 2,
+
+    "difficulty" : 3,
+
+    "competency_ids" : [ "C04", "C05", "C08" ]
+
+  }, {
+
+    "id" : "T08",
+
+    "name" : "运维台账与报告编制",
+
+    "description" : "汇总网络运行、故障和变更记录，编制运维日报或月报，确保数据完整可追溯。",
+
+    "importance" : 4,
+
+    "frequency" : 4,
+
+    "difficulty" : 2,
+
+    "competency_ids" : [ "C02", "C07" ]
+
+  } ],
+
+  "competencies" : [ {
+
+    "id" : "C01",
+
+    "name" : "网络与设备基础认知",
+
+    "domain" : "专业基础",
+
+    "weight" : 64,
+
+    "task_ids" : [ "T02", "T04" ],
+
+    "units" : [ {
+
+      "id" : "U01",
+
+      "statement" : "能按照机房巡检作业指导书，完成传输与交换设备指示灯状态、端口连接情况的识读与正常/异常判断",
+
+      "task_id" : "T02",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U02",
+
+      "statement" : "能按照网络拓扑图与设备技术手册，完成路由器、交换机各接口与模块功能属性、连接关系的说明",
+
+      "task_id" : "T04",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S01", "S02", "S03", "S04" ],
+
+    "knowledge_ids" : [ "K01", "K02", "K03", "K04" ]
+
+  }, {
+
+    "id" : "C02",
+
+    "name" : "运行数据采集与台账管理",
+
+    "domain" : "数据管理",
+
+    "weight" : 43,
+
+    "task_ids" : [ "T05", "T08" ],
+
+    "units" : [ {
+
+      "id" : "U03",
+
+      "statement" : "能按照性能数据采集规范，完成网络流量、时延、丢包等指标的采集、整理与趋势比对",
+
+      "task_id" : "T05",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U04",
+
+      "statement" : "能按照运维台账模板，完成网络运行、故障与变更记录的汇总、核对与归档，保证数据完整可追溯",
+
+      "task_id" : "T08",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U05",
+
+      "statement" : "能按照运维报告编制规范，完成运维日报或月报的数据统计与内容编制",
+
+      "task_id" : "T08",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S05", "S06", "S07", "S08" ],
+
+    "knowledge_ids" : [ "K05", "K06", "K07", "K08" ]
+
+  }, {
+
+    "id" : "C03",
+
+    "name" : "网络设备配置与协议应用",
+
+    "domain" : "框架应用",
+
+    "weight" : 32,
+
+    "task_ids" : [ "T04" ],
+
+    "units" : [ {
+
+      "id" : "U06",
+
+      "statement" : "能按照变更单与设备配置规范，完成路由器、交换机基础业务配置命令的编写与下发",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U07",
+
+      "statement" : "能按照TCP/IP协议分层模型，完成配置变更后业务连通性的分层验证与结果判定",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    } ],
+
+    "skill_ids" : [ "S09", "S10", "S11", "S12" ],
+
+    "knowledge_ids" : [ "K09", "K10", "K11", "K12" ]
+
+  }, {
+
+    "id" : "C04",
+
+    "name" : "巡检与变更实施",
+
+    "domain" : "工程实践",
+
+    "weight" : 77,
+
+    "task_ids" : [ "T02", "T04", "T07" ],
+
+    "units" : [ {
+
+      "id" : "U08",
+
+      "statement" : "能按照巡检计划，完成机房环境参数与设备运行状态的现场巡检并规范填写巡检记录",
+
+      "task_id" : "T02",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U09",
+
+      "statement" : "能按照变更实施流程，完成配置调整的操作执行、业务验证与变更记录回填",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U10",
+
+      "statement" : "能按照配置备份策略，完成网络设备配置与关键数据的定期备份及备份文件可用性校验",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S13", "S14", "S15", "S16" ],
+
+    "knowledge_ids" : [ "K13", "K14", "K15", "K16" ]
+
+  }, {
+
+    "id" : "C05",
+
+    "name" : "安全防护与合规检查",
+
+    "domain" : "质量保障",
+
+    "weight" : 45,
+
+    "task_ids" : [ "T06", "T07" ],
+
+    "units" : [ {
+
+      "id" : "U11",
+
+      "statement" : "能按照网络安全策略，完成设备访问控制配置与安全日志的检查并记录不符合项",
+
+      "task_id" : "T06",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U12",
+
+      "statement" : "能按照安全处置规程，完成异常流量的初步处置与漏洞整改的配合落实",
+
+      "task_id" : "T06",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U13",
+
+      "statement" : "能按照应急演练预案，完成演练过程的规范记录与改进项梳理",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S17", "S18", "S19", "S20" ],
+
+    "knowledge_ids" : [ "K17", "K18", "K19", "K20" ]
+
+  }, {
+
+    "id" : "C06",
+
+    "name" : "监控告警与故障处置",
+
+    "domain" : "运维排障",
+
+    "weight" : 83,
+
+    "task_ids" : [ "T01", "T03" ],
+
+    "units" : [ {
+
+      "id" : "U14",
+
+      "statement" : "能按照告警处理规程，完成网管系统告警的记录、分级上报与异常初步定位",
+
+      "task_id" : "T01",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U15",
+
+      "statement" : "能按照故障处理流程与时限要求，完成信息通信网络故障的远程或现场排查并恢复业务",
+
+      "task_id" : "T03",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U16",
+
+      "statement" : "能按照工单管理规范，完成故障处理过程与结果信息的回填反馈和工单闭环",
+
+      "task_id" : "T03",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S21", "S22", "S23", "S24" ],
+
+    "knowledge_ids" : [ "K21", "K22", "K23", "K24" ]
+
+  }, {
+
+    "id" : "C07",
+
+    "name" : "工单协同与信息报送",
+
+    "domain" : "团队协作",
+
+    "weight" : 100,
+
+    "task_ids" : [ "T01", "T03", "T08" ],
+
+    "units" : [ {
+
+      "id" : "U17",
+
+      "statement" : "能按照工单流转规范，完成跨专业故障工单的派发、协同配合与处理进度通报",
+
+      "task_id" : "T03",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U18",
+
+      "statement" : "能按照信息报送要求，完成监控异常与重要运行情况向值班负责人及相关部门的及时上报",
+
+      "task_id" : "T01",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S25", "S26", "S27" ],
+
+    "knowledge_ids" : [ "K25", "K26", "K27" ]
+
+  }, {
+
+    "id" : "C08",
+
+    "name" : "性能优化与持续改进",
+
+    "domain" : "学习创新",
+
+    "weight" : 39,
+
+    "task_ids" : [ "T05", "T07" ],
+
+    "units" : [ {
+
+      "id" : "U19",
+
+      "statement" : "能按照性能分析报告要求，完成网络瓶颈定位与优化建议的提出并配合实施验证",
+
+      "task_id" : "T05",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U20",
+
+      "statement" : "能按照演练复盘机制，完成问题根因提炼与优化改进措施的跟踪落地",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    } ],
+
+    "skill_ids" : [ "S28", "S29", "S30", "S31" ],
+
+    "knowledge_ids" : [ "K28", "K29", "K30", "K31" ]
+
+  } ],
+
+  "elements" : {
+
+    "skills" : [ {
+
+      "id" : "S01",
+
+      "name" : "依据巡检作业指导书识读传输与交换设备指示灯状态并判定正常/异常",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S02",
+
+      "name" : "核对设备端口、跳线与光模块的连接关系并记录对应关系",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S03",
+
+      "name" : "依据网络拓扑图识读设备间连接关系与链路走向",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S04",
+
+      "name" : "识读设备铭牌、型号与模块属性信息并对照技术手册确认功能",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S05",
+
+      "name" : "使用网管或采集工具完成网络流量、时延、丢包率等性能指标的采集",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S06",
+
+      "name" : "对采集数据进行整理、清洗并绘制趋势比对图表",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S07",
+
+      "name" : "按运维台账模板完成运行、故障与变更记录的录入、核对与归档",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S08",
+
+      "name" : "完成运维日报或月报的数据统计与内容编制",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S09",
+
+      "name" : "编写并下发路由器、交换机基础业务配置命令（接口地址、VLAN、路由）",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S10",
+
+      "name" : "对照变更单核对配置脚本内容并执行配置前备份与回退",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S11",
+
+      "name" : "按TCP/IP分层完成连通性验证（物理层端口状态检查、网络层ping、传输层端口测试）",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S12",
+
+      "name" : "依据验证结果判定变更有效性并记录判定结论",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S13",
+
+      "name" : "测量并记录机房温湿度、供电、消防等环境参数",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S14",
+
+      "name" : "按巡检计划检查设备运行状态并规范填写巡检记录表",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S15",
+
+      "name" : "按变更实施流程执行配置调整操作并完成业务验证",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S16",
+
+      "name" : "执行设备配置定期备份并完成备份文件可用性校验（导入或比对）",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S17",
+
+      "name" : "配置并验证设备访问控制策略（ACL、登录权限、管理地址限制）",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S18",
+
+      "name" : "采集并检查设备安全日志，记录不符合项并填写整改清单",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S19",
+
+      "name" : "对异常流量实施初步处置（端口封禁、限速、流量牵引）",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S20",
+
+      "name" : "配合完成漏洞整改加固操作并验证整改效果",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S21",
+
+      "name" : "在网管系统中查看、记录并按级别上报告警信息",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S22",
+
+      "name" : "运用分层排查法完成告警的初步定位与影响范围判断",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S23",
+
+      "name" : "实施故障排查操作（分段测试、端口替换、抓包分析）并恢复业务",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S24",
+
+      "name" : "回填故障处理过程与结果信息并完成工单闭环",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S25",
+
+      "name" : "在工单系统中完成故障工单的派发、转派与流转操作",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S26",
+
+      "name" : "开展跨专业协同配合并通报处理进度",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S27",
+
+      "name" : "编写监控异常与重要运行情况的上报信息并按渠道报送",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S28",
+
+      "name" : "基于性能基线与流量分析完成网络瓶颈定位",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S29",
+
+      "name" : "编写性能优化建议方案并配合实施与效果验证",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S30",
+
+      "name" : "组织演练或故障复盘并提炼问题根因",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S31",
+
+      "name" : "建立改进措施跟踪台账并跟踪措施落地情况",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    } ],
+
+    "knowledge" : [ {
+
+      "id" : "K01",
+
+      "name" : "传输设备与交换设备的类型、功能定位及典型组网形态",
+
+      "subject" : "通信网络设备运行与维护",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K02",
+
+      "name" : "网络拓扑结构类型（星型、环型、树型）与拓扑图识图规范",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K03",
+
+      "name" : "设备端口类型（电口、光口）与光模块等级、传输距离的对应关系",
+
+      "subject" : "数据通信技术",
+
+      "importance" : 2,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K04",
+
+      "name" : "机房巡检作业指导书与设备技术手册的查阅与执行规范",
+
+      "subject" : "信息通信运维管理",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K05",
+
+      "name" : "网络性能指标定义与计算方法（带宽、时延、抖动、丢包率）",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K06",
+
+      "name" : "性能数据采集方式（SNMP、NetFlow、探针）与采样周期原理",
+
+      "subject" : "网络性能监测技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K07",
+
+      "name" : "运维台账与运行记录的完整性、可追溯性管理规范",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K08",
+
+      "name" : "运维报告编制规范与数据统计、图表呈现方法",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K09",
+
+      "name" : "TCP/IP分层模型与数据封装、解封装原理",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K10",
+
+      "name" : "以太网交换原理与VLAN划分、Trunk链路工作机制",
+
+      "subject" : "数据通信技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K11",
+
+      "name" : "静态路由与常用动态路由协议（RIP、OSPF）基础原理",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K12",
+
+      "name" : "设备命令行体系、配置模式与配置规范要求",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K13",
+
+      "name" : "通信机房环境标准与巡检项目、判定阈值",
+
+      "subject" : "通信机房运维",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K14",
+
+      "name" : "变更管理流程、变更窗口与风险控制要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K15",
+
+      "name" : "配置备份策略（周期、介质、留存）与配置恢复原理",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K16",
+
+      "name" : "巡检记录与变更记录回填的规范要求",
+
+      "subject" : "通信机房运维",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K17",
+
+      "name" : "网络安全等级保护要求与信息通信合规检查要点",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K18",
+
+      "name" : "访问控制模型与身份鉴别、授权管理原理",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K19",
+
+      "name" : "常见网络攻击类型与异常流量特征识别方法",
+
+      "subject" : "网络安全防护",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K20",
+
+      "name" : "安全事件处置规程与应急演练预案要素",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K21",
+
+      "name" : "网管系统架构与告警采集、分级、抑制机制",
+
+      "subject" : "网络管理技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K22",
+
+      "name" : "故障分级标准与处理时限、上报要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K23",
+
+      "name" : "典型网络故障现象与成因分析（链路中断、环路、地址冲突、配置错误）",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K24",
+
+      "name" : "故障定位方法（分段排查、对比替换、自下而上分层定位）",
+
+      "subject" : "网络管理技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K25",
+
+      "name" : "工单管理规范、工单状态流转规则与闭环要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K26",
+
+      "name" : "信息报送流程、报送对象与时限要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K27",
+
+      "name" : "跨专业协同机制与问题升级（Escalation）原则",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K28",
+
+      "name" : "网络性能基线建立与容量分析、瓶颈判定方法",
+
+      "subject" : "网络性能监测技术",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K29",
+
+      "name" : "常用优化手段原理（QoS策略、链路扩容、路由与负载分担调整）",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K30",
+
+      "name" : "根因分析方法（鱼骨图、5Why、故障树）",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K31",
+
+      "name" : "PDCA持续改进机制与复盘管理要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C08"
+
+    } ]
+
+  },
+
+  "mindmap" : {
+
+    "id" : "JOB01",
+
+    "type" : "JOB",
+
+    "name" : "信息通信网络运行管理员",
+
+    "children" : [ {
+
+      "id" : "C01",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C01 网络与设备基础认知",
+
+      "domain" : "专业基础",
+
+      "weight" : 64,
+
+      "children" : [ {
+
+        "id" : "U01",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U01 能按照机房巡检作业指导书，完成传输与交换设备指示灯状态、端口连接情况的识读与正常/异常判断",
+
+        "task_id" : "T02",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S01",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 依据巡检作业指导书识读传输与交换设备指示灯状态并判定正常/异常",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S02",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 核对设备端口、跳线与光模块的连接关系并记录对应关系",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K01",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 传输设备与交换设备的类型、功能定位及典型组网形态",
+
+          "subject" : "通信网络设备运行与维护",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K03",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 设备端口类型（电口、光口）与光模块等级、传输距离的对应关系",
+
+          "subject" : "数据通信技术",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K04",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 机房巡检作业指导书与设备技术手册的查阅与执行规范",
+
+          "subject" : "信息通信运维管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U02",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U02 能按照网络拓扑图与设备技术手册，完成路由器、交换机各接口与模块功能属性、连接关系的说明",
+
+        "task_id" : "T04",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S03",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 依据网络拓扑图识读设备间连接关系与链路走向",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S04",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 识读设备铭牌、型号与模块属性信息并对照技术手册确认功能",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K02",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 网络拓扑结构类型（星型、环型、树型）与拓扑图识图规范",
+
+          "subject" : "计算机网络基础",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C02",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C02 运行数据采集与台账管理",
+
+      "domain" : "数据管理",
+
+      "weight" : 43,
+
+      "children" : [ {
+
+        "id" : "U03",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U03 能按照性能数据采集规范，完成网络流量、时延、丢包等指标的采集、整理与趋势比对",
+
+        "task_id" : "T05",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S05",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 使用网管或采集工具完成网络流量、时延、丢包率等性能指标的采集",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S06",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 对采集数据进行整理、清洗并绘制趋势比对图表",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K05",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 网络性能指标定义与计算方法（带宽、时延、抖动、丢包率）",
+
+          "subject" : "计算机网络基础",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K06",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 性能数据采集方式（SNMP、NetFlow、探针）与采样周期原理",
+
+          "subject" : "网络性能监测技术",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U04",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U04 能按照运维台账模板，完成网络运行、故障与变更记录的汇总、核对与归档，保证数据完整可追溯",
+
+        "task_id" : "T08",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S07",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 按运维台账模板完成运行、故障与变更记录的录入、核对与归档",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K07",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 运维台账与运行记录的完整性、可追溯性管理规范",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U05",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U05 能按照运维报告编制规范，完成运维日报或月报的数据统计与内容编制",
+
+        "task_id" : "T08",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S08",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 完成运维日报或月报的数据统计与内容编制",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K08",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 运维报告编制规范与数据统计、图表呈现方法",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C03",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C03 网络设备配置与协议应用",
+
+      "domain" : "框架应用",
+
+      "weight" : 32,
+
+      "children" : [ {
+
+        "id" : "U06",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U06 能按照变更单与设备配置规范，完成路由器、交换机基础业务配置命令的编写与下发",
+
+        "task_id" : "T04",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S09",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 编写并下发路由器、交换机基础业务配置命令（接口地址、VLAN、路由）",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S10",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 对照变更单核对配置脚本内容并执行配置前备份与回退",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K10",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 以太网交换原理与VLAN划分、Trunk链路工作机制",
+
+          "subject" : "数据通信技术",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K11",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 静态路由与常用动态路由协议（RIP、OSPF）基础原理",
+
+          "subject" : "网络设备配置与管理",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K12",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 设备命令行体系、配置模式与配置规范要求",
+
+          "subject" : "网络设备配置与管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U07",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U07 能按照TCP/IP协议分层模型，完成配置变更后业务连通性的分层验证与结果判定",
+
+        "task_id" : "T04",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S11",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 按TCP/IP分层完成连通性验证（物理层端口状态检查、网络层ping、传输层端口测试）",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S12",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 依据验证结果判定变更有效性并记录判定结论",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K09",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] TCP/IP分层模型与数据封装、解封装原理",
+
+          "subject" : "计算机网络基础",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C04",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C04 巡检与变更实施",
+
+      "domain" : "工程实践",
+
+      "weight" : 77,
+
+      "children" : [ {
+
+        "id" : "U08",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U08 能按照巡检计划，完成机房环境参数与设备运行状态的现场巡检并规范填写巡检记录",
+
+        "task_id" : "T02",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S13",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 测量并记录机房温湿度、供电、消防等环境参数",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S14",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 按巡检计划检查设备运行状态并规范填写巡检记录表",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K13",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 通信机房环境标准与巡检项目、判定阈值",
+
+          "subject" : "通信机房运维",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U09",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U09 能按照变更实施流程，完成配置调整的操作执行、业务验证与变更记录回填",
+
+        "task_id" : "T04",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S15",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 按变更实施流程执行配置调整操作并完成业务验证",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K14",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 变更管理流程、变更窗口与风险控制要求",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K16",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 巡检记录与变更记录回填的规范要求",
+
+          "subject" : "通信机房运维",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U10",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U10 能按照配置备份策略，完成网络设备配置与关键数据的定期备份及备份文件可用性校验",
+
+        "task_id" : "T07",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S16",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 执行设备配置定期备份并完成备份文件可用性校验（导入或比对）",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K15",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 配置备份策略（周期、介质、留存）与配置恢复原理",
+
+          "subject" : "网络设备配置与管理",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C05",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C05 安全防护与合规检查",
+
+      "domain" : "质量保障",
+
+      "weight" : 45,
+
+      "children" : [ {
+
+        "id" : "U11",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U11 能按照网络安全策略，完成设备访问控制配置与安全日志的检查并记录不符合项",
+
+        "task_id" : "T06",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S17",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 配置并验证设备访问控制策略（ACL、登录权限、管理地址限制）",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S18",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 采集并检查设备安全日志，记录不符合项并填写整改清单",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K17",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 网络安全等级保护要求与信息通信合规检查要点",
+
+          "subject" : "信息安全技术",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K18",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 访问控制模型与身份鉴别、授权管理原理",
+
+          "subject" : "信息安全技术",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U12",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U12 能按照安全处置规程，完成异常流量的初步处置与漏洞整改的配合落实",
+
+        "task_id" : "T06",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S19",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 对异常流量实施初步处置（端口封禁、限速、流量牵引）",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S20",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 配合完成漏洞整改加固操作并验证整改效果",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K19",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 常见网络攻击类型与异常流量特征识别方法",
+
+          "subject" : "网络安全防护",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U13",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U13 能按照应急演练预案，完成演练过程的规范记录与改进项梳理",
+
+        "task_id" : "T07",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "K20",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 安全事件处置规程与应急演练预案要素",
+
+          "subject" : "信息安全技术",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C06",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C06 监控告警与故障处置",
+
+      "domain" : "运维排障",
+
+      "weight" : 83,
+
+      "children" : [ {
+
+        "id" : "U14",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U14 能按照告警处理规程，完成网管系统告警的记录、分级上报与异常初步定位",
+
+        "task_id" : "T01",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S21",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 在网管系统中查看、记录并按级别上报告警信息",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S22",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 运用分层排查法完成告警的初步定位与影响范围判断",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K21",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 网管系统架构与告警采集、分级、抑制机制",
+
+          "subject" : "网络管理技术",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K22",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 故障分级标准与处理时限、上报要求",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U15",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U15 能按照故障处理流程与时限要求，完成信息通信网络故障的远程或现场排查并恢复业务",
+
+        "task_id" : "T03",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S23",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 实施故障排查操作（分段测试、端口替换、抓包分析）并恢复业务",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K23",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 典型网络故障现象与成因分析（链路中断、环路、地址冲突、配置错误）",
+
+          "subject" : "网络设备配置与管理",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K24",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 故障定位方法（分段排查、对比替换、自下而上分层定位）",
+
+          "subject" : "网络管理技术",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U16",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U16 能按照工单管理规范，完成故障处理过程与结果信息的回填反馈和工单闭环",
+
+        "task_id" : "T03",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S24",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 回填故障处理过程与结果信息并完成工单闭环",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C07",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C07 工单协同与信息报送",
+
+      "domain" : "团队协作",
+
+      "weight" : 100,
+
+      "children" : [ {
+
+        "id" : "U17",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U17 能按照工单流转规范，完成跨专业故障工单的派发、协同配合与处理进度通报",
+
+        "task_id" : "T03",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S25",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 在工单系统中完成故障工单的派发、转派与流转操作",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S26",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 开展跨专业协同配合并通报处理进度",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K25",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 工单管理规范、工单状态流转规则与闭环要求",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K27",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 跨专业协同机制与问题升级（Escalation）原则",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U18",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U18 能按照信息报送要求，完成监控异常与重要运行情况向值班负责人及相关部门的及时上报",
+
+        "task_id" : "T01",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S27",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 编写监控异常与重要运行情况的上报信息并按渠道报送",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K26",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 信息报送流程、报送对象与时限要求",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    }, {
+
+      "id" : "C08",
+
+      "type" : "COMPETENCY",
+
+      "name" : "C08 性能优化与持续改进",
+
+      "domain" : "学习创新",
+
+      "weight" : 39,
+
+      "children" : [ {
+
+        "id" : "U19",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U19 能按照性能分析报告要求，完成网络瓶颈定位与优化建议的提出并配合实施验证",
+
+        "task_id" : "T05",
+
+        "level" : 3,
+
+        "children" : [ {
+
+          "id" : "S28",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 基于性能基线与流量分析完成网络瓶颈定位",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S29",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 编写性能优化建议方案并配合实施与效果验证",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K28",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 网络性能基线建立与容量分析、瓶颈判定方法",
+
+          "subject" : "网络性能监测技术",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K29",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 常用优化手段原理（QoS策略、链路扩容、路由与负载分担调整）",
+
+          "subject" : "网络设备配置与管理",
+
+          "children" : [ ]
+
+        } ]
+
+      }, {
+
+        "id" : "U20",
+
+        "type" : "COMPETENCY_UNIT",
+
+        "name" : "U20 能按照演练复盘机制，完成问题根因提炼与优化改进措施的跟踪落地",
+
+        "task_id" : "T07",
+
+        "level" : 2,
+
+        "children" : [ {
+
+          "id" : "S30",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 组织演练或故障复盘并提炼问题根因",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "S31",
+
+          "type" : "SKILL_POINT",
+
+          "name" : "[技能] 建立改进措施跟踪台账并跟踪措施落地情况",
+
+          "category" : "操作",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K30",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] 根因分析方法（鱼骨图、5Why、故障树）",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        }, {
+
+          "id" : "K31",
+
+          "type" : "KNOWLEDGE_POINT",
+
+          "name" : "[知识] PDCA持续改进机制与复盘管理要求",
+
+          "subject" : "IT运维服务管理",
+
+          "children" : [ ]
+
+        } ]
+
+      } ]
+
+    } ]
+
+  },
+
+  "radar" : {
+
+    "indicators" : [ {
+
+      "name" : "专业基础",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "数据管理",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "框架应用",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "工程实践",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "质量保障",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "运维排障",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "团队协作",
+
+      "max" : 100
+
+    }, {
+
+      "name" : "学习创新",
+
+      "max" : 100
+
+    } ],
+
+    "values" : [ 64, 43, 32, 77, 45, 83, 100, 39 ]
+
+  },
+
+  "graph" : {
+
+    "nodes" : [ {
+
+      "id" : "IC01",
+
+      "type" : "INDUSTRY_CHAIN",
+
+      "name" : "信息通信产业链"
+
+    }, {
+
+      "id" : "CS01",
+
+      "type" : "CHAIN_SEGMENT",
+
+      "name" : "信息通信网络运营与运维"
+
+    }, {
+
+      "id" : "JC01",
+
+      "type" : "JOB_CLUSTER",
+
+      "name" : "信息通信网络运行管理岗位群"
+
+    }, {
+
+      "id" : "JOB01",
+
+      "type" : "JOB",
+
+      "name" : "信息通信网络运行管理员",
+
+      "code" : "4-04-04-01"
+
+    }, {
+
+      "id" : "T01",
+
+      "type" : "WORK_TASK",
+
+      "name" : "网络运行状态监控",
+
+      "importance" : 5,
+
+      "frequency" : 5,
+
+      "difficulty" : 3
+
+    }, {
+
+      "id" : "T02",
+
+      "type" : "WORK_TASK",
+
+      "name" : "机房与设备巡检",
+
+      "importance" : 5,
+
+      "frequency" : 4,
+
+      "difficulty" : 3
+
+    }, {
+
+      "id" : "T03",
+
+      "type" : "WORK_TASK",
+
+      "name" : "网络故障处理",
+
+      "importance" : 5,
+
+      "frequency" : 4,
+
+      "difficulty" : 4
+
+    }, {
+
+      "id" : "T04",
+
+      "type" : "WORK_TASK",
+
+      "name" : "网络设备配置与变更",
+
+      "importance" : 5,
+
+      "frequency" : 3,
+
+      "difficulty" : 4
+
+    }, {
+
+      "id" : "T05",
+
+      "type" : "WORK_TASK",
+
+      "name" : "网络性能分析与优化",
+
+      "importance" : 4,
+
+      "frequency" : 3,
+
+      "difficulty" : 4
+
+    }, {
+
+      "id" : "T06",
+
+      "type" : "WORK_TASK",
+
+      "name" : "网络安全防护检查",
+
+      "importance" : 5,
+
+      "frequency" : 3,
+
+      "difficulty" : 4
+
+    }, {
+
+      "id" : "T07",
+
+      "type" : "WORK_TASK",
+
+      "name" : "配置备份与应急演练",
+
+      "importance" : 4,
+
+      "frequency" : 2,
+
+      "difficulty" : 3
+
+    }, {
+
+      "id" : "T08",
+
+      "type" : "WORK_TASK",
+
+      "name" : "运维台账与报告编制",
+
+      "importance" : 4,
+
+      "frequency" : 4,
+
+      "difficulty" : 2
+
+    }, {
+
+      "id" : "C01",
+
+      "type" : "COMPETENCY",
+
+      "name" : "网络与设备基础认知",
+
+      "domain" : "专业基础",
+
+      "weight" : 64
+
+    }, {
+
+      "id" : "C02",
+
+      "type" : "COMPETENCY",
+
+      "name" : "运行数据采集与台账管理",
+
+      "domain" : "数据管理",
+
+      "weight" : 43
+
+    }, {
+
+      "id" : "C03",
+
+      "type" : "COMPETENCY",
+
+      "name" : "网络设备配置与协议应用",
+
+      "domain" : "框架应用",
+
+      "weight" : 32
+
+    }, {
+
+      "id" : "C04",
+
+      "type" : "COMPETENCY",
+
+      "name" : "巡检与变更实施",
+
+      "domain" : "工程实践",
+
+      "weight" : 77
+
+    }, {
+
+      "id" : "C05",
+
+      "type" : "COMPETENCY",
+
+      "name" : "安全防护与合规检查",
+
+      "domain" : "质量保障",
+
+      "weight" : 45
+
+    }, {
+
+      "id" : "C06",
+
+      "type" : "COMPETENCY",
+
+      "name" : "监控告警与故障处置",
+
+      "domain" : "运维排障",
+
+      "weight" : 83
+
+    }, {
+
+      "id" : "C07",
+
+      "type" : "COMPETENCY",
+
+      "name" : "工单协同与信息报送",
+
+      "domain" : "团队协作",
+
+      "weight" : 100
+
+    }, {
+
+      "id" : "C08",
+
+      "type" : "COMPETENCY",
+
+      "name" : "性能优化与持续改进",
+
+      "domain" : "学习创新",
+
+      "weight" : 39
+
+    }, {
+
+      "id" : "U01",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照机房巡检作业指导书，完成传输与交换设备指示灯状态、端口连接情况的识读与正常/异常判断",
+
+      "task_id" : "T02",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U02",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照网络拓扑图与设备技术手册，完成路由器、交换机各接口与模块功能属性、连接关系的说明",
+
+      "task_id" : "T04",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U03",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照性能数据采集规范，完成网络流量、时延、丢包等指标的采集、整理与趋势比对",
+
+      "task_id" : "T05",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U04",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照运维台账模板，完成网络运行、故障与变更记录的汇总、核对与归档，保证数据完整可追溯",
+
+      "task_id" : "T08",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U05",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照运维报告编制规范，完成运维日报或月报的数据统计与内容编制",
+
+      "task_id" : "T08",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U06",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照变更单与设备配置规范，完成路由器、交换机基础业务配置命令的编写与下发",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U07",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照TCP/IP协议分层模型，完成配置变更后业务连通性的分层验证与结果判定",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U08",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照巡检计划，完成机房环境参数与设备运行状态的现场巡检并规范填写巡检记录",
+
+      "task_id" : "T02",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U09",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照变更实施流程，完成配置调整的操作执行、业务验证与变更记录回填",
+
+      "task_id" : "T04",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U10",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照配置备份策略，完成网络设备配置与关键数据的定期备份及备份文件可用性校验",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U11",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照网络安全策略，完成设备访问控制配置与安全日志的检查并记录不符合项",
+
+      "task_id" : "T06",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U12",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照安全处置规程，完成异常流量的初步处置与漏洞整改的配合落实",
+
+      "task_id" : "T06",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U13",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照应急演练预案，完成演练过程的规范记录与改进项梳理",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U14",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照告警处理规程，完成网管系统告警的记录、分级上报与异常初步定位",
+
+      "task_id" : "T01",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U15",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照故障处理流程与时限要求，完成信息通信网络故障的远程或现场排查并恢复业务",
+
+      "task_id" : "T03",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U16",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照工单管理规范，完成故障处理过程与结果信息的回填反馈和工单闭环",
+
+      "task_id" : "T03",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U17",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照工单流转规范，完成跨专业故障工单的派发、协同配合与处理进度通报",
+
+      "task_id" : "T03",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U18",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照信息报送要求，完成监控异常与重要运行情况向值班负责人及相关部门的及时上报",
+
+      "task_id" : "T01",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "U19",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照性能分析报告要求，完成网络瓶颈定位与优化建议的提出并配合实施验证",
+
+      "task_id" : "T05",
+
+      "level" : 3
+
+    }, {
+
+      "id" : "U20",
+
+      "type" : "COMPETENCY_UNIT",
+
+      "name" : "能按照演练复盘机制，完成问题根因提炼与优化改进措施的跟踪落地",
+
+      "task_id" : "T07",
+
+      "level" : 2
+
+    }, {
+
+      "id" : "S01",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "依据巡检作业指导书识读传输与交换设备指示灯状态并判定正常/异常",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S02",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "核对设备端口、跳线与光模块的连接关系并记录对应关系",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S03",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "依据网络拓扑图识读设备间连接关系与链路走向",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S04",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "识读设备铭牌、型号与模块属性信息并对照技术手册确认功能",
+
+      "category" : "操作",
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "S05",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "使用网管或采集工具完成网络流量、时延、丢包率等性能指标的采集",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S06",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "对采集数据进行整理、清洗并绘制趋势比对图表",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S07",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "按运维台账模板完成运行、故障与变更记录的录入、核对与归档",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S08",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "完成运维日报或月报的数据统计与内容编制",
+
+      "category" : "操作",
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "S09",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "编写并下发路由器、交换机基础业务配置命令（接口地址、VLAN、路由）",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S10",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "对照变更单核对配置脚本内容并执行配置前备份与回退",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S11",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "按TCP/IP分层完成连通性验证（物理层端口状态检查、网络层ping、传输层端口测试）",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S12",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "依据验证结果判定变更有效性并记录判定结论",
+
+      "category" : "操作",
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "S13",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "测量并记录机房温湿度、供电、消防等环境参数",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S14",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "按巡检计划检查设备运行状态并规范填写巡检记录表",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S15",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "按变更实施流程执行配置调整操作并完成业务验证",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S16",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "执行设备配置定期备份并完成备份文件可用性校验（导入或比对）",
+
+      "category" : "操作",
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "S17",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "配置并验证设备访问控制策略（ACL、登录权限、管理地址限制）",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S18",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "采集并检查设备安全日志，记录不符合项并填写整改清单",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S19",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "对异常流量实施初步处置（端口封禁、限速、流量牵引）",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S20",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "配合完成漏洞整改加固操作并验证整改效果",
+
+      "category" : "操作",
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "S21",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "在网管系统中查看、记录并按级别上报告警信息",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S22",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "运用分层排查法完成告警的初步定位与影响范围判断",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S23",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "实施故障排查操作（分段测试、端口替换、抓包分析）并恢复业务",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S24",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "回填故障处理过程与结果信息并完成工单闭环",
+
+      "category" : "操作",
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "S25",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "在工单系统中完成故障工单的派发、转派与流转操作",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S26",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "开展跨专业协同配合并通报处理进度",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S27",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "编写监控异常与重要运行情况的上报信息并按渠道报送",
+
+      "category" : "操作",
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "S28",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "基于性能基线与流量分析完成网络瓶颈定位",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S29",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "编写性能优化建议方案并配合实施与效果验证",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S30",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "组织演练或故障复盘并提炼问题根因",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "S31",
+
+      "type" : "SKILL_POINT",
+
+      "name" : "建立改进措施跟踪台账并跟踪措施落地情况",
+
+      "category" : "操作",
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K01",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "传输设备与交换设备的类型、功能定位及典型组网形态",
+
+      "subject" : "通信网络设备运行与维护",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K02",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "网络拓扑结构类型（星型、环型、树型）与拓扑图识图规范",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K03",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "设备端口类型（电口、光口）与光模块等级、传输距离的对应关系",
+
+      "subject" : "数据通信技术",
+
+      "importance" : 2,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K04",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "机房巡检作业指导书与设备技术手册的查阅与执行规范",
+
+      "subject" : "信息通信运维管理",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C01"
+
+    }, {
+
+      "id" : "K05",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "网络性能指标定义与计算方法（带宽、时延、抖动、丢包率）",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K06",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "性能数据采集方式（SNMP、NetFlow、探针）与采样周期原理",
+
+      "subject" : "网络性能监测技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K07",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "运维台账与运行记录的完整性、可追溯性管理规范",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K08",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "运维报告编制规范与数据统计、图表呈现方法",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C02"
+
+    }, {
+
+      "id" : "K09",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "TCP/IP分层模型与数据封装、解封装原理",
+
+      "subject" : "计算机网络基础",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K10",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "以太网交换原理与VLAN划分、Trunk链路工作机制",
+
+      "subject" : "数据通信技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K11",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "静态路由与常用动态路由协议（RIP、OSPF）基础原理",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K12",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "设备命令行体系、配置模式与配置规范要求",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C03"
+
+    }, {
+
+      "id" : "K13",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "通信机房环境标准与巡检项目、判定阈值",
+
+      "subject" : "通信机房运维",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K14",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "变更管理流程、变更窗口与风险控制要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K15",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "配置备份策略（周期、介质、留存）与配置恢复原理",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K16",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "巡检记录与变更记录回填的规范要求",
+
+      "subject" : "通信机房运维",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C04"
+
+    }, {
+
+      "id" : "K17",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "网络安全等级保护要求与信息通信合规检查要点",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K18",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "访问控制模型与身份鉴别、授权管理原理",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K19",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "常见网络攻击类型与异常流量特征识别方法",
+
+      "subject" : "网络安全防护",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K20",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "安全事件处置规程与应急演练预案要素",
+
+      "subject" : "信息安全技术",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C05"
+
+    }, {
+
+      "id" : "K21",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "网管系统架构与告警采集、分级、抑制机制",
+
+      "subject" : "网络管理技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K22",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "故障分级标准与处理时限、上报要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K23",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "典型网络故障现象与成因分析（链路中断、环路、地址冲突、配置错误）",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 4,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K24",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "故障定位方法（分段排查、对比替换、自下而上分层定位）",
+
+      "subject" : "网络管理技术",
+
+      "importance" : 3,
+
+      "difficulty" : 3,
+
+      "competency_id" : "C06"
+
+    }, {
+
+      "id" : "K25",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "工单管理规范、工单状态流转规则与闭环要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 3,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K26",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "信息报送流程、报送对象与时限要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 1,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K27",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "跨专业协同机制与问题升级（Escalation）原则",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C07"
+
+    }, {
+
+      "id" : "K28",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "网络性能基线建立与容量分析、瓶颈判定方法",
+
+      "subject" : "网络性能监测技术",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K29",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "常用优化手段原理（QoS策略、链路扩容、路由与负载分担调整）",
+
+      "subject" : "网络设备配置与管理",
+
+      "importance" : 3,
+
+      "difficulty" : 4,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K30",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "根因分析方法（鱼骨图、5Why、故障树）",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C08"
+
+    }, {
+
+      "id" : "K31",
+
+      "type" : "KNOWLEDGE_POINT",
+
+      "name" : "PDCA持续改进机制与复盘管理要求",
+
+      "subject" : "IT运维服务管理",
+
+      "importance" : 2,
+
+      "difficulty" : 2,
+
+      "competency_id" : "C08"
+
+    } ],
+
+    "edges" : [ {
+
+      "source" : "IC01",
+
+      "target" : "CS01",
+
+      "type" : "CONTAINS"
+
+    }, {
+
+      "source" : "CS01",
+
+      "target" : "JC01",
+
+      "type" : "CONTAINS"
+
+    }, {
+
+      "source" : "JC01",
+
+      "target" : "JOB01",
+
+      "type" : "CONTAINS"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T01",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T02",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T03",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T04",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T05",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T06",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T07",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "T08",
+
+      "type" : "HAS_TASK"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C01",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C02",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C03",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C04",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C05",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C06",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C07",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "JOB01",
+
+      "target" : "C08",
+
+      "type" : "HAS_COMPETENCY"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "U01",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "U02",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "U03",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "U04",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "U05",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "U06",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "U07",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "U08",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "U09",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "U10",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "U11",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "U12",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "U13",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "U14",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "U15",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "U16",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "U17",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "U18",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "U19",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "U20",
+
+      "type" : "HAS_UNIT"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "S01",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "S02",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "S03",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "S04",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "S05",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "S06",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "S07",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "S08",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "S09",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "S10",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "S11",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "S12",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "S13",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "S14",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "S15",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "S16",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "S17",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "S18",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "S19",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "S20",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "S21",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "S22",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "S23",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "S24",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "S25",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "S26",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "S27",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "S28",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "S29",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "S30",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "S31",
+
+      "type" : "HAS_SKILL"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "K01",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "K02",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "K03",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "K04",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "K05",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "K06",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "K07",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "K08",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "K09",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "K10",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "K11",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "K12",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "K13",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "K14",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "K15",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "K16",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "K17",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "K18",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "K19",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "K20",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "K21",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "K22",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "K23",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "K24",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "K25",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "K26",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "K27",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "K28",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "K29",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "K30",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "K31",
+
+      "type" : "HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "T02",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C01",
+
+      "target" : "T04",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "T05",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C02",
+
+      "target" : "T08",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C03",
+
+      "target" : "T04",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "T02",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "T04",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C04",
+
+      "target" : "T07",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "T06",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C05",
+
+      "target" : "T07",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "T01",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C06",
+
+      "target" : "T03",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "T01",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "T03",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C07",
+
+      "target" : "T08",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "T05",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "C08",
+
+      "target" : "T07",
+
+      "type" : "COVERS_TASK"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "T02",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U02",
+
+      "target" : "T04",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U03",
+
+      "target" : "T05",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U04",
+
+      "target" : "T08",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U05",
+
+      "target" : "T08",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "T04",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U07",
+
+      "target" : "T04",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U08",
+
+      "target" : "T02",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U09",
+
+      "target" : "T04",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U10",
+
+      "target" : "T07",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U11",
+
+      "target" : "T06",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U12",
+
+      "target" : "T06",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U13",
+
+      "target" : "T07",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U14",
+
+      "target" : "T01",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U15",
+
+      "target" : "T03",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U16",
+
+      "target" : "T03",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U17",
+
+      "target" : "T03",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U18",
+
+      "target" : "T01",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U19",
+
+      "target" : "T05",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U20",
+
+      "target" : "T07",
+
+      "type" : "UNIT_FOR_TASK"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "S01",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "S02",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U02",
+
+      "target" : "S03",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U02",
+
+      "target" : "S04",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U03",
+
+      "target" : "S05",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U03",
+
+      "target" : "S06",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U04",
+
+      "target" : "S07",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U05",
+
+      "target" : "S08",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "S09",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "S10",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U07",
+
+      "target" : "S11",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U07",
+
+      "target" : "S12",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U08",
+
+      "target" : "S13",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U08",
+
+      "target" : "S14",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U09",
+
+      "target" : "S15",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U10",
+
+      "target" : "S16",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U11",
+
+      "target" : "S17",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U11",
+
+      "target" : "S18",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U12",
+
+      "target" : "S19",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U12",
+
+      "target" : "S20",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U14",
+
+      "target" : "S21",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U14",
+
+      "target" : "S22",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U15",
+
+      "target" : "S23",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U16",
+
+      "target" : "S24",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U17",
+
+      "target" : "S25",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U17",
+
+      "target" : "S26",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U18",
+
+      "target" : "S27",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U19",
+
+      "target" : "S28",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U19",
+
+      "target" : "S29",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U20",
+
+      "target" : "S30",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U20",
+
+      "target" : "S31",
+
+      "type" : "UNIT_HAS_SKILL"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "K01",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "K03",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U01",
+
+      "target" : "K04",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U02",
+
+      "target" : "K02",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U03",
+
+      "target" : "K05",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U03",
+
+      "target" : "K06",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U04",
+
+      "target" : "K07",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U05",
+
+      "target" : "K08",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "K10",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "K11",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U06",
+
+      "target" : "K12",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U07",
+
+      "target" : "K09",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U08",
+
+      "target" : "K13",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U09",
+
+      "target" : "K14",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U09",
+
+      "target" : "K16",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U10",
+
+      "target" : "K15",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U11",
+
+      "target" : "K17",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U11",
+
+      "target" : "K18",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U12",
+
+      "target" : "K19",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U13",
+
+      "target" : "K20",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U14",
+
+      "target" : "K21",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U14",
+
+      "target" : "K22",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U15",
+
+      "target" : "K23",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U15",
+
+      "target" : "K24",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U17",
+
+      "target" : "K25",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U17",
+
+      "target" : "K27",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U18",
+
+      "target" : "K26",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U19",
+
+      "target" : "K28",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U19",
+
+      "target" : "K29",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U20",
+
+      "target" : "K30",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    }, {
+
+      "source" : "U20",
+
+      "target" : "K31",
+
+      "type" : "UNIT_HAS_KNOWLEDGE"
+
+    } ]
+
+  },
+
+  "coverage" : {
+
+    "tasks" : 8,
+
+    "competencies" : 8,
+
+    "skills" : 31,
+
+    "knowledge" : 31
+
+  },
+
+  "confidence" : 0.92,
+
+  "sources" : [ {
+
+    "name" : "国家职业分类大典",
+
+    "version" : "2022年版"
+
+  }, {
+
+    "name" : "国民经济行业分类",
+
+    "version" : "GB/T 4754-2017"
+
+  } ]
+
+}

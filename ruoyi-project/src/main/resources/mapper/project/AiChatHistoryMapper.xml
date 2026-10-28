@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="AiChatHistory" id="AiChatHistoryResult">
         <result property="id"    column="id"    />
         <result property="userId"    column="user_id"    />
+        <result property="positionId"    column="position_id"    />
         <result property="userInput"    column="user_input"    />
         <result property="subjectContext"    column="subject_context"    />
         <result property="selectedSubjects"    column="selected_subjects"    />
@@ -21,13 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAiChatHistoryVo">
-        select id, user_id, user_input, subject_context, selected_subjects, overall_analysis, raw_response, status, create_by, create_time, update_by, update_time, del_flag from ai_chat_history
+        select id, user_id, position_id, user_input, subject_context, selected_subjects, overall_analysis, raw_response, status, create_by, create_time, update_by, update_time, del_flag from ai_chat_history
     </sql>
 
     <select id="selectAiChatHistoryList" parameterType="AiChatHistory" resultMap="AiChatHistoryResult">
         <include refid="selectAiChatHistoryVo"/>
         <where>  
             <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="positionId != null"> and position_id = #{positionId}</if>
             <if test="userInput != null  and userInput != ''"> and user_input = #{userInput}</if>
             <if test="subjectContext != null  and subjectContext != ''"> and subject_context = #{subjectContext}</if>
             <if test="selectedSubjects != null  and selectedSubjects != ''"> and selected_subjects = #{selectedSubjects}</if>
@@ -47,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into ai_chat_history
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">user_id,</if>
+            <if test="positionId != null">position_id,</if>
             <if test="userInput != null and userInput != ''">user_input,</if>
             <if test="subjectContext != null">subject_context,</if>
             <if test="selectedSubjects != null">selected_subjects,</if>
@@ -61,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">#{userId},</if>
+            <if test="positionId != null">#{positionId},</if>
             <if test="userInput != null and userInput != ''">#{userInput},</if>
             <if test="subjectContext != null">#{subjectContext},</if>
             <if test="selectedSubjects != null">#{selectedSubjects},</if>
@@ -79,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update ai_chat_history
         <trim prefix="SET" suffixOverrides=",">
             <if test="userId != null">user_id = #{userId},</if>
+            <if test="positionId != null">position_id = #{positionId},</if>
             <if test="userInput != null and userInput != ''">user_input = #{userInput},</if>
             <if test="subjectContext != null">subject_context = #{subjectContext},</if>
             <if test="selectedSubjects != null">selected_subjects = #{selectedSubjects},</if>

@@ -1,0 +1,1940 @@
+{
+  "schema_version": "1.0.0",
+  "framework": "langchain/langgraph",
+  "format": "langgraph-state-graph",
+  "flow": {
+    "id": "岗位能力图谱20261027",
+    "name": "岗位能力图谱20261027",
+    "description": "以具体岗位为输入，自动梳理“产业链→岗位群→能力项→知识点/技能点”逻辑链，解析典型工作任务并产出可视化岗位能力图谱",
+    "category": 17,
+    "dsl_version": "v1",
+    "avatar_icon": "https://openres.xfyun.cn/xfyundoc/2026-01-13/68cb686b-ad05-45da-8376-45a4c9ce3fcc/1768290620925/5%402x.png",
+    "avatar_color": "#E8F3FF",
+    "advanced_config": {
+      "prologue": {
+        "enabled": true,
+        "inputExample": [
+          "Java后端开发工程师",
+          "软件测试工程师",
+          "工业机器人系统运维员"
+        ]
+      },
+      "textToSpeech": {
+        "enabled": false
+      },
+      "needGuide": false
+    },
+    "advanced_config_raw": "{\"prologue\":{\"enabled\":true,\"inputExample\":[\"Java后端开发工程师\",\"软件测试工程师\",\"工业机器人系统运维员\"]},\"textToSpeech\":{\"enabled\":false},\"needGuide\":false}"
+  },
+  "state": {
+    "schema": {
+      "AGENT_USER_INPUT": {
+        "type": "string",
+        "default": "用户本轮对话输入内容",
+        "required": true,
+        "producer": "start"
+      },
+      "industry_chain": {
+        "type": "string",
+        "default": "",
+        "producer": "industry_chain_mapper"
+      },
+      "work_tasks": {
+        "type": "string",
+        "default": "",
+        "producer": "task_analyzer"
+      },
+      "competencies": {
+        "type": "string",
+        "default": "",
+        "producer": "competency_decomposer"
+      },
+      "elements": {
+        "type": "string",
+        "default": "",
+        "producer": "element_mapper"
+      },
+      "competency_graph": {
+        "type": "string",
+        "default": "",
+        "producer": "graph_assembler"
+      },
+      "final_output": {
+        "type": "string",
+        "default": "",
+        "producer": "end"
+      }
+    },
+    "defaults": {
+      "AGENT_USER_INPUT": "用户本轮对话输入内容",
+      "industry_chain": "",
+      "work_tasks": "",
+      "competencies": "",
+      "elements": "",
+      "competency_graph": "",
+      "final_output": ""
+    }
+  },
+  "models": {
+    "qwen3.8-flash": {
+      "provider": "openai-compatible",
+      "base_url": "https://ws-6sx11dk2z85q2i91.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+      "model_name": "qwen3.8-flash",
+      "temperature": 0.3,
+      "timeout_seconds": 600,
+      "api_key_env": "DASHSCOPE_API_KEY"
+    },
+    "default": {
+      "provider": "openai-compatible",
+      "base_url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+      "model_name": "qwen3.8-flash",
+      "temperature": 0.3,
+      "timeout_seconds": 120,
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "provider_options": {
+        "source": "openai",
+        "model_name": "qwen3.8-flash",
+        "model_id": 10799,
+        "llm_id": 668249608,
+        "service_id": null,
+        "domain": "qwen3.8-flash",
+        "app_id": "12a0a7e2",
+        "uid": "21780452610",
+        "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+        "temperature": 0.3,
+        "enable_chat_history": {
+          "isEnabled": false,
+          "rounds": 1
+        },
+        "auditing": "default",
+        "resp_format": null,
+        "is_think": false,
+        "search_disable": true
+      }
+    }
+  },
+  "graph": {
+    "entrypoint": "node-start::e0000001-0000-4000-8000-000000000001",
+    "finish_point": "node-end::e0000009-0000-4000-8000-000000000009",
+    "entrypoint_runtime": "start",
+    "finish_runtime": "end",
+    "nodes": [
+      {
+        "id": "node-start::e0000001-0000-4000-8000-000000000001",
+        "runtime_name": "start",
+        "type": "start",
+        "iflytek_type": "开始节点",
+        "name": "开始",
+        "alias": "开始节点",
+        "node_meta": {
+          "aliasName": "开始节点",
+          "nodeType": "基础节点"
+        },
+        "description": "工作流的开启节点，用于接收待分析的职业岗位名称。",
+        "position": {
+          "x": -320,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": -320,
+          "y": 300
+        },
+        "size": {
+          "width": 256,
+          "height": 74
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": false,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [],
+        "outputs": [
+          {
+            "id": "10000001-0000-4000-8000-000000000001",
+            "name": "AGENT_USER_INPUT",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "用户本轮对话输入内容",
+            "schema": {
+              "type": "string",
+              "default": "用户本轮对话输入内容"
+            }
+          }
+        ],
+        "node_param": {},
+        "state_writes": {
+          "AGENT_USER_INPUT": {
+            "type": "string",
+            "default": "用户本轮对话输入内容",
+            "required": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::e0000002-0000-4000-8000-000000000002",
+        "runtime_name": "industry_chain_mapper",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "产业链与岗位群定位",
+        "alias": "产业链与岗位群分析师",
+        "node_meta": {
+          "aliasName": "产业链与岗位群分析师",
+          "nodeType": "大模型"
+        },
+        "description": null,
+        "position": {
+          "x": -20,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": -20,
+          "y": 300
+        },
+        "size": {
+          "width": 320,
+          "height": 100
+        },
+        "icon": null,
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": null,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "41000001-0000-4000-8000-000000000001",
+            "name": "job_title",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::e0000001-0000-4000-8000-000000000001",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "10000001-0000-4000-8000-000000000001"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "20000001-0000-4000-8000-000000000001",
+            "name": "industry_chain",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "目标岗位：{{job_title}}\n\n请完成该岗位在产业链中的定位，并输出 JSON。",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 0.3
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "qwen3.8-flash",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "qwen3.8-flash",
+          "systemTemplate": "# Role\n你是一名产业链与岗位群分析师，熟悉国家职业分类大典、职业教育专业教学标准与企业岗位设置。\n\n# Task\n根据用户输入的【目标岗位】，向上定位它所属的产业链、产业链环节与职业岗位群，形成“产业链→环节→岗位群→岗位”的逻辑链首段。\n\n# Strict Constraints\n1. 只使用公开、可追溯的产业与职业分类信息，不得虚构不存在的产业链。\n2. 岗位名称要归一化为标准名称；同时给出常见别名，便于后续检索。\n3. 如果输入岗位无法识别，返回 {\"error\":\"岗位未收录\"}，不得强行编造。\n4. 逻辑链必须是严格的自上而下四级：产业链、产业链环节、职业岗位群、职业岗位。\n\n# Output Format\n只输出 JSON，不要 Markdown 代码块，不要任何解释性文字。\n\n{\n  \"job\": {\"name\": \"标准岗位名称\", \"aliases\": [\"别名\"], \"code\": \"职业编码或空字符串\"},\n  \"industry_chain\": {\"chain\": \"产业链\", \"segment\": \"产业链环节\", \"cluster\": \"职业岗位群\"},\n  \"logic_chain\": [\n    {\"level\": \"产业链\", \"name\": \"…\"},\n    {\"level\": \"产业链环节\", \"name\": \"…\"},\n    {\"level\": \"职业岗位群\", \"name\": \"…\"},\n    {\"level\": \"职业岗位\", \"name\": \"…\"}\n  ],\n  \"confidence\": 0.0,\n  \"sources\": [{\"name\": \"数据来源\", \"version\": \"版本\"}]\n}"
+        },
+        "llm": {
+          "model": "qwen3.8-flash",
+          "prompt": {
+            "system": "# Role\n你是一名产业链与岗位群分析师，熟悉国家职业分类大典、职业教育专业教学标准与企业岗位设置。\n\n# Task\n根据用户输入的【目标岗位】，向上定位它所属的产业链、产业链环节与职业岗位群，形成“产业链→环节→岗位群→岗位”的逻辑链首段。\n\n# Strict Constraints\n1. 只使用公开、可追溯的产业与职业分类信息，不得虚构不存在的产业链。\n2. 岗位名称要归一化为标准名称；同时给出常见别名，便于后续检索。\n3. 如果输入岗位无法识别，返回 {\"error\":\"岗位未收录\"}，不得强行编造。\n4. 逻辑链必须是严格的自上而下四级：产业链、产业链环节、职业岗位群、职业岗位。\n\n# Output Format\n只输出 JSON，不要 Markdown 代码块，不要任何解释性文字。\n\n{\n  \"job\": {\"name\": \"标准岗位名称\", \"aliases\": [\"别名\"], \"code\": \"职业编码或空字符串\"},\n  \"industry_chain\": {\"chain\": \"产业链\", \"segment\": \"产业链环节\", \"cluster\": \"职业岗位群\"},\n  \"logic_chain\": [\n    {\"level\": \"产业链\", \"name\": \"…\"},\n    {\"level\": \"产业链环节\", \"name\": \"…\"},\n    {\"level\": \"职业岗位群\", \"name\": \"…\"},\n    {\"level\": \"职业岗位\", \"name\": \"…\"}\n  ],\n  \"confidence\": 0.0,\n  \"sources\": [{\"name\": \"数据来源\", \"version\": \"版本\"}]\n}",
+            "system_template_format": "text",
+            "user_template": "目标岗位：{{job_title}}\n\n请完成该岗位在产业链中的定位，并输出 JSON。",
+            "input_mapping": {
+              "job_title": "AGENT_USER_INPUT"
+            }
+          },
+          "output": {
+            "name": "industry_chain",
+            "id": "20000001-0000-4000-8000-000000000001",
+            "state_key": "industry_chain",
+            "end_input": null
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "qwen3.8-flash",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": null,
+            "domain": "qwen3.8-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+            "temperature": 0.3,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": null,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::e0000003-0000-4000-8000-000000000003",
+        "runtime_name": "task_analyzer",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "典型工作任务解析",
+        "alias": "典型工作任务拆解专家",
+        "node_meta": {
+          "aliasName": "典型工作任务拆解专家",
+          "nodeType": "大模型"
+        },
+        "description": null,
+        "position": {
+          "x": 340,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": 340,
+          "y": 300
+        },
+        "size": {
+          "width": 320,
+          "height": 100
+        },
+        "icon": null,
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": null,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "41000002-0000-4000-8000-000000000002",
+            "name": "job_title",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::e0000001-0000-4000-8000-000000000001",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "10000001-0000-4000-8000-000000000001"
+            }
+          },
+          {
+            "id": "41000003-0000-4000-8000-000000000003",
+            "name": "industry_chain",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "industry_chain",
+                  "id": "20000001-0000-4000-8000-000000000001",
+                  "nodeId": "spark-llm::e0000002-0000-4000-8000-000000000002"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000002-0000-4000-8000-000000000002",
+              "output": "industry_chain",
+              "output_id": "20000001-0000-4000-8000-000000000001"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "20000002-0000-4000-8000-000000000002",
+            "name": "work_tasks",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n请解析该岗位的主要工作任务，并输出 JSON。",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 0.3
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "qwen3.8-flash",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "qwen3.8-flash",
+          "systemTemplate": "# Role\n你是一名典型工作任务拆解专家，熟悉职业标准中的“工作任务分析”方法（DACUM/工作任务分析会）。\n\n# Task\n根据【目标岗位】与【产业链定位】，拆解该岗位 5~8 条典型工作任务，并标注重要度、出现频次与难度。\n\n# Strict Constraints\n1. 每条任务必须是可观察、可完成的具体工作，不写“能力”“素质”这类抽象表述。\n2. 任务描述使用“动词+对象+标准/场景”的写法，20~60 字。\n3. importance、frequency、difficulty 均为 1~5 的整数，其中 5 表示最高。\n4. 任务编号从 T01 开始顺序编号。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"tasks\": [\n    {\n      \"id\": \"T01\",\n      \"name\": \"任务名称\",\n      \"description\": \"任务描述\",\n      \"importance\": 5,\n      \"frequency\": 5,\n      \"difficulty\": 4\n    }\n  ]\n}"
+        },
+        "llm": {
+          "model": "qwen3.8-flash",
+          "prompt": {
+            "system": "# Role\n你是一名典型工作任务拆解专家，熟悉职业标准中的“工作任务分析”方法（DACUM/工作任务分析会）。\n\n# Task\n根据【目标岗位】与【产业链定位】，拆解该岗位 5~8 条典型工作任务，并标注重要度、出现频次与难度。\n\n# Strict Constraints\n1. 每条任务必须是可观察、可完成的具体工作，不写“能力”“素质”这类抽象表述。\n2. 任务描述使用“动词+对象+标准/场景”的写法，20~60 字。\n3. importance、frequency、difficulty 均为 1~5 的整数，其中 5 表示最高。\n4. 任务编号从 T01 开始顺序编号。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"tasks\": [\n    {\n      \"id\": \"T01\",\n      \"name\": \"任务名称\",\n      \"description\": \"任务描述\",\n      \"importance\": 5,\n      \"frequency\": 5,\n      \"difficulty\": 4\n    }\n  ]\n}",
+            "system_template_format": "text",
+            "user_template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n请解析该岗位的主要工作任务，并输出 JSON。",
+            "input_mapping": {
+              "job_title": "AGENT_USER_INPUT",
+              "industry_chain": "industry_chain"
+            }
+          },
+          "output": {
+            "name": "work_tasks",
+            "id": "20000002-0000-4000-8000-000000000002",
+            "state_key": "work_tasks",
+            "end_input": null
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "qwen3.8-flash",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": null,
+            "domain": "qwen3.8-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+            "temperature": 0.3,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": null,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::e0000004-0000-4000-8000-000000000004",
+        "runtime_name": "competency_decomposer",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "能力项与能力单元拆解",
+        "alias": "岗位能力结构拆解专家",
+        "node_meta": {
+          "aliasName": "岗位能力结构拆解专家",
+          "nodeType": "大模型"
+        },
+        "description": null,
+        "position": {
+          "x": 700,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": 700,
+          "y": 300
+        },
+        "size": {
+          "width": 320,
+          "height": 100
+        },
+        "icon": null,
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": null,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "41000004-0000-4000-8000-000000000004",
+            "name": "job_title",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::e0000001-0000-4000-8000-000000000001",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "10000001-0000-4000-8000-000000000001"
+            }
+          },
+          {
+            "id": "41000005-0000-4000-8000-000000000005",
+            "name": "work_tasks",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "work_tasks",
+                  "id": "20000002-0000-4000-8000-000000000002",
+                  "nodeId": "spark-llm::e0000003-0000-4000-8000-000000000003"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000003-0000-4000-8000-000000000003",
+              "output": "work_tasks",
+              "output_id": "20000002-0000-4000-8000-000000000002"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "20000003-0000-4000-8000-000000000003",
+            "name": "competencies",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "目标岗位：{{job_title}}\n\n典型工作任务：\n{{work_tasks}}\n\n请把任务拆解为能力项与能力单元，并输出 JSON。",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 0.3
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "qwen3.8-flash",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "qwen3.8-flash",
+          "systemTemplate": "# Role\n你是一名岗位能力结构拆解专家，熟练使用“能力项—能力单元—技能点/知识点”的三层胜任力建模方法。\n\n# Task\n根据【典型工作任务】，拆解出 5~8 个能力项（能力域），每个能力项下给出 1~3 个可观测的能力单元，并把能力单元归属到具体任务。\n\n# Strict Constraints\n1. 能力域只能从以下 8 个中选取：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新。\n2. 能力单元使用“能按照{标准/规范}，完成{对象}的{动作}”句式，必须可考核。\n3. 每个能力项必须至少关联一条任务；不允许出现没有任务来源的能力。\n4. 能力单元等级 level 取 1（了解）、2（掌握）、3（熟练）之一。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"competencies\": [\n    {\n      \"id\": \"C01\",\n      \"name\": \"能力项名称\",\n      \"domain\": \"专业基础\",\n      \"task_ids\": [\"T01\", \"T02\"],\n      \"units\": [\n        {\"id\": \"U01\", \"statement\": \"能按照…完成…\", \"task_id\": \"T01\", \"level\": 2}\n      ]\n    }\n  ]\n}"
+        },
+        "llm": {
+          "model": "qwen3.8-flash",
+          "prompt": {
+            "system": "# Role\n你是一名岗位能力结构拆解专家，熟练使用“能力项—能力单元—技能点/知识点”的三层胜任力建模方法。\n\n# Task\n根据【典型工作任务】，拆解出 5~8 个能力项（能力域），每个能力项下给出 1~3 个可观测的能力单元，并把能力单元归属到具体任务。\n\n# Strict Constraints\n1. 能力域只能从以下 8 个中选取：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新。\n2. 能力单元使用“能按照{标准/规范}，完成{对象}的{动作}”句式，必须可考核。\n3. 每个能力项必须至少关联一条任务；不允许出现没有任务来源的能力。\n4. 能力单元等级 level 取 1（了解）、2（掌握）、3（熟练）之一。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"competencies\": [\n    {\n      \"id\": \"C01\",\n      \"name\": \"能力项名称\",\n      \"domain\": \"专业基础\",\n      \"task_ids\": [\"T01\", \"T02\"],\n      \"units\": [\n        {\"id\": \"U01\", \"statement\": \"能按照…完成…\", \"task_id\": \"T01\", \"level\": 2}\n      ]\n    }\n  ]\n}",
+            "system_template_format": "text",
+            "user_template": "目标岗位：{{job_title}}\n\n典型工作任务：\n{{work_tasks}}\n\n请把任务拆解为能力项与能力单元，并输出 JSON。",
+            "input_mapping": {
+              "job_title": "AGENT_USER_INPUT",
+              "work_tasks": "work_tasks"
+            }
+          },
+          "output": {
+            "name": "competencies",
+            "id": "20000003-0000-4000-8000-000000000003",
+            "state_key": "competencies",
+            "end_input": null
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "qwen3.8-flash",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": null,
+            "domain": "qwen3.8-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+            "temperature": 0.3,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": null,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::e0000005-0000-4000-8000-000000000005",
+        "runtime_name": "element_mapper",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "知识点与技能点映射",
+        "alias": "知识点与技能点映射专家",
+        "node_meta": {
+          "aliasName": "知识点与技能点映射专家",
+          "nodeType": "大模型"
+        },
+        "description": null,
+        "position": {
+          "x": 1060,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": 1060,
+          "y": 300
+        },
+        "size": {
+          "width": 320,
+          "height": 100
+        },
+        "icon": null,
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": null,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "41000006-0000-4000-8000-000000000006",
+            "name": "job_title",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::e0000001-0000-4000-8000-000000000001",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "10000001-0000-4000-8000-000000000001"
+            }
+          },
+          {
+            "id": "41000007-0000-4000-8000-000000000007",
+            "name": "competencies",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "competencies",
+                  "id": "20000003-0000-4000-8000-000000000003",
+                  "nodeId": "spark-llm::e0000004-0000-4000-8000-000000000004"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000004-0000-4000-8000-000000000004",
+              "output": "competencies",
+              "output_id": "20000003-0000-4000-8000-000000000003"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "20000004-0000-4000-8000-000000000004",
+            "name": "elements",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "目标岗位：{{job_title}}\n\n能力项与能力单元：\n{{competencies}}\n\n请为每个能力项映射技能点与知识点，并输出 JSON。",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 0.3
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "qwen3.8-flash",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "qwen3.8-flash",
+          "systemTemplate": "# Role\n你是一名知识点与技能点映射专家，负责把岗位能力落到可教学、可训练的要素上。\n\n# Task\n根据【能力项与能力单元】，为每个能力项补充技能点与知识点，并给出难度、重要度以及所属课程学科。\n\n# Strict Constraints\n1. 技能点必须是可动手训练的操作（如“端子压接”“索引优化”），知识点必须是可讲授的概念/原理/规范。\n2. 每个能力项至少 2 个技能点、2 个知识点。\n3. 知识点需标注 subject（对应课程/学科），便于与专业教学标准对接。\n4. importance 取 1~4（1 了解、2 掌握、3 重点、4 核心）；difficulty 取 1~5。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"elements\": {\n    \"competencies\": [\n      {\n        \"id\": \"C01\",\n        \"skills\": [{\"name\": \"技能点\", \"category\": \"操作\"}],\n        \"knowledge\": [\n          {\"name\": \"知识点\", \"subject\": \"所属课程\", \"importance\": 3, \"difficulty\": 3}\n        ]\n      }\n    ]\n  }\n}"
+        },
+        "llm": {
+          "model": "qwen3.8-flash",
+          "prompt": {
+            "system": "# Role\n你是一名知识点与技能点映射专家，负责把岗位能力落到可教学、可训练的要素上。\n\n# Task\n根据【能力项与能力单元】，为每个能力项补充技能点与知识点，并给出难度、重要度以及所属课程学科。\n\n# Strict Constraints\n1. 技能点必须是可动手训练的操作（如“端子压接”“索引优化”），知识点必须是可讲授的概念/原理/规范。\n2. 每个能力项至少 2 个技能点、2 个知识点。\n3. 知识点需标注 subject（对应课程/学科），便于与专业教学标准对接。\n4. importance 取 1~4（1 了解、2 掌握、3 重点、4 核心）；difficulty 取 1~5。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"elements\": {\n    \"competencies\": [\n      {\n        \"id\": \"C01\",\n        \"skills\": [{\"name\": \"技能点\", \"category\": \"操作\"}],\n        \"knowledge\": [\n          {\"name\": \"知识点\", \"subject\": \"所属课程\", \"importance\": 3, \"difficulty\": 3}\n        ]\n      }\n    ]\n  }\n}",
+            "system_template_format": "text",
+            "user_template": "目标岗位：{{job_title}}\n\n能力项与能力单元：\n{{competencies}}\n\n请为每个能力项映射技能点与知识点，并输出 JSON。",
+            "input_mapping": {
+              "job_title": "AGENT_USER_INPUT",
+              "competencies": "competencies"
+            }
+          },
+          "output": {
+            "name": "elements",
+            "id": "20000004-0000-4000-8000-000000000004",
+            "state_key": "elements",
+            "end_input": null
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "qwen3.8-flash",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": null,
+            "domain": "qwen3.8-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+            "temperature": 0.3,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": null,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "spark-llm::e0000006-0000-4000-8000-000000000006",
+        "runtime_name": "graph_assembler",
+        "type": "llm",
+        "iflytek_type": "大模型",
+        "name": "岗位能力图谱装配",
+        "alias": "岗位能力图谱装配专家",
+        "node_meta": {
+          "aliasName": "岗位能力图谱装配专家",
+          "nodeType": "大模型"
+        },
+        "description": null,
+        "position": {
+          "x": 1420,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": 1420,
+          "y": 300
+        },
+        "size": {
+          "width": 320,
+          "height": 100
+        },
+        "icon": null,
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": null,
+          "allow_input_reference": true,
+          "allow_output_reference": true,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "41000008-0000-4000-8000-000000000008",
+            "name": "job_title",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "AGENT_USER_INPUT",
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "node-start::e0000001-0000-4000-8000-000000000001",
+              "output": "AGENT_USER_INPUT",
+              "output_id": "10000001-0000-4000-8000-000000000001"
+            }
+          },
+          {
+            "id": "41000009-0000-4000-8000-000000000009",
+            "name": "industry_chain",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "industry_chain",
+                  "id": "20000001-0000-4000-8000-000000000001",
+                  "nodeId": "spark-llm::e0000002-0000-4000-8000-000000000002"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000002-0000-4000-8000-000000000002",
+              "output": "industry_chain",
+              "output_id": "20000001-0000-4000-8000-000000000001"
+            }
+          },
+          {
+            "id": "41000010-0000-4000-8000-000000000010",
+            "name": "work_tasks",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "work_tasks",
+                  "id": "20000002-0000-4000-8000-000000000002",
+                  "nodeId": "spark-llm::e0000003-0000-4000-8000-000000000003"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000003-0000-4000-8000-000000000003",
+              "output": "work_tasks",
+              "output_id": "20000002-0000-4000-8000-000000000002"
+            }
+          },
+          {
+            "id": "41000011-0000-4000-8000-000000000011",
+            "name": "competencies",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "competencies",
+                  "id": "20000003-0000-4000-8000-000000000003",
+                  "nodeId": "spark-llm::e0000004-0000-4000-8000-000000000004"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000004-0000-4000-8000-000000000004",
+              "output": "competencies",
+              "output_id": "20000003-0000-4000-8000-000000000003"
+            }
+          },
+          {
+            "id": "41000012-0000-4000-8000-000000000012",
+            "name": "elements",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "elements",
+                  "id": "20000004-0000-4000-8000-000000000004",
+                  "nodeId": "spark-llm::e0000005-0000-4000-8000-000000000005"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000005-0000-4000-8000-000000000005",
+              "output": "elements",
+              "output_id": "20000004-0000-4000-8000-000000000004"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "20000005-0000-4000-8000-000000000005",
+            "name": "graph_json",
+            "name_err_msg": "",
+            "type": "string",
+            "default": "",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "node_param": {
+          "template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n典型工作任务：\n{{work_tasks}}\n\n能力项与能力单元：\n{{competencies}}\n\n技能点与知识点：\n{{elements}}\n\n请装配为完整的岗位能力图谱 JSON。",
+          "modelId": 10799,
+          "enableChatHistoryV2": {
+            "isEnabled": false,
+            "rounds": 1
+          },
+          "auditing": "default",
+          "extraParams": {
+            "temperature": 0.2
+          },
+          "source": "openai",
+          "llmId": 668249608,
+          "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "multiMode": false,
+          "modelName": "qwen3.8-flash",
+          "uid": "21780452610",
+          "isThink": false,
+          "templateErrMsg": "",
+          "searchDisable": true,
+          "appId": "12a0a7e2",
+          "domain": "qwen3.8-flash",
+          "systemTemplate": "# Role\n你是一名岗位能力图谱装配专家，负责把分散的能力要素装配成可可视化、可追溯的图谱数据。\n\n# Task\n合并前序步骤结果，输出一份完整的岗位能力图谱 JSON。\n\n# Strict Constraints\n1. 不得新增前序步骤中不存在的能力项、技能点或知识点；只做合并、去重与编号。\n2. 能力项权重 weight 为 0~100 的整数，按任务重要度、频次、难度加权归一化，最大者记 100。\n3. radar 的 8 个维度固定为：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新；缺失维度记 0。\n4. mindmap 为“岗位→能力项→能力单元→技能点/知识点”的可折叠树，children 为空数组时也要保留。\n5. graph.nodes / graph.edges 需覆盖 9 类节点（INDUSTRY_CHAIN、CHAIN_SEGMENT、JOB_CLUSTER、JOB、WORK_TASK、COMPETENCY、COMPETENCY_UNIT、SKILL_POINT、KNOWLEDGE_POINT）。\n6. 只输出 JSON，不要 Markdown 代码块，不要解释性文字。\n\n# Output Format\n{\n  \"job\": {\"name\": \"…\", \"code\": \"…\", \"summary\": \"…\"},\n  \"logic_chain\": [{\"level\": \"产业链\", \"name\": \"…\"}],\n  \"tasks\": [],\n  \"competencies\": [],\n  \"elements\": {\"skills\": [], \"knowledge\": []},\n  \"mindmap\": {\"name\": \"岗位\", \"children\": []},\n  \"radar\": {\"indicators\": [{\"name\": \"专业基础\", \"max\": 100}], \"values\": [0]},\n  \"graph\": {\"nodes\": [], \"edges\": []},\n  \"coverage\": {\"tasks\": 0, \"competencies\": 0, \"skills\": 0, \"knowledge\": 0},\n  \"confidence\": 0.0,\n  \"sources\": []\n}"
+        },
+        "llm": {
+          "model": "qwen3.8-flash",
+          "prompt": {
+            "system": "# Role\n你是一名岗位能力图谱装配专家，负责把分散的能力要素装配成可可视化、可追溯的图谱数据。\n\n# Task\n合并前序步骤结果，输出一份完整的岗位能力图谱 JSON。\n\n# Strict Constraints\n1. 不得新增前序步骤中不存在的能力项、技能点或知识点；只做合并、去重与编号。\n2. 能力项权重 weight 为 0~100 的整数，按任务重要度、频次、难度加权归一化，最大者记 100。\n3. radar 的 8 个维度固定为：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新；缺失维度记 0。\n4. mindmap 为“岗位→能力项→能力单元→技能点/知识点”的可折叠树，children 为空数组时也要保留。\n5. graph.nodes / graph.edges 需覆盖 9 类节点（INDUSTRY_CHAIN、CHAIN_SEGMENT、JOB_CLUSTER、JOB、WORK_TASK、COMPETENCY、COMPETENCY_UNIT、SKILL_POINT、KNOWLEDGE_POINT）。\n6. 只输出 JSON，不要 Markdown 代码块，不要解释性文字。\n\n# Output Format\n{\n  \"job\": {\"name\": \"…\", \"code\": \"…\", \"summary\": \"…\"},\n  \"logic_chain\": [{\"level\": \"产业链\", \"name\": \"…\"}],\n  \"tasks\": [],\n  \"competencies\": [],\n  \"elements\": {\"skills\": [], \"knowledge\": []},\n  \"mindmap\": {\"name\": \"岗位\", \"children\": []},\n  \"radar\": {\"indicators\": [{\"name\": \"专业基础\", \"max\": 100}], \"values\": [0]},\n  \"graph\": {\"nodes\": [], \"edges\": []},\n  \"coverage\": {\"tasks\": 0, \"competencies\": 0, \"skills\": 0, \"knowledge\": 0},\n  \"confidence\": 0.0,\n  \"sources\": []\n}",
+            "system_template_format": "text",
+            "user_template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n典型工作任务：\n{{work_tasks}}\n\n能力项与能力单元：\n{{competencies}}\n\n技能点与知识点：\n{{elements}}\n\n请装配为完整的岗位能力图谱 JSON。",
+            "input_mapping": {
+              "job_title": "AGENT_USER_INPUT",
+              "industry_chain": "industry_chain",
+              "work_tasks": "work_tasks",
+              "competencies": "competencies",
+              "elements": "elements"
+            }
+          },
+          "output": {
+            "name": "graph_json",
+            "id": "20000005-0000-4000-8000-000000000005",
+            "state_key": "competency_graph",
+            "end_input": "competency_graph"
+          },
+          "provider": {
+            "source": "openai",
+            "model_name": "qwen3.8-flash",
+            "model_id": 10799,
+            "llm_id": 668249608,
+            "service_id": null,
+            "domain": "qwen3.8-flash",
+            "app_id": "12a0a7e2",
+            "uid": "21780452610",
+            "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+            "temperature": 0.2,
+            "enable_chat_history": {
+              "isEnabled": false,
+              "rounds": 1
+            },
+            "auditing": "default",
+            "resp_format": null,
+            "is_think": false,
+            "search_disable": true
+          }
+        }
+      },
+      {
+        "id": "node-end::e0000009-0000-4000-8000-000000000009",
+        "runtime_name": "end",
+        "type": "end",
+        "iflytek_type": "结束节点",
+        "name": "结束",
+        "alias": "结束节点",
+        "node_meta": {
+          "aliasName": "结束节点",
+          "nodeType": "基础节点"
+        },
+        "description": "工作流的结束节点，输出岗位能力图谱 JSON。",
+        "position": {
+          "x": 1780,
+          "y": 300
+        },
+        "position_absolute": {
+          "x": 1780,
+          "y": 300
+        },
+        "size": {
+          "width": 264,
+          "height": 74
+        },
+        "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png",
+        "flags": {
+          "dragging": false,
+          "selected": false,
+          "updatable": false,
+          "allow_input_reference": true,
+          "allow_output_reference": false,
+          "label_edit": null
+        },
+        "references": [],
+        "status": "",
+        "inputs": [
+          {
+            "id": "30000001-0000-4000-8000-000000000001",
+            "name": "competency_graph",
+            "name_err_msg": "",
+            "type": "string",
+            "file_type": "",
+            "schema": {
+              "type": "string",
+              "value": {
+                "type": "ref",
+                "content": {
+                  "name": "graph_json",
+                  "id": "20000005-0000-4000-8000-000000000005",
+                  "nodeId": "spark-llm::e0000006-0000-4000-8000-000000000006"
+                },
+                "contentErrMsg": ""
+              }
+            },
+            "from": {
+              "kind": "ref",
+              "node_id": "spark-llm::e0000006-0000-4000-8000-000000000006",
+              "output": "graph_json",
+              "output_id": "20000005-0000-4000-8000-000000000005"
+            }
+          }
+        ],
+        "outputs": [],
+        "node_param": {
+          "template": "{{competency_graph}}",
+          "streamOutput": false,
+          "outputMode": 0
+        },
+        "output": {
+          "template": "{{competency_graph}}",
+          "stream_output": false,
+          "output_mode": 0,
+          "input_keys": [
+            {
+              "end_input": "competency_graph",
+              "state_key": "competency_graph",
+              "node_id": "spark-llm::e0000006-0000-4000-8000-000000000006",
+              "output": "graph_json",
+              "output_id": "20000005-0000-4000-8000-000000000005"
+            }
+          ],
+          "state_keys": [
+            "competency_graph"
+          ]
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge::e0000001-0000-4000-8000-000000000001",
+        "source": "node-start::e0000001-0000-4000-8000-000000000001",
+        "target": "spark-llm::e0000002-0000-4000-8000-000000000002",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      },
+      {
+        "id": "edge::e0000002-0000-4000-8000-000000000002",
+        "source": "spark-llm::e0000002-0000-4000-8000-000000000002",
+        "target": "spark-llm::e0000003-0000-4000-8000-000000000003",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      },
+      {
+        "id": "edge::e0000003-0000-4000-8000-000000000003",
+        "source": "spark-llm::e0000003-0000-4000-8000-000000000003",
+        "target": "spark-llm::e0000004-0000-4000-8000-000000000004",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      },
+      {
+        "id": "edge::e0000004-0000-4000-8000-000000000004",
+        "source": "spark-llm::e0000004-0000-4000-8000-000000000004",
+        "target": "spark-llm::e0000005-0000-4000-8000-000000000005",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      },
+      {
+        "id": "edge::e0000005-0000-4000-8000-000000000005",
+        "source": "spark-llm::e0000005-0000-4000-8000-000000000005",
+        "target": "spark-llm::e0000006-0000-4000-8000-000000000006",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      },
+      {
+        "id": "edge::e0000006-0000-4000-8000-000000000006",
+        "source": "spark-llm::e0000006-0000-4000-8000-000000000006",
+        "target": "node-end::e0000009-0000-4000-8000-000000000009",
+        "source_handle": null,
+        "target_handle": null,
+        "type": "default",
+        "edge_type": null,
+        "marker_end": null
+      }
+    ],
+    "conditional_edges": []
+  },
+  "execution": {
+    "entrypoint": "start",
+    "finish_point": "end",
+    "input_keys": [
+      "AGENT_USER_INPUT"
+    ],
+    "output_template": "{{competency_graph}}",
+    "output_state_keys": [
+      "competency_graph"
+    ],
+    "output_key": "final_output",
+    "recursion_limit": 25
+  },
+  "extensions": {
+    "source_format": "iflytek-spark-workflow-dsl",
+    "source_dsl_version": "v1",
+    "source_file": "岗位能力图谱20261027.yml",
+    "source_sha256": "a6d660dc039e05b03b46071645d76eac3cd450b756872b87ec14f935289ed43d",
+    "converter": "langchain/convert_iflytek_workflow.py",
+    "source": {
+      "flowMeta": {
+        "name": "岗位能力图谱20261027",
+        "description": "以具体岗位为输入，自动梳理“产业链→岗位群→能力项→知识点/技能点”逻辑链，解析典型工作任务并产出可视化岗位能力图谱",
+        "avatarIcon": "https://openres.xfyun.cn/xfyundoc/2026-01-13/68cb686b-ad05-45da-8376-45a4c9ce3fcc/1768290620925/5%402x.png",
+        "avatarColor": "#E8F3FF",
+        "advancedConfig": "{\"prologue\":{\"enabled\":true,\"inputExample\":[\"Java后端开发工程师\",\"软件测试工程师\",\"工业机器人系统运维员\"]},\"textToSpeech\":{\"enabled\":false},\"needGuide\":false}",
+        "category": 17,
+        "dslVersion": "v1",
+        "validation": {
+          "code_nodes": 0,
+          "prompt_keywords": [
+            "产业链与岗位群分析师",
+            "典型工作任务拆解专家",
+            "岗位能力结构拆解专家",
+            "知识点与技能点映射专家",
+            "岗位能力图谱装配专家"
+          ]
+        }
+      },
+      "flowData": {
+        "nodes": [
+          {
+            "id": "node-start::e0000001-0000-4000-8000-000000000001",
+            "dragging": false,
+            "selected": false,
+            "width": 256,
+            "height": 74,
+            "position": {
+              "x": -320,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": -320,
+              "y": 300
+            },
+            "type": "开始节点",
+            "data": {
+              "allowInputReference": false,
+              "allowOutputReference": true,
+              "label": "开始",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "开始节点",
+                "nodeType": "基础节点"
+              },
+              "inputs": [],
+              "outputs": [
+                {
+                  "id": "10000001-0000-4000-8000-000000000001",
+                  "name": "AGENT_USER_INPUT",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": "用户本轮对话输入内容"
+                  },
+                  "required": true,
+                  "deleteDisabled": true
+                }
+              ],
+              "nodeParam": {},
+              "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png",
+              "description": "工作流的开启节点，用于接收待分析的职业岗位名称。",
+              "updatable": false
+            }
+          },
+          {
+            "id": "spark-llm::e0000002-0000-4000-8000-000000000002",
+            "dragging": false,
+            "selected": false,
+            "width": 320,
+            "height": 100,
+            "position": {
+              "x": -20,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": -20,
+              "y": 300
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "产业链与岗位群定位",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "产业链与岗位群分析师",
+                "nodeType": "大模型"
+              },
+              "inputs": [
+                {
+                  "id": "41000001-0000-4000-8000-000000000001",
+                  "name": "job_title",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "10000001-0000-4000-8000-000000000001",
+                        "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "20000001-0000-4000-8000-000000000001",
+                  "name": "industry_chain",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "目标岗位：{{job_title}}\n\n请完成该岗位在产业链中的定位，并输出 JSON。",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 0.3
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "qwen3.8-flash",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "qwen3.8-flash",
+                "systemTemplate": "# Role\n你是一名产业链与岗位群分析师，熟悉国家职业分类大典、职业教育专业教学标准与企业岗位设置。\n\n# Task\n根据用户输入的【目标岗位】，向上定位它所属的产业链、产业链环节与职业岗位群，形成“产业链→环节→岗位群→岗位”的逻辑链首段。\n\n# Strict Constraints\n1. 只使用公开、可追溯的产业与职业分类信息，不得虚构不存在的产业链。\n2. 岗位名称要归一化为标准名称；同时给出常见别名，便于后续检索。\n3. 如果输入岗位无法识别，返回 {\"error\":\"岗位未收录\"}，不得强行编造。\n4. 逻辑链必须是严格的自上而下四级：产业链、产业链环节、职业岗位群、职业岗位。\n\n# Output Format\n只输出 JSON，不要 Markdown 代码块，不要任何解释性文字。\n\n{\n  \"job\": {\"name\": \"标准岗位名称\", \"aliases\": [\"别名\"], \"code\": \"职业编码或空字符串\"},\n  \"industry_chain\": {\"chain\": \"产业链\", \"segment\": \"产业链环节\", \"cluster\": \"职业岗位群\"},\n  \"logic_chain\": [\n    {\"level\": \"产业链\", \"name\": \"…\"},\n    {\"level\": \"产业链环节\", \"name\": \"…\"},\n    {\"level\": \"职业岗位群\", \"name\": \"…\"},\n    {\"level\": \"职业岗位\", \"name\": \"…\"}\n  ],\n  \"confidence\": 0.0,\n  \"sources\": [{\"name\": \"数据来源\", \"version\": \"版本\"}]\n}"
+              }
+            }
+          },
+          {
+            "id": "spark-llm::e0000003-0000-4000-8000-000000000003",
+            "dragging": false,
+            "selected": false,
+            "width": 320,
+            "height": 100,
+            "position": {
+              "x": 340,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": 340,
+              "y": 300
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "典型工作任务解析",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "典型工作任务拆解专家",
+                "nodeType": "大模型"
+              },
+              "inputs": [
+                {
+                  "id": "41000002-0000-4000-8000-000000000002",
+                  "name": "job_title",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "10000001-0000-4000-8000-000000000001",
+                        "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000003-0000-4000-8000-000000000003",
+                  "name": "industry_chain",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "industry_chain",
+                        "id": "20000001-0000-4000-8000-000000000001",
+                        "nodeId": "spark-llm::e0000002-0000-4000-8000-000000000002"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "20000002-0000-4000-8000-000000000002",
+                  "name": "work_tasks",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n请解析该岗位的主要工作任务，并输出 JSON。",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 0.3
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "qwen3.8-flash",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "qwen3.8-flash",
+                "systemTemplate": "# Role\n你是一名典型工作任务拆解专家，熟悉职业标准中的“工作任务分析”方法（DACUM/工作任务分析会）。\n\n# Task\n根据【目标岗位】与【产业链定位】，拆解该岗位 5~8 条典型工作任务，并标注重要度、出现频次与难度。\n\n# Strict Constraints\n1. 每条任务必须是可观察、可完成的具体工作，不写“能力”“素质”这类抽象表述。\n2. 任务描述使用“动词+对象+标准/场景”的写法，20~60 字。\n3. importance、frequency、difficulty 均为 1~5 的整数，其中 5 表示最高。\n4. 任务编号从 T01 开始顺序编号。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"tasks\": [\n    {\n      \"id\": \"T01\",\n      \"name\": \"任务名称\",\n      \"description\": \"任务描述\",\n      \"importance\": 5,\n      \"frequency\": 5,\n      \"difficulty\": 4\n    }\n  ]\n}"
+              }
+            }
+          },
+          {
+            "id": "spark-llm::e0000004-0000-4000-8000-000000000004",
+            "dragging": false,
+            "selected": false,
+            "width": 320,
+            "height": 100,
+            "position": {
+              "x": 700,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": 700,
+              "y": 300
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "能力项与能力单元拆解",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "岗位能力结构拆解专家",
+                "nodeType": "大模型"
+              },
+              "inputs": [
+                {
+                  "id": "41000004-0000-4000-8000-000000000004",
+                  "name": "job_title",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "10000001-0000-4000-8000-000000000001",
+                        "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000005-0000-4000-8000-000000000005",
+                  "name": "work_tasks",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "work_tasks",
+                        "id": "20000002-0000-4000-8000-000000000002",
+                        "nodeId": "spark-llm::e0000003-0000-4000-8000-000000000003"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "20000003-0000-4000-8000-000000000003",
+                  "name": "competencies",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "目标岗位：{{job_title}}\n\n典型工作任务：\n{{work_tasks}}\n\n请把任务拆解为能力项与能力单元，并输出 JSON。",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 0.3
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "qwen3.8-flash",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "qwen3.8-flash",
+                "systemTemplate": "# Role\n你是一名岗位能力结构拆解专家，熟练使用“能力项—能力单元—技能点/知识点”的三层胜任力建模方法。\n\n# Task\n根据【典型工作任务】，拆解出 5~8 个能力项（能力域），每个能力项下给出 1~3 个可观测的能力单元，并把能力单元归属到具体任务。\n\n# Strict Constraints\n1. 能力域只能从以下 8 个中选取：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新。\n2. 能力单元使用“能按照{标准/规范}，完成{对象}的{动作}”句式，必须可考核。\n3. 每个能力项必须至少关联一条任务；不允许出现没有任务来源的能力。\n4. 能力单元等级 level 取 1（了解）、2（掌握）、3（熟练）之一。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"competencies\": [\n    {\n      \"id\": \"C01\",\n      \"name\": \"能力项名称\",\n      \"domain\": \"专业基础\",\n      \"task_ids\": [\"T01\", \"T02\"],\n      \"units\": [\n        {\"id\": \"U01\", \"statement\": \"能按照…完成…\", \"task_id\": \"T01\", \"level\": 2}\n      ]\n    }\n  ]\n}"
+              }
+            }
+          },
+          {
+            "id": "spark-llm::e0000005-0000-4000-8000-000000000005",
+            "dragging": false,
+            "selected": false,
+            "width": 320,
+            "height": 100,
+            "position": {
+              "x": 1060,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": 1060,
+              "y": 300
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "知识点与技能点映射",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "知识点与技能点映射专家",
+                "nodeType": "大模型"
+              },
+              "inputs": [
+                {
+                  "id": "41000006-0000-4000-8000-000000000006",
+                  "name": "job_title",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "10000001-0000-4000-8000-000000000001",
+                        "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000007-0000-4000-8000-000000000007",
+                  "name": "competencies",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "competencies",
+                        "id": "20000003-0000-4000-8000-000000000003",
+                        "nodeId": "spark-llm::e0000004-0000-4000-8000-000000000004"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "20000004-0000-4000-8000-000000000004",
+                  "name": "elements",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "目标岗位：{{job_title}}\n\n能力项与能力单元：\n{{competencies}}\n\n请为每个能力项映射技能点与知识点，并输出 JSON。",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 0.3
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "qwen3.8-flash",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "qwen3.8-flash",
+                "systemTemplate": "# Role\n你是一名知识点与技能点映射专家，负责把岗位能力落到可教学、可训练的要素上。\n\n# Task\n根据【能力项与能力单元】，为每个能力项补充技能点与知识点，并给出难度、重要度以及所属课程学科。\n\n# Strict Constraints\n1. 技能点必须是可动手训练的操作（如“端子压接”“索引优化”），知识点必须是可讲授的概念/原理/规范。\n2. 每个能力项至少 2 个技能点、2 个知识点。\n3. 知识点需标注 subject（对应课程/学科），便于与专业教学标准对接。\n4. importance 取 1~4（1 了解、2 掌握、3 重点、4 核心）；difficulty 取 1~5。\n5. 只输出 JSON，不要 Markdown 代码块。\n\n# Output Format\n{\n  \"elements\": {\n    \"competencies\": [\n      {\n        \"id\": \"C01\",\n        \"skills\": [{\"name\": \"技能点\", \"category\": \"操作\"}],\n        \"knowledge\": [\n          {\"name\": \"知识点\", \"subject\": \"所属课程\", \"importance\": 3, \"difficulty\": 3}\n        ]\n      }\n    ]\n  }\n}"
+              }
+            }
+          },
+          {
+            "id": "spark-llm::e0000006-0000-4000-8000-000000000006",
+            "dragging": false,
+            "selected": false,
+            "width": 320,
+            "height": 100,
+            "position": {
+              "x": 1420,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": 1420,
+              "y": 300
+            },
+            "type": "大模型",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": true,
+              "label": "岗位能力图谱装配",
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "岗位能力图谱装配专家",
+                "nodeType": "大模型"
+              },
+              "inputs": [
+                {
+                  "id": "41000008-0000-4000-8000-000000000008",
+                  "name": "job_title",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "AGENT_USER_INPUT",
+                        "id": "10000001-0000-4000-8000-000000000001",
+                        "nodeId": "node-start::e0000001-0000-4000-8000-000000000001"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000009-0000-4000-8000-000000000009",
+                  "name": "industry_chain",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "industry_chain",
+                        "id": "20000001-0000-4000-8000-000000000001",
+                        "nodeId": "spark-llm::e0000002-0000-4000-8000-000000000002"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000010-0000-4000-8000-000000000010",
+                  "name": "work_tasks",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "work_tasks",
+                        "id": "20000002-0000-4000-8000-000000000002",
+                        "nodeId": "spark-llm::e0000003-0000-4000-8000-000000000003"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000011-0000-4000-8000-000000000011",
+                  "name": "competencies",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "competencies",
+                        "id": "20000003-0000-4000-8000-000000000003",
+                        "nodeId": "spark-llm::e0000004-0000-4000-8000-000000000004"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                },
+                {
+                  "id": "41000012-0000-4000-8000-000000000012",
+                  "name": "elements",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "elements",
+                        "id": "20000004-0000-4000-8000-000000000004",
+                        "nodeId": "spark-llm::e0000005-0000-4000-8000-000000000005"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [
+                {
+                  "id": "20000005-0000-4000-8000-000000000005",
+                  "name": "graph_json",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              ],
+              "nodeParam": {
+                "template": "目标岗位：{{job_title}}\n\n产业链定位：\n{{industry_chain}}\n\n典型工作任务：\n{{work_tasks}}\n\n能力项与能力单元：\n{{competencies}}\n\n技能点与知识点：\n{{elements}}\n\n请装配为完整的岗位能力图谱 JSON。",
+                "modelId": 10799,
+                "enableChatHistoryV2": {
+                  "isEnabled": false,
+                  "rounds": 1
+                },
+                "auditing": "default",
+                "extraParams": {
+                  "temperature": 0.2
+                },
+                "source": "openai",
+                "llmId": 668249608,
+                "url": "https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+                "multiMode": false,
+                "modelName": "qwen3.8-flash",
+                "uid": "21780452610",
+                "isThink": false,
+                "templateErrMsg": "",
+                "searchDisable": true,
+                "appId": "12a0a7e2",
+                "domain": "qwen3.8-flash",
+                "systemTemplate": "# Role\n你是一名岗位能力图谱装配专家，负责把分散的能力要素装配成可可视化、可追溯的图谱数据。\n\n# Task\n合并前序步骤结果，输出一份完整的岗位能力图谱 JSON。\n\n# Strict Constraints\n1. 不得新增前序步骤中不存在的能力项、技能点或知识点；只做合并、去重与编号。\n2. 能力项权重 weight 为 0~100 的整数，按任务重要度、频次、难度加权归一化，最大者记 100。\n3. radar 的 8 个维度固定为：专业基础、数据管理、框架应用、工程实践、质量保障、运维排障、团队协作、学习创新；缺失维度记 0。\n4. mindmap 为“岗位→能力项→能力单元→技能点/知识点”的可折叠树，children 为空数组时也要保留。\n5. graph.nodes / graph.edges 需覆盖 9 类节点（INDUSTRY_CHAIN、CHAIN_SEGMENT、JOB_CLUSTER、JOB、WORK_TASK、COMPETENCY、COMPETENCY_UNIT、SKILL_POINT、KNOWLEDGE_POINT）。\n6. 只输出 JSON，不要 Markdown 代码块，不要解释性文字。\n\n# Output Format\n{\n  \"job\": {\"name\": \"…\", \"code\": \"…\", \"summary\": \"…\"},\n  \"logic_chain\": [{\"level\": \"产业链\", \"name\": \"…\"}],\n  \"tasks\": [],\n  \"competencies\": [],\n  \"elements\": {\"skills\": [], \"knowledge\": []},\n  \"mindmap\": {\"name\": \"岗位\", \"children\": []},\n  \"radar\": {\"indicators\": [{\"name\": \"专业基础\", \"max\": 100}], \"values\": [0]},\n  \"graph\": {\"nodes\": [], \"edges\": []},\n  \"coverage\": {\"tasks\": 0, \"competencies\": 0, \"skills\": 0, \"knowledge\": 0},\n  \"confidence\": 0.0,\n  \"sources\": []\n}"
+              }
+            }
+          },
+          {
+            "id": "node-end::e0000009-0000-4000-8000-000000000009",
+            "dragging": false,
+            "selected": false,
+            "width": 264,
+            "height": 74,
+            "position": {
+              "x": 1780,
+              "y": 300
+            },
+            "positionAbsolute": {
+              "x": 1780,
+              "y": 300
+            },
+            "type": "结束节点",
+            "data": {
+              "allowInputReference": true,
+              "allowOutputReference": false,
+              "label": "结束",
+              "references": [],
+              "status": "",
+              "nodeMeta": {
+                "aliasName": "结束节点",
+                "nodeType": "基础节点"
+              },
+              "inputs": [
+                {
+                  "id": "30000001-0000-4000-8000-000000000001",
+                  "name": "competency_graph",
+                  "nameErrMsg": "",
+                  "schema": {
+                    "type": "string",
+                    "value": {
+                      "type": "ref",
+                      "content": {
+                        "name": "graph_json",
+                        "id": "20000005-0000-4000-8000-000000000005",
+                        "nodeId": "spark-llm::e0000006-0000-4000-8000-000000000006"
+                      },
+                      "contentErrMsg": ""
+                    }
+                  },
+                  "fileType": ""
+                }
+              ],
+              "outputs": [],
+              "nodeParam": {
+                "template": "{{competency_graph}}",
+                "streamOutput": false,
+                "outputMode": 0
+              },
+              "icon": "https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png",
+              "description": "工作流的结束节点，输出岗位能力图谱 JSON。",
+              "updatable": false
+            }
+          }
+        ],
+        "edges": [
+          {
+            "id": "edge::e0000001-0000-4000-8000-000000000001",
+            "source": "node-start::e0000001-0000-4000-8000-000000000001",
+            "target": "spark-llm::e0000002-0000-4000-8000-000000000002",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          },
+          {
+            "id": "edge::e0000002-0000-4000-8000-000000000002",
+            "source": "spark-llm::e0000002-0000-4000-8000-000000000002",
+            "target": "spark-llm::e0000003-0000-4000-8000-000000000003",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          },
+          {
+            "id": "edge::e0000003-0000-4000-8000-000000000003",
+            "source": "spark-llm::e0000003-0000-4000-8000-000000000003",
+            "target": "spark-llm::e0000004-0000-4000-8000-000000000004",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          },
+          {
+            "id": "edge::e0000004-0000-4000-8000-000000000004",
+            "source": "spark-llm::e0000004-0000-4000-8000-000000000004",
+            "target": "spark-llm::e0000005-0000-4000-8000-000000000005",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          },
+          {
+            "id": "edge::e0000005-0000-4000-8000-000000000005",
+            "source": "spark-llm::e0000005-0000-4000-8000-000000000005",
+            "target": "spark-llm::e0000006-0000-4000-8000-000000000006",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          },
+          {
+            "id": "edge::e0000006-0000-4000-8000-000000000006",
+            "source": "spark-llm::e0000006-0000-4000-8000-000000000006",
+            "target": "node-end::e0000009-0000-4000-8000-000000000009",
+            "sourceHandle": null,
+            "targetHandle": null,
+            "type": "default",
+            "markerEnd": null
+          }
+        ]
+      }
+    },
+    "validation": {
+      "code_nodes": 0,
+      "prompt_keywords": [
+        "产业链与岗位群分析师",
+        "典型工作任务拆解专家",
+        "岗位能力结构拆解专家",
+        "知识点与技能点映射专家",
+        "岗位能力图谱装配专家"
+      ]
+    }
+  }
+}

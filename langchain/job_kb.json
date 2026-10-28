@@ -1,0 +1,1573 @@
+{
+  "schema_version": "3.0.0",
+  "updated_at": "2026-10-27",
+  "description": "岗位能力图谱内置知识库（第二版）：内容逐条取自《中华人民共和国职业分类大典（2022年版）》与四份国家职业标准原文，未使用自编岗位数据。",
+  "provenance": [
+    {
+      "id": "SRC-CODEX",
+      "document": "中华人民共和国职业分类大典（2022年版）",
+      "issuer": "人力资源社会保障部",
+      "url": "https://www.bdagh.com/upload/1/cms/content/editor/1712798188409.pdf",
+      "local_file": "data/sources/职业分类大典-2022年版-公示稿.pdf",
+      "retrieved_at": "2026-10-27",
+      "used_for": "职业大类/中类/小类/细类层级、职业定义、主要工作任务",
+      "note": "PDF 为 2022 年版社会公示稿全文；颁布信息见人社部 2022-10-28 新闻稿。"
+    },
+    {
+      "id": "SRC-STD-01",
+      "document": "计算机程序设计员 国家职业技能标准（2022年版）",
+      "code": "4-04-05-01",
+      "issuer": "人力资源社会保障部、工业和信息化部",
+      "url": "https://www.osta.org.cn/api/sys/downloadFile/decrypt?fileName=4eNsZIOv3WFNDfbnldJHeA/2024/4/30/6ee3162cddee45459605cb3a449cb5da.pdf",
+      "local_file": "data/sources/计算机程序设计员-国家职业技能标准-2022.pdf",
+      "retrieved_at": "2026-10-27",
+      "used_for": "职业功能、工作内容、技能要求、相关知识要求、技能要求权重表",
+      "note": "技能工业网（osta.org.cn）公开下载的正式版。"
+    },
+    {
+      "id": "SRC-STD-02",
+      "document": "计算机软件测试员 国家职业标准（征求意见稿，2024-03-25）",
+      "code": "4-04-05-02",
+      "issuer": "人力资源社会保障部",
+      "url": "https://www.osta.org.cn/zcwj/attachment/20240325_12.pdf",
+      "local_file": "data/sources/计算机软件测试员-国家职业标准-征求意见稿-2024.pdf",
+      "retrieved_at": "2026-10-27",
+      "used_for": "职业功能、工作内容、技能要求、相关知识要求、技能要求权重表",
+      "note": "官方网站仅公开征求意见稿；2025 年正式版未公开下载，使用时须以正式版为准。"
+    },
+    {
+      "id": "SRC-STD-03",
+      "document": "信息通信网络运行管理员 国家职业技能标准（2019年版）",
+      "code": "4-04-04-01",
+      "issuer": "人力资源社会保障部、工业和信息化部",
+      "url": "https://chinajob.mohrss.gov.cn/upload/resources/jnbzpdf/4ccc6a76ab6420078cc004.pdf",
+      "local_file": "data/sources/信息通信网络运行管理员-2019.pdf",
+      "retrieved_at": "2026-10-27",
+      "used_for": "职业功能、工作内容、技能要求、相关知识要求、技能要求权重表",
+      "note": "2019 年版标准依据 2015 年版大典编制；2022 年版大典仍列同一职业编码 4-04-04-01，职业名称一致。"
+    },
+    {
+      "id": "SRC-STD-04",
+      "document": "数据库运行管理员 国家职业标准（2025年版）",
+      "code": "4-04-05-04",
+      "issuer": "人力资源社会保障部、工业和信息化部",
+      "url": "https://www.osta.org.cn/api/sys/downloadFile/decrypt?fileName=4eNsZIOv3WFNDfbnldJHeA%2F2025%2F3%2F2%2F289d19d1c4d34aa296dad4a3a3e5020e.pdf",
+      "local_file": "data/sources/数据库运行管理员-2025.pdf",
+      "retrieved_at": "2026-10-27",
+      "used_for": "职业功能、工作内容、技能要求、相关知识要求、技能要求权重表",
+      "note": "2025-03-20 以人社厅发〔2025〕12 号公布，依据 2022 年版大典编制。"
+    }
+  ],
+  "curriculum": {
+    "source": "项目数据库 sql/knowledge_point.sql（subject_id=1 Java编程 19 条，subject_id=2 软件测试 13 条）",
+    "subjects": [
+      {
+        "name": "Java编程",
+        "code": "JAVA",
+        "knowledge_points": [
+          {
+            "name": "Java开发环境搭建",
+            "importance": 1,
+            "difficulty": 1
+          },
+          {
+            "name": "基本语法与数据类型",
+            "importance": 2,
+            "difficulty": 1
+          },
+          {
+            "name": "流程控制语句",
+            "importance": 2,
+            "difficulty": 1
+          },
+          {
+            "name": "数组",
+            "importance": 2,
+            "difficulty": 2
+          },
+          {
+            "name": "类与对象",
+            "importance": 3,
+            "difficulty": 2
+          },
+          {
+            "name": "封装与继承",
+            "importance": 3,
+            "difficulty": 3
+          },
+          {
+            "name": "多态与接口",
+            "importance": 4,
+            "difficulty": 3
+          },
+          {
+            "name": "内部类与Lambda",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "异常处理机制",
+            "importance": 2,
+            "difficulty": 2
+          },
+          {
+            "name": "常用类库",
+            "importance": 2,
+            "difficulty": 2
+          },
+          {
+            "name": "集合框架",
+            "importance": 4,
+            "difficulty": 3
+          },
+          {
+            "name": "泛型",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "I/O流与文件操作",
+            "importance": 2,
+            "difficulty": 3
+          },
+          {
+            "name": "多线程与并发",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "网络编程",
+            "importance": 2,
+            "difficulty": 4
+          },
+          {
+            "name": "JDBC与数据库操作",
+            "importance": 3,
+            "difficulty": 3
+          },
+          {
+            "name": "Maven项目管理",
+            "importance": 3,
+            "difficulty": 3
+          },
+          {
+            "name": "Spring基础",
+            "importance": 4,
+            "difficulty": 4
+          },
+          {
+            "name": "Spring Boot",
+            "importance": 4,
+            "difficulty": 5
+          }
+        ]
+      },
+      {
+        "name": "软件测试",
+        "code": "TEST",
+        "knowledge_points": [
+          {
+            "name": "软件测试基础理论",
+            "importance": 2,
+            "difficulty": 1
+          },
+          {
+            "name": "软件质量模型",
+            "importance": 1,
+            "difficulty": 1
+          },
+          {
+            "name": "测试分类",
+            "importance": 2,
+            "difficulty": 2
+          },
+          {
+            "name": "测试用例设计方法",
+            "importance": 4,
+            "difficulty": 3
+          },
+          {
+            "name": "黑盒测试",
+            "importance": 3,
+            "difficulty": 2
+          },
+          {
+            "name": "白盒测试",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "接口测试",
+            "importance": 4,
+            "difficulty": 3
+          },
+          {
+            "name": "自动化测试基础",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "性能测试",
+            "importance": 3,
+            "difficulty": 4
+          },
+          {
+            "name": "安全测试基础",
+            "importance": 2,
+            "difficulty": 4
+          },
+          {
+            "name": "缺陷管理",
+            "importance": 3,
+            "difficulty": 2
+          },
+          {
+            "name": "测试计划与管理",
+            "importance": 3,
+            "difficulty": 3
+          },
+          {
+            "name": "持续集成与DevOps",
+            "importance": 3,
+            "difficulty": 5
+          }
+        ]
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "id": "JOB-4-04-05-01",
+      "name": "计算机程序设计员",
+      "code": "4-04-05-01",
+      "digital_occupation": true,
+      "level": "三级/高级工",
+      "level_note": "能力条目取自 2022 年版标准「三级/高级工」工作要求；权重取自同一标准的技能要求权重表。",
+      "aliases": [
+        "程序员",
+        "软件开发工程师",
+        "Java后端开发工程师",
+        "Java开发工程师",
+        "后端开发工程师"
+      ],
+      "aliases_note": "前两个为常见俗称；后三个为本项目教学岗位方向的映射，用于检索，不代表职业标准中的职业名称。",
+      "definition": "从事计算机和移动终端应用程序设计、编制工作的人员。",
+      "definition_source": "SRC-CODEX",
+      "standard_source": "SRC-STD-01",
+      "duties": [
+        {
+          "id": "T01",
+          "name": "分析开发需求的概要和细节",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-05-01 主要工作任务 1"
+        },
+        {
+          "id": "T02",
+          "name": "编写、提交模块设计详细文档",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-05-01 主要工作任务 2"
+        },
+        {
+          "id": "T03",
+          "name": "编写、修改程序代码",
+          "competency_id": "C2",
+          "source": "SRC-CODEX 4-04-05-01 主要工作任务 3"
+        },
+        {
+          "id": "T04",
+          "name": "验证程序代码的正确性和模块功能的实现程度",
+          "competency_id": "C3",
+          "source": "SRC-CODEX 4-04-05-01 主要工作任务 4"
+        }
+      ],
+      "logic_chain": [
+        {
+          "level": "职业大类",
+          "name": "4 社会生产服务和生活服务人员"
+        },
+        {
+          "level": "职业中类",
+          "name": "4-04 信息传输、软件和信息技术服务人员"
+        },
+        {
+          "level": "职业小类",
+          "name": "4-04-05 软件和信息技术服务人员"
+        },
+        {
+          "level": "职业细类",
+          "name": "4-04-05-01 计算机程序设计员S"
+        }
+      ],
+      "domains": [
+        "程序开发准备",
+        "程序编写与修改",
+        "程序调试与验证"
+      ],
+      "domain_weights": {
+        "程序开发准备": 15,
+        "程序编写与修改": 55,
+        "程序调试与验证": 30
+      },
+      "weight_source": "SRC-STD-01 4.2 技能要求权重表（三级/高级工）",
+      "competencies": [
+        {
+          "id": "C1",
+          "name": "程序开发准备",
+          "domain": "程序开发准备",
+          "weight": 15,
+          "task_ids": [
+            "T01",
+            "T02"
+          ],
+          "units": [
+            {
+              "id": "U11",
+              "statement": "识读、分析设计文档",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 1.1",
+              "skills": [
+                "能识读模块设计概要文档",
+                "能分析软件模块详细设计"
+              ],
+              "knowledge": [
+                "模块设计概要文档的结构及识读方法",
+                "软件模块详细设计的分析方法"
+              ]
+            },
+            {
+              "id": "U12",
+              "statement": "编写、提交设计文档",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 1.2",
+              "skills": [
+                "能使用软件设计工具编写设计文档",
+                "能编写、提交模块设计文档"
+              ],
+              "knowledge": [
+                "软件设计工具的类型和使用方法",
+                "模块设计文档的编写和提交方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "程序编写与修改",
+          "domain": "程序编写与修改",
+          "weight": 55,
+          "task_ids": [
+            "T03"
+          ],
+          "units": [
+            {
+              "id": "U21",
+              "statement": "桌面程序设计",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 2.1",
+              "skills": [
+                "能编写多文档模块代码",
+                "能编写视图与文档程序",
+                "能编写状态栏和工具栏程序",
+                "能调用组件库编译程序"
+              ],
+              "knowledge": [
+                "多文档模块代码的编写方法",
+                "视图与文档程序编写方法",
+                "状态栏与工具栏程序编写方法",
+                "组件和组件库调用方法"
+              ]
+            },
+            {
+              "id": "U22",
+              "statement": "网页（WEB）程序设计",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 2.2",
+              "skills": [
+                "能开发动态网页代码",
+                "能使用 WEB 框架技术编写代码"
+              ],
+              "knowledge": [
+                "动态网页代码的开发方法",
+                "WEB 框架使用方法"
+              ]
+            },
+            {
+              "id": "U23",
+              "statement": "数据库程序设计",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 2.3",
+              "skills": [
+                "能安装、创建、配置和删除数据库",
+                "能编写数据库表程序代码",
+                "能编写数据库函数及函数调用程序代码"
+              ],
+              "knowledge": [
+                "安装、创建、配置和删除数据库的方法",
+                "数据库表程序代码的编写方法",
+                "数据库函数及函数调用程序代码的编写方法"
+              ]
+            },
+            {
+              "id": "U24",
+              "statement": "网络应用程序设计",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 2.4",
+              "skills": [
+                "能使用 Socket 编写收发数据程序",
+                "能编写 TCP、UDP 程序",
+                "能编写 TCP/IP 异步处理程序",
+                "能编写 TCP/IP 出错处理程序"
+              ],
+              "knowledge": [
+                "Socket 的工作原理和使用方法",
+                "TCP 和 UDP 程序的编写方法",
+                "TCP/IP 异步处理程序的编写方法",
+                "TCP/IP 出错处理程序的编写方法"
+              ]
+            },
+            {
+              "id": "U25",
+              "statement": "移动终端应用程序设计",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 2.5",
+              "skills": [
+                "能开发移动终端应用程序",
+                "能开发移动终端小程序",
+                "能使用组件开发移动终端图形界面",
+                "能完成移动终端应用程序与后端接口的交互开发"
+              ],
+              "knowledge": [
+                "移动终端应用程序开发方法",
+                "移动终端小程序开发方法",
+                "使用组件开发移动终端图形界面的方法",
+                "移动终端应用程序与后端接口的交互开发方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "程序调试与验证",
+          "domain": "程序调试与验证",
+          "weight": 30,
+          "task_ids": [
+            "T04"
+          ],
+          "units": [
+            {
+              "id": "U31",
+              "statement": "程序调试",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 3.1",
+              "skills": [
+                "能设置远程调试环境",
+                "能进行远程调试"
+              ],
+              "knowledge": [
+                "远程调试环境的要素和设置方法",
+                "远程调试的类型和方法"
+              ]
+            },
+            {
+              "id": "U32",
+              "statement": "功能验证",
+              "level": 3,
+              "source": "SRC-STD-01 3.3 3.2",
+              "skills": [
+                "能使用功能测试工具进行代码自测",
+                "能运用边界值、等价类等技术进行功能性验证"
+              ],
+              "knowledge": [
+                "功能测试工具的类型和使用方法",
+                "运用边界值、等价类等技术进行功能性验证的方法"
+              ]
+            }
+          ]
+        }
+      ],
+      "basic_requirements": {
+        "source": "SRC-STD-01 2 基本要求",
+        "professional_ethics": [
+          "职业道德基本知识",
+          "职业守则：遵纪守法、安全生产；爱岗敬业、勤奋学习；保守秘密、诚实守信；操作规范、爱护设备；精益求精、团结协作"
+        ],
+        "basic_knowledge": [
+          "计算机系统基础知识",
+          "软件开发基础知识",
+          "软件工程基础知识",
+          "网络基础知识",
+          "移动终端基础知识",
+          "信息安全基础知识",
+          "安全生产基础知识",
+          "相关法律、法规知识"
+        ]
+      },
+      "industry_path": [
+        {
+          "level": "产业链",
+          "id": "IND-SW",
+          "name": "软件和信息技术服务业",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "产业链环节",
+          "id": "IND-SW-DEV",
+          "name": "软件开发与交付",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位群",
+          "id": "CLU-SW-APP",
+          "name": "应用软件开发岗位群",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位",
+          "id": "JOB-4-04-05-01",
+          "name": "计算机程序设计员",
+          "mapping_type": "standard",
+          "source_id": "4-04-05-01"
+        }
+      ],
+      "industry_mapping_note": "教学映射：依据专业教学标准与企业岗位调研归纳，非《国民经济行业分类》官方口径。"
+    },
+    {
+      "id": "JOB-4-04-05-02",
+      "name": "计算机软件测试员",
+      "code": "4-04-05-02",
+      "digital_occupation": true,
+      "level": "四级/中级工",
+      "level_note": "能力条目取自 2024 年征求意见稿「四级/中级工」工作要求；权重取自同一文件的技能要求权重表。",
+      "aliases": [
+        "软件测试员",
+        "测试工程师",
+        "软件测试工程师",
+        "QA工程师"
+      ],
+      "aliases_note": "后三个为行业常见称谓，用于检索，不代表职业标准中的职业名称。",
+      "definition": "使用计算机及附属设备、测试工具、测试用例，验证计算机软件产品功能、性能及参数的人员。",
+      "definition_source": "SRC-CODEX",
+      "standard_source": "SRC-STD-02",
+      "duties": [
+        {
+          "id": "T11",
+          "name": "使用功能测试用例等工具，测试计算机软件功能",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-05-02 主要工作任务 1"
+        },
+        {
+          "id": "T12",
+          "name": "使用性能测试用例等工具，进行计算机软件负载测试和压力测试",
+          "competency_id": "C2",
+          "source": "SRC-CODEX 4-04-05-02 主要工作任务 2"
+        },
+        {
+          "id": "T13",
+          "name": "使用计算机及附属设备，测试计算机软件的稳定性、兼容性等参数",
+          "competency_id": "C3",
+          "source": "SRC-CODEX 4-04-05-02 主要工作任务 3"
+        },
+        {
+          "id": "T14",
+          "name": "记录测试数据和案例",
+          "competency_id": "C4",
+          "source": "SRC-CODEX 4-04-05-02 主要工作任务 4"
+        },
+        {
+          "id": "T15",
+          "name": "编写、制作测试报告",
+          "competency_id": "C4",
+          "source": "SRC-CODEX 4-04-05-02 主要工作任务 5"
+        }
+      ],
+      "logic_chain": [
+        {
+          "level": "职业大类",
+          "name": "4 社会生产服务和生活服务人员"
+        },
+        {
+          "level": "职业中类",
+          "name": "4-04 信息传输、软件和信息技术服务人员"
+        },
+        {
+          "level": "职业小类",
+          "name": "4-04-05 软件和信息技术服务人员"
+        },
+        {
+          "level": "职业细类",
+          "name": "4-04-05-02 计算机软件测试员S"
+        }
+      ],
+      "domains": [
+        "功能测试",
+        "性能测试",
+        "其他测试",
+        "测试文档编写"
+      ],
+      "domain_weights": {
+        "功能测试": 30,
+        "性能测试": 20,
+        "其他测试": 30,
+        "测试文档编写": 20
+      },
+      "weight_source": "SRC-STD-02 4.2 技能要求权重表（四级/中级工）",
+      "competencies": [
+        {
+          "id": "C1",
+          "name": "功能测试",
+          "domain": "功能测试",
+          "weight": 30,
+          "task_ids": [
+            "T11"
+          ],
+          "units": [
+            {
+              "id": "U11",
+              "statement": "编写测试用例",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 1.1",
+              "skills": [
+                "能根据需求文档编写测试用例",
+                "能识别测试用例优先级"
+              ],
+              "knowledge": [
+                "需求文档识读方法",
+                "测试用例编写方法",
+                "测试用例优先级定义方法"
+              ]
+            },
+            {
+              "id": "U12",
+              "statement": "执行测试用例",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 1.2",
+              "skills": [
+                "能配置管理测试环境",
+                "能执行测试用例",
+                "能完成回归测试"
+              ],
+              "knowledge": [
+                "测试环境配置管理方法",
+                "测试任务单创建方法",
+                "测试用例执行方法",
+                "回归测试策略"
+              ]
+            },
+            {
+              "id": "U13",
+              "statement": "功能测试记录",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 1.3",
+              "skills": [
+                "能记录用例执行结果",
+                "能根据用例执行结果编写缺陷报告"
+              ],
+              "knowledge": [
+                "用例结果记录方法",
+                "编写缺陷报告方法",
+                "缺陷跟踪流程"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "性能测试",
+          "domain": "性能测试",
+          "weight": 20,
+          "task_ids": [
+            "T12"
+          ],
+          "units": [
+            {
+              "id": "U21",
+              "statement": "性能测试指标识别",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 2.1",
+              "skills": [
+                "能识别软件需求说明书、产品需求文档中的性能指标",
+                "能识别客户端、服务器端的性能指标"
+              ],
+              "knowledge": [
+                "阅读、分析软件需求说明书、产品需求文档中的性能指标的方法",
+                "客户端、服务器端的性能指标的定义"
+              ]
+            },
+            {
+              "id": "U22",
+              "statement": "性能测试工具选型",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 2.2",
+              "skills": [
+                "能识别性能测试工具",
+                "能根据场景选择性能测试工具"
+              ],
+              "knowledge": [
+                "性能测试场景分类方法",
+                "性能测试工具分类方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "其他测试",
+          "domain": "其他测试",
+          "weight": 30,
+          "task_ids": [
+            "T13"
+          ],
+          "units": [
+            {
+              "id": "U31",
+              "statement": "兼容性测试",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 3.1",
+              "skills": [
+                "能针对不同浏览器设计兼容性测试用例",
+                "能针对不同浏览器手工完成兼容性测试执行"
+              ],
+              "knowledge": [
+                "浏览器兼容性测试用例设计方法",
+                "兼容性测试执行结果记录与处理方法"
+              ]
+            },
+            {
+              "id": "U32",
+              "statement": "易用性测试",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 3.2",
+              "skills": [
+                "能制定针对产品特性的软件易用性检查表",
+                "能评审软件测试易用性检查表",
+                "能针对产品特性执行易用性测试"
+              ],
+              "knowledge": [
+                "软件易用性检查表设计原理",
+                "软件易用性检查表评审方法",
+                "易用性测试执行与记录方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "测试文档编写",
+          "domain": "测试文档编写",
+          "weight": 20,
+          "task_ids": [
+            "T14",
+            "T15"
+          ],
+          "units": [
+            {
+              "id": "U41",
+              "statement": "测试结果记录",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 4.1",
+              "skills": [
+                "能识读测试方案",
+                "能执行测试并记录测试结果"
+              ],
+              "knowledge": [
+                "测试方案中测试方法的定义",
+                "记录测试结果的方法"
+              ]
+            },
+            {
+              "id": "U42",
+              "statement": "测试报告模板使用",
+              "level": 2,
+              "source": "SRC-STD-02 3.1 4.2",
+              "skills": [
+                "能根据测试报告模板整理测试数据",
+                "能根据测试报告模板编写测试报告"
+              ],
+              "knowledge": [
+                "测试数据整理方法",
+                "测试报告模板填写方法"
+              ]
+            }
+          ]
+        }
+      ],
+      "basic_requirements": {
+        "source": "SRC-STD-02 2 基本要求",
+        "professional_ethics": [
+          "职业道德基本知识",
+          "职业守则：遵纪守法、保密合规；牢记职责、爱岗敬业；客观严谨、公平公正；流程规范、操作安全；认真负责、团结协作"
+        ],
+        "basic_knowledge": [
+          "计算机基础知识",
+          "软件测试知识",
+          "工作常用知识",
+          "相关法律、法规"
+        ]
+      },
+      "industry_path": [
+        {
+          "level": "产业链",
+          "id": "IND-SW",
+          "name": "软件和信息技术服务业",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "产业链环节",
+          "id": "IND-SW-QA",
+          "name": "软件质量保障",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位群",
+          "id": "CLU-SW-QA",
+          "name": "软件测试与质量保障岗位群",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位",
+          "id": "JOB-4-04-05-02",
+          "name": "计算机软件测试员",
+          "mapping_type": "standard",
+          "source_id": "4-04-05-02"
+        }
+      ],
+      "industry_mapping_note": "教学映射：依据专业教学标准与企业岗位调研归纳，非《国民经济行业分类》官方口径。"
+    },
+    {
+      "id": "JOB-4-04-04-01",
+      "name": "信息通信网络运行管理员",
+      "code": "4-04-04-01",
+      "digital_occupation": true,
+      "level": "三级/高级工",
+      "level_note": "能力条目取自 2019 年版标准「三级/高级工」工作要求；权重取自同一标准技能要求权重表。该标准依据 2015 年版大典编制，2022 年版大典仍列同一职业编码。",
+      "aliases": [
+        "计算机网络管理员",
+        "网络管理员",
+        "通信网络管理员",
+        "互联网网络管理员",
+        "网络运维工程师"
+      ],
+      "aliases_note": "计算机网络管理员为旧版职业名称，本项目按 2022 年版大典映射到 4-04-04-01；通信网络管理员、互联网网络管理员是该职业在大典中列出的工种；网络运维工程师为行业常见称谓。",
+      "definition": "从事信息通信网络运行配置管理、性能管理、优化管理和故障排除等工作的人员。",
+      "definition_source": "SRC-CODEX",
+      "standard_source": "SRC-STD-03",
+      "duties": [
+        {
+          "id": "T01",
+          "name": "监控、优化和管理信息通信网络及设备",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 1"
+        },
+        {
+          "id": "T02",
+          "name": "监控、分析和优化信息通信网络的性能及承载能力",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 2"
+        },
+        {
+          "id": "T03",
+          "name": "分析、评估信息通信网络性能和质量，采集、汇总、处理数据，并形成数据库",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 3"
+        },
+        {
+          "id": "T04",
+          "name": "测试信息通信网络及设备，查找、判断和排除故障",
+          "competency_id": "C2",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 4"
+        },
+        {
+          "id": "T05",
+          "name": "使用网管系统，进行数据查询、统计",
+          "competency_id": "C4",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 5"
+        },
+        {
+          "id": "T06",
+          "name": "管理、调度、整合和优化信息通信网络资源",
+          "competency_id": "C3",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 6"
+        },
+        {
+          "id": "T07",
+          "name": "演练、实施通信网络的应急通信保障预案",
+          "competency_id": "C2",
+          "source": "SRC-CODEX 4-04-04-01 主要工作任务 7"
+        }
+      ],
+      "logic_chain": [
+        {
+          "level": "职业大类",
+          "name": "4 社会生产服务和生活服务人员"
+        },
+        {
+          "level": "职业中类",
+          "name": "4-04 信息传输、软件和信息技术服务人员"
+        },
+        {
+          "level": "职业小类",
+          "name": "4-04-04 信息通信网络运行管理人员"
+        },
+        {
+          "level": "职业细类",
+          "name": "4-04-04-01 信息通信网络运行管理员S"
+        }
+      ],
+      "domains": [
+        "信息通信网络性能管理",
+        "信息通信网络故障管理",
+        "信息通信网络配置管理",
+        "网管系统管理"
+      ],
+      "domain_weights": {
+        "信息通信网络性能管理": 35,
+        "信息通信网络故障管理": 35,
+        "信息通信网络配置管理": 20,
+        "网管系统管理": 10
+      },
+      "weight_source": "SRC-STD-03 4.2 技能要求权重表（三级/高级工）",
+      "competencies": [
+        {
+          "id": "C1",
+          "name": "信息通信网络性能管理",
+          "domain": "信息通信网络性能管理",
+          "weight": 35,
+          "task_ids": [
+            "T01",
+            "T02",
+            "T03"
+          ],
+          "units": [
+            {
+              "id": "U11",
+              "statement": "性能监视",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 1.1",
+              "skills": [
+                "能使用网管系统设置性能数据的告警门限",
+                "能判定导致网络故障的性能数据异常问题"
+              ],
+              "knowledge": [
+                "网管系统性能数据告警设置方法",
+                "网络性能数据对业务的影响"
+              ]
+            },
+            {
+              "id": "U12",
+              "statement": "数据处理",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 1.2",
+              "skills": [
+                "能使用网管系统对采集的网络性能数据进行汇总",
+                "能对性能数据报表的准确性、完整性、及时性等指标进行检查，并给出结论"
+              ],
+              "knowledge": [
+                "网络性能数据汇总方法",
+                "网络性能数据合规性检查方法"
+              ]
+            },
+            {
+              "id": "U13",
+              "statement": "性能分析",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 1.3",
+              "skills": [
+                "能根据需要制定各项性能数据统计模版",
+                "能按照模板对网络运行的性能数据进行分析，发现网络运行中存在的问题"
+              ],
+              "knowledge": [
+                "网管性能统计模版使用方法",
+                "网络性能数据分析方法"
+              ]
+            },
+            {
+              "id": "U14",
+              "statement": "质量评估",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 1.4",
+              "skills": [
+                "能根据质量评估要求的内容，对报表数据进行质量评估",
+                "能依据报表数据判定网络的运行状态",
+                "能编写网络质量评估报告"
+              ],
+              "knowledge": [
+                "网络正常运行性能指标",
+                "网络质量指标统计方法",
+                "网络质量评估报告编写方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "信息通信网络故障管理",
+          "domain": "信息通信网络故障管理",
+          "weight": 35,
+          "task_ids": [
+            "T04",
+            "T07"
+          ],
+          "units": [
+            {
+              "id": "U21",
+              "statement": "故障监视",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 2.1",
+              "skills": [
+                "能使用网管系统设置故障的告警门限",
+                "能通过日常巡视检查发现网络设备存在的故障和隐患"
+              ],
+              "knowledge": [
+                "网管系统告警门限设置操作方法",
+                "网络设备巡检方法"
+              ]
+            },
+            {
+              "id": "U22",
+              "statement": "数据处理",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 2.2",
+              "skills": [
+                "能对告警统计报表进行分析并提出减少告警的建议",
+                "能根据归类统计的故障原因，编写网络运行报告"
+              ],
+              "knowledge": [
+                "网管告警关联性知识",
+                "网络故障原因分类知识"
+              ]
+            },
+            {
+              "id": "U23",
+              "statement": "故障处理",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 2.3",
+              "skills": [
+                "能对监控界面的告警信息进行告警确认、删除、重定义等各项操作",
+                "能对网络故障进行分析判断，定位故障设备",
+                "能在故障消除后进行业务恢复及验证测试"
+              ],
+              "knowledge": [
+                "网管系统告警操作方法",
+                "网络故障定位方法",
+                "业务验证测试方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "信息通信网络配置管理",
+          "domain": "信息通信网络配置管理",
+          "weight": 20,
+          "task_ids": [
+            "T06"
+          ],
+          "units": [
+            {
+              "id": "U31",
+              "statement": "网络配置",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 3.1",
+              "skills": [
+                "能对网络配置数据测试的准确性进行判定",
+                "能对配置数据的测试结果进行汇总上报"
+              ],
+              "knowledge": [
+                "专业网络配置参数知识",
+                "专业测试终端使用方法"
+              ]
+            },
+            {
+              "id": "U32",
+              "statement": "资源调度",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 3.2",
+              "skills": [
+                "能依据网络变动情况更新网管系统资源配置",
+                "能对网络资源的调度方案提出建议"
+              ],
+              "knowledge": [
+                "网管系统资源配置操作方法",
+                "网络资源调度流程"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "网管系统管理",
+          "domain": "网管系统管理",
+          "weight": 10,
+          "task_ids": [
+            "T05"
+          ],
+          "units": [
+            {
+              "id": "U41",
+              "statement": "系统管理",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 4.1",
+              "skills": [
+                "能执行网管系统的维护作业计划",
+                "能按照网管系统的安全管理要求进行操作"
+              ],
+              "knowledge": [
+                "网管系统维护操作方法",
+                "网管系统安全知识"
+              ]
+            },
+            {
+              "id": "U42",
+              "statement": "应用管理",
+              "level": 3,
+              "source": "SRC-STD-03 3.2 4.2",
+              "skills": [
+                "能进行网管系统应用操作",
+                "能实施网管系统和网元的对接，并验证数据同步"
+              ],
+              "knowledge": [
+                "网管系统结构和各功能模块操作方法",
+                "网络管理协议基础知识"
+              ]
+            }
+          ]
+        }
+      ],
+      "basic_requirements": {
+        "source": "SRC-STD-03 2 基本要求",
+        "professional_ethics": [
+          "职业道德基本知识",
+          "职业守则：爱岗敬业、忠于本职工作；勤奋学习进取、精通业务；礼貌待人、尊重客户；遵守通信纪律、严守通信秘密；维护企业和客户正当利益；诚实守信、遵纪守法、安全生产；团结协作"
+        ],
+        "basic_knowledge": [
+          "计算机知识",
+          "信息通信业务基础知识",
+          "信息通信网络专业知识",
+          "安全生产知识",
+          "工作常用知识",
+          "相关法律、法规知识"
+        ]
+      },
+      "industry_path": [
+        {
+          "level": "产业链",
+          "id": "IND-ICT",
+          "name": "信息通信业",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "产业链环节",
+          "id": "IND-ICT-OPS",
+          "name": "网络运行维护",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位群",
+          "id": "CLU-ICT-OPS",
+          "name": "信息通信网络运行维护岗位群",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位",
+          "id": "JOB-4-04-04-01",
+          "name": "信息通信网络运行管理员",
+          "mapping_type": "standard",
+          "source_id": "4-04-04-01"
+        }
+      ],
+      "industry_mapping_note": "教学映射：依据专业教学标准与企业岗位调研归纳，非《国民经济行业分类》官方口径。"
+    },
+    {
+      "id": "JOB-4-04-05-04",
+      "name": "数据库运行管理员",
+      "code": "4-04-05-04",
+      "digital_occupation": true,
+      "level": "三级/高级工",
+      "level_note": "能力条目取自 2025 年版标准「三级/高级工」工作要求；权重取自同一标准技能要求权重表。",
+      "aliases": [
+        "数据库管理员",
+        "DBA",
+        "数据库运维工程师"
+      ],
+      "aliases_note": "均为行业常见称谓，用于检索，不代表职业标准中的职业名称。",
+      "definition": "对系统所使用的数据库进行维护及管理等工作的人员。",
+      "definition_source": "SRC-CODEX",
+      "standard_source": "SRC-STD-04",
+      "duties": [
+        {
+          "id": "T01",
+          "name": "安装配置数据库，并进行性能监控、故障诊断、排除等日常维护",
+          "competency_id": "C1",
+          "source": "SRC-CODEX 4-04-05-04 主要工作任务 1"
+        },
+        {
+          "id": "T02",
+          "name": "制订、实施与完善数据库的备份还原、复制、镜像等容灾方案",
+          "competency_id": "C5",
+          "source": "SRC-CODEX 4-04-05-04 主要工作任务 2"
+        },
+        {
+          "id": "T03",
+          "name": "提出并实施优化数据库性能及数据库集群方案",
+          "competency_id": "C2",
+          "source": "SRC-CODEX 4-04-05-04 主要工作任务 3"
+        },
+        {
+          "id": "T04",
+          "name": "研究和实施可靠的监控手段，分配权限、信息脱敏保护等",
+          "competency_id": "C5",
+          "source": "SRC-CODEX 4-04-05-04 主要工作任务 4"
+        },
+        {
+          "id": "T05",
+          "name": "制订和改进应急预案、策略和相关流程",
+          "competency_id": "C5",
+          "source": "SRC-CODEX 4-04-05-04 主要工作任务 5"
+        }
+      ],
+      "logic_chain": [
+        {
+          "level": "职业大类",
+          "name": "4 社会生产服务和生活服务人员"
+        },
+        {
+          "level": "职业中类",
+          "name": "4-04 信息传输、软件和信息技术服务人员"
+        },
+        {
+          "level": "职业小类",
+          "name": "4-04-05 软件和信息技术服务人员"
+        },
+        {
+          "level": "职业细类",
+          "name": "4-04-05-04 数据库运行管理员S"
+        }
+      ],
+      "domains": [
+        "数据库部署",
+        "数据库配置与管理",
+        "数据库应用开发",
+        "数据库测试",
+        "数据库运维"
+      ],
+      "domain_weights": {
+        "数据库部署": 30,
+        "数据库配置与管理": 30,
+        "数据库应用开发": 10,
+        "数据库测试": 15,
+        "数据库运维": 15
+      },
+      "weight_source": "SRC-STD-04 4.2 技能要求权重表（三级/高级工）",
+      "competencies": [
+        {
+          "id": "C1",
+          "name": "数据库部署",
+          "domain": "数据库部署",
+          "weight": 30,
+          "task_ids": [
+            "T01"
+          ],
+          "units": [
+            {
+              "id": "U11",
+              "statement": "安装环境的规划与设置",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 1.1",
+              "skills": [
+                "能根据业务需求规划操作系统",
+                "能根据数据量、IOPS 要求、高可用要求等规划存储",
+                "能根据数据量、时延等要求规划网络"
+              ],
+              "knowledge": [
+                "操作系统的规划方式",
+                "存储调优的规划方式",
+                "网络规划的主要方法"
+              ]
+            },
+            {
+              "id": "U12",
+              "statement": "数据库软件的安装",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 1.2",
+              "skills": [
+                "能确定数据库和周边产品的使用版本，并确保版本兼容性",
+                "能安装部署数据库集群架构",
+                "能编制数据库集群的部署手册",
+                "能调整数据库集群的参数",
+                "能利用运维平台升级数据库或打补丁"
+              ],
+              "knowledge": [
+                "数据库版本兼容性检查技巧",
+                "数据库主备集群搭建方法",
+                "分布式数据库集群部署手册编制方法",
+                "常用数据库集群参数",
+                "数据库升级工具使用方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "数据库配置与管理",
+          "domain": "数据库配置与管理",
+          "weight": 30,
+          "task_ids": [
+            "T03"
+          ],
+          "units": [
+            {
+              "id": "U21",
+              "statement": "数据库资源配置管理",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 2.1",
+              "skills": [
+                "能查看系统资源使用情况",
+                "能根据业务量执行数据库扩容",
+                "能根据业务量执行数据库缩容"
+              ],
+              "knowledge": [
+                "数据库资源使用情况查看方法",
+                "数据库扩容操作流程",
+                "数据库缩容操作流程"
+              ]
+            },
+            {
+              "id": "U22",
+              "statement": "数据迁移",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 2.2",
+              "skills": [
+                "能发现迁移评估报告中的不兼容问题",
+                "能利用迁移平台迁移数据库对象和数据",
+                "能监控迁移过程并处理错误",
+                "能处理迁移过程中遇到的数据不一致问题"
+              ],
+              "knowledge": [
+                "迁移评估的技术方法",
+                "对象迁移的技术方法",
+                "数据迁移过程并处理错误的技术方法",
+                "数据验证的技术方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "数据库应用开发",
+          "domain": "数据库应用开发",
+          "weight": 10,
+          "task_ids": [],
+          "units": [
+            {
+              "id": "U31",
+              "statement": "业务数据库对象结构设计",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 3.1",
+              "skills": [
+                "能使用数据库建模工具创建库表",
+                "能创建数据库中的基本数据对象（如库、表、视图等）",
+                "能创建各种约束、索引等"
+              ],
+              "knowledge": [
+                "数据库建模基础知识",
+                "数据库对象的创建规范",
+                "数据库约束、索引的创建方式"
+              ]
+            },
+            {
+              "id": "U32",
+              "statement": "数据库语句编写",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 3.2",
+              "skills": [
+                "能编写数据库语句或存储过程以实现业务对数据库的操作",
+                "能评估数据库语句的运行效率"
+              ],
+              "knowledge": [
+                "数据库语句编写规范",
+                "数据库语句运行效率的评估方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "数据库测试",
+          "domain": "数据库测试",
+          "weight": 15,
+          "task_ids": [],
+          "units": [
+            {
+              "id": "U41",
+              "statement": "功能与性能测试",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 4.1",
+              "skills": [
+                "能根据测试用例编写测试脚本并生成测试报告",
+                "能运行数据库基准测试并生成测试报告"
+              ],
+              "knowledge": [
+                "常用自动化脚本的编写方法",
+                "压力测试工具的使用方法",
+                "压力测试原理"
+              ]
+            },
+            {
+              "id": "U42",
+              "statement": "数据库高可用测试",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 4.2",
+              "skills": [
+                "能编写脚本模拟数据库故障",
+                "能编写脚本模拟系统故障，如网络故障、存储故障、机器故障等"
+              ],
+              "knowledge": [
+                "数据库故障模拟的技术方法",
+                "系统故障模拟的技术方法",
+                "常见故障自动化脚本编写方法"
+              ]
+            },
+            {
+              "id": "U43",
+              "statement": "业务上线测试",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 4.3",
+              "skills": [
+                "能对预上线业务编写功能测试脚本，执行并生成测试报告",
+                "能利用压力测试工具模拟业务压力，执行业务压力测试并生成测试报告"
+              ],
+              "knowledge": [
+                "功能测试的技术方法",
+                "压力测试脚本编写方法"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "数据库运维",
+          "domain": "数据库运维",
+          "weight": 15,
+          "task_ids": [
+            "T02",
+            "T04",
+            "T05"
+          ],
+          "units": [
+            {
+              "id": "U51",
+              "statement": "数据库监控及优化",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 5.1",
+              "skills": [
+                "能运行脚本或操作监控平台获得系统运行数据",
+                "能根据运行数据监控数据库运行情况、资源使用情况",
+                "能编写脚本收集数据库性能相关数据",
+                "能使用常用数据库优化方法进行性能优化"
+              ],
+              "knowledge": [
+                "数据库监控平台操作方法",
+                "数据库运行数据的获取方法",
+                "数据库资源情况的收集流程",
+                "数据库运行状况的收集流程",
+                "性能视图的设计方案",
+                "分区、表组、索引、hint、outline 等数据库性能优化方法"
+              ]
+            },
+            {
+              "id": "U52",
+              "statement": "备份恢复管理",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 5.2",
+              "skills": [
+                "能编写备份脚本，对数据库按需完成物理备份和逻辑备份",
+                "能解决备份过程中常见的失败问题",
+                "能按需恢复数据库",
+                "能解决恢复过程中常见的失败问题"
+              ],
+              "knowledge": [
+                "数据库逻辑备份的操作方法",
+                "数据库物理备份的操作方法",
+                "备份失败的处理方法",
+                "恢复失败的处理方法",
+                "常用备份脚本的编写方法"
+              ]
+            },
+            {
+              "id": "U53",
+              "statement": "数据库安全与应急保障",
+              "level": 3,
+              "source": "SRC-STD-04 3.2 5.3",
+              "skills": [
+                "能设计数据库不同等级的用户、角色、权限体系",
+                "能分析数据库日志，并发现不同级别的报错",
+                "能应对常见的突发状况，并执行应急处理",
+                "能根据安全加固方案执行安全加固",
+                "能编写问题处理报告"
+              ],
+              "knowledge": [
+                "数据库管理员等级的设计方法",
+                "数据库日志的分类及处理方法",
+                "数据库常见突发状况的处理流程",
+                "数据库安全加固方法",
+                "编写问题报告的方法"
+              ]
+            }
+          ]
+        }
+      ],
+      "basic_requirements": {
+        "source": "SRC-STD-04 2 基本要求",
+        "professional_ethics": [
+          "职业道德基本知识",
+          "职业守则：忠于职守、保障稳定运行；勤奋好学、勇于开拓创新；乐于钻研、业务精益求精；遵纪守法、保护数据安全"
+        ],
+        "basic_knowledge": [
+          "专业基础知识",
+          "安全生产与环境保护基础知识",
+          "相关法律、法规知识"
+        ]
+      },
+      "industry_path": [
+        {
+          "level": "产业链",
+          "id": "IND-SW",
+          "name": "软件和信息技术服务业",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "产业链环节",
+          "id": "IND-SW-DATA",
+          "name": "数据服务与运维",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位群",
+          "id": "CLU-SW-DBA",
+          "name": "数据库运维岗位群",
+          "mapping_type": "teaching",
+          "source_id": "TEACH-MAP-2026-01"
+        },
+        {
+          "level": "职业岗位",
+          "id": "JOB-4-04-05-04",
+          "name": "数据库运行管理员",
+          "mapping_type": "standard",
+          "source_id": "4-04-05-04"
+        }
+      ],
+      "industry_mapping_note": "教学映射：依据专业教学标准与企业岗位调研归纳，非《国民经济行业分类》官方口径。"
+    }
+  ]
+}

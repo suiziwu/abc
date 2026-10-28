@@ -17,13 +17,16 @@ ruoyi:
 langchain:
   # LangGraph StateGraph 工作流清单
   workflow-location: classpath:langchain/rencai-huaxiang-20260914150500.langgraph.json
-  # 百炼 OpenAI 兼容接口（当前业务空间）
-  base-url: https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+  # 附加工作流：标识 -> 清单文件（岗位能力图谱，调用 /project/langchain/invoke/competency-graph）
+  workflows:
+    competency-graph: classpath:langchain/gangwei-nengli-tupu-20261027.langgraph.json
+  # 百炼 OpenAI 兼容接口（当前业务空间 ws-6sx11dk2z85q2i91）
+  base-url: https://ws-6sx11dk2z85q2i91.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
   # 优先从环境变量 DASHSCOPE_API_KEY 读取，未配置时启动不受影响，仅调用时报错
   api-key: ${DASHSCOPE_API_KEY:}
-  model-name: qwen3.8-flash
+  model-name: deepseek-v4.1-flash
   temperature: 1.0
-  timeout-seconds: 300
+  timeout-seconds: 600
   log-requests: false
   log-responses: false
 
@@ -31,15 +34,23 @@ langchain:
 ai:
   # 可选对话模型清单（OpenAI 兼容接口），前端会读取 /project/course/models
   chat:
-    default-model: qwen3.8-flash
+    # 岗位能力图谱长文本生成使用 DeepSeek Flash，Qwen 仍可在对话页选择
+    default-model: deepseek-v4.1-flash
     models:
       - id: qwen3.8-flash
         label: 通义千问 3.8 Flash
-        base-url: https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+        base-url: https://ws-6sx11dk2z85q2i91.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
         api-key: ${DASHSCOPE_API_KEY:}
         model: qwen3.8-flash
         temperature: 1.0
-        timeout-seconds: 300
+        timeout-seconds: 600
+      - id: deepseek-v4.1-flash
+        label: DeepSeek V4.1 Flash
+        base-url: https://ws-6sx11dk2z85q2i91.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+        api-key: ${DASHSCOPE_API_KEY:}
+        model: deepseek-v4.1-flash
+        temperature: 0.3
+        timeout-seconds: 600
       - id: deepseek-chat
         label: DeepSeek Chat
         base-url: https://api.deepseek.com/v1
@@ -48,7 +59,7 @@ ai:
         temperature: 1.0
         timeout-seconds: 300
   asr:
-    dashscope-base-url: https://ws-uxxtz5szu7puw1so.cn-beijing.maas.aliyuncs.com/api/v1
+    dashscope-base-url: https://ws-6sx11dk2z85q2i91.cn-beijing.maas.aliyuncs.com/api/v1
     api-key: ${DASHSCOPE_API_KEY:}
     model: qwen-audio-3.1-asr-flash-filetrans
     sample-rate: 16000
@@ -227,4 +238,14 @@ kb:
     collection: course_kb
     # Milvus 连不上时自动回退 local，避免影响问答主流程
     fallback-to-local: true
+
+# 人才培养 · 一键爬取（后台运行 Python 爬虫，完成后自动导入并刷新看板）
+talent:
+  crawl:
+    python: python
+    script: D:/system/lerning/abc/fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
+    working-dir: D:/system/lerning/abc/fiveEi/01-爬虫脚本
+    output-dir: D:/IDEA2025/xiangmu/fiveEi/新爬取
+    total-target: 200
+    timeout-minutes: 90
 

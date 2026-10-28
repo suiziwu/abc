@@ -20,6 +20,9 @@ public class CourseChapter extends BaseEntity
     /** 所属学科ID */
     private Long subjectId;
 
+    /** 关联岗位ID */
+    private Long positionId;
+
     /** 章号（如：第1章） */
     private String chapterNo;
 
@@ -77,6 +80,16 @@ public class CourseChapter extends BaseEntity
     public Long getSubjectId()
     {
         return subjectId;
+    }
+
+    public void setPositionId(Long positionId)
+    {
+        this.positionId = positionId;
+    }
+
+    public Long getPositionId()
+    {
+        return positionId;
     }
 
     public void setChapterNo(String chapterNo)
