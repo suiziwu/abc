@@ -209,7 +209,7 @@ public class PointAiGenerateServiceImpl implements IPointAiGenerateService
         try
         {
             String answer = callAi(buildCoursePrompt(subject.getName(), courseTitle, transcript));
-            log.info("课程逐字稿 AI 原始返回：{}", answer);
+            log.debug("课程逐字稿 AI 返回长度：{}", answer == null ? 0 : answer.length());
             List<Map<String, Object>> drafts = parseDraftArray(answer);
             if (drafts != null && !drafts.isEmpty())
             {
