@@ -29,6 +29,16 @@
       </div>
     </section>
 
+    <!-- 学习中课程：点击卡片进入课程学习页 -->
+    <CourseLearningSection
+      v-if="learningCourses.length > 0"
+      class="profile-learning-section"
+      title="学习中课程"
+      subtitle="继续上次的学习进度，点击课程卡片进入课程学习"
+      :courses="learningCourses"
+      @open="openCourse"
+    />
+
     <!-- 图表 -->
     <section class="grid-2">
       <div class="panel">
@@ -105,11 +115,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onActivated, onUnmounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import * as echarts from 'echarts'
 import { listHistory } from '@/api/project/history'
 import { listPoint } from '@/api/project/point'
 import { listRecord } from '@/api/project/record'
+import { listSubject } from '@/api/project/subject'
+import CourseLearningSection from './components/CourseLearningSection.vue'
+import { buildLearningCourses } from './courseLearning'
 
 // ====== Chart refs ======
 const pieChartRef = ref(null)
@@ -117,10 +131,13 @@ const radarChartRef = ref(null)
 let pieChart = null
 let radarChart = null
 
+const router = useRouter()
+
 // ====== Data ======
 const statCards = ref([])
 const positionList = ref([])
 const recentActivities = ref([])
+const learningCourses = ref([])
 const updatedAt = ref('')
 
 // 统一色板，克制、低饱和
@@ -136,6 +153,13 @@ const THEME = {
 onMounted(() => {
   loadAllData()
   window.addEventListener('resize', handleResize)
+})
+
+// 从其他页面返回画像页时刷新，确保「学习模式」写入的数据立即可见
+let profileActivated = false
+onActivated(() => {
+  if (profileActivated) loadAllData()
+  profileActivated = true
 })
 
 onUnmounted(() => {
@@ -169,22 +193,31 @@ async function loadAllData() {
     const allRecords = recordRes.rows || []
     const doneCount = allRecords.filter(r => r.status === '2').length
     const learningCount = allRecords.filter(r => r.status === '1').length
+    const totalCount = allRecords.length
+    const pendingCount = Math.max(0, totalCount - doneCount - learningCount)
 
     // 2. 历史查询（岗位）
     const historyRes = await listHistory({ pageSize: 9999, pageNum: 1 })
     const allHistory = historyRes.rows || []
 
-    // 3. 按岗位统计知识点：一次取全量再按学科分组，避免「岗位×学科」次串行请求
+    // 学科与全部知识点：用于岗位统计和学习中课程卡片
+    const [subjectRes, allPointRes] = await Promise.all([
+      listSubject({ pageSize: 9999, pageNum: 1 }),
+      listPoint({ pageSize: 9999, pageNum: 1 })
+    ])
+    const allSubjects = subjectRes.rows || subjectRes.data || []
+    const allPoints = allPointRes.rows || allPointRes.data || []
+    const pointsBySubject = new Map()
+    allPoints.forEach(point => {
+      if (!point || point.id === undefined || point.id === null) return
+      const key = String(point.subjectId)
+      if (!pointsBySubject.has(key)) pointsBySubject.set(key, [])
+      pointsBySubject.get(key).push(point)
+    })
+
+    // 3. 按岗位统计知识点
     let globalTotalPoints = 0
     const positions = []
-    const pointsBySubject = new Map()
-    try {
-      const pr = await listPoint({ pageSize: 9999, pageNum: 1 })
-      ;(pr.rows || []).forEach(p => {
-        const key = String(p.subjectId)
-        pointsBySubject.set(key, (pointsBySubject.get(key) || 0) + 1)
-      })
-    } catch {}
 
     for (const h of allHistory) {
       if (!h.selectedSubjects) continue
@@ -194,7 +227,7 @@ async function loadAllData() {
 
       let posTotal = 0
       for (const s of subjects) {
-        posTotal += pointsBySubject.get(String(s.id)) || 0
+        posTotal += (pointsBySubject.get(String(s.id)) || []).length
       }
 
       const hr = allRecords.filter(r => String(r.historyId) === String(h.id))
@@ -208,7 +241,7 @@ async function loadAllData() {
           totalCount: posTotal,
           doneCount: hDone,
           learningCount: hLearning,
-          percent: Math.min(100, Math.round((hDone / posTotal) * 100)),
+          percent: Math.round((hDone / posTotal) * 100),
           recentLearn: hr.length > 0 ? formatTime(hr[hr.length - 1].updateTime) : null
         })
         globalTotalPoints += posTotal
@@ -278,10 +311,7 @@ async function loadAllData() {
 
     // 5. 知识点名称映射
     const pointNames = {}
-    try {
-      const allPointRes = await listPoint({ pageSize: 9999, pageNum: 1 })
-      ;(allPointRes.rows || []).forEach(p => { pointNames[p.id] = p.name })
-    } catch {}
+    allPoints.forEach(p => { pointNames[p.id] = p.name })
 
     // 6. 最近动态
     const acts = []
@@ -310,17 +340,29 @@ async function loadAllData() {
     })
     acts.sort((a, b) => new Date(b.time) - new Date(a.time))
     recentActivities.value = acts.slice(0, 20)
+    learningCourses.value = buildLearningCourses(allRecords, allSubjects, allPoints)
 
     updatedAt.value = formatTime(new Date())
 
     // 7. 渲染图表
     await nextTick()
-    // 饼图与指标卡统一用「知识点数」口径，避免同一页出现两套总数
-    renderPieChart(doneCount, learningCount, pendingPoints)
+    renderPieChart(doneCount, learningCount, pendingCount)
     renderRadarChart(positionList.value)
   } catch (e) {
     console.error('加载画像数据失败', e)
   }
+}
+
+function openCourse(course) {
+  if (!course?.id) return
+  router.push({
+    path: '/course',
+    query: {
+      subjectId: course.id,
+      subjectName: course.name || '',
+      from: 'card'
+    }
+  })
 }
 
 function formatTime(timeStr) {
@@ -576,6 +618,11 @@ function renderRadarChart(positions) {
   height: 100%;
   border-radius: 2px;
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ====== 学习中课程 ====== */
+.profile-learning-section {
+  margin-bottom: 20px;
 }
 
 /* ====== 面板 ====== */

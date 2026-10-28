@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="CourseChapter" id="CourseChapterResult">
         <result property="id"    column="id"    />
         <result property="subjectId"    column="subject_id"    />
+        <result property="positionId"    column="position_id"    />
         <result property="chapterNo"    column="chapter_no"    />
         <result property="title"    column="title"    />
         <result property="courseTitle"    column="course_title"    />
@@ -45,11 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCourseChapterVo">
-        select id, subject_id, chapter_no, title, course_title, description, video, start_time, end_time, sort_order, status, create_by, create_time, update_by, update_time, del_flag from course_chapter
+        select id, subject_id, position_id, chapter_no, title, course_title, description, video, start_time, end_time, sort_order, status, create_by, create_time, update_by, update_time, del_flag from course_chapter
     </sql>
 
     <select id="selectCourseChapterList" parameterType="CourseChapter" resultMap="CourseChapterResult">
-        select cc.id, cc.subject_id, cc.chapter_no, cc.title, cc.course_title, cc.description, cc.video,
+        select cc.id, cc.subject_id, cc.position_id, cc.chapter_no, cc.title, cc.course_title, cc.description, cc.video,
                cc.start_time, cc.end_time, cc.sort_order, cc.status, cc.create_by, cc.create_time,
                cc.update_by, cc.update_time, cc.del_flag,
                (select count(1) from chapter_point cp where cp.chapter_id = cc.id) as point_count,
@@ -58,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             cc.del_flag = '0'
             <if test="subjectId != null "> and cc.subject_id = #{subjectId}</if>
+            <if test="positionId != null "> and cc.position_id = #{positionId}</if>
             <if test="chapterNo != null  and chapterNo != ''"> and cc.chapter_no = #{chapterNo}</if>
             <if test="title != null  and title != ''"> and cc.title like concat('%', #{title}, '%')</if>
             <if test="status != null  and status != ''"> and cc.status = #{status}</if>
@@ -80,6 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into course_chapter
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="subjectId != null">subject_id,</if>
+            <if test="positionId != null">position_id,</if>
             <if test="chapterNo != null">chapter_no,</if>
             <if test="title != null">title,</if>
             <if test="courseTitle != null">course_title,</if>
@@ -97,6 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="subjectId != null">#{subjectId},</if>
+            <if test="positionId != null">#{positionId},</if>
             <if test="chapterNo != null">#{chapterNo},</if>
             <if test="title != null">#{title},</if>
             <if test="courseTitle != null">#{courseTitle},</if>
@@ -118,6 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update course_chapter
         <trim prefix="SET" suffixOverrides=",">
             <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="positionId != null">position_id = #{positionId},</if>
             <if test="chapterNo != null">chapter_no = #{chapterNo},</if>
             <if test="title != null">title = #{title},</if>
             <if test="courseTitle != null">course_title = #{courseTitle},</if>

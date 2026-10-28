@@ -9,6 +9,8 @@ set SERVER__PORT=
 set PORT=%1
 if "%PORT%"=="" set PORT=8081
 if not exist logs mkdir logs
-start "" /b "C:\Users\liu\.jdks\corretto-1.8.0_492\bin\javaw.exe" -Dfile.encoding=UTF-8 -jar ruoyi-admin\target\ruoyi-admin.jar --server.port=%PORT% >> logs\app-restart.log 2>&1
+set "JAVA_EXE=%USERPROFILE%\.jdks\corretto-1.8.0_492\bin\javaw.exe"
+if not exist "%JAVA_EXE%" set "JAVA_EXE=java.exe"
+start "" /b "%JAVA_EXE%" -Dfile.encoding=UTF-8 -jar ruoyi-admin\target\ruoyi-admin.jar --server.port=%PORT% >> logs\app-restart.log 2>&1
 echo started on port %PORT%
 endlocal

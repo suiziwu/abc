@@ -26,6 +26,7 @@ import com.ruoyi.project.domain.KnowledgePoint;
 import com.ruoyi.project.domain.KnowledgePointImport;
 import com.ruoyi.project.domain.Subject;
 import com.ruoyi.project.service.IKnowledgePointService;
+import com.ruoyi.project.service.IPointAiGenerateService;
 import com.ruoyi.project.service.ISubjectService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -45,6 +46,9 @@ public class KnowledgePointController extends BaseController
 
     @Autowired
     private ISubjectService subjectService;
+
+    @Autowired
+    private IPointAiGenerateService pointAiGenerateService;
 
     /**
      * 查询知识点列表
@@ -300,6 +304,113 @@ public class KnowledgePointController extends BaseController
     /**
      * 获取知识点详细信息
      */
+    /**
+     * AI 按章生成知识点（生成并落库，耗时较长）。
+     */
+    @PreAuthorize("@ss.hasPermi('project:point:add')")
+    @Log(title = "知识点", businessType = BusinessType.INSERT)
+    @PostMapping("/ai-generate")
+    public AjaxResult aiGenerate(@RequestBody Map<String, Object> params)
+    {
+        Long positionId = toLong(params.get("positionId"));
+        Long subjectId = toLong(params.get("subjectId"));
+        if (positionId == null || subjectId == null)
+        {
+            return error("岗位和学科不能为空");
+        }
+        try
+        {
+            Map<String, Object> result = pointAiGenerateService.generateByAi(positionId, subjectId,
+                    toInteger(params.get("chapterCount")), getUsername());
+            return success(result);
+        }
+        catch (Exception e)
+        {
+            return error("AI 生成失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 课程学习页根据视频逐字稿生成知识点草稿（不落库，耗时较长）。
+     */
+    @PreAuthorize("@ss.hasPermi('project:point:add')")
+    @Log(title = "知识点", businessType = BusinessType.INSERT)
+    @PostMapping("/ai-generate-from-course")
+    public AjaxResult aiGenerateFromCourse(@RequestBody Map<String, Object> params)
+    {
+        Long subjectId = toLong(params.get("subjectId"));
+        if (subjectId == null)
+        {
+            return error("学科不能为空");
+        }
+        String courseTitle = params.get("courseTitle") == null ? null : params.get("courseTitle").toString();
+        String transcript = params.get("transcript") == null ? null : params.get("transcript").toString();
+        if (StringUtils.isEmpty(transcript))
+        {
+            return error("课程逐字稿不能为空");
+        }
+        try
+        {
+            List<Map<String, Object>> drafts = pointAiGenerateService.generateDraftsFromCourse(subjectId,
+                    courseTitle, transcript);
+            if (drafts == null || drafts.isEmpty())
+            {
+                return error("AI 分析失败: 未提取到知识点");
+            }
+            return success(drafts);
+        }
+        catch (Exception e)
+        {
+            return error("AI 分析失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 转换为 Long。
+     */
+    private Long toLong(Object value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+        if (value instanceof Number)
+        {
+            return ((Number) value).longValue();
+        }
+        try
+        {
+            return Long.valueOf(value.toString().trim());
+        }
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
+    }
+
+    /**
+     * 转换为 Integer。
+     */
+    private Integer toInteger(Object value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+        if (value instanceof Number)
+        {
+            return ((Number) value).intValue();
+        }
+        try
+        {
+            return Integer.valueOf(value.toString().trim());
+        }
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
+    }
+
     @PreAuthorize("@ss.hasPermi('project:point:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)

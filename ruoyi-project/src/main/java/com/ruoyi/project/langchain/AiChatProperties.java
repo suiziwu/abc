@@ -77,6 +77,9 @@ public class AiChatProperties
         /** 温度 */
         private Double temperature = 1.0D;
 
+        /** 单次生成最大 token 数（含推理内容），默认 8192 */
+        private Integer maxTokens = 8192;
+
         /** 超时时间（秒） */
         private Integer timeoutSeconds = 120;
 
@@ -138,6 +141,16 @@ public class AiChatProperties
         public void setTemperature(Double temperature)
         {
             this.temperature = temperature;
+        }
+
+        public Integer getMaxTokens()
+        {
+            return maxTokens;
+        }
+
+        public void setMaxTokens(Integer maxTokens)
+        {
+            this.maxTokens = maxTokens;
         }
 
         public Integer getTimeoutSeconds()

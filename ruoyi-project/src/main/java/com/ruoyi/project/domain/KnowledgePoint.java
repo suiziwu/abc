@@ -22,6 +22,9 @@ public class KnowledgePoint extends BaseEntity
     @Excel(name = "所属学科ID")
     private Long subjectId;
 
+    /** 所属章节ID（对应 course_chapter.id） */
+    private Long chapterId;
+
     /** 知识点名称 */
     @Excel(name = "知识点名称")
     private String name;
@@ -79,6 +82,16 @@ public class KnowledgePoint extends BaseEntity
     public Long getSubjectId() 
     {
         return subjectId;
+    }
+
+    public void setChapterId(Long chapterId) 
+    {
+        this.chapterId = chapterId;
+    }
+
+    public Long getChapterId() 
+    {
+        return chapterId;
     }
 
     public void setName(String name) 

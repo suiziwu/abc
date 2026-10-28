@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="KnowledgePoint" id="KnowledgePointResult">
         <result property="id"    column="id"    />
         <result property="subjectId"    column="subject_id"    />
+        <result property="chapterId"    column="chapter_id"    />
         <result property="name"    column="name"    />
         <result property="content"    column="content"    />
         <result property="difficulty"    column="difficulty"    />
@@ -24,13 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectKnowledgePointVo">
-        select id, subject_id, name, content, difficulty, importance, type, sort_order, status, create_by, create_time, update_by, update_time, del_flag, attachment, video from knowledge_point
+        select id, subject_id, chapter_id, name, content, difficulty, importance, type, sort_order, status, create_by, create_time, update_by, update_time, del_flag, attachment, video from knowledge_point
     </sql>
 
     <select id="selectKnowledgePointList" parameterType="KnowledgePoint" resultMap="KnowledgePointResult">
         <include refid="selectKnowledgePointVo"/>
         <where>  
             <if test="subjectId != null "> and subject_id = #{subjectId}</if>
+            <if test="chapterId != null "> and chapter_id = #{chapterId}</if>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="content != null  and content != ''"> and content = #{content}</if>
             <if test="difficulty != null "> and difficulty = #{difficulty}</if>
@@ -52,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into knowledge_point
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="subjectId != null">subject_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
             <if test="name != null and name != ''">name,</if>
             <if test="content != null">content,</if>
             <if test="difficulty != null">difficulty,</if>
@@ -69,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="subjectId != null">#{subjectId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
             <if test="name != null and name != ''">#{name},</if>
             <if test="content != null">#{content},</if>
             <if test="difficulty != null">#{difficulty},</if>
@@ -90,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update knowledge_point
         <trim prefix="SET" suffixOverrides=",">
             <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="content != null">content = #{content},</if>
             <if test="difficulty != null">difficulty = #{difficulty},</if>

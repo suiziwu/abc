@@ -23,6 +23,7 @@
             v-model="jobFamily"
             placeholder="全部岗位方向"
             clearable
+            :disabled="loading"
             style="width: 220px"
             @change="loadAll"
           >
@@ -37,6 +38,7 @@
             v-model="batchDate"
             placeholder="全部时间"
             clearable
+            :disabled="loading"
             style="width: 200px"
             @change="loadAll"
           >
@@ -759,7 +761,12 @@ function applyCrawl(data) {
     loadAll()
   } else if (status === 'ERROR') {
     stopCrawlPolling()
-    proxy.$modal.msgError(crawl.value.message || '爬取失败')
+    const message = crawl.value.message || '爬取失败'
+    if (message.includes('找不到爬虫脚本')) {
+      proxy.$modal.msgWarning('本地未配置爬虫脚本，当前看板数据不受影响；如需更新数据，请使用导入功能或配置爬虫路径')
+    } else {
+      proxy.$modal.msgError(message)
+    }
   }
 }
 

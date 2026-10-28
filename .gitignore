@@ -61,6 +61,9 @@ __pycache__/
 /ruoyi-ui/.build-check*/
 /ruoyi-ui/.build-verify/
 
+# 本地登录令牌（禁止入库）
+/.token.txt
+
 # Milvus 本地运行数据（Docker 卷，体积大，禁止入库）
 /data/
 
