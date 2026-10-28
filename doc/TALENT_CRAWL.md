@@ -26,8 +26,8 @@
 talent:
   crawl:
     python: python
-    script: D:/000/fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
-    working-dir: D:/000/fiveEi/01-爬虫脚本
+    script: D:/000/abc/fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
+    working-dir: D:/000/abc/fiveEi/01-爬虫脚本
     output-dir: D:/IDEA2025/xiangmu/fiveEi/新爬取
     total-target: 200        # 进度条按“已保存/目标”估算
     timeout-minutes: 90      # 超时强制结束
