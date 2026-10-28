@@ -12,11 +12,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.ruoyi.project.talent.mapper.TalentIndustryCodeMapper;
+
 /**
- * 行业编码对照表：读取「08-行业对照表/行业编码对照表.csv」。
+ * 行业编码对照表：数据来自数据库表 talent_industry_code（由 sql/talent_industry_code.sql 导入）。
  *
  * @author ruoyi
  */
@@ -26,60 +29,24 @@ public class TalentIndustryCodeService
     @Value("${talent.industry-dir:D:/000/fiveEi/08-行业对照表}")
     private String industryDir;
 
+    @Autowired
+    private TalentIndustryCodeMapper talentIndustryCodeMapper;
+
     public Map<String, Object> list() throws Exception
     {
-        File file = new File(industryDir, "行业编码对照表.csv");
-        if (!file.isFile())
-        {
-            throw new IllegalStateException("行业编码对照表.csv 不存在：" + file.getAbsolutePath());
-        }
-        byte[] bytes = Files.readAllBytes(file.toPath());
-        int offset = 0;
-        if (bytes.length >= 3 && (bytes[0] & 0xFF) == 0xEF && (bytes[1] & 0xFF) == 0xBB && (bytes[2] & 0xFF) == 0xBF)
-        {
-            offset = 3;
-        }
-        Charset charset = TalentCsvImportService.detectCharset(bytes, offset);
-        List<List<String>> rows = TalentCsvImportService.parseCsv(new InputStreamReader(
-                new ByteArrayInputStream(bytes, offset, bytes.length - offset), charset));
-
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<Map<String, Object>> list = talentIndustryCodeMapper.selectAll();
         int level1 = 0;
         int level2 = 0;
-        if (rows.size() > 1)
+        for (Map<String, Object> item : list)
         {
-            Map<String, Integer> header = TalentCsvImportService.mapHeader(rows.get(0));
-            Integer codeIdx = TalentCsvImportService.pick(header, "行业编码", "行业代码", "code");
-            Integer nameIdx = TalentCsvImportService.pick(header, "行业名称", "名称", "name");
-            Integer levelIdx = TalentCsvImportService.pick(header, "层级", "level");
-            Integer parentCodeIdx = TalentCsvImportService.pick(header, "上级行业编码", "上级编码");
-            Integer parentIdx = TalentCsvImportService.pick(header, "上级行业", "父行业", "parent");
-            Integer urlIdx = TalentCsvImportService.pick(header, "职位列表URL", "职位列表", "url");
-            for (int i = 1; i < rows.size(); i++)
+            Object level = item.get("level");
+            if ("一级".equals(level))
             {
-                List<String> cells = rows.get(i);
-                String name = TalentCsvImportService.clean(TalentCsvImportService.cell(cells, nameIdx));
-                if (name.isEmpty())
-                {
-                    continue;
-                }
-                String level = TalentCsvImportService.clean(TalentCsvImportService.cell(cells, levelIdx));
-                Map<String, Object> item = new LinkedHashMap<>();
-                item.put("code", TalentCsvImportService.cell(cells, codeIdx));
-                item.put("name", name);
-                item.put("level", level);
-                item.put("parentCode", TalentCsvImportService.cell(cells, parentCodeIdx));
-                item.put("parentName", TalentCsvImportService.cell(cells, parentIdx));
-                item.put("url", TalentCsvImportService.cell(cells, urlIdx));
-                list.add(item);
-                if ("一级".equals(level))
-                {
-                    level1++;
-                }
-                else if ("二级".equals(level))
-                {
-                    level2++;
-                }
+                level1++;
+            }
+            else if ("二级".equals(level))
+            {
+                level2++;
             }
         }
 
@@ -88,8 +55,8 @@ public class TalentIndustryCodeService
         result.put("total", list.size());
         result.put("level1Count", level1);
         result.put("level2Count", level2);
-        result.put("updatedAt", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(file.lastModified())));
-        result.put("sourceFile", file.getName());
+        result.put("updatedAt", talentIndustryCodeMapper.selectLatestCreateTime());
+        result.put("sourceFile", "talent_industry_code");
         return result;
     }
 

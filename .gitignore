@@ -45,10 +45,14 @@ nbdist/
 # 本地密钥配置（含真实 API Key，禁止提交）
 /config/application.yml
 
+# 密钥文件（docs 下的 apiKey CSV，禁止提交）
+/docs/*apiKey*.csv
+
 # 本地运行数据（上传文件、日志、截图、缓存）
 /upload/
 /logs/
 /.screenshots/
+/.playwright-mcp/
 /.trae/
 __pycache__/
 *.pyc
@@ -66,6 +70,12 @@ __pycache__/
 
 # Milvus 本地运行数据（Docker 卷，体积大，禁止入库）
 /data/
+
+# 岗位能力图谱离线标准 PDF 与生成产物（体积大，禁止入库）
+/langchain/data/
+/langchain/output/
+/boss_probe.png
+/langchain/_codex_*.py
 
 # 前端构建产物备份目录
 /ruoyi-ui/dist_bak_*/

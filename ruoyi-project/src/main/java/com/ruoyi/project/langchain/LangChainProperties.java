@@ -1,5 +1,8 @@
 package com.ruoyi.project.langchain;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +17,9 @@ public class LangChainProperties
 {
     /** 工作流清单位置，支持 classpath:/file: */
     private String workflowLocation = "classpath:langchain/rencai-huaxiang-20260914150500.langgraph.json";
+
+    /** 附加工作流清单：工作流标识 -> 清单位置 */
+    private Map<String, String> workflows = new LinkedHashMap<>();
 
     /** OpenAI 兼容接口地址（DeepSeek） */
     private String baseUrl = "https://api.deepseek.com/v1";
@@ -47,6 +53,16 @@ public class LangChainProperties
     public void setWorkflowLocation(String workflowLocation)
     {
         this.workflowLocation = workflowLocation;
+    }
+
+    public Map<String, String> getWorkflows()
+    {
+        return workflows;
+    }
+
+    public void setWorkflows(Map<String, String> workflows)
+    {
+        this.workflows = workflows;
     }
 
     public String getBaseUrl()

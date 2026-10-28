@@ -32,6 +32,12 @@ LLM_ROLE_RULES = [
     ("subject_selector", "课程架构师"),
     ("question_generator", "技术面试出题专家"),
     ("wrong_answer_diagnoser", "错题知识点诊断专家"),
+    # 岗位能力图谱工作流（按 Prompt 中的角色关键词识别，顺序不影响既有工作流）
+    ("industry_chain_mapper", "产业链与岗位群分析师"),
+    ("task_analyzer", "典型工作任务拆解专家"),
+    ("competency_decomposer", "岗位能力结构拆解专家"),
+    ("element_mapper", "知识点与技能点映射专家"),
+    ("graph_assembler", "岗位能力图谱装配专家"),
 ]
 
 RUNTIME_NAMES = {
@@ -525,6 +531,10 @@ def convert(source_path, output_path, runtime_base_url=None, runtime_model_name=
             "source": source,
         },
     }
+
+    # 工作流自定义校验口径（如 prompt_keywords / code_nodes），供 validate_workflow.py 读取
+    if flow_meta.get("validation"):
+        converted["extensions"]["validation"] = flow_meta["validation"]
 
     # 11. 语义自检
     assert len(converted["graph"]["nodes"]) == len(nodes)

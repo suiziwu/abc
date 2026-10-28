@@ -6,7 +6,7 @@
         <h1>行业编码对照表</h1>
         <p>BOSS 直聘行业分类体系 · 一级 / 二级编码与职位列表入口</p>
         <div class="hero-meta">
-          <span>数据来源：08-行业对照表/行业编码对照表.csv</span>
+          <span>数据来源：数据库 talent_industry_code</span>
           <span class="dot" />
           <span>更新于 {{ stats.updatedAt || '-' }}</span>
         </div>

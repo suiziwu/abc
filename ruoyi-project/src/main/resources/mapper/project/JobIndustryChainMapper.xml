@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.JobIndustryChainMapper">
+
+    <resultMap id="ChainResult" type="com.ruoyi.project.domain.JobIndustryChain">
+        <id property="id" column="id"/>
+        <result property="jobCode" column="job_code"/>
+        <result property="jobName" column="job_name"/>
+        <result property="chainName" column="chain_name"/>
+        <result property="chainCode" column="chain_code"/>
+        <result property="chainDesc" column="chain_desc"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="stageDesc" column="stage_desc"/>
+        <result property="clusterCode" column="cluster_code"/>
+        <result property="clusterName" column="cluster_name"/>
+        <result property="clusterDesc" column="cluster_desc"/>
+        <result property="source" column="source"/>
+        <result property="sourceUrl" column="source_url"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectChainColumns">
+        select id, job_code, job_name, chain_name, chain_code, chain_desc,
+               stage_name, stage_desc, cluster_code, cluster_name, cluster_desc,
+               source, source_url, create_time
+        from job_industry_chain
+    </sql>
+
+    <select id="selectChainList" parameterType="com.ruoyi.project.domain.JobIndustryChain"
+            resultMap="ChainResult">
+        <include refid="selectChainColumns"/>
+        <where>
+            <if test="jobCode != null and jobCode != ''">and job_code = #{jobCode}</if>
+            <if test="jobName != null and jobName != ''">and job_name like concat('%', #{jobName}, '%')</if>
+            <if test="chainName != null and chainName != ''">and chain_name like concat('%', #{chainName}, '%')</if>
+            <if test="stageName != null and stageName != ''">and stage_name like concat('%', #{stageName}, '%')</if>
+            <if test="clusterName != null and clusterName != ''">and cluster_name like concat('%', #{clusterName}, '%')</if>
+        </where>
+        order by id
+    </select>
+
+    <select id="selectChainById" parameterType="Long" resultMap="ChainResult">
+        <include refid="selectChainColumns"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectChainByJobCode" parameterType="String" resultMap="ChainResult">
+        <include refid="selectChainColumns"/>
+        where job_code = #{jobCode}
+        limit 1
+    </select>
+
+    <select id="selectChainByJobName" parameterType="String" resultMap="ChainResult">
+        <include refid="selectChainColumns"/>
+        where job_name = #{jobName}
+        limit 1
+    </select>
+
+    <insert id="insertChain" parameterType="com.ruoyi.project.domain.JobIndustryChain"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into job_industry_chain
+        (job_code, job_name, chain_name, chain_code, chain_desc, stage_name, stage_desc,
+         cluster_code, cluster_name, cluster_desc, source, source_url, create_time)
+        values
+        (#{jobCode}, #{jobName}, #{chainName}, #{chainCode}, #{chainDesc}, #{stageName}, #{stageDesc},
+         #{clusterCode}, #{clusterName}, #{clusterDesc}, #{source}, #{sourceUrl}, sysdate())
+    </insert>
+
+    <update id="updateChain" parameterType="com.ruoyi.project.domain.JobIndustryChain">
+        update job_industry_chain
+        <set>
+            <if test="jobCode != null">job_code = #{jobCode},</if>
+            <if test="jobName != null">job_name = #{jobName},</if>
+            <if test="chainName != null">chain_name = #{chainName},</if>
+            <if test="chainCode != null">chain_code = #{chainCode},</if>
+            <if test="chainDesc != null">chain_desc = #{chainDesc},</if>
+            <if test="stageName != null">stage_name = #{stageName},</if>
+            <if test="stageDesc != null">stage_desc = #{stageDesc},</if>
+            <if test="clusterCode != null">cluster_code = #{clusterCode},</if>
+            <if test="clusterName != null">cluster_name = #{clusterName},</if>
+            <if test="clusterDesc != null">cluster_desc = #{clusterDesc},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="sourceUrl != null">source_url = #{sourceUrl},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChainByIds" parameterType="Long">
+        delete from job_industry_chain where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

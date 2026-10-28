@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.JobCompetencyGraphMapper">
+
+    <resultMap type="JobCompetencyGraph" id="JobCompetencyGraphResult">
+        <result property="id"           column="id"            />
+        <result property="jobName"      column="job_name"      />
+        <result property="jobCode"      column="job_code"      />
+        <result property="level"        column="level"         />
+        <result property="sourceMode"   column="source_mode"   />
+        <result property="schemaVersion" column="schema_version" />
+        <result property="mode"         column="mode"          />
+        <result property="reviewStatus" column="review_status" />
+        <result property="engineVersion" column="engine_version" />
+        <result property="confidence"   column="confidence"    />
+        <result property="coverageJson" column="coverage_json" />
+        <result property="graphJson"    column="graph_json"    />
+        <result property="createBy"     column="create_by"     />
+        <result property="createTime"   column="create_time"   />
+        <result property="updateBy"     column="update_by"     />
+        <result property="updateTime"   column="update_time"   />
+        <result property="delFlag"      column="del_flag"      />
+    </resultMap>
+
+    <sql id="selectJobCompetencyGraphVo">
+        select id, job_name, job_code, level, source_mode, schema_version, mode, review_status,
+               engine_version, confidence, coverage_json,
+               create_by, create_time, update_by, update_time, del_flag
+        from job_competency_graph
+    </sql>
+
+    <select id="selectJobCompetencyGraphList" parameterType="JobCompetencyGraph"
+            resultMap="JobCompetencyGraphResult">
+        <include refid="selectJobCompetencyGraphVo"/>
+        <where>
+            del_flag = '0'
+            <if test="jobName != null and jobName != ''"> and job_name like concat('%', #{jobName}, '%')</if>
+            <if test="jobCode != null and jobCode != ''"> and job_code = #{jobCode}</if>
+            <if test="level != null and level != ''"> and level = #{level}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectJobCompetencyGraphById" parameterType="Long" resultMap="JobCompetencyGraphResult">
+        select id, job_name, job_code, level, source_mode, schema_version, mode, review_status,
+               engine_version, confidence, coverage_json, graph_json,
+               create_by, create_time, update_by, update_time, del_flag
+        from job_competency_graph
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectLatestJobCompetencyGraphByName" parameterType="String"
+            resultMap="JobCompetencyGraphResult">
+        select id, job_name, job_code, level, source_mode, schema_version, mode, review_status,
+               engine_version, confidence, coverage_json, graph_json,
+               create_by, create_time, update_by, update_time, del_flag
+        from job_competency_graph
+        where job_name = #{jobName} and del_flag = '0'
+        order by id desc limit 1
+    </select>
+
+    <select id="selectDistinctJobNames" parameterType="String" resultType="String">
+        select distinct job_name
+        from job_competency_graph
+        where del_flag = '0'
+          and job_name like concat('%', #{keyword}, '%')
+        order by job_name
+        limit 20
+    </select>
+
+    <insert id="insertJobCompetencyGraph" parameterType="JobCompetencyGraph"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into job_competency_graph
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobName != null">job_name,</if>
+            <if test="jobCode != null">job_code,</if>
+            <if test="level != null">level,</if>
+            <if test="sourceMode != null">source_mode,</if>
+            <if test="schemaVersion != null">schema_version,</if>
+            <if test="mode != null">mode,</if>
+            <if test="reviewStatus != null">review_status,</if>
+            <if test="engineVersion != null">engine_version,</if>
+            <if test="confidence != null">confidence,</if>
+            <if test="coverageJson != null">coverage_json,</if>
+            <if test="graphJson != null">graph_json,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobName != null">#{jobName},</if>
+            <if test="jobCode != null">#{jobCode},</if>
+            <if test="level != null">#{level},</if>
+            <if test="sourceMode != null">#{sourceMode},</if>
+            <if test="schemaVersion != null">#{schemaVersion},</if>
+            <if test="mode != null">#{mode},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+            <if test="engineVersion != null">#{engineVersion},</if>
+            <if test="confidence != null">#{confidence},</if>
+            <if test="coverageJson != null">#{coverageJson},</if>
+            <if test="graphJson != null">#{graphJson},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteJobCompetencyGraphByIds" parameterType="Long">
+        update job_competency_graph set del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateReviewStatus">
+        update job_competency_graph
+        set review_status = #{reviewStatus}, update_time = sysdate()
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.JobCompetencyWeightMapper">
+
+    <resultMap id="WeightResult" type="com.ruoyi.project.domain.JobCompetencyWeight">
+        <id property="id" column="id"/>
+        <result property="jobCode" column="job_code"/>
+        <result property="jobName" column="job_name"/>
+        <result property="level" column="level"/>
+        <result property="domainName" column="domain_name"/>
+        <result property="weight" column="weight"/>
+        <result property="source" column="source"/>
+        <result property="sourceFile" column="source_file"/>
+        <result property="sourcePage" column="source_page"/>
+        <result property="issueNumber" column="issue_number"/>
+    </resultMap>
+
+    <sql id="selectWeightColumns">
+        select job_code, job_name, level, domain_name, weight,
+               source_file, source_page, issue_number
+        from job_competency_weight
+    </sql>
+
+    <select id="selectWeightsByJobCode" parameterType="String" resultType="java.util.LinkedHashMap">
+        <include refid="selectWeightColumns"/>
+        where job_code = #{jobCode}
+        order by field(level, '五级', '四级', '三级', '二级', '一级'), id
+    </select>
+
+    <select id="selectWeightsByJobName" parameterType="String" resultType="java.util.LinkedHashMap">
+        <include refid="selectWeightColumns"/>
+        where job_name = #{jobName} or job_name like concat('%', #{jobName}, '%')
+        order by field(level, '五级', '四级', '三级', '二级', '一级'), id
+    </select>
+
+    <select id="selectWeightList" parameterType="com.ruoyi.project.domain.JobCompetencyWeight"
+            resultMap="WeightResult">
+        select id, job_code, job_name, level, domain_name, weight,
+               source, source_file, source_page, issue_number
+        from job_competency_weight
+        <where>
+            <if test="jobCode != null and jobCode != ''">and job_code = #{jobCode}</if>
+            <if test="jobName != null and jobName != ''">and job_name like concat('%', #{jobName}, '%')</if>
+            <if test="level != null and level != ''">and level = #{level}</if>
+            <if test="domainName != null and domainName != ''">and domain_name like concat('%', #{domainName}, '%')</if>
+        </where>
+        order by job_code, field(level, '五级', '四级', '三级', '二级', '一级'), id
+    </select>
+
+    <select id="selectWeightById" parameterType="Long" resultMap="WeightResult">
+        select id, job_code, job_name, level, domain_name, weight,
+               source, source_file, source_page, issue_number
+        from job_competency_weight
+        where id = #{id}
+    </select>
+
+    <insert id="insertWeight" parameterType="com.ruoyi.project.domain.JobCompetencyWeight"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into job_competency_weight
+        (job_code, job_name, level, domain_name, weight, source, source_file, source_page, issue_number, create_time)
+        values
+        (#{jobCode}, #{jobName}, #{level}, #{domainName}, #{weight}, #{source}, #{sourceFile}, #{sourcePage}, #{issueNumber}, sysdate())
+    </insert>
+
+    <update id="updateWeight" parameterType="com.ruoyi.project.domain.JobCompetencyWeight">
+        update job_competency_weight
+        <set>
+            <if test="jobCode != null">job_code = #{jobCode},</if>
+            <if test="jobName != null">job_name = #{jobName},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="domainName != null">domain_name = #{domainName},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="sourceFile != null">source_file = #{sourceFile},</if>
+            <if test="sourcePage != null">source_page = #{sourcePage},</if>
+            <if test="issueNumber != null">issue_number = #{issueNumber},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWeightByIds" parameterType="Long">
+        delete from job_competency_weight where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

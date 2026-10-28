@@ -159,7 +159,7 @@ public class TalentController extends BaseController
     }
 
     /**
-     * 行业编码对照表（读取 08-行业对照表/行业编码对照表.csv）。
+     * 行业编码对照表（数据来自 talent_industry_code 表）。
      */
     @GetMapping("/industry-codes")
     public AjaxResult industryCodes()

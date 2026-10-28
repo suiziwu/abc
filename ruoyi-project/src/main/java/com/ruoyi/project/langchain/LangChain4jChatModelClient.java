@@ -179,7 +179,7 @@ public class LangChain4jChatModelClient implements ChatModelClient
                 .modelName(config.getModel())
                 .temperature(config.getTemperature() == null ? 1.0D : config.getTemperature())
                 .maxTokens(config.getMaxTokens() == null ? 8192 : config.getMaxTokens())
-                .timeout(Duration.ofSeconds(config.getTimeoutSeconds() == null ? 120 : config.getTimeoutSeconds()))
+                .timeout(Duration.ofSeconds(config.getTimeoutSeconds() == null ? 600 : config.getTimeoutSeconds()))
                 .maxRetries(1)
                 .logRequests(properties.getLogRequests())
                 .logResponses(properties.getLogResponses())
