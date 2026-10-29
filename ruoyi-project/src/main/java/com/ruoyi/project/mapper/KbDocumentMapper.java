@@ -33,6 +33,14 @@ public interface KbDocumentMapper
     KbDocument selectKbDocumentByKey(@Param("docKey") String docKey);
 
     /**
+     * 按主键查询文档
+     *
+     * @param id 文档主键
+     * @return 文档
+     */
+    KbDocument selectKbDocumentById(@Param("id") Long id);
+
+    /**
      * 查询文档列表
      *
      * @param subjectId 学科ID（可空）

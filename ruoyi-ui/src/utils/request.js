@@ -29,6 +29,13 @@ service.interceptors.request.use(config => {
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  // FormData 上传必须让浏览器自动生成带 boundary 的 Content-Type：
+  // 实例默认头是 application/json（见 L14），axios 1.9 不会为 FormData 自动摘掉它，
+  // 后端 MultipartResolver 收到 json 头会报 "Current request is not a multipart request"
+  if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+    delete config.headers['Content-Type']
+    delete config.headers['content-type']
+  }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?' + tansParams(config.params)

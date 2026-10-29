@@ -27,4 +27,7 @@ public interface CourseVideoImportMapper
 
     /** 课时最近一次成功的导入任务 */
     public CourseVideoImport selectLatestSuccessByLessonId(@Param("lessonId") Long lessonId);
+
+    /** 课时被删除后，解除导入任务对其的引用，避免悬挂 lesson_id */
+    public int detachLesson(@Param("lessonId") Long lessonId);
 }

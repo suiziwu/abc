@@ -111,7 +111,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="160" fixed="right">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="240" fixed="right">
         <template #default="scope">
           <el-button link type="primary" icon="View" @click="handleViewPoints(scope.row)">知识点</el-button>
           <el-button link type="primary" icon="Film" @click="handleViewLessons(scope.row)">课时</el-button>
@@ -187,7 +187,20 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="章节视频" prop="video">
-              <file-upload v-model="form.video" :limit="1" :fileSize="1024" :fileType="['mp4', 'webm', 'ogg', 'mov', 'avi', 'flv']" />
+              <div class="chapter-video-cell">
+                <file-upload v-model="form.video" :limit="1" :fileSize="1024" :fileType="['mp4', 'webm', 'ogg', 'mov', 'avi', 'flv']" />
+                <el-upload
+                  :show-file-list="false"
+                  :http-request="handleFormUploadVideo"
+                  accept=".mp4,.mov,.avi,.mkv,.webm,.flv,.wmv,.ts,.m4v,.mpg,.mpeg,.3gp,video/*"
+                  :disabled="formUploading"
+                >
+                  <el-button type="warning" icon="Upload" :loading="formUploading">上传视频</el-button>
+                </el-upload>
+                <div class="form-tip">
+                  上传后按当前「所属学科 + 章号 + 章节名称」建章并挂到课时上，视频可直接播放；不做语音识别与 AI 解析。
+                </div>
+              </div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -261,36 +274,15 @@
     </el-dialog>
 
     <!-- 课时抽屉：上传视频并解析（与课程学习同一套链路） -->
-    <el-drawer v-model="lessonsVisible" :title="lessonsTitle" size="820px" append-to-body @closed="stopAnalysisPolling">
+    <el-drawer v-model="lessonsVisible" :title="lessonsTitle" size="820px" append-to-body>
       <div class="upload-file-row" style="margin-bottom: 12px;">
-        <el-upload
-          :show-file-list="false"
-          :http-request="handleUploadVideo"
-          accept="video/*"
+        <el-button
+          type="primary"
+          icon="Upload"
           :disabled="uploading"
-        >
-          <el-button type="primary" icon="Upload" :loading="uploading" v-hasPermi="['project:point:edit']">
-            上传视频并解析
-          </el-button>
-        </el-upload>
-        <span class="upload-file-name">
-          上传后自动完成：提取音频 → 语音识别 → AI 拆分知识点 → 生成随堂练习 → 重建知识库
-        </span>
-      </div>
-
-      <div v-if="analysisTask" class="analysis-body">
-        <el-progress
-          :percentage="analysisTask.progress || 0"
-          :status="analysisTask.status === '3' ? 'exception' : (analysisTask.status === '2' ? 'success' : undefined)"
-        />
-        <div class="analysis-stage">{{ analysisStageLabel }}</div>
-        <div class="analysis-message">{{ analysisTask.message || '正在处理…' }}</div>
-        <div class="analysis-stats">
-          <el-tag size="small" effect="plain">逐字稿 {{ analysisTask.transcriptCount || 0 }}</el-tag>
-          <el-tag size="small" effect="plain">知识点 {{ analysisTask.pointCount || 0 }}</el-tag>
-          <el-tag size="small" effect="plain">题目 {{ analysisTask.questionCount || 0 }}</el-tag>
-          <el-tag size="small" effect="plain">知识库 {{ analysisTask.kbCount || 0 }}</el-tag>
-        </div>
+          v-hasPermi="['project:point:edit']"
+          @click="openUploadDialog"
+        >上传视频</el-button>
       </div>
 
       <el-table v-loading="lessonsLoading" :data="lessonList" empty-text="本章暂无课时">
@@ -314,8 +306,77 @@
             <span v-else class="text-secondary">-</span>
           </template>
         </el-table-column>
+        <el-table-column label="操作" align="center" width="90">
+          <template #default="scope">
+            <el-button
+              link
+              type="danger"
+              icon="Delete"
+              v-hasPermi="['project:chapter:remove']"
+              @click="handleDeleteLesson(scope.row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-drawer>
+
+    <!-- 上传视频信息表单：先填信息（章/课时/标题）再上传 -->
+    <el-dialog
+      v-model="uploadDialogVisible"
+      title="上传视频"
+      width="560px"
+      append-to-body
+      :close-on-click-modal="false"
+    >
+      <el-form :model="uploadForm" label-width="90px">
+        <el-form-item label="视频文件" required>
+          <el-upload
+            :auto-upload="false"
+            :show-file-list="false"
+            accept=".mp4,.mov,.avi,.mkv,.webm,.flv,.wmv,.ts,.m4v,.mpg,.mpeg,.3gp,video/*"
+            :on-change="onUploadFileChange"
+          >
+            <el-button icon="FolderOpened">选择视频</el-button>
+          </el-upload>
+          <span class="upload-file-name" style="margin-left: 10px">
+            {{ uploadForm.file ? uploadForm.file.name : '未选择文件' }}
+          </span>
+        </el-form-item>
+        <el-form-item label="章号" required>
+          <el-input v-model="uploadForm.chapterNo" placeholder="如：第1章" />
+        </el-form-item>
+        <el-form-item label="章节名称">
+          <el-input v-model="uploadForm.chapterTitle" placeholder="如：网络体系结构" />
+        </el-form-item>
+        <el-form-item label="课时编号">
+          <el-input v-model="uploadForm.lessonCode" placeholder="留空自动编号，如 1.1.12" />
+        </el-form-item>
+        <el-form-item label="课时标题">
+          <el-input v-model="uploadForm.lessonTitle" placeholder="默认取所选文件名" />
+        </el-form-item>
+        <el-form-item label="解析视频">
+          <el-checkbox v-model="uploadForm.parseVideo">
+            上传后自动解析视频
+          </el-checkbox>
+          <div class="form-tip">
+            {{ uploadForm.parseVideo
+              ? '解析在后台执行（约 2~5 分钟）：语音识别 → 知识点 → 随堂练习 → 知识库，完成后课程学习页可看到逐字稿、时间轴与题目。'
+              : '不勾选则只把视频挂到课时，上传后立刻可以播放，不做语音识别与 AI 解析。' }}
+          </div>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="uploadDialogVisible = false">取 消</el-button>
+          <el-button
+            type="primary"
+            :loading="uploading"
+            :disabled="!uploadForm.file"
+            @click="submitUploadDialog"
+          >开始上传</el-button>
+        </div>
+      </template>
+    </el-dialog>
 
     <!-- 视频预览弹窗 -->
     <el-dialog v-model="videoDialogVisible" title="章节视频预览" width="720px" destroy-on-close>
@@ -329,6 +390,12 @@
         您的浏览器不支持视频播放
       </video>
     </el-dialog>
+    <!-- 解析进度：独立悬浮窗（关闭抽屉后仍可见，便于后台任务跟进） -->
+    <import-progress
+      :task="analysisTask"
+      :stage-label="analysisStageLabel"
+      @close="closeAnalysisProgress"
+    />
   </div>
 </template>
 
@@ -336,7 +403,8 @@
 import { listChapter, getChapter, listChapterPoints, addChapter, updateChapter, delChapter } from '@/api/project/chapter'
 import { listSubject } from '@/api/project/subject'
 import { listPoint } from '@/api/project/point'
-import { getVideoImportStatus, listCourseLessons, uploadCourseVideo } from '@/api/project/course'
+import { getVideoImportStatus, listCourseLessons, uploadCourseVideo, attachCourseVideo, delCourseLesson } from '@/api/project/course'
+import ImportProgress from './components/ImportProgress.vue'
 
 const { proxy } = getCurrentInstance()
 
@@ -372,6 +440,8 @@ const lessonsLoading = ref(false)
 const lessonList = ref([])
 const currentChapter = ref(null)
 const uploading = ref(false)
+/** 添加/修改章节弹窗内的视频解析上传状态 */
+const formUploading = ref(false)
 const analysisTask = ref(null)
 let analysisTimer = null
 
@@ -407,10 +477,62 @@ function handleViewLessons(row) {
   loadLessons(row.id)
 }
 
+/** 添加/修改章节弹窗内「上传视频」：保存并挂到课时，不做 AI 解析 */
+function handleFormUploadVideo(options) {
+  const subjectId = form.value.subjectId
+  const chapterNo = (form.value.chapterNo || '').trim()
+  const chapterTitle = (form.value.title || form.value.courseTitle || '').trim()
+  if (!subjectId) {
+    proxy.$modal.msgWarning('请先选择所属学科')
+    return
+  }
+  if (!chapterNo) {
+    proxy.$modal.msgWarning('请先填写章号（如 第1章）')
+    return
+  }
+  formUploading.value = true
+  const fileName = options.file?.name || ''
+  attachCourseVideo(options.file, {
+    subjectId,
+    chapterNo,
+    chapterTitle: chapterTitle || undefined,
+    lessonTitle: fileName.replace(/\.[^.]+$/, '') || undefined
+  }).then(res => {
+    formUploading.value = false
+    if (!res?.data?.lessonId) {
+      proxy.$modal.msgError('上传失败：未返回课时')
+      return
+    }
+    open.value = false
+    proxy.$modal.msgSuccess('视频上传成功，可直接播放')
+    // 章节由后端按章号复用/新建，刷新列表后打开该章课时抽屉
+    queryParams.value.chapterNo = null
+    queryParams.value.title = null
+    getList().then(() => {
+      const row = chapterList.value.find(item => String(item.chapterNo) === chapterNo)
+      if (row) {
+        handleViewLessons(row)
+      }
+    })
+  }).catch(() => {
+    formUploading.value = false
+    proxy.$modal.msgError('上传失败，请重试')
+  })
+}
+
+/** 课时按编号自然序排序（补录的课时 lesson_no 可能排到末尾，这里以 lessonCode 为准） */
+function sortLessons(rows) {
+  const key = item => String(item.lessonCode || '')
+    .split('.')
+    .map(part => String(Number(part) || 0).padStart(4, '0'))
+    .join('.')
+  return rows.slice().sort((a, b) => key(a).localeCompare(key(b)))
+}
+
 function loadLessons(chapterId) {
   lessonsLoading.value = true
   return listCourseLessons(chapterId).then(res => {
-    lessonList.value = res.data || res.rows || []
+    lessonList.value = sortLessons(res.data || res.rows || [])
     lessonsLoading.value = false
   }).catch(() => {
     lessonList.value = []
@@ -418,28 +540,104 @@ function loadLessons(chapterId) {
   })
 }
 
-/** 上传视频并触发课程学习那一套解析 */
-function handleUploadVideo(options) {
+/** 删除课时：连同逐字稿删除（磁盘视频文件保留） */
+function handleDeleteLesson(row) {
+  const name = `${row.lessonCode || ''} ${row.title || ''}`.trim()
+  proxy.$modal
+    .confirm(`确定删除课时「${name}」吗？该课时的逐字稿将一并删除，磁盘上的视频文件保留。`)
+    .then(() => delCourseLesson(row.id))
+    .then(() => {
+      proxy.$modal.msgSuccess('删除成功')
+      if (currentChapter.value) {
+        loadLessons(currentChapter.value.id)
+      }
+      getList()
+    })
+    .catch(() => {})
+}
+
+/** 上传视频表单：先填章/课时信息再提交（可选择是否解析） */
+const uploadDialogVisible = ref(false)
+const uploadForm = reactive({
+  file: null,
+  chapterNo: '',
+  chapterTitle: '',
+  lessonCode: '',
+  lessonTitle: '',
+  parseVideo: false
+})
+
+function openUploadDialog() {
   const chapter = currentChapter.value
   if (!chapter) return
+  uploadForm.file = null
+  uploadForm.chapterNo = chapter.chapterNo || ''
+  uploadForm.chapterTitle = chapter.title || ''
+  uploadForm.lessonCode = ''
+  uploadForm.lessonTitle = ''
+  uploadForm.parseVideo = false
+  uploadDialogVisible.value = true
+}
+
+function onUploadFileChange(file) {
+  uploadForm.file = file && file.raw ? file.raw : null
+  if (uploadForm.file && !uploadForm.lessonTitle) {
+    uploadForm.lessonTitle = (uploadForm.file.name || '').replace(/\.[^.]+$/, '')
+  }
+}
+
+function submitUploadDialog() {
+  const chapter = currentChapter.value
+  if (!chapter) return
+  if (!uploadForm.file) {
+    proxy.$modal.msgWarning('请先选择视频文件')
+    return
+  }
+  if (!String(uploadForm.chapterNo || '').trim()) {
+    proxy.$modal.msgWarning('请填写章号（如：第1章）')
+    return
+  }
   uploading.value = true
-  analysisTask.value = null
-  const fileName = options.file?.name || ''
   const payload = {
     subjectId: chapter.subjectId,
-    chapterNo: chapter.chapterNo,
-    chapterTitle: chapter.title,
-    lessonTitle: fileName.replace(/\.[^.]+$/, '')
+    chapterNo: String(uploadForm.chapterNo).trim(),
+    chapterTitle: (uploadForm.chapterTitle || '').trim(),
+    lessonCode: (uploadForm.lessonCode || '').trim(),
+    lessonTitle: (uploadForm.lessonTitle || uploadForm.file.name.replace(/\.[^.]+$/, '')).trim()
   }
-  uploadCourseVideo(options.file, payload).then(res => {
-    const taskId = res?.data?.taskId
-    if (!taskId) {
+  // 勾选「解析视频」→ 走完整解析链路；不勾选 → 只挂载视频，立即可播放
+  if (uploadForm.parseVideo)
+  {
+    uploadCourseVideo(uploadForm.file, payload).then(res => {
       uploading.value = false
-      proxy.$modal.msgError('上传失败：未返回任务号')
+      const taskId = res?.data?.taskId
+      if (!taskId)
+      {
+        proxy.$modal.msgError('上传失败：未返回任务号')
+        return
+      }
+      uploadDialogVisible.value = false
+      proxy.$modal.msgSuccess('上传成功，正在后台解析…')
+      currentChapter.value = chapter
+      loadLessons(chapter.id)
+      getList()
+      pollAnalysis(taskId)
+    }).catch(() => {
+      uploading.value = false
+      proxy.$modal.msgError('上传失败，请重试')
+    })
+    return
+  }
+  attachCourseVideo(uploadForm.file, payload).then(res => {
+    uploading.value = false
+    if (!res?.data?.lessonId) {
+      proxy.$modal.msgError('上传失败：未返回课时')
       return
     }
-    proxy.$modal.msgSuccess('上传成功，正在后台解析…')
-    pollAnalysis(taskId)
+    uploadDialogVisible.value = false
+    proxy.$modal.msgSuccess('上传成功，视频可直接播放')
+    loadLessons(chapter.id)
+    getList()
   }).catch(() => {
     uploading.value = false
     proxy.$modal.msgError('上传失败，请重试')
@@ -458,7 +656,9 @@ function pollAnalysis(taskId) {
         stopAnalysisPolling()
         if (task.status === '2') {
           proxy.$modal.msgSuccess('解析完成')
-          loadLessons(currentChapter.value.id)
+          if (currentChapter.value) {
+            loadLessons(currentChapter.value.id)
+          }
           getList()
         } else {
           proxy.$modal.msgError(task.message || '解析失败')
@@ -475,6 +675,14 @@ function stopAnalysisPolling() {
     clearInterval(analysisTimer)
     analysisTimer = null
   }
+  // 上传按钮恢复可用，避免任务结束或关闭悬浮窗后仍处于 loading 禁用状态
+  uploading.value = false
+}
+
+/** 关闭独立的解析进度悬浮窗：停止轮询并清除任务展示 */
+function closeAnalysisProgress() {
+  stopAnalysisPolling()
+  analysisTask.value = null
 }
 
 const data = reactive({
@@ -695,6 +903,14 @@ getSubjectList().then(() => {
   line-height: 1.5;
 }
 
+/* 添加/修改章节弹窗：章节视频区域 */
+.chapter-video-cell {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 /* 上传视频 */
 .upload-file-row {
   display: flex;
@@ -705,30 +921,6 @@ getSubjectList().then(() => {
   color: #606266;
   font-size: 13px;
   word-break: break-all;
-}
-
-/* 解析进度 */
-.analysis-body {
-  padding: 4px 2px;
-}
-.analysis-stage {
-  margin-top: 14px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #303133;
-}
-.analysis-message {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #909399;
-  line-height: 1.6;
-  word-break: break-all;
-}
-.analysis-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
 }
 
 .app-container {

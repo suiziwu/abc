@@ -93,4 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         limit 1
     </select>
 
+    <update id="detachLesson" parameterType="Long">
+        update course_video_import set lesson_id = null where lesson_id = #{lessonId}
+    </update>
+
 </mapper>
+

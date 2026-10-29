@@ -49,8 +49,17 @@ public class QwenFileTransClient
         long startedAt = System.nanoTime();
         String dataUrl = "data:audio/wav;base64,"
                 + Base64.getEncoder().encodeToString(wavBytes);
-        String taskId = createTask(dataUrl);
-        TranscriptionResult transcription = poll(taskId);
+        // 同步提交（不带 X-DashScope-Async）：qwen-audio-3.1-asr-flash-streaming 等模型
+        // 不支持异步任务调用（返回 "does not support asynchronous calls"）；
+        // 若响应仍带 task_id（部分模型返回任务式响应），兼容走轮询。
+        HttpResult submitted = postTranscription(dataUrl);
+        if (!submitted.isSuccess())
+        {
+            throw new AsrException("提交语音识别任务失败: " + submitted.body);
+        }
+        JsonNode root = readJson(submitted.body);
+        String taskId = root.path("output").path("task_id").asText();
+        TranscriptionResult transcription = taskId.isEmpty() ? readSyncResult(root) : poll(taskId);
         AsrResult result = new AsrResult();
         result.setText(transcription.text);
         result.setSegments(transcription.segments);
@@ -60,7 +69,7 @@ public class QwenFileTransClient
         return result;
     }
 
-    private String createTask(String fileUrl)
+    private HttpResult postTranscription(String fileUrl)
     {
         ObjectNode body = objectMapper.createObjectNode();
         body.put("model", properties.getModel());
@@ -70,21 +79,80 @@ public class QwenFileTransClient
         parameters.put("language", properties.getLanguage());
 
         Map<String, String> headers = authHeaders("application/json");
+        // 录音文件识别（filetrans）走异步任务；transcribe() 对无 task_id 的响应
+        // 有同步结果兜底，兼容仅支持同步调用的模型
         headers.put("X-DashScope-Async", "enable");
-        HttpResult result = request("POST",
+        return request("POST",
                 properties.getDashscopeBaseUrl() + "/services/audio/asr/transcription",
-                headers, body.toString().getBytes(StandardCharsets.UTF_8), "application/json", 120);
-        if (!result.isSuccess())
+                headers,
+                body.toString().getBytes(StandardCharsets.UTF_8), "application/json", 180);
+    }
+
+    /**
+     * 解析同步调用返回的转写结果（兼容多种响应形态）。
+     *
+     * <p>依次尝试：transcription_url 下载形态 → output.sentences 分句形态 →
+     * output.segments 分段形态 → 仅整段文本（此时补一个全时长分句）。</p>
+     */
+    private TranscriptionResult readSyncResult(JsonNode root)
+    {
+        JsonNode output = root.path("output");
+        TranscriptionResult result = readTranscription(output);
+        boolean hasUrl = !output.path("transcription_url").asText().isEmpty()
+                || output.path("results").isArray();
+        if (hasUrl && !result.segments.isEmpty())
         {
-            throw new AsrException("提交语音识别任务失败: " + result.body);
+            return result;
         }
-        JsonNode root = readJson(result.body);
-        String taskId = root.path("output").path("task_id").asText();
-        if (taskId.isEmpty())
+        result.audioSeconds = root.path("usage").path("duration")
+                .asDouble(output.path("usage").path("duration").asDouble(result.audioSeconds));
+        if (result.segments.isEmpty())
         {
-            throw new AsrException("语音识别任务未返回 task_id: " + result.body);
+            JsonNode sentences = output.path("sentences").isArray()
+                    ? output.path("sentences") : root.path("sentences");
+            for (JsonNode sentence : sentences)
+            {
+                String sentenceText = sentence.path("text").asText("");
+                if (sentenceText.trim().isEmpty())
+                {
+                    continue;
+                }
+                int begin = sentence.path("begin_time").asInt(0);
+                int end = sentence.path("end_time").asInt(begin);
+                result.segments.add(new AsrResult.Segment(begin, end, sentenceText.trim()));
+            }
         }
-        return taskId;
+        if (result.segments.isEmpty())
+        {
+            for (JsonNode segment : output.path("segments"))
+            {
+                String segmentText = segment.path("text").asText("");
+                if (segmentText.trim().isEmpty())
+                {
+                    continue;
+                }
+                int begin = segment.path("begin_time").asInt(
+                        segment.path("begin").asInt(segment.path("start").asInt(0)));
+                int end = segment.path("end_time").asInt(
+                        segment.path("end").asInt(begin));
+                result.segments.add(new AsrResult.Segment(begin, end, segmentText.trim()));
+            }
+        }
+        if (result.text.isEmpty())
+        {
+            result.text = output.path("text").asText(root.path("text").asText(""));
+        }
+        // 只有整段文本时按音频总时长补一个分句，保证上层逐句结构可用
+        if (result.segments.isEmpty() && !result.text.isEmpty())
+        {
+            int totalMs = (int) Math.max(1000D, result.audioSeconds * 1000D);
+            result.segments.add(new AsrResult.Segment(0, totalMs, result.text.trim()));
+        }
+        if (result.segments.isEmpty())
+        {
+            throw new AsrException("语音识别返回为空（无 sentences/segments/text）: " + root.toString());
+        }
+        return result;
     }
 
     private TranscriptionResult poll(String taskId)

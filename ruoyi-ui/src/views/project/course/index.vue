@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="course-page">
     <div class="course-topbar">
       <div class="topbar-left">
@@ -703,7 +703,7 @@ import {
 import { listPoint } from '@/api/project/point'
 import { listChapter, listChapterPoints } from '@/api/project/chapter'
 import { listSubject } from '@/api/project/subject'
-import { formatChapterLabel, cleanChapterTitle, sortChapters } from '@/utils/chapter'
+import { formatChapterLabel, cleanChapterTitle, sortChapters, dedupeChapters } from '@/utils/chapter'
 import networkTranscript from './network-transcript.json'
 import CourseChatDialog from './components/CourseChatDialog.vue'
 
@@ -906,6 +906,15 @@ function lessonLabel(item) {
   return item.title ? `${code} ${item.title}` : code
 }
 
+/** 课时按编号自然序排序（补录课时的 lesson_no 可能排在末尾，这里以 lessonCode 为准） */
+function sortLessons(rows) {
+  const key = item => String(item.lessonCode || '')
+    .split('.')
+    .map(part => String(Number(part) || 0).padStart(4, '0'))
+    .join('.')
+  return rows.slice().sort((a, b) => key(a).localeCompare(key(b)))
+}
+
 /** 加载章节下的课时，并默认选中第一个 */
 function loadLessons(chapterId) {
   lessonOptions.value = []
@@ -914,7 +923,7 @@ function loadLessons(chapterId) {
     return Promise.resolve([])
   }
   return listCourseLessons(chapterId).then(res => {
-    const rows = res?.data || res?.rows || []
+    const rows = sortLessons(res?.data || res?.rows || [])
     lessonOptions.value = rows
     if (rows.length) {
       selectedLessonId.value = rows[0].id
@@ -1014,9 +1023,15 @@ const filteredCourseCards = computed(() => {
       String(chapter.chapterNo || '').toLowerCase().includes(keyword)))
 })
 
-/** 本课程的章节（右上角下拉框）：按章号自然序排列，避免「1.1」这类小节号排到「第1章」前面 */
+/** 本课程的章节（右上角下拉框）：按章号自然序排列，避免「1.1」这类小节号排到「第1章」前面。
+ * 同时按渲染标签去重：视频导入曾因章号写法不一致（「3」「第三章」「3.21」）产生过同名下拉项，
+ * dedupeChapters 确保每个标签只出现一次，并优先保留规范写法「第N章」。 */
 const chapterOptions = computed(() =>
-  sortChapters(allChapters.value.filter(item => String(item.subjectId) === String(course.subjectId)))
+  sortChapters(
+    dedupeChapters(
+      allChapters.value.filter(item => String(item.subjectId) === String(course.subjectId))
+    )
+  )
 )
 
 /** 当前章节是否为内置案例章节（可「恢复默认」） */

@@ -1,0 +1,343 @@
+﻿岗位关键词,职位名称,发布时间,编程语言,框架/库,数据库/中间件,工具/环境
+AI,人工智能（AI智能体平台的搭建）,,Node.js,FastAPI,"MySQL, Redis",
+AI,北京AI Agent软件开发接受无经验 五险一金,,"Python, Java",Spring Boot,,
+AI,AI编程开发工程师,,C++,,,
+AI,人工智能咨询业务专家,,,TensorFlow,,
+AI,AI Agent 全栈开发工程师,,"Python, TypeScript, Node.js","React, Next.js, Tailwind CSS, FastAPI, LangChain, Cursor",,"Docker, K8s, CI/CD, Git"
+AI,AI4Bio 人工智能研究架构师,,,PyTorch,,"Linux, Git"
+AI,"人工智能讲师-兼职
+800-2000元/时",,,"React, LangChain",,
+AI,Java（北京，有AI出码经验优先，长期稳定）,,,MyBatis,,Git
+AI,Java/Python/C/C++/JS(智驾/SAAS/AI/云),,Python,,,
+Python,Python开发（接受应届生，氛围好，双休）,,"Python, Java, Go",,,
+Python,JAVA 、Python 、C、C++、web、测试,,Python,,,
+Python,Python后端-北教智学,,"Python, SQL","Django, Flask, FastAPI","MySQL, PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ","Docker, Linux, Jenkins, GitLab CI, CI/CD, Git, RESTful API"
+Python,Python、Java开发工程师（应届生可投）,,"Python, Java, Go",,,
+Python,python,,,Flask,,
+Python,Python（提升自身价值的平台）,,"Python, Java","Django, FastAPI",,
+Python,Python（大厂双休）,,Python,FastAPI,,
+Python,python 开发,,,Flask,,
+Python,运维工程师（python）,,,,,"Docker, Kubernetes, K8s"
+Python,python量化开发,,C++,,,
+Python,Python（鲸眼开发）,,Python,"Angular, Django",,"Linux, Shell"
+Python,Python,,Python,,,Linux
+Python,软件开发工程师(C/C++/Python/Java等),,"Python, Java, Rust",,,
+Java,java开发,,"Java, JavaScript",,"MySQL, Redis",
+Java,JAVA 、Python 、C、C++、web、测试,,Python,,,
+Java,Java/Python/C/C++/JS(智驾/SAAS/AI/云),,Python,,,
+Java,Java,,"Java, SQL",Spring Boot,"Redis, Kafka, RabbitMQ, RocketMQ",
+Java,Java（驻美国）,,,Vue,,
+Java,Java 研发工程师,,"Java, SQL","Vue, Spring Boot, Spring Cloud, MyBatis","Redis, Kafka, RabbitMQ","RESTful API, Swagger"
+Java,Java 工程师,,"Python, Go",Vue,,
+Java,北京 Java,,,MyBatis,"Redis, RabbitMQ",
+Java,Java开发,,,,"Kafka, RabbitMQ, MQ","Docker, K8s, Git"
+Java,Java,,,LangChain,,
+Java,Java 线上面试 中级和高级都需要（急招）,,Java,"Spring Boot, Spring Cloud",,"Git, SVN, RESTful API"
+Java,java开发,,,"Spring Cloud, MyBatis, Hibernate",Redis,Git
+Java,Java,,,"Spring Cloud, MyBatis","MySQL, MQ",Nginx
+前端,web前端开发工程师,,"Node.js, HTML5, CSS3","React, Vue, Express, Koa, Cursor",,WebSocket
+前端,react前端开发工程师,,TypeScript,,,
+前端,前端开发工程师,,JavaScript,React,,
+前端,前端开发工程师,,,Vue,,
+前端,前端开发工程师,,"JavaScript, HTML5, CSS3",Vue,,Git
+前端,前端开发工程师,,,Element UI,,
+前端,前端开发工程师,,"Python, Java, JavaScript, TypeScript, Node.js, SQL","Vue, FastAPI, Spring Boot, Express, NestJS",MySQL,"Docker, Linux, Nginx, Git, RESTful API"
+前端,react前端开发工程师,,,Redux,,
+前端,前端,,"JavaScript, TypeScript, Node.js, HTML5, CSS3","React, Angular",,Git
+前端,前端开发工程师,,,React,,
+前端,前端,,"JavaScript, TypeScript, Node.js",Express,,CI/CD
+前端,web前端工程师,,,"Vue, Pinia",,CI/CD
+前端,web前端中级开发工程师,,JavaScript,,,
+后端,"后端开发实习生-北京
+400-500元/天",,"Python, Java, Go, PHP",,,
+后端,外包 精算管理平台后端开发,,Java,Spring Cloud,Redis,
+后端,！后端开发(短期),,,,,Docker
+后端,后端开发（六险一金24%，包三餐）,,"Python, Java, Go, PHP",,Redis,
+后端,"后端实习生
+600-1000元/天",,"Python, Java, Go","Django, Flask, Gin",MySQL,
+后端,后端开发-校招（J15306）,,"Python, Java, Go",,,
+后端,渠道适配平台后端开发-（北京中华保险）,,,Spring Cloud,,
+后端,Java 后端开发工程师,,"Java, SQL","Spring Boot, Spring Cloud","MySQL, Redis, Kafka",
+后端,后端开发工程师(JAVA Python C/C++),,Java,,,
+后端,"后端开发实习生
+150-200元/天",,"Python, Java, SQL","Django, Spring Boot, Gin","MySQL, Redis","Linux, Git"
+后端,Java后端开发（应届）,,,MyBatis,"MySQL, Redis",
+后端,后端开发（统专及以上）,,,MyBatis,,
+后端,后端开发,,,"Spring Boot, MyBatis",,
+后端,后端开发工程师,,"Python, Java, Go","Vue, FastAPI, Spring Boot","PostgreSQL, Kafka, RabbitMQ",K8s
+后端,Java后端开发（寄递业务）,,,,"MySQL, Kafka, RabbitMQ, MQ","Docker, K8s, Git"
+后端,后端开发工程师(A63812),,"Java, Go, SQL","Gin, LangChain","MySQL, Redis",
+C++工程师,后端开发工程师,,"Python, Java, Go","Vue, FastAPI, Spring Boot","PostgreSQL, Kafka, RabbitMQ",K8s
+C++工程师,Java 工程师,,"Python, Go",Vue,,
+C++工程师,JAVA开发工程师,,,MyBatis,"MySQL, Redis, RabbitMQ","Docker, K8s"
+C++工程师,对日java开发工程师,,Java,"Spring Boot, Spring Cloud",,
+C++工程师,全栈开发工程师,,,Spring Cloud,,"Kubernetes, K8s"
+C++工程师,ros开发工程师,,Python,,,
+C++工程师,中级java开发工程师,,,"Spring Cloud, MyBatis",,
+C++工程师,AI Agent 工程师,,Python,"React, LangChain",,"CI/CD, Git"
+C++工程师,ros工程师,,Python,,,
+C++工程师,软件开发工程师,,"Python, Java, Go",,,
+C++工程师,linux应用工程师,,C++,,,
+C++工程师,c++开发工程师,,C++,,,
+算法工程师,校招-Agent 算法工程师,,Python,PyTorch,,
+算法工程师,大模型评测算法工程师,,"Java, C++",TensorFlow,,
+算法工程师,机器学习算法工程师,,,PyTorch,,
+算法工程师,AI机器视觉算法工程师,,Python,,,
+算法工程师,大模型算法工程师,,Python,,,Linux
+算法工程师,算法工程师-多模态,,,"TensorFlow, PyTorch",,
+算法工程师,SLAM算法工程师,,,TensorFlow,,
+算法工程师,A200928传感器算法工程师-北京,,Python,,,
+算法工程师,算法工程师,,Python,,,
+算法工程师,算法工程师（AI，搜索推荐算法）,,"Python, Java, SQL, Scala","TensorFlow, PyTorch",,
+算法工程师,大模型算法工程师,,"Python, Java",,,
+软件测试,软件测试（双休|六险一金|线上面试）,,Java,,,
+软件测试,软件开发及测试,,"Python, Java, Go",,,
+软件测试,软件测试工程师(2027届应届生),,"Python, Java, JavaScript",,,
+软件测试,软件测试工程师,,Java,,,
+软件测试,软件测试工程师,,"Python, Java, Go",,"MySQL, Redis","Jenkins, GitLab CI, Postman"
+软件测试,功能测试工程师,,Python,,"MySQL, HBase",Shell
+软件测试,软件测试,,"Python, Java",,,Swagger
+软件测试,高级软件测试工程师,,,Vue,RabbitMQ,
+软件测试,软件测试工程师,,,,,Postman
+软件测试,软件测试工程师,,"Python, Java, SQL",,,"Docker, Kubernetes, Linux, Jenkins, GitLab CI, CI/CD, DevOps, Shell, Postman"
+软件测试,软件测试工程师(产品测试方向),,"Python, Java",,,"Jenkins, GitLab CI, CI/CD, Shell, Postman"
+AI,"Java/Python/C/C++/JS(智驾/SAAS/AI/云)
+18-25K·14薪",Python,,,
+AI,"人工智能咨询业务专家
+30-40K",,Tensorflow,,
+AI,"遥感数据处理实习生（人工智能方向）
+180-300元/天",,,,
+AI,"ai实习生
+10-12K·13薪",,,,
+AI,"ai开发工程师
+15-30K",,,,
+AI,"招聘HR实习生（人工智能与机器人方向）
+200-250元/天",,,,
+AI,"AI Agent 全栈开发工程师
+15-20K·16薪","Python, Typescript, Node.Js","React, Next.Js, Tailwind Css, Fastapi, Langchain, Cursor","Docker, K8S, Ci/Cd, Git",
+AI,"校招- AI全栈工程师（北京）(A151935)
+15-30K·16薪",,,,
+AI,"人工智能/计算机类专利工程师(客户服务)
+15-25K",,,,
+AI,"AI 应用开发工程师J11997
+面议",,,,
+AI,"AI4Bio 人工智能研究架构师
+40-70K",,Pytorch,"Linux, Git",
+AI,"人工智能AI for 制造工艺agent全栈工程师
+500-1000元/天",,,,
+AI,"人工智能实习生
+150-200元/天",,,,
+AI,"德勤风驭 – 人工智能与量化分析 实习生
+140-150元/天",,,,
+AI,"人工智能开发（双休+试用期不打折）
+15-17K",,,,
+Python,"高级python工程师
+500-700元/天",,,,
+Python,"Python开发（接受应届生，氛围好，双休）
+15-30K·14薪","Python, Java, Go",,,
+Python,"Python、Java开发工程师（应届生可投）
+15-25K·14薪",,,,
+Python,"北京python开发
+11-16K",,,,
+Python,"3D数据清洗-Python, Blender 双休，不加班
+8-12K",,,,
+Python,"软件测试（python 包三餐
+10-13K",,,,
+Python,"python爬虫
+15-30K",,,,
+Python,"python实习生
+240-350元/天",,,,
+Python,"短期-python开发
+11-12K",,,,
+Python,"python
+7-8K",,,,
+Python,"python开发
+9-11K",,,,
+Python,"python
+11-12K",,Flask,,
+Python,"python高级开发工程师(k8s/LLM)
+13-20K",,,,
+Python,"Python（提升自身价值的平台）
+14-16K","Python, Java","Django, Fastapi",,
+Python,"软件开发工程师(C/C++/Python/Java等)
+18-30K","Python, Java, Rust",,,
+Java,"java工程师
+8-13K·13薪",,,,
+Java,"Java/Python/C/C++/JS(智驾/SAAS/AI/云)
+18-25K·14薪",Python,,,
+Java,"Java
+10-15K",,"Spring Cloud, Mybatis",Nginx,"Mysql, Mq"
+Java,"中级java
+10-13K",,,,
+Java,"Java开发北京
+11-15K",,,,
+Java,"java开发
+11-15K",,,,
+Java,"Java 线上面试 中级和高级都需要（急招）
+12-16K",Java,"Spring Boot, Spring Cloud","Git, Svn, Restful Api",
+Java,"Java
+15-16K·14薪",,,,
+Java,"Java
+13-17K",,,,
+Java,"Java
+12-19K",,,,
+Java,"Java开发
+13-14K",,,,Redis
+Java,"Java
+15-16K",,,,
+Java,"Java 工程师
+15-22K","Python, Go",Vue,,
+Java,"高级java
+14-18K",,,,
+Java,"java开发
+15-18K","Java, Javascript",,,"Mysql, Redis"
+前端,"前端
+11-12K",,,,
+前端,"前端开发工程师
+8-13K",,,,
+前端,"前端工程师
+10-11K",,,,
+前端,"前端工程师
+12-15K·15薪",,,,
+前端,"react前端开发工程师
+15-30K",Typescript,,,
+前端,"前端开发工程师
+10-15K",,,,
+前端,"前端开发工程师
+13-15K",,Element Ui,,
+前端,"react前端开发工程师
+13-16K",,Redux,,
+前端,"前端工程师
+10-15K",,,,
+前端,"vue前端
+10-11K",,,,
+前端,"前端开发工程师
+9-14K","Javascript, Html5, Css3",Vue,Git,
+前端,"前端开发工程师
+10-15K",,,,
+前端,"前端开发工程师
+12-18K",,,,
+前端,"前端
+14-15K","Javascript, Typescript, Node.Js",Express,Ci/Cd,
+前端,"前端开发
+12-24K",,,,
+后端,"后端开发（六险一金24%，包三餐）
+18-30K·15薪","Python, Java, Go, Php",,,Redis
+后端,"后端开发工程师（Java）-外派百图生科
+12-15K",,,,
+后端,"后端开发实习生-北京
+400-500元/天","Python, Java, Go, Php",,,
+后端,"后端开发-校招（J15306）
+10-15K·13薪","Python, Java, Go",,,
+后端,"后端-易宝
+16-18K",,,,
+后端,"后端开发工程师
+15-16K·14薪",,,,
+后端,"软件开发工程师-后端
+11-12K",,,,
+后端,"外包 精算管理平台后端开发
+13-17K",Java,Spring Cloud,,Redis
+后端,"后端开发工程师
+11-14K",,,,
+后端,"后端开发
+30-40K·14薪",,,,
+后端,"Java后端开发（应届）
+8-10K",,Mybatis,,"Mysql, Redis"
+后端,"后端工程师
+15-20K",,,,
+后端,"后端开发工程师(A63812)
+25-35K·14薪","Java, Go, Sql","Gin, Langchain",,"Mysql, Redis"
+后端,"Java后端开发实习生
+3-4K",,,,
+后端,"后端工程师——Harness工程方向
+30-60K",,,,
+C++工程师,"java工程师
+8-13K·13薪",,,,
+C++工程师,"全栈开发工程师
+15-20K·13薪",,Spring Cloud,"Kubernetes, K8S",
+C++工程师,"Java开发工程师
+面议",,,,
+C++工程师,"java开发工程师
+13-15K",,,,"Mysql, Kafka, Rabbitmq"
+C++工程师,"java开发工程师
+13-18K",,,,
+C++工程师,"Java开发工程师
+8-13K",,,,
+C++工程师,"linux应用工程师
+15-25K",C++,,,
+C++工程师,"高级c++工程师
+10-15K",C++,,Linux,
+C++工程师,"软件工程师
+11-17K",,,,
+C++工程师,"C++软件工程师
+15-25K·14薪",,,,
+C++工程师,"资深java工程师
+12-13K",,,,
+C++工程师,"JAVA开发工程师
+16-23K",,Mybatis,"Docker, K8S","Mysql, Redis, Rabbitmq"
+C++工程师,"初中级JAVA工程师
+9-14K·13薪",Java,,,
+C++工程师,"对日java开发工程师
+16-30K·14薪",Java,"Spring Boot, Spring Cloud",,
+C++工程师,"AI编程开发工程师
+12-20K",C++,,,
+算法工程师,"3D算法工程师
+45-75K·15薪",,,,
+算法工程师,"算法工程师兼职
+1000-3000元/天",,,,
+算法工程师,"大模型算法工程师
+26-50K","Python, Java",,,
+算法工程师,"校招-Agent 算法工程师
+20-40K·15薪",Python,Pytorch,,
+算法工程师,"【27校招】图像增强算法工程师-北上
+15-30K·16薪",,,,
+算法工程师,"算法工程师
+16-26K·18薪",,,,
+算法工程师,"算法工程师
+20-40K·14薪",,,,
+算法工程师,"泊车算法工程师
+30-60K",,,,
+算法工程师,"算法工程师（AI，搜索推荐算法）
+12-17K","Python, Java, Sql, Scala","Tensorflow, Pytorch",,
+算法工程师,"算法工程师
+11-22K",,,,
+算法工程师,"机器学习算法工程师
+面议",,Pytorch,,
+算法工程师,"大模型算法工程师
+15-25K",Python,,Linux,
+算法工程师,"算法工程师（北京 校招）(J10048)
+18-35K",,,,
+算法工程师,"AI机器视觉算法工程师
+14-28K·15薪",Python,,,
+算法工程师,"自动驾驶应用算法工程师
+18-26K",,,,
+软件测试,"软件测试工程师
+10-15K","Python, Java, Sql",,"Docker, Kubernetes, Linux, Jenkins, Gitlab Ci, Ci/Cd, Devops, Shell, Postman",
+软件测试,"软件测试（双休|六险一金|线上面试）
+14-28K·14薪",Java,,,
+软件测试,"初级软件测试
+7-10K",,,,
+软件测试,"软件测试工程师
+9-11K",,,,
+软件测试,"测试工程师
+8-13K",,,,
+软件测试,"软件开发测试（26应届&有力扣经验来
+17-30K·16薪",,,,
+软件测试,"软件测试（python 包三餐
+10-13K",,,,
+软件测试,"软件测试工程师
+11-13K",,,,
+软件测试,"AI 软件测试工程师【北京 双休 公积金12%】
+11-20K",,,,Mysql
+软件测试,"软件测试工程师
+20-25K·13薪",,,,
+软件测试,"测试
+13-14K",,,,
+软件测试,"软件测试工程师
+12-14K",Java,,,
+软件测试,"软件测试工程师（大厂包三餐）
+10-13K",,,,
+软件测试,"软件测试工程师(产品测试方向)
+8-13K","Python, Java",,"Jenkins, Gitlab Ci, Ci/Cd, Shell, Postman",
+软件测试,"软件测试工程师+线上面试
+10-15K",,,,

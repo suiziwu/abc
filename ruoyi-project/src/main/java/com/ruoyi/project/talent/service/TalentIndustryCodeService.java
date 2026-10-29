@@ -2,16 +2,21 @@ package com.ruoyi.project.talent.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,7 +31,18 @@ import com.ruoyi.project.talent.mapper.TalentIndustryCodeMapper;
 @Service
 public class TalentIndustryCodeService
 {
-    @Value("${talent.industry-dir:D:/000/fiveEi/08-行业对照表}")
+    /** 默认行业目录（相对工程根目录），配置失效时由 TalentPathResolver 自动探测 */
+    private static final String DEFAULT_INDUSTRY_DIR = "fiveEi/03-原始爬取数据";
+
+    /** 找不到精确文件名时的备选目录：爬虫会把带时间戳的结果写在这里 */
+    private static final String FALLBACK_INDUSTRY_DIR = "fiveEi/08-行业对照表";
+
+    /** 逐行业抓取结果的文件名前缀（实际文件常带时间戳后缀，如 逐行业抓取结果_20261028_1140.csv） */
+    private static final String RESULT_PREFIX = "逐行业抓取结果";
+
+    private static final Logger log = LoggerFactory.getLogger(TalentIndustryCodeService.class);
+
+    @Value("${talent.industry-dir:" + DEFAULT_INDUSTRY_DIR + "}")
     private String industryDir;
 
     @Autowired
@@ -71,7 +87,7 @@ public class TalentIndustryCodeService
      */
     public Map<String, Object> crawlJobs(String code, String name, String level) throws Exception
     {
-        File file = new File(industryDir, "逐行业抓取结果.csv");
+        File file = resolveCsvFile();
         if (!file.isFile())
         {
             throw new IllegalStateException("逐行业抓取结果.csv 不存在：" + file.getAbsolutePath());
@@ -136,6 +152,97 @@ public class TalentIndustryCodeService
         result.put("fileName", file.getName());
         result.put("updatedAt", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(file.lastModified())));
         return result;
+    }
+
+    /**
+     * 行业目录：配置失效时回落到工程根目录下的 {@code fiveEi/03-原始爬取数据}。
+     *
+     * <p>原先默认值是写死的 {@code D:/000/fiveEi/08-行业对照表}，换机器或移动工程后必然不存在，
+     * 导致「行业岗位」预览直接抛异常；这里与 TalentCrawlService / TalentFolderTrendService 一致，
+     * 统一交给 TalentPathResolver 按工程根目录解析。</p>
+     */
+    private File industryDir()
+    {
+        File dir = TalentPathResolver.resolveDir(industryDir, DEFAULT_INDUSTRY_DIR, false);
+        return dir == null ? new File(industryDir == null ? DEFAULT_INDUSTRY_DIR : industryDir) : dir;
+    }
+
+    /**
+     * 定位「逐行业抓取结果」CSV。
+     *
+     * <p>爬虫每次运行会生成带时间戳的文件（如 {@code 逐行业抓取结果_20261028_1140.csv}），
+     * 精确文件名不一定存在，所以按以下顺序找：</p>
+     *
+     * <ol>
+     *   <li>行业目录下的精确文件名 {@code 逐行业抓取结果.csv}；</li>
+     *   <li>同目录下最新的 {@code 逐行业抓取结果*.csv}；</li>
+     *   <li>备选目录 {@code fiveEi/08-行业对照表} 下再按同样规则找一次。</li>
+     * </ol>
+     *
+     * @return 命中的文件；都找不到时返回「行业目录下的精确文件名」，以便报错信息指向预期位置
+     */
+    private File resolveCsvFile()
+    {
+        File dir = industryDir();
+        File exact = new File(dir, RESULT_PREFIX + ".csv");
+        if (exact.isFile())
+        {
+            return exact;
+        }
+
+        File latest = latestCsv(dir);
+        if (latest != null)
+        {
+            log.warn("未找到 {}，自动改用同目录最新结果：{}", exact.getName(), latest.getAbsolutePath());
+            return latest;
+        }
+
+        File fallbackDir = TalentPathResolver.resolveDir(null, FALLBACK_INDUSTRY_DIR, false);
+        if (fallbackDir != null)
+        {
+            File fallbackExact = new File(fallbackDir, RESULT_PREFIX + ".csv");
+            if (fallbackExact.isFile())
+            {
+                log.warn("行业目录 {} 下没有结果文件，自动改用：{}", dir.getAbsolutePath(),
+                        fallbackExact.getAbsolutePath());
+                return fallbackExact;
+            }
+            File fallbackLatest = latestCsv(fallbackDir);
+            if (fallbackLatest != null)
+            {
+                log.warn("行业目录 {} 下没有结果文件，自动改用：{}", dir.getAbsolutePath(),
+                        fallbackLatest.getAbsolutePath());
+                return fallbackLatest;
+            }
+        }
+        return exact;
+    }
+
+    /** 取目录下最新的 逐行业抓取结果*.csv；没有返回 null */
+    private static File latestCsv(File dir)
+    {
+        File[] files = dir.listFiles(new FileFilter()
+        {
+            @Override
+            public boolean accept(File f)
+            {
+                return f.isFile() && f.getName().startsWith(RESULT_PREFIX)
+                        && f.getName().endsWith(".csv");
+            }
+        });
+        if (files == null || files.length == 0)
+        {
+            return null;
+        }
+        Arrays.sort(files, new Comparator<File>()
+        {
+            @Override
+            public int compare(File a, File b)
+            {
+                return Long.compare(b.lastModified(), a.lastModified());
+            }
+        });
+        return files[0];
     }
 
     private static boolean isBlank(String value)

@@ -29,6 +29,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by seq asc
     </select>
 
+    <select id="selectFirstLessonByChapterId" resultMap="CourseTranscriptResult">
+        select t.id, t.chapter_id, t.lesson_id, t.seq, t.start_ms, t.end_ms, t.section, t.text
+        from course_transcript t
+        where t.lesson_id = (
+            select l.id from course_lesson l
+            where l.chapter_id = #{chapterId}
+              and exists (select 1 from course_transcript t2 where t2.lesson_id = l.id)
+            order by l.lesson_no asc
+            limit 1
+        )
+        order by t.seq asc
+    </select>
+
     <delete id="deleteByChapterId">
         delete from course_transcript where chapter_id = #{chapterId}
     </delete>

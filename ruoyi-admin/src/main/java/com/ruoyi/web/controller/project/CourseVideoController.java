@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,6 +95,39 @@ public class CourseVideoController extends BaseController
     }
 
     /**
+     * 仅上传视频（不做 AI 解析）：保存文件并挂到章/课时上，返回课时ID。
+     *
+     * <p>适合只想把视频放进课程、不需要逐字稿/知识点/题目的场景。</p>
+     */
+    @PreAuthorize("@ss.hasPermi('project:point:edit')")
+    @PostMapping("/video/attach")
+    public AjaxResult attachVideo(@RequestParam("file") MultipartFile file,
+            @RequestParam("subjectId") Long subjectId,
+            @RequestParam(value = "chapterNo", required = false) String chapterNo,
+            @RequestParam(value = "chapterTitle", required = false) String chapterTitle,
+            @RequestParam(value = "lessonCode", required = false) String lessonCode,
+            @RequestParam(value = "lessonTitle", required = false) String lessonTitle)
+    {
+        try
+        {
+            Long lessonId = courseVideoImportService.attachOnly(file, subjectId, chapterNo, chapterTitle,
+                    lessonCode, lessonTitle, getUsername());
+            Map<String, Object> data = new LinkedHashMap<String, Object>();
+            data.put("lessonId", lessonId);
+            return success(data);
+        }
+        catch (IllegalArgumentException e)
+        {
+            return error(e.getMessage());
+        }
+        catch (Exception e)
+        {
+            logger.error("上传课程视频失败", e);
+            return error("上传失败：" + e.getMessage());
+        }
+    }
+
+    /**
      * 查询导入任务状态（阶段 / 进度 / 结果统计）。
      */
     @GetMapping("/video/status/{id}")
@@ -153,9 +187,16 @@ public class CourseVideoController extends BaseController
         {
             return error("未找到对应章节");
         }
+        // 粒度保证：始终只返回「单个课时」的逐字稿。
+        // 整章查询会把多个课时各自相对的时间轴/小节混排（曾出现一页 60+ 个碎段）；
+        // 课时无稿时返回空列表，由前端展示空态，不再回退聚合。
         List<CourseTranscript> segments = lessonId != null
                 ? courseTranscriptMapper.selectByLessonId(lessonId)
-                : courseTranscriptMapper.selectByChapterId(chapter.getId());
+                : courseTranscriptMapper.selectFirstLessonByChapterId(chapter.getId());
+        if (segments == null)
+        {
+            segments = new java.util.ArrayList<CourseTranscript>();
+        }
         Map<String, Object> data = new LinkedHashMap<String, Object>();
         data.put("chapter", chapter);
         data.put("segments", segments);
@@ -184,5 +225,28 @@ public class CourseVideoController extends BaseController
     public AjaxResult lessons(@PathVariable("chapterId") Long chapterId)
     {
         return success(courseLessonMapper.selectByChapterId(chapterId));
+    }
+
+    /**
+     * 删除课时：连同逐字稿删除（磁盘视频文件保留）。
+     */
+    @PreAuthorize("@ss.hasPermi('project:chapter:remove')")
+    @DeleteMapping("/lessons/{lessonId}")
+    public AjaxResult deleteLesson(@PathVariable("lessonId") Long lessonId)
+    {
+        try
+        {
+            courseVideoImportService.deleteLesson(lessonId);
+            return success();
+        }
+        catch (IllegalArgumentException e)
+        {
+            return error(e.getMessage());
+        }
+        catch (Exception e)
+        {
+            logger.error("删除课时失败, lessonId=" + lessonId, e);
+            return error("删除课时失败：" + e.getMessage());
+        }
     }
 }

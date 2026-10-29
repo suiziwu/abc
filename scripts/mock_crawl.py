@@ -4,7 +4,9 @@ import csv
 import os
 import time
 
-OUT = os.environ.get("MOCK_OUT", r"D:\000\abc\scripts\_crawl_out")
+OUT = (os.environ.get("MOCK_OUT")
+       or os.environ.get("BOSS_DATA_DIR")
+       or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fiveEi", "新爬取"))
 os.makedirs(OUT, exist_ok=True)
 
 print("开始爬取关键词：【测试】在【青岛】的职位（目标20条）", flush=True)

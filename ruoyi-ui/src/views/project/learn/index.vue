@@ -114,7 +114,7 @@
           v-if="learningCourses.length > 0"
           class="profile-course-section"
           title="学习中课程"
-          subtitle="继续上次的学习进度，点击课程卡片进入课程学习"
+          subtitle="点击课程卡片进入该岗位的 AI 学习路径（课程 + 知识点 + 视频）"
           :courses="learningCourses"
           embedded
           @open="openCourse"
@@ -756,9 +756,31 @@ function goToProfile() {
   router.push({ name: 'LearnProfile' })
 }
 
-// 点击学习中课程卡片，进入课程学习页
-function openCourse(course) {
+/**
+ * 点击「学习中课程」卡片：进入该课程所属岗位的「AI 学习路径」页
+ * （/project/learn/ai-result/:id，即课程卡片 + 按课程查看知识点 + 视频），
+ * 并用 subjectId 预选被点击的课程。
+ * 该岗位没有可学习的诊断记录时，退到普通学习路径页；仍无匹配则退到课程学习页。
+ */
+async function openCourse(course) {
   if (!course?.id) return
+  const target = await findCourseLearnTarget(course.id)
+  if (target?.assessmentId) {
+    router.push({
+      name: 'LearnAiResult',
+      params: { id: target.assessmentId },
+      query: { subjectId: String(course.id), from: 'card' }
+    })
+    return
+  }
+  if (target?.historyId) {
+    router.push({
+      name: 'LearnResult',
+      params: { id: target.historyId },
+      query: { subjectId: String(course.id), from: 'card' }
+    })
+    return
+  }
   router.push({
     path: '/course',
     query: {
@@ -767,6 +789,51 @@ function openCourse(course) {
       from: 'card'
     }
   })
+}
+
+/**
+ * 为该课程找学习目标页：
+ * 1. 在岗位记录里找「选中学科包含该课程」的最近一条；
+ * 2. 在该岗位的诊断记录里找最近一条可学习的（有 AI 结果或已完成）；
+ * 返回 { assessmentId, historyId }，都找不到时返回 null。
+ */
+async function findCourseLearnTarget(subjectId) {
+  const key = String(subjectId)
+  let allHistories = historyList.value
+  let allAssessments = assessList.value
+  try {
+    const [historyRes, assessRes] = await Promise.all([
+      listHistory({ pageNum: 1, pageSize: 9999 }),
+      listAssessment({ pageNum: 1, pageSize: 9999 })
+    ])
+    allHistories = historyRes?.rows || historyRes?.data || allHistories
+    allAssessments = assessRes?.rows || assessRes?.data || allAssessments
+  } catch {
+    // 接口异常时退回当前已加载的数据
+  }
+
+  const matchedHistoryIds = new Set()
+  ;(allHistories || []).forEach(item => {
+    let subjects = []
+    try { subjects = JSON.parse(item.selectedSubjects || '[]') } catch { return }
+    if (!Array.isArray(subjects)) return
+    const hit = subjects.some(subject => {
+      const id = subject && typeof subject === 'object' ? subject.id : subject
+      return id !== null && id !== undefined && String(id) === key
+    })
+    if (hit) matchedHistoryIds.add(String(item.id))
+  })
+  if (matchedHistoryIds.size === 0) return null
+
+  const learnable = (allAssessments || [])
+    .filter(item => matchedHistoryIds.has(String(item.historyId)))
+    .filter(item => item.aiResponse || String(item.status) === '2')
+    .sort((a, b) => String(b.createTime || '').localeCompare(String(a.createTime || '')))
+
+  if (learnable.length > 0) {
+    return { assessmentId: learnable[0].id, historyId: learnable[0].historyId }
+  }
+  return { assessmentId: null, historyId: Number([...matchedHistoryIds][0]) }
 }
 
 // 从历史诊断记录跳转到 AI 学习页面

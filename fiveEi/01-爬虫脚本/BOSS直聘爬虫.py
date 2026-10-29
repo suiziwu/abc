@@ -15,8 +15,13 @@ import pandas as pd
 
 # ================== 配置 ==================
 SERVER_URL = "http://110.40.186.228:5000/upload"
-# 存储位置：固定路径（自动创建）
-DATA_DIR = r"D:\IDEA2025\xiangmu\fiveEi\新爬取"
+# 存储位置：优先用后端传入的 BOSS_DATA_DIR（「爬取数据」按钮会把输出目录传进来），
+# 命令行直接运行时回落到工程目录下的 fiveEi/新爬取
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_DIR = os.path.dirname(_SCRIPT_DIR)
+DATA_DIR = os.environ.get("BOSS_DATA_DIR") or os.path.join(_PROJECT_DIR, "新爬取")
+# 后端后台运行时不弹看板页面（BOSS_NO_BROWSER=1）
+OPEN_BROWSER = os.environ.get("BOSS_NO_BROWSER") != "1"
 HISTORY_FILE = os.path.join(DATA_DIR, "cleaned_boss_jobs_history.csv")
 JSON_DATA_FILE = os.path.join(DATA_DIR, "job_skills_data.json")
 HTML_VIEWER_FILE = os.path.join(DATA_DIR, "dashboard_viewer.html")
@@ -1142,7 +1147,9 @@ def send_cleaned_data_to_server(data_df):
     if data_df.empty:
         print("⚠️ 清洗后无数据可发送")
         return
-    data_json = data_df.to_dict('records')
+    # NaN 不是合法 JSON，requests 会抛 "Out of range float values are not JSON compliant"，
+    # 这里统一转成 null 再发
+    data_json = data_df.astype(object).where(pd.notna(data_df), None).to_dict('records')
     try:
         resp = requests.post(SERVER_URL, json=data_json, timeout=10)
         if resp.status_code == 200:
@@ -1170,6 +1177,9 @@ def safe_save_dataframe(df, filepath):
 
 
 def open_dashboard(html_path):
+    if not OPEN_BROWSER:
+        print(f"📊 数据看板已生成（后台运行，不自动打开）：{os.path.abspath(html_path)}")
+        return
     if os.path.exists(html_path):
         webbrowser.open(f'file://{os.path.abspath(html_path)}')
         print("📊 已自动打开技能需求仪表板")

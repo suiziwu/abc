@@ -45,6 +45,14 @@ public class CourseMindmapServiceImpl implements CourseMindmapService
 {
     private static final int MAX_TRANSCRIPT_CHARS = 30000;
 
+    /**
+     * 课本正文一次送模型的字符上限。
+     *
+     * <p>整本教材远超单次上下文，超限部分会被截断；建议按章节分别导入后再生成，
+     * 这样拓扑更完整、单次耗时也更可控。</p>
+     */
+    private static final int MAX_TEXTBOOK_CHARS = 30000;
+
     private static final int MAX_NODES = 40;
 
     private static final int MAX_RELATIONS = 80;
@@ -94,6 +102,41 @@ public class CourseMindmapServiceImpl implements CourseMindmapService
             "  \"conclusions\": [\"关键结论\"]",
             "}");
 
+    /**
+     * 课本专用提示词。
+     *
+     * <p>与视频逐字稿的区别：没有时间轴，evidence 改为「所在小节 + 原文摘录」；
+     * 课本信息密度更高，允许的节点数与关系数上调；要求按教材的章 / 节 / 知识点三级组织。</p>
+     */
+    private static final String TEXTBOOK_SYSTEM_PROMPT = String.join("\n",
+            "你是“智程学途”的知识图谱专家，负责把课程课本整理成层级清晰、逻辑连贯的知识拓扑，并输出可直接入库的结构化知识点。",
+            "",
+            "# 任务",
+            "阅读给定的课本正文，按“章 → 小节 → 知识点”的层级组织，完整提取教材覆盖的核心知识点、概念关联、逻辑关系与关键结论。",
+            "",
+            "# 严格约束",
+            "1. 只提取课本正文中明确写到的内容，不要补充教材之外的知识。",
+            "2. 每个知识点必须给出：name（不超过20字）、definition（1-2句话）、type、difficulty(1-5)、importance(1-4)、section（所属小节）、evidence（1-2条课本原文摘录，不要带时间戳）。",
+            "3. type 只能从：概念、技术、协议、应用、设备、标准、组织、指标、算法 中选择。",
+            "4. 层级通过 parentKey 关联：先输出章 / 小节节点，再输出其下知识点；根节点的 parentKey 为 null。",
+            "5. relations 描述知识点之间的逻辑关系：sourceKey/targetKey 必须是 nodes 中的 key；relationType 只能是 prerequisite（前置依赖）、related（相关参考）、extension（扩展延伸）；weight 为 1-5。",
+            "6. conclusions 输出 3-8 条教材中的关键结论。",
+            "7. nodes 数量控制在 15-30 个（宁精勿多，优先覆盖主干），relations 数量 12-30 条。",
+            "8. 只输出 JSON，不要 Markdown 代码块标记，不要任何解释性文字，确保可被 JSON.parse 解析。",
+            "",
+            "# 输出 JSON Schema",
+            "{",
+            "  \"title\": \"拓扑标题（通常是教材或章节名）\",",
+            "  \"summary\": \"100字以内的内容摘要\",",
+            "  \"nodes\": [",
+            "    {\"key\":\"n1\",\"name\":\"小节或知识点名称\",\"parentKey\":null,\"section\":\"所属小节\",\"definition\":\"定义\",\"type\":\"概念\",\"difficulty\":1,\"importance\":4,\"evidence\":[\"课本原文摘录\"]}",
+            "  ],",
+            "  \"relations\": [",
+            "    {\"sourceKey\":\"n1\",\"targetKey\":\"n2\",\"relationType\":\"prerequisite\",\"description\":\"关系说明\",\"weight\":3}",
+            "  ],",
+            "  \"conclusions\": [\"关键结论\"]",
+            "}");
+
     private final ChatModelClient chatModelClient;
 
     private final KnowledgePointMapper pointMapper;
@@ -133,22 +176,67 @@ public class CourseMindmapServiceImpl implements CourseMindmapService
         {
             throw new IllegalArgumentException("视频逐字稿内容为空");
         }
+        return analyzeSource(request.getSubjectId(), request.getChapterNo(), request.getModel(),
+                "video", SYSTEM_PROMPT, "【课程视频逐字稿】\n", transcript, MAX_TRANSCRIPT_CHARS);
+    }
+
+    /**
+     * 课本正文 → 知识拓扑。
+     *
+     * <p>与视频链路共用「结构化 → 解析 → 归一化 → 落 extraction 记录」的流程，
+     * 只是输入换成课本正文，并换用课本提示词（无时间戳、节点数更多）。</p>
+     *
+     * @param subjectId 归属学科
+     * @param chapterNo 章号（可空）
+     * @param model     模型ID（可空，用默认）
+     * @param text      课本正文
+     * @return 分析结果（含 extractionId，可继续 sync 到知识图谱）
+     */
+    @Override
+    public MindmapAnalyzeResult analyzeTextbook(Long subjectId, String chapterNo, String model, String text)
+    {
+        if (subjectId == null)
+        {
+            throw new IllegalArgumentException("学科不能为空");
+        }
+        if (text == null || text.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("课本正文为空，请先导入课本或检查文档内容");
+        }
+        return analyzeSource(subjectId, chapterNo, model,
+                "textbook", TEXTBOOK_SYSTEM_PROMPT, "【课程课本正文】\n", text, MAX_TEXTBOOK_CHARS);
+    }
+
+    /**
+     * 结构化梳理的公共流程：截断 → 调模型 → 解析 → 归一化 → 记录 extraction。
+     */
+    private MindmapAnalyzeResult analyzeSource(Long subjectId, String chapterNo, String model,
+            String sourceType, String systemPrompt, String promptHeader, String text, int maxChars)
+    {
+        String content = text == null ? "" : text.trim();
+        if (content.length() > maxChars)
+        {
+            content = content.substring(0, maxChars);
+        }
+        if (content.isEmpty())
+        {
+            throw new IllegalArgumentException("待分析内容为空");
+        }
 
         long startedAt = System.currentTimeMillis();
         KnowledgeExtraction record = new KnowledgeExtraction();
-        record.setSubjectId(request.getSubjectId());
-        record.setChapterNo(trimToNull(request.getChapterNo()));
-        record.setSourceType("video");
-        record.setModel(trimToNull(request.getModel()));
-        record.setTranscriptChars(transcript.length());
+        record.setSubjectId(subjectId);
+        record.setChapterNo(trimToNull(chapterNo));
+        record.setSourceType(sourceType);
+        record.setModel(trimToNull(model));
+        record.setTranscriptChars(content.length());
         record.setCreateBy(currentUser());
         record.setCreateTime(new Date());
 
         String rawResponse = "";
         try
         {
-            rawResponse = chatModelClient.chat(request.getModel(), SYSTEM_PROMPT,
-                    "【课程视频逐字稿】\n" + transcript);
+            rawResponse = chatModelClient.chat(model, systemPrompt, promptHeader + content);
             MindmapAnalysis analysis = parseAnalysis(rawResponse);
             normalize(analysis);
             if (analysis.getNodes().isEmpty())

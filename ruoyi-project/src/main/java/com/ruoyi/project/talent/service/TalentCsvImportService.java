@@ -272,7 +272,7 @@ public class TalentCsvImportService
             throw new IllegalArgumentException("请选择要导入的 CSV 文件");
         }
         String fileName = file.getOriginalFilename() == null ? "upload.csv" : file.getOriginalFilename();
-        String source = "CSV导入:" + fileName;
+        String source = buildSource(fileName);
         String batch = batchDate == null ? "" : batchDate.trim();
 
         byte[] bytes = file.getBytes();
@@ -300,7 +300,7 @@ public class TalentCsvImportService
         Integer industry2Idx = pick(header, "行业名称", "二级行业", "industry", "industry2");
         Integer industry1Idx = pick(header, "上级行业", "一级行业", "parent_industry", "industry1");
         Integer cityIdx = pick(header, "城市", "city");
-        Integer keywordIdx = pick(header, "关键词", "keyword");
+        Integer keywordIdx = pick(header, "关键词", "岗位关键词", "keyword");
 
         List<TalentJobPosting> postings = new ArrayList<>();
         List<List<String>> postingSkills = new ArrayList<>();
@@ -390,6 +390,31 @@ public class TalentCsvImportService
         result.put("industries", new ArrayList<>(industries));
         result.put("families", new ArrayList<>(families));
         return result;
+    }
+
+    /** talent_job_posting.source 的列宽 */
+    private static final int SOURCE_MAX_LENGTH = 128;
+
+    /**
+     * 构造导入来源标记。
+     *
+     * <p>{@code source} 列长度有限，而上传文件名可能很长（浏览器会把完整文件名传上来）。
+     * 以前直接拼「CSV导入:」+ 文件名，名字一长就抛
+     * {@code Data too long for column 'source'}，整次导入失败、一条都进不去。
+     * 这里超长时保留文件名头尾（尾巴通常是时间戳，更有辨识度），中间用省略号代替。</p>
+     */
+    static String buildSource(String fileName)
+    {
+        String prefix = "CSV导入:";
+        String name = fileName == null ? "" : fileName;
+        if (prefix.length() + name.length() <= SOURCE_MAX_LENGTH)
+        {
+            return prefix + name;
+        }
+        int keep = SOURCE_MAX_LENGTH - prefix.length() - 3;
+        int head = keep / 2;
+        int tail = keep - head;
+        return prefix + name.substring(0, head) + "..." + name.substring(name.length() - tail);
     }
 
     static String resolveFamily(String title, String desc, String industry2)

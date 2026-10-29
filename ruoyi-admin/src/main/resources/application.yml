@@ -240,12 +240,17 @@ kb:
     fallback-to-local: true
 
 # 人才培养 · 一键爬取（后台运行 Python 爬虫，完成后自动导入并刷新看板）
+# 路径写相对工程根目录即可；配置失效时 TalentPathResolver 会自动在工程目录里探测
 talent:
   crawl:
     python: python
-    script: D:/system/lerning/abc/fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
-    working-dir: D:/system/lerning/abc/fiveEi/01-爬虫脚本
-    output-dir: D:/IDEA2025/xiangmu/fiveEi/新爬取
+    script: fiveEi/01-爬虫脚本/BOSS直聘爬虫.py
+    working-dir: fiveEi/01-爬虫脚本
+    output-dir: fiveEi/新爬取
     total-target: 200
     timeout-minutes: 90
+  # 技能热度曲线按此目录下各 CSV 的修改时间分时间点
+  cleaned-data-dir: fiveEi/04-清洗后数据
+  # 行业岗位预览读取的「逐行业抓取结果.csv」所在目录（找不到精确文件名时会自动匹配带时间戳的版本）
+  industry-dir: fiveEi/03-原始爬取数据
 

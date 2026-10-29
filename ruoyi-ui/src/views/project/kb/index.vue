@@ -284,6 +284,12 @@
             </template>
           </el-upload>
         </el-form-item>
+        <el-form-item label="知识拓扑">
+          <el-checkbox v-model="importForm.withTopology">导入后自动生成知识拓扑</el-checkbox>
+          <div class="form-tip">
+            用大模型从课本正文抽取「知识点 + 关系」，直接写入知识图谱（知识架构管理 → 知识拓扑）
+          </div>
+        </el-form-item>
       </el-form>
       <el-alert
         v-if="importResult"
@@ -295,9 +301,23 @@
           : ('失败：' + (importResult.error || '未知错误'))"
         style="margin-bottom: 12px"
       />
+      <el-alert
+        v-if="topologyResult"
+        :type="topologyResult.ok ? 'success' : 'warning'"
+        :closable="false"
+        show-icon
+        :title="topologyResult.text"
+        style="margin-bottom: 12px"
+      >
+        <el-button v-if="topologyResult.ok" link type="primary" @click="goTopologyPage">
+          查看知识拓扑 →
+        </el-button>
+      </el-alert>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" :loading="importing" @click="submitImport">开始导入并切片</el-button>
+          <el-button type="primary" :loading="importing" @click="submitImport">
+            {{ importing && topologyRunning ? '生成知识拓扑中…' : '开始导入并切片' }}
+          </el-button>
           <el-button @click="importVisible = false">取 消</el-button>
         </div>
       </template>
@@ -310,10 +330,10 @@
 import { Delete, Document, Refresh, Search, Tickets, Upload } from '@element-plus/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import { clearKb, getKbStatus, importDocument, listKbBases, rebuildKb, searchKb } from '@/api/project/kb'
-import { getCourseModels } from '@/api/project/course'
+import { generateTextbookTopology, getCourseModels } from '@/api/project/course'
 import { listSubject } from '@/api/project/subject'
 import { listChapter } from '@/api/project/chapter'
-import { formatChapterLabel } from '@/utils/chapter'
+import { formatChapterLabel, dedupeChapters } from '@/utils/chapter'
 import networkTranscript from '../course/network-transcript.json'
 
 /** 内置「计算机网络」逐字稿语料所属的学科ID（仅用于示例数据） */
@@ -350,7 +370,9 @@ const searchScopeLabel = ref('全部知识库')
 // 导入课本
 const importVisible = ref(false)
 const importing = ref(false)
-const importForm = reactive({ subjectId: null, chapterId: null, model: null, file: null })
+const importForm = reactive({ subjectId: null, chapterId: null, model: null, file: null, withTopology: true })
+const topologyRunning = ref(false)
+const topologyResult = ref(null)
 const importChapterOptions = ref([])
 const modelOptions = ref([])
 const importResult = ref(null)
@@ -423,7 +445,7 @@ function onRebuildSubjectChange(subjectId) {
   chapterOptions.value = []
   if (!subjectId) return
   listChapter({ subjectId }).then(res => {
-    chapterOptions.value = res.data || res.rows || []
+    chapterOptions.value = dedupeChapters(res.data || res.rows || [])
   }).catch(() => {
     chapterOptions.value = []
   })
@@ -565,8 +587,10 @@ function openImportDialog() {
   importForm.chapterId = null
   importForm.model = null
   importForm.file = null
+  importForm.withTopology = true
   importChapterOptions.value = []
   importResult.value = null
+  topologyResult.value = null
   if (uploadRef.value) {
     uploadRef.value.clearFiles()
   }
@@ -619,17 +643,64 @@ function submitImport() {
   }
   importing.value = true
   importResult.value = null
+  topologyResult.value = null
   importDocument(formData).then(res => {
     importResult.value = res.data || {}
     if (importResult.value.success) {
       proxy.$modal.msgSuccess(`导入成功：共 ${importResult.value.total} 段切片已入库`)
       loadAll()
+      if (importForm.withTopology && importResult.value.documentId) {
+        return buildTopology(importResult.value.documentId)
+      }
     }
+    return null
   }).catch(error => {
     importResult.value = { success: false, error: error.message || '未知错误' }
   }).finally(() => {
     importing.value = false
+    topologyRunning.value = false
   })
+}
+
+/** 课本 → 知识拓扑：读取刚导入的课本正文，AI 抽取知识点并同步进知识图谱 */
+function buildTopology(documentId) {
+  topologyRunning.value = true
+  topologyResult.value = { ok: false, text: '正在用大模型抽取知识拓扑，请稍候（可能需要 1-2 分钟）…' }
+  return generateTextbookTopology({
+    subjectId: importForm.subjectId,
+    documentId,
+    model: importForm.model || undefined,
+    autoSync: true
+  }).then(res => {
+    const data = res.data || {}
+    const created = data.createdPoints || 0
+    const matched = data.matchedPoints || 0
+    const relations = data.createdRelations || 0
+    const truncatedTip = data.truncated
+      ? `（正文超过单次上限，仅分析前 ${data.chars} 字；整本教材建议按章导入后分别生成）`
+      : ''
+    topologyResult.value = {
+      ok: true,
+      text: `知识拓扑已生成：${data.nodeCount || 0} 个知识点、${data.relationCount || 0} 条关系；`
+        + `入库新增 ${created} 个、复用 ${matched} 个知识点，写入 ${relations} 条关系`
+        + truncatedTip
+    }
+    return data
+  }).catch(error => {
+    topologyResult.value = {
+      ok: false,
+      text: '课本已导入，但知识拓扑生成失败：' + (error.message || '请稍后重试')
+    }
+    return null
+  }).finally(() => {
+    topologyRunning.value = false
+  })
+}
+
+/** 跳到知识拓扑页（自动带上学科） */
+function goTopologyPage() {
+  importVisible.value = false
+  router.push({ path: '/topology', query: { subjectId: String(importForm.subjectId) } })
 }
 
 // ===== 切片浏览（跳转二级界面 /picture/kb/chunks） =====

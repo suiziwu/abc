@@ -45,7 +45,25 @@ export function uploadCourseVideo(file, data = {}) {
     url: '/project/course/video/upload',
     method: 'post',
     data: formData,
-    headers: { 'Content-Type': 'multipart/form-data' },
+    // 不手动指定 Content-Type：交给浏览器/axios 生成带 boundary 的 multipart 头
+    timeout: 600000
+  })
+}
+
+// 仅上传视频（不做 AI 解析）：保存文件并挂到章/课时
+export function attachCourseVideo(file, data = {}) {
+  const formData = new FormData()
+  formData.append('file', file)
+  Object.keys(data).forEach(key => {
+    const value = data[key]
+    if (value !== undefined && value !== null && value !== '') {
+      formData.append(key, value)
+    }
+  })
+  return request({
+    url: '/project/course/video/attach',
+    method: 'post',
+    data: formData,
     timeout: 600000
   })
 }
@@ -98,6 +116,16 @@ export function syncCourseMindmap(data) {
   })
 }
 
+// 课本 → 知识拓扑：读取已导入课本正文，AI 抽取知识点与关系，可选直接入库
+export function generateTextbookTopology(data) {
+  return request({
+    url: '/project/course/mindmap/textbook',
+    method: 'post',
+    data,
+    timeout: 600000
+  })
+}
+
 // 查询某学科最近的结构化梳理记录（可追溯）
 export function listCourseMindmapExtractions(params) {
   return request({
@@ -124,5 +152,13 @@ export function listCourseLessons(chapterId) {
     url: '/project/course/lessons/' + chapterId,
     method: 'get',
     timeout: 30000
+  })
+}
+
+// 删除课时（连同其逐字稿；磁盘视频文件保留）
+export function delCourseLesson(lessonId) {
+  return request({
+    url: '/project/course/lessons/' + lessonId,
+    method: 'delete'
   })
 }

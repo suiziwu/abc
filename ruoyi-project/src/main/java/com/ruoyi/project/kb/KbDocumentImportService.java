@@ -217,6 +217,60 @@ public class KbDocumentImportService
         return kbChunkMapper.selectKbChunkList(subjectId, chapterId, sourceTypes, null);
     }
 
+    /**
+     * 取回某篇已导入课本的正文（按切片顺序拼接），供「课本 → 知识拓扑」使用。
+     *
+     * <p>直接复用导入时已解析、已语义切片的正文，避免二次上传与重复解析。</p>
+     *
+     * @param documentId 文档主键
+     * @return title / text / chunks / truncated
+     */
+    public Map<String, Object> textbookContent(Long documentId)
+    {
+        if (documentId == null)
+        {
+            throw new IllegalArgumentException("文档ID不能为空");
+        }
+        KbDocument document = kbDocumentMapper.selectKbDocumentById(documentId);
+        if (document == null)
+        {
+            throw new IllegalArgumentException("文档不存在: " + documentId);
+        }
+        List<KbChunk> chunks = kbChunkMapper.selectKbChunkByDocPks(Collections.singletonList(documentId));
+        if (chunks == null || chunks.isEmpty())
+        {
+            throw new IllegalStateException("该文档没有可用正文切片，请重新导入课本");
+        }
+        chunks.sort((a, b) -> {
+            int left = a.getChunkIndex() == null ? 0 : a.getChunkIndex();
+            int right = b.getChunkIndex() == null ? 0 : b.getChunkIndex();
+            return Integer.compare(left, right);
+        });
+
+        StringBuilder sb = new StringBuilder();
+        String lastSection = null;
+        for (KbChunk chunk : chunks)
+        {
+            String section = chunk.getSectionPath();
+            if (section != null && !section.isEmpty() && !section.equals(lastSection))
+            {
+                sb.append("\n## ").append(section).append('\n');
+                lastSection = section;
+            }
+            if (chunk.getTitle() != null && !chunk.getTitle().isEmpty())
+            {
+                sb.append("### ").append(chunk.getTitle()).append('\n');
+            }
+            sb.append(chunk.getContent() == null ? "" : chunk.getContent()).append('\n');
+        }
+
+        Map<String, Object> result = new LinkedHashMap<String, Object>();
+        result.put("title", document.getTitle());
+        result.put("text", sb.toString());
+        result.put("chunks", chunks.size());
+        return result;
+    }
+
     private String toJson(float[] vector)
     {
         StringBuilder sb = new StringBuilder("[");

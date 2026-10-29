@@ -154,6 +154,7 @@
 
 <script setup name="Topology">
 import * as echarts from 'echarts'
+import { useRoute } from 'vue-router'
 import { listSubject } from '@/api/project/subject'
 import { listPoint } from '@/api/project/point'
 import { listRelation } from '@/api/project/relation'
@@ -162,7 +163,9 @@ const { proxy } = getCurrentInstance()
 
 // ---------- 响应式状态 ----------
 const subjectList = ref([])
-const subjectId = ref(undefined)
+const route = useRoute()
+/** 支持从知识库「生成知识拓扑」跳转时带 ?subjectId= 预选学科 */
+const subjectId = ref(route.query.subjectId ? Number(route.query.subjectId) : undefined)
 const points = ref([])
 const relations = ref([])
 const loading = ref(false)
@@ -217,6 +220,10 @@ function renderChart() {
 // ---------- 生命周期 ----------
 onMounted(() => {
   loadSubjects()
+  // 带 subjectId 进来时直接渲染该学科拓扑
+  if (subjectId.value) {
+    loadTopology()
+  }
   window.addEventListener('resize', handleResize)
 })
 

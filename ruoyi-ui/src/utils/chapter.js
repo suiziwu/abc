@@ -193,3 +193,48 @@ export function sortChapters(chapters) {
     return String(left[2]).localeCompare(String(right[2]), 'zh-Hans-CN')
   })
 }
+
+/**
+ * 章号是否已是规范写法「第N章」（平行章常写成「3」「3.21」「第三章」）。
+ */
+function isCanonicalChapterNo(chapterNo) {
+  return /^第\s*[0-9]+\s*章$/.test(String(chapterNo || '').trim())
+}
+
+/**
+ * 按展示标签去重：同一学科下若两条章节格式化后标签完全相同
+ * （平行章「3 / 第三章 数据链路层」与规范章「第3章 / 数据链路层」），
+ * 只保留规范的那一条，避免下拉框出现两个一模一样的选项。
+ *
+ * 保留规则：章号已是「第N章」写法优先；同为规范写法时保留 id 较小的一条。
+ */
+export function dedupeChapters(chapters) {
+  const list = chapters || []
+  const kept = []
+  const indexByLabel = new Map()
+
+  for (const chapter of list) {
+    const label = formatChapterLabel(chapter)
+    if (!label) {
+      kept.push(chapter)
+      continue
+    }
+    const existIndex = indexByLabel.get(label)
+    if (existIndex === undefined) {
+      indexByLabel.set(label, kept.length)
+      kept.push(chapter)
+      continue
+    }
+    const exist = kept[existIndex]
+    const existCanonical = isCanonicalChapterNo(exist.chapterNo)
+    const currentCanonical = isCanonicalChapterNo(chapter.chapterNo)
+    let keepCurrent = false
+    if (currentCanonical !== existCanonical) {
+      keepCurrent = currentCanonical
+    } else {
+      keepCurrent = Number(chapter.id || 0) < Number(exist.id || 0)
+    }
+    if (keepCurrent) kept[existIndex] = chapter
+  }
+  return kept
+}

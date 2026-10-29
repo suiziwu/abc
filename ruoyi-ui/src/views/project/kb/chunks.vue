@@ -160,7 +160,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { getKbStatus, listKbChunks } from '@/api/project/kb'
 import { listSubject } from '@/api/project/subject'
 import { listChapter } from '@/api/project/chapter'
-import { formatChapterLabel } from '@/utils/chapter'
+import { formatChapterLabel, dedupeChapters } from '@/utils/chapter'
 
 const route = useRoute()
 const router = useRouter()
@@ -224,7 +224,7 @@ function loadChapters(subjectId) {
     return Promise.resolve()
   }
   return listChapter({ subjectId }).then(res => {
-    chapterOptions.value = res.data || res.rows || []
+    chapterOptions.value = dedupeChapters(res.data || res.rows || [])
   }).catch(() => {
     chapterOptions.value = []
   })

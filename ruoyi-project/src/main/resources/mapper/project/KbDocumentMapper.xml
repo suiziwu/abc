@@ -68,6 +68,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         limit 1
     </select>
 
+    <select id="selectKbDocumentById" resultMap="KbDocumentResult">
+        select id, kb_id, doc_key, subject_id, chapter_id, source_type, title, section_path, source_uri,
+               page_start, page_end, chunk_count, token_count, content_hash, status, version, tags,
+               create_time, update_time
+        from kb_document
+        where id = #{id}
+        limit 1
+    </select>
+
     <select id="selectKbDocumentList" resultMap="KbDocumentResult">
         select id, kb_id, doc_key, subject_id, chapter_id, source_type, title, section_path, source_uri,
                page_start, page_end, chunk_count, token_count, content_hash, status, version, tags,

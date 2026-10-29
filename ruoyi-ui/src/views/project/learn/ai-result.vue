@@ -309,6 +309,7 @@ async function loadData() {
       await loadLearningContext()
       await loadUserRecords()
       buildCourses()
+      applyRoutePreselect()
     } else {
       assessment.value = null
     }
@@ -643,6 +644,17 @@ function selectCourse(course) {
   activeCourseId.value = course.id
   // 点击课程只切换课程，视频在点击具体知识点后再展示
   currentVideo.value = null
+}
+
+/**
+ * 从「学习中课程」卡片跳过来时带 subjectId，进入页面后直接选中该课程，
+ * 让左侧课程列表与右侧知识点树落在用户点击的那门课上。
+ */
+function applyRoutePreselect() {
+  const subjectId = route.query.subjectId
+  if (!subjectId) return
+  const target = courses.value.find(item => String(item.id) === String(subjectId))
+  if (target) activeCourseId.value = target.id
 }
 
 async function selectPoint(point, course) {

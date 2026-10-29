@@ -22,6 +22,17 @@ public interface CourseTranscriptMapper
     public List<CourseTranscript> selectByLessonId(@Param("lessonId") Long lessonId);
 
     /**
+     * 取章节下第一个有逐字稿的课时的分句（保持单课时粒度，禁止跨课时拼接）。
+     *
+     * <p>未指定 lessonId 时用它替代整章查询：整章查询会把多个课时各自相对的
+     * 小节混排在一起，时间轴上表现为几十个碎片段。</p>
+     *
+     * @param chapterId 章节ID
+     * @return 该章首个有稿课时的分句（没有课时有稿时为空列表）
+     */
+    public List<CourseTranscript> selectFirstLessonByChapterId(@Param("chapterId") Long chapterId);
+
+    /**
      * 删除章节逐字稿
      */
     public int deleteByChapterId(@Param("chapterId") Long chapterId);

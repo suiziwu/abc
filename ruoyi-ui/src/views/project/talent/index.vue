@@ -758,6 +758,8 @@ function applyCrawl(data) {
   if (status === 'DONE') {
     stopCrawlPolling()
     proxy.$modal.msgSuccess(crawl.value.message || '爬取完成')
+    // 新爬的数据进的是「当前快照」，若之前选了某个采集批次会看不到，先切回全部时间再刷新
+    batchDate.value = ''
     loadAll()
   } else if (status === 'ERROR') {
     stopCrawlPolling()

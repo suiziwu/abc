@@ -860,9 +860,19 @@ public class TalentAnalysisService
         return SNAPSHOT_LABEL.equals(batchDate) ? snapshotLabel() : batchDate;
     }
 
-    /** 快照维度的展示时间：取当前时间，避免下拉里出现笼统的「当前快照」 */
+    /**
+     * 快照维度的展示时间：优先用「最近一次入库时间」，没有数据时才退回当前时间。
+     *
+     * <p>以前直接取 {@code new Date()}，下拉里显示的时间每次刷新都在变，
+     * 和技能热度曲线按文件时间生成的时间点对不上，看起来像“爬完没更新”。</p>
+     */
     private String snapshotLabel()
     {
+        String latest = talentMapper.selectLastImportTime();
+        if (latest != null && latest.trim().length() >= SNAPSHOT_TIME_PATTERN.length())
+        {
+            return latest.trim().substring(0, SNAPSHOT_TIME_PATTERN.length());
+        }
         return new SimpleDateFormat(SNAPSHOT_TIME_PATTERN).format(new Date());
     }
 

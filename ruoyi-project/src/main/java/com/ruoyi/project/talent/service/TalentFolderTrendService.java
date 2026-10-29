@@ -53,9 +53,20 @@ public class TalentFolderTrendService
         List<Point> kept = new ArrayList<>();
         for (Point point : points)
         {
-            if (point.jobCount >= minJobs)
+            // 爬取结果一律保留：一次爬取就是几十条，够不上 minJobs（默认 20）的阈值，
+            // 若被过滤掉，用户刚爬完就看不到新时间点；而且下一次爬取后上一批又会消失，历史断档。
+            if (point.jobCount >= minJobs || isCrawlResult(point.fileName))
             {
                 kept.add(point);
+            }
+        }
+        // 兜底：最新一批即使样本量不足也要保留（例如手工放进来的小 CSV）
+        if (!points.isEmpty())
+        {
+            Point newest = points.get(points.size() - 1);
+            if (newest.jobCount > 0 && (kept.isEmpty() || kept.get(kept.size() - 1) != newest))
+            {
+                kept.add(newest);
             }
         }
 
@@ -104,6 +115,8 @@ public class TalentFolderTrendService
             meta.put("cumulativeJobs", cumulativeJobs);
             files.add(meta);
         }
+        // 同一分钟落盘的多个文件会得到相同标签，横轴会重叠成一堆重复文字；重复时补序号
+        disambiguateLabels(batches);
 
         List<Map<String, Object>> series = new ArrayList<>();
         for (String skill : skills)
@@ -135,19 +148,52 @@ public class TalentFolderTrendService
         result.put("snapshotIncluded", false);
         result.put("snapshotJobs", 0);
         result.put("sourceMode", "folder");
-        result.put("folder", cleanedDataDir);
+        result.put("folder", cleanedDir().getAbsolutePath());
         result.put("files", files);
         return result;
+    }
+
+    /** 清洗后数据目录：配置失效时回落到工程目录下的 fiveEi/04-清洗后数据 */
+    private File cleanedDir()
+    {
+        File dir = TalentPathResolver.resolveDir(cleanedDataDir, "fiveEi/04-清洗后数据", false);
+        return dir == null ? new File(cleanedDataDir == null ? "" : cleanedDataDir) : dir;
+    }
+
+    /** 是否是「爬取数据」按钮产出的文件（copyToCleanedDir 命名为 BOSS爬取_时间戳.csv） */
+    private static boolean isCrawlResult(String fileName)
+    {
+        if (fileName == null)
+        {
+            return false;
+        }
+        String name = fileName.toLowerCase(Locale.ROOT);
+        return name.startsWith("boss爬取_") || name.startsWith("boss_zhaopin_multi");
+    }
+
+    /** 重复的时间标签补序号（2026-10-28 21:46 / 2026-10-28 21:46（2）…），否则横轴全是同一串字 */
+    private static void disambiguateLabels(List<String> batches)
+    {
+        Map<String, Integer> seen = new LinkedHashMap<>();
+        for (int i = 0; i < batches.size(); i++)
+        {
+            String label = batches.get(i);
+            int count = seen.merge(label, 1, Integer::sum);
+            if (count > 1)
+            {
+                batches.set(i, label + "（" + count + "）");
+            }
+        }
     }
 
     private List<Point> loadPoints(String jobFamily)
     {
         List<Point> points = new ArrayList<>();
-        File dir = new File(cleanedDataDir);
+        File dir = cleanedDir();
         File[] files = dir.listFiles((d, name) -> name.toLowerCase(Locale.ROOT).endsWith(".csv"));
         if (files == null || files.length == 0)
         {
-            log.warn("清洗后数据目录不存在或没有 CSV：{}", cleanedDataDir);
+            log.warn("清洗后数据目录不存在或没有 CSV：{}", dir.getAbsolutePath());
             return points;
         }
         Arrays.sort(files, Comparator.comparingLong(File::lastModified));

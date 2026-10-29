@@ -17,7 +17,7 @@ create table talent_job_posting (
   city         varchar(50)   default ''                 comment '城市',
   job_title    varchar(200)  default ''                 comment '职位名称',
   description  text                                     comment '职位描述',
-  source       varchar(30)   default ''                 comment '数据来源平台',
+  source       varchar(128)  default ''                 comment '数据来源平台（CSV导入:文件名，需容纳较长文件名）',
   skill_names  varchar(1000) default ''                 comment '技能标签（逗号分隔）',
   create_time  datetime                                 comment '入库时间',
   primary key (id),

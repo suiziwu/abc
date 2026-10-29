@@ -76,6 +76,11 @@ public class CourseVideoImportService
 
     private static final Pattern CHAPTER_NO_PATTERN = Pattern.compile("第\\s*(\\d+)\\s*章");
 
+    /** 章号归一化用：从字符串开头提取阿拉伯章号（兼容「第3章」「3」「3.21」「3章」） */
+    private static final Pattern ARABIC_CHAPTER_NO = Pattern.compile("第?\\s*([0-9]+)(?:[.\\-]\\d+)?");
+    /** 章号归一化用：从字符串开头提取中文章号（兼容「第三章」「第三章数据链路层」） */
+    private static final Pattern CN_CHAPTER_NO = Pattern.compile("第?\\s*([零〇一二两三四五六七八九十百]+)");
+
     private static final String STRUCTURE_PROMPT = "你是课程内容结构化助手。请阅读用户提供的课程视频逐字稿（带 [mm:ss] 时间戳），"
             + "输出严格的 JSON（不要 markdown 代码块、不要任何解释文字），结构如下：\n"
             + "{\n"
@@ -89,7 +94,9 @@ public class CourseVideoImportService
             + "     ]}\n"
             + "  ]\n"
             + "}\n"
-            + "要求：sections 输出 3-8 个，按时间顺序；每个 section 2-5 个知识点；"
+            + "要求：sections 数量按视频总时长决定，每段约 1.5~3 分钟——总时长不超过 6 分钟切 2-4 段，"
+            + "6~12 分钟切 4-6 段，超过 12 分钟切 6-8 段；每段至少 10 句、约 90 秒以上的内容，"
+            + "严禁切出只有几句话的碎段；sections 按时间顺序；每个 section 2-5 个知识点；"
             + "type 取值范围：概念/语法/方法/工具/框架/管理；difficulty 1-5；importance 1-4；"
             + "start/end 为相对于视频开始的秒数；只依据逐字稿内容，不要编造。";
 
@@ -297,8 +304,8 @@ public class CourseVideoImportService
                     lessonTitleFinal, operNameFinal);
             task.setChapterId(chapter.getId());
             task.setChapterNo(chapter.getChapterNo());
-            CourseLesson lesson = createLesson(chapter, task.getVideoPath(), lessonCodeFinal, lessonTitleFinal,
-                    operNameFinal);
+            CourseLesson lesson = resolveOrCreateLesson(chapter, task.getVideoPath(), lessonCodeFinal,
+                    lessonTitleFinal, operNameFinal);
             task.setLessonId(lesson.getId());
             task.setLessonCode(lesson.getLessonCode());
             taskMapper.insert(task);
@@ -313,18 +320,74 @@ public class CourseVideoImportService
     }
 
     /**
+     * 仅上传视频：保存文件并挂到章/课时上，不做 ASR / AI 解析，也不写逐字稿和题库。
+     *
+     * <p>用于只需要视频能播放的场景，上传后立刻可用，不再产生解析任务。</p>
+     *
+     * @return 课时ID
+     */
+    public Long attachOnly(MultipartFile file, Long subjectId, String chapterNo, String chapterTitle,
+            String lessonCode, String lessonTitle, String operName)
+    {
+        if (file == null || file.isEmpty())
+        {
+            throw new IllegalArgumentException("请选择要上传的视频文件");
+        }
+        if (subjectId == null)
+        {
+            throw new IllegalArgumentException("请选择学科");
+        }
+        String original = file.getOriginalFilename() == null ? "video.mp4" : file.getOriginalFilename();
+        String extension = StringUtils.substringAfterLast(original, ".").toLowerCase();
+        boolean allowed = false;
+        for (String item : VIDEO_EXTENSIONS)
+        {
+            if (item.equals(extension))
+            {
+                allowed = true;
+                break;
+            }
+        }
+        if (!allowed)
+        {
+            throw new IllegalArgumentException("不支持的视频格式：" + extension + "，请上传 mp4/mov/mkv/avi/webm 等格式");
+        }
+        String safeName = Paths.get(original).getFileName().toString().replaceAll("[\\\\/:*?\"<>|]", "_");
+        String storedName = System.currentTimeMillis() + "_" + safeName;
+        Path dir = uploadRoot.resolve("course_video");
+        try
+        {
+            Files.createDirectories(dir);
+            file.transferTo(dir.resolve(storedName).toFile());
+        }
+        catch (IOException e)
+        {
+            throw new IllegalStateException("保存视频失败：" + e.getMessage(), e);
+        }
+        final String videoPath = "/profile/course_video/" + storedName;
+        return subjectLockRegistry.withLock(subjectId, () -> {
+            CourseChapter chapter = resolveChapter(subjectId, chapterNo, chapterTitle, lessonTitle, operName);
+            CourseLesson lesson = resolveOrCreateLesson(chapter, videoPath, lessonCode, lessonTitle, operName);
+            log.info("仅上传视频：chapter={}, lesson={}, video={}", chapter.getChapterNo(),
+                    lesson.getLessonCode(), videoPath);
+            return lesson.getId();
+        });
+    }
+
+    /**
      * 定位或创建章节：命中同章号的已有章则复用，否则新建。
      */
     private CourseChapter resolveChapter(Long subjectId, String chapterNo, String chapterTitle,
             String lessonTitle, String operName)
     {
         List<CourseChapter> chapters = chapterMapper.selectCourseChapterList(chapterQuery(subjectId));
-        String requestedNo = StringUtils.isNotEmpty(chapterNo) ? chapterNo.trim() : null;
+        String requestedNo = normalizeChapterNo(chapterNo);
         CourseChapter chapter = findChapter(chapters, requestedNo);
         if (chapter != null)
         {
-            // 章已存在：补一次章名（目录名），不覆盖已有描述与视频
-            if (StringUtils.isNotEmpty(chapterTitle) && !chapterTitle.trim().equals(chapter.getTitle()))
+            // 章已存在：仅当标题为空时补一次章名；不接受目录名覆盖规范章名
+            //（否则「第四章 网络层」这类目录名会把「网络层」冲掉）
+            if (StringUtils.isEmpty(chapter.getTitle()) && StringUtils.isNotEmpty(chapterTitle))
             {
                 chapter.setTitle(StringUtils.substring(chapterTitle.trim(), 0, 190));
                 chapter.setUpdateBy(operName);
@@ -347,18 +410,161 @@ public class CourseVideoImportService
     }
 
     /**
-     * 在章节下创建课时（一章多课时）。
+     * 章号归一化：「4」「第 4 章」「第4章」统一成「第4章」。
+     *
+     * <p>上传入口的章号来自表单/脚本，格式不一致会导致与库中已有章精确匹配失败，
+     * 每次上传都新建平行章（曾出现同课程下「4」与「第4章」并存的脏数据）。</p>
      */
-    private CourseLesson createLesson(CourseChapter chapter, String videoPath, String lessonCode,
+    private static String normalizeChapterNo(String chapterNo)
+    {
+        if (StringUtils.isEmpty(chapterNo))
+        {
+            return null;
+        }
+        String cleaned = chapterNo.trim().replaceAll("\\s+", "");
+        Integer num = extractChapterNumber(cleaned);
+        if (num != null)
+        {
+            return "第" + num + "章";
+        }
+        return cleaned;
+    }
+
+    /**
+     * 从任意章号写法中提取章序号（阿拉伯或中文），供章号归一并匹配已有章使用：
+     * 「第3章」「3」「3.21」「第3章 第2节」→ 3；「第三章」「第三章数据链路层」→ 3。
+     * 解析不出返回 null。这样上传入口传入「3」「第三章」「3.21」等写法时，
+     * 都能命中库中已有的「第3章」，避免同章被拆成两条记录。
+     */
+    private static Integer extractChapterNumber(String no)
+    {
+        if (StringUtils.isEmpty(no))
+        {
+            return null;
+        }
+        String cleaned = no.trim().replaceAll("\\s+", "");
+        Matcher arabic = ARABIC_CHAPTER_NO.matcher(cleaned);
+        if (arabic.lookingAt())
+        {
+            return Integer.parseInt(arabic.group(1));
+        }
+        Matcher cn = CN_CHAPTER_NO.matcher(cleaned);
+        if (cn.lookingAt())
+        {
+            return cnToNumber(cn.group(1));
+        }
+        return null;
+    }
+
+    /** 中文数字转阿拉伯数字（覆盖章节常用范围，零~九十九） */
+    private static Integer cnToNumber(String text)
+    {
+        if (StringUtils.isEmpty(text))
+        {
+            return null;
+        }
+        int total = 0;
+        int section = 0;
+        for (int i = 0; i < text.length(); i++)
+        {
+            char ch = text.charAt(i);
+            if (ch == '百')
+            {
+                section = (section == 0 ? 1 : section) * 100;
+                total += section;
+                section = 0;
+            }
+            else if (ch == '十')
+            {
+                section = (section == 0 ? 1 : section) * 10;
+                total += section;
+                section = 0;
+            }
+            else
+            {
+                Integer n = CN_DIGIT_MAP.get(ch);
+                if (n == null)
+                {
+                    return null;
+                }
+                section = n;
+            }
+        }
+        return total + section;
+    }
+
+    private static final java.util.Map<Character, Integer> CN_DIGIT_MAP = new java.util.HashMap<>();
+    static
+    {
+        CN_DIGIT_MAP.put('零', 0);
+        CN_DIGIT_MAP.put('〇', 0);
+        CN_DIGIT_MAP.put('一', 1);
+        CN_DIGIT_MAP.put('二', 2);
+        CN_DIGIT_MAP.put('两', 2);
+        CN_DIGIT_MAP.put('三', 3);
+        CN_DIGIT_MAP.put('四', 4);
+        CN_DIGIT_MAP.put('五', 5);
+        CN_DIGIT_MAP.put('六', 6);
+        CN_DIGIT_MAP.put('七', 7);
+        CN_DIGIT_MAP.put('八', 8);
+        CN_DIGIT_MAP.put('九', 9);
+    }
+
+    /**
+     * 课时编号归一化：两段式且第二段为一位数时补零（「4.1」→「4.01」），
+     * 与框架预建课时（章.两位序号）对齐，避免同讲产生两个课时。
+     */
+    private static String normalizeLessonCode(String code)
+    {
+        if (StringUtils.isEmpty(code))
+        {
+            return null;
+        }
+        String cleaned = code.trim();
+        Matcher matcher = Pattern.compile("^(\\d+)\\.(\\d)$").matcher(cleaned);
+        if (matcher.matches())
+        {
+            return matcher.group(1) + ".0" + matcher.group(2);
+        }
+        return cleaned;
+    }
+
+    /**
+     * 在章节下定位或创建课时：同章下已存在相同课时编号时复用（框架预建课时被填充视频），
+     * 否则新建（一章多课时）。复用时不打乱已有 lesson_no 顺序。
+     */
+    private CourseLesson resolveOrCreateLesson(CourseChapter chapter, String videoPath, String lessonCode,
             String lessonTitle, String operName)
     {
+        String code = normalizeLessonCode(lessonCode);
+        if (code != null)
+        {
+            for (CourseLesson existing : lessonMapper.selectByChapterId(chapter.getId()))
+            {
+                if (code.equals(existing.getLessonCode()))
+                {
+                    if (StringUtils.isNotEmpty(videoPath))
+                    {
+                        existing.setVideoPath(videoPath);
+                    }
+                    if (StringUtils.isEmpty(existing.getTitle()) && StringUtils.isNotEmpty(lessonTitle))
+                    {
+                        existing.setTitle(StringUtils.substring(lessonTitle, 0, 190));
+                    }
+                    existing.setUpdateBy(operName);
+                    lessonMapper.update(existing);
+                    log.info("复用已有课时：chapterId={}, lessonCode={}, lessonId={}", chapter.getId(), code,
+                            existing.getId());
+                    return existing;
+                }
+            }
+        }
         CourseLesson lesson = new CourseLesson();
         lesson.setChapterId(chapter.getId());
         lesson.setSubjectId(chapter.getSubjectId());
         Integer nextNo = lessonMapper.selectNextLessonNo(chapter.getId());
         lesson.setLessonNo(nextNo == null ? 1 : nextNo);
-        lesson.setLessonCode(StringUtils.isNotEmpty(lessonCode) ? StringUtils.substring(lessonCode, 0, 40)
-                : chapter.getChapterNo() + "." + lesson.getLessonNo());
+        lesson.setLessonCode(code != null ? code : chapter.getChapterNo() + "." + lesson.getLessonNo());
         lesson.setTitle(StringUtils.isNotEmpty(lessonTitle) ? StringUtils.substring(lessonTitle, 0, 190)
                 : lesson.getLessonCode());
         lesson.setVideoPath(videoPath);
@@ -371,6 +577,29 @@ public class CourseVideoImportService
         lesson.setCreateBy(operName);
         lessonMapper.insert(lesson);
         return lesson;
+    }
+
+    /**
+     * 删除课时：连同其逐字稿一并删除，导入任务引用脱钩；磁盘视频文件保留（可人工清理）。
+     *
+     * @param lessonId 课时ID
+     */
+    public void deleteLesson(Long lessonId)
+    {
+        CourseLesson lesson = lessonMapper.selectById(lessonId);
+        if (lesson == null)
+        {
+            throw new IllegalArgumentException("课时不存在或已删除");
+        }
+        transactionTemplate.execute(status ->
+        {
+            transcriptMapper.deleteByLessonId(lessonId);
+            lessonMapper.deleteById(lessonId);
+            taskMapper.detachLesson(lessonId);
+            return null;
+        });
+        log.info("删除课时：lessonId={}, chapterId={}, lessonCode={}, title={}", lessonId,
+                lesson.getChapterId(), lesson.getLessonCode(), lesson.getTitle());
     }
 
     public CourseVideoImport getTask(Long id)
@@ -408,7 +637,7 @@ public class CourseVideoImportService
             update(taskId, "1", "llm", 50, "AI 正在提取章节、知识点与随堂练习");
 
             String transcriptText = buildTranscriptText(segments);
-            JsonNode structure = analyzeStructure(transcriptText);
+            JsonNode structure = analyzeStructure(transcriptText, parsed.durationSec);
             JsonNode quiz = analyzeQuiz(transcriptText);
 
             update(taskId, "1", "persist", 78, "正在写入章节、知识点、逐字稿与题库");
@@ -606,9 +835,11 @@ public class CourseVideoImportService
         return text;
     }
 
-    private JsonNode analyzeStructure(String transcript)
+    private JsonNode analyzeStructure(String transcript, int durationSec)
     {
-        String answer = chatModelClient.chat(STRUCTURE_PROMPT, "【课程逐字稿】\n" + transcript);
+        // 把视频总时长告诉模型，便于按「每段 1.5~3 分钟」确定小节数量
+        String answer = chatModelClient.chat(STRUCTURE_PROMPT,
+                "【视频总时长】" + durationSec + " 秒\n【课程逐字稿】\n" + transcript);
         return parseJson(answer, "章节/知识点");
     }
 
@@ -817,6 +1048,8 @@ public class CourseVideoImportService
             }
             sections.get(i).put("end", fallback);
         }
+        // 碎段合并兜底：模型偶尔不听话，按图示粒度（每段 ≥10 句且 ≥90 秒）合并
+        mergeTinySections(sections, segments, maxSeconds);
         // 逐字稿：按课时覆盖写（同一课时重传才替换，不影响本章其它课时）
         Long lessonId = lesson == null ? null : lesson.getId();
         if (lessonId != null)
@@ -944,6 +1177,66 @@ public class CourseVideoImportService
             lessonMapper.update(lesson);
         }
         return result;
+    }
+
+    /**
+     * 合并碎段：不足 10 句且短于 90 秒的小节并入相邻小节。
+     *
+     * <p>粒度以课程页展示为准（每段 10~30 句、约 1.5~3 分钟）；4 分钟视频曾被切成
+     * 7 段（每段 30 多秒），过碎。非碎段不处理，合并后时间边界保持连续。</p>
+     */
+    private void mergeTinySections(List<Map<String, Object>> sections,
+            List<AsrResult.Segment> segments, int maxSeconds)
+    {
+        while (sections.size() > 1)
+        {
+            int tinyIndex = -1;
+            for (int i = 0; i < sections.size(); i++)
+            {
+                int start = toInt(sections.get(i).get("start"));
+                int end = toInt(sections.get(i).get("end"));
+                if (end <= start)
+                {
+                    continue;
+                }
+                int sentences = 0;
+                for (AsrResult.Segment segment : segments)
+                {
+                    int seconds = (segment.getStartMs() == null ? 0 : segment.getStartMs()) / 1000;
+                    if (seconds >= start && seconds < end)
+                    {
+                        sentences++;
+                    }
+                }
+                if (end - start < 90 && sentences < 10)
+                {
+                    tinyIndex = i;
+                    break;
+                }
+            }
+            if (tinyIndex < 0)
+            {
+                break;
+            }
+            if (tinyIndex < sections.size() - 1)
+            {
+                // 中间碎段：并入下一段（下一段起点前移到碎段起点）
+                int segStart = toInt(sections.get(tinyIndex).get("start"));
+                sections.remove(tinyIndex);
+                sections.get(tinyIndex).put("start", segStart);
+            }
+            else
+            {
+                // 末尾碎段：并入上一段（上一段终点延到视频末尾）
+                int segEnd = toInt(sections.get(tinyIndex).get("end"));
+                if (segEnd <= 0)
+                {
+                    segEnd = maxSeconds;
+                }
+                sections.remove(tinyIndex);
+                sections.get(tinyIndex - 1).put("end", segEnd);
+            }
+        }
     }
 
     /**
@@ -1076,11 +1369,27 @@ public class CourseVideoImportService
 
     private CourseChapter findChapter(List<CourseChapter> chapters, String chapterNo)
     {
+        if (chapterNo == null)
+        {
+            return null;
+        }
+        Integer target = extractChapterNumber(chapterNo);
         for (CourseChapter chapter : chapters)
         {
-            if (chapterNo != null && chapterNo.equals(chapter.getChapterNo()))
+            // 精确匹配（规范写法「第3章」等）
+            if (chapterNo.equals(chapter.getChapterNo()))
             {
                 return chapter;
+            }
+            // 按章号归一并匹配：让「3」「第三章」「3.21」等写法都命中已有的「第3章」，
+            // 避免上传入口章号格式不一致导致同章被拆成两条记录、前端渲染成同名下拉项。
+            if (target != null)
+            {
+                Integer existing = extractChapterNumber(chapter.getChapterNo());
+                if (target.equals(existing))
+                {
+                    return chapter;
+                }
             }
         }
         return null;
